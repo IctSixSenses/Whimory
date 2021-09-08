@@ -10,7 +10,7 @@ import com.test.whimory.user.model.vo.User;
 public class UserDao {
 	
 	@Autowired
-	private SqlSessionTemplate session; //Spring DI
+	private SqlSessionTemplate session; //Spring DI 의존성
 	
 	//회원 로그인 기능 수행
 	public User selectLogin(User user) {

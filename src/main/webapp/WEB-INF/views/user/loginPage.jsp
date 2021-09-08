@@ -16,7 +16,7 @@
 </head>
 <body>
 <!-- title -->
-<h1 align="center">휘모리 Whimory 로그인하기</h1>
+<h1 align="center">휘모리 Whimory 로그인</h1>
 <!-- 로그인 창 -->
 <div id="login" align="center">
 <form action="login.do" method="post">

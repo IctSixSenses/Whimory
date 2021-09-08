@@ -1,7 +1,7 @@
 package com.test.whimory.user.model.vo;
 
 import java.sql.Date;
-
+//탈퇴
 public class UserDrop implements java.io.Serializable {
 	private static final long serialVersionUID = 1112L;
 	

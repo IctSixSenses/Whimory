@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
 		return userDao.selectLogin(user);
 	}
 	
-	//회원 정보 찾기 메소드
+	//회원 정보 찾기 
 	@Override
 	public User selectUser(String user_id) {
 		return userDao.selectUser(user_id);

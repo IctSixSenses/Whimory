@@ -1,7 +1,7 @@
 package com.test.whimory.user.model.vo;
 
 import java.sql.Date;
-
+//회원 VO
 public class User implements java.io.Serializable {
 	private static final long serialVersionUID = 1111L;
 	

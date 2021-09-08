@@ -29,7 +29,7 @@
 		<c:import url="/WEB-INF/views/common/menubar.jsp" />
 		<hr style="clear: both;">
 
-		<!-- 현주 추가 - 로그인하기 버튼 추가용 -->
+		<!-- 현주 추가 : 로그인하기 버튼 추가용 -->
 		<c:import url="/WEB-INF/views/user/loginbutton.jsp" />
 
 

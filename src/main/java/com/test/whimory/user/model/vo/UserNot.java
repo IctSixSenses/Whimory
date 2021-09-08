@@ -1,7 +1,7 @@
 package com.test.whimory.user.model.vo;
 
 import java.sql.Date;
-
+//비회원
 public class UserNot implements java.io.Serializable {
 	public static final long serivalVersionUID = 1113L;
 	

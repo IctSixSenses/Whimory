@@ -7,6 +7,6 @@
 <title>Sign up Whimory!</title>
 </head>
 <body>
-
+<!-- 회원가입폼 -->
 </body>
 </html>

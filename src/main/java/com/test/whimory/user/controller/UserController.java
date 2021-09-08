@@ -26,7 +26,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	//암호화 추가 예정 내용
+	//암호화 추가 예정
 //	@Autowired
 //	private BcryptPasswordEncoder bcryptPasswordEncoder;
 
