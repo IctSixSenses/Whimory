@@ -3,7 +3,7 @@ package com.test.whimory.ko.model.vo;
 import java.sql.Date;
 
 public class KO implements java.io.Serializable {
-	private static final long serialVersionUID = 1000L;
+	private static final long serialVersionUID = 6000L;
 	
 	private int ko_no;
 	private String ko_category;

@@ -45,7 +45,11 @@
 	</header>
 
 	<section>
+
 		<!-- 본격 메인 페이지 구성 -->
+
+		<c:url var="klist" value="klist.do" />
+		<a href="${ klist }">정보게시판 목록 이동</a>
 
 	</section>
 
