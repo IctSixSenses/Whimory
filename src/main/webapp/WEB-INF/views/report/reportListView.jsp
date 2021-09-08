@@ -7,6 +7,6 @@
 <title>Whimory</title>
 </head>
 <body>
-
+<h1>역사왜곡 제보 게시판</h1>
 </body>
 </html>
