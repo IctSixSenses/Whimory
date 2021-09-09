@@ -18,20 +18,17 @@ public class FreeServiceImpl implements FreeService {
 	
 	@Override
 	public ArrayList<Free> selectList(Paging page) {
-		// TODO Auto-generated method stub
-		return null;
+		return freeDao.selectList(page);
 	}
 
 	@Override
 	public int selectListCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return freeDao.selectListCount();
 	}
 
 	@Override
-	public int selectOne(int free_no) {
-		// TODO Auto-generated method stub
-		return 0;
+	public Free selectOne(int free_no) {
+		return freeDao.selectOne(free_no);
 	}
 
 	@Override
