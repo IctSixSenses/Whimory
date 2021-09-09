@@ -85,13 +85,35 @@ function moveWriteForm(){
 <ul>
 	<li><font size="5"><b>Korea Origin</b></font></li>
 	<hr align="center">
-	<li><h5><a href="#">전체보기</a></h5></li>
-	<li><h5><a href="#">역사</a></h5></li>
-	<li><h5><a href="#">문화</a></h5></li>
-	<li><h5><a href="#">음식</a></h5></li>
-	<li><h5><a href="#">문화재</a></h5></li>
+	<li><h5>
+		<c:url var="klist" value="klist.do" />
+		<a href="${ klist }">전체보기</a>
+	</h5></li>
+	<li><h5>
+		<c:url var="history" value="kcate.do">
+			<c:param name="cate" value="history" />
+		</c:url>
+		<a href="${ history }">역사</a>
+	</h5></li>
+	<li><h5>
+		<c:url var="culture" value="kcate.do">
+			<c:param name="cate" value="culture" />
+		</c:url>
+		<a href="${ culture }">문화</a>
+	</h5></li>
+	<li><h5>
+		<c:url var="food" value="kcate.do">
+			<c:param name="cate" value="food" />
+		</c:url>
+		<a href="${ food }">음식</a>
+	</h5></li>
+	<li><h5>
+		<c:url var="culheri" value="kcate.do">
+			<c:param name="cate" value="culheri" />
+		</c:url>
+		<a href="${ culheri }">문화재</a>
+	</h5></li>	
 </ul>
-
 </div>
 
 <%-- 게시글 목록 --%>
@@ -103,6 +125,11 @@ function moveWriteForm(){
 	<table>
 		<tr style="border-bottom: 0.5px solid gray">
 		<td><font size="5">전체 목록</font></td>
+		<td align="right">
+			<c:if test="${ loginUser.admin_yn ne null and loginUser.admin_yn eq 'Y' }">
+				<button onclick="kwmove.do">글쓰기</button>
+			</c:if>
+		</td>
 		<td colspan="2" align="right">
 			<form action="ksearchword.do" method="post" align="right">
 				<input type="hidden" name="ko_category" value="#">
