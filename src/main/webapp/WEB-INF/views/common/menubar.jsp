@@ -44,7 +44,7 @@ li#menu1 a, #menu2 a, #menu3 a, #menu4 a, #menu5 a{
 		<li class="nav-item" id="menu2"><a class="nav-link" href="#">언론보도</a></li>&nbsp;&nbsp;
         <li class="nav-item" id="menu3"><a class="nav-link" href="#">역사 왜곡 제보하기</a></li>&nbsp;&nbsp;
         <li class="nav-item" id="menu4"><a class="nav-link" href="#">자유 토론 공간</a></li>&nbsp;&nbsp;
-        <li class="nav-item" id="menu5"><a class="nav-link" href="#">Q&A</a></li>
+        <li class="nav-item" id="menu5"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/qlist.do?page=1">Q&A</a></li>
       </ul>
     </div>
 
