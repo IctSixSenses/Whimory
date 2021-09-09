@@ -30,19 +30,8 @@ function goLogin(){
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <hr>
-<h2 align="center">무엇이든 물어보세요</h2>
-<!-- 게시글 쓰기(등록)은 로그인한 회원만 가능함 -->
-<c:if test="${ empty sessionScope.loginUser }">
-   <div style="align:center;text-align:center;">
-      <button onclick="goLogin();">글쓰기</button>
-   </div>
-</c:if>
+<h2 align="center">QNA 답변내역</h2>
 
-<c:if test="${ !empty sessionScope.loginUser }">
-   <div style="align:center;text-align:center;">
-      <button onclick="showWriteForm();">글쓰기</button>
-   </div>
-</c:if>
 <br>
 <table class="table table-hover">
 <tr class="table-light">
@@ -51,6 +40,7 @@ function goLogin(){
 	<th>제목</th>
 	<th>작성일</th>
 	<th>답변여부</th>
+	<th>답변일</th>
 </tr>
 <c:forEach items="${ requestScope.list }" var="q">
 <tr>
@@ -58,28 +48,18 @@ function goLogin(){
 
 <td align="center">${  q.qq_category }</td>
 
-<%-- <td>
-<!-- 글 쓴 회원과 로그인 회원이 일치해야 상세보기할 수 있게 함 -->
-<c:if test="${ !empty sessionScope.loginUser and sessionScope.loginUser eq q.user_id }">
-   <c:url var="qdetail" value="qdetail.do">
-      <c:param name="qq_no" value="${ q.qq_no }"/>
-      <c:param name="page" value="${ currentPage }" />
-   </c:url>
-   <a href="${ qdetail }">${ q.qq_title }</a>
-</c:if>
-<c:if test="${ empty sessionScope.loginUser or sessionScope.loginUser ne q.user_id }">
-   ${ q.qq_title }
-</c:if>
-</td> --%>
-
-<c:url value="/qdetail.do" var="qdetail">
-      <c:param name="qq_no" value="${ q.qq_no }" />
-   </c:url>
-   <td align="center"><a href="${ qdetail }">${ q.qq_title }</a></td>
-
 <td align="center">
 <fmt:formatDate value="${  q.qq_date }" type="date" pattern="yyyy-MM-dd" /></td>
+
 <td align="center">${  q.qq_yn }</td>
+
+<td align="center">
+<c:if test="${ qa_content == null }">
+	-
+</c:if>
+<c:if test="${ qa_content != null }">
+	${  qa_date }
+</c:if>
 </td>
 </tr>
 </c:forEach>
