@@ -24,4 +24,8 @@ public class ReportDao {
 	public int selectListCount() {
 		return sqlSession.selectOne("reportMapper.selectListCount");
 	}
+
+	public Report selectOne(int report_no) {
+		return sqlSession.selectOne("reportMapper.selectOne", report_no);
+	}
 }
