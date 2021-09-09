@@ -27,9 +27,8 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public int selectOne(int report_no) {
-		// TODO Auto-generated method stub
-		return 0;
+	public Report selectOne(int report_no) {
+		return reportDao.selectOne(report_no);
 	}
 
 	@Override
@@ -81,13 +80,13 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public int addReadCount(int report_no) {
+	public int updateAddReadCount(int report_no) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int addLikeCount(int report_no) {
+	public int updateAddLikeCount(int report_no) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
