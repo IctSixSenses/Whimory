@@ -37,7 +37,7 @@ li#menu1 a, #menu2 a, #menu3 a, #menu4 a, #menu5 a{
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="menubar">
-     	<a class="navbar-brand" title="메인 페이지로 이동" href="#">
+     	<a class="navbar-brand" title="메인 페이지로 이동" href="main.do">
      		<img src="${ pageContext.servletContext.contextPath }/resources/images/logo01.png" width="120" height="40">
      	</a>&nbsp;&nbsp;
         <li class="nav-item" id="menu1"><a class="nav-link" href="#">공지사항</a></li>&nbsp;&nbsp;

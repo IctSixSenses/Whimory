@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.test.whimory.ko.model.service.KOService;
 import com.test.whimory.ko.model.vo.KO;
@@ -21,18 +22,31 @@ public class KOController {
 	
 	@RequestMapping("klist.do")
 	public String koListMethod(Model model) {
-		logger.info("controller 실행");
 		ArrayList<KO> list = koService.selectList();
 		
 		if(list.size() > 0) {
 			model.addAttribute("list", list);
 			return "ko/koListView";
 		} else {
-			model.addAttribute("message", "ko 전체 목록 조회 실패");
+			model.addAttribute("message", "ko 전체 목록을 조회하는 것을 실패했습니다");
 			return "common/error";
 		}
 		
 	} // koListMethod
+	
+	@RequestMapping("kcate.do")
+	public String koSearchCategory(@RequestParam("cate") String category, Model model) {
+		ArrayList<KO> list = koService.selectSearchCategory(category);
+		
+		if(list.size() > 0) {
+			model.addAttribute("list", list);
+			return "ko/koListView";
+		} else {
+			model.addAttribute("message", category + "별 목록을 조회하는 데 실패했습니다.");
+			return "common/error";
+		}
+		
+	} // koSearchCategory
 	
 	
 	
