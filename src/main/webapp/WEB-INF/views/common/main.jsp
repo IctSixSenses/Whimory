@@ -20,12 +20,16 @@
 	<c:import url="/WEB-INF/views/common/menubar.jsp" />
 	<hr style="clear: both;">
 	
+	<!-- 현주 추가 : 로그인하기 버튼 -->
+	<c:import url="/WEB-INF/views/user/loginbutton.jsp" />
+	
 	<!-- 검색창 부분 -->
 	<form class="d-flex" style="align:center">
 		<input class="form-control me-2" type="search"
 			placeholder="검색어를 입력하세요." aria-label="Search" style="width: 200px" >
 		<button class="btn btn-outline-success" type="submit">Search</button>
 	</form>
+	
 	</header>
 	
 	<section>
