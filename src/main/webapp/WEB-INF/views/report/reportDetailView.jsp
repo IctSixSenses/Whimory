@@ -39,33 +39,37 @@
 	<th>내   용</th><td>${ report.report_content }</td>
 </tr>
 <tr><th colspan="2">
-<!-- 
-	<c:if test="${ !empty loginMember }">
-		<c:if test="${ loginMember.userid == board.board_writer }">
-			<c:url var="ubup" value="bupview.do">
-			<c:param name="board_num" value="${ board.board_num }" />
+
+	<c:if test="${ !empty loginUser }">
+		<c:if test="${ loginUser.user_id == report.user_id }">
+			<c:url var="rpuf" value="rpuf.do">
+			<c:param name="report_no" value="${ report.report_no }" />
 			<c:param name="page" value="${ currentPage }" />
 		</c:url>
-		<a href="${ ubup }">[수정페이지로 이동]</a>
+		<button onclick="javascript:location.href="${ rpuf }">수정페이지로 이동</button>
 		</c:if>
-		<c:if test="${ loginMember.userid == board.board_writer }">
-			<c:url var="ubd" value="bdelete.do">
-			<c:param name="board_num" value="${ board.board_num }" />
-			<c:param name="board_level" value="${ board.board_level }" />
-			<c:param name="board_rename_filename" value="${ board.board_rename_filename }" />
+		<c:if test="${ loginUser.user_id == report.user_id }">
+			<c:url var="rpdelete" value="rpdelete.do">
+			<c:param name="report_no" value="${ report.report_no }" />
+			<c:param name="report_re_file" value="${ report.report_re_file }" />
 			</c:url>
-			<a href="${ ubd }">[삭제]</a>
-		</c:if>
-		<c:if test="${ loginMember.userid != board.board_writer }">
-			<c:url var="brf" value="breplyform.do">
-			<c:param name="bnum" value="${ board.board_num }" />
-			<c:param name="page" value="${ currentPage }" />
-			</c:url>
-			<a href="${ brf }">[댓글 달기]</a>
+			<button onclick="javascript:location.href='${ rpdelete }';">삭제하기</button>
 		</c:if>
 	</c:if> &nbsp; 
--->
-<button onclick="javascript:location.href='rplist.do?page=${ currentPage }';">목록으로</button>	
+
+	<c:if test="${ !empty loginUser and loginUser.user_id != report.user_id }">
+		<c:url var="rplike" value="rplike.do">
+		<c:param name="report_no" value="${ report.report_no }" />
+		<c:param name="page" value="${ currentPage }" />
+		</c:url>
+		<button onclick="javascript:location.href='${ rplike }';">공감 ${ report.report_like }</button>
+	</c:if>
+	<c:if test="${ empty loginUser or loginUser.user_id eq report.user_id }">
+		<button>공감 ${ report.report_like }</button>
+	</c:if>
+	
+	<button onclick="javascript:location.href='rplist.do?page=${ currentPage }';">목록으로</button>
+		
 </th></tr>
 </table>
 <br>

@@ -81,14 +81,12 @@ public class ReportServiceImpl implements ReportService {
 
 	@Override
 	public int updateAddReadCount(int report_no) {
-		// TODO Auto-generated method stub
-		return 0;
+		return reportDao.updateAddReadCount(report_no);
 	}
 
 	@Override
 	public int updateAddLikeCount(int report_no) {
-		// TODO Auto-generated method stub
-		return 0;
+		return reportDao.updateAddLikeCount(report_no);
 	}
 
 }
