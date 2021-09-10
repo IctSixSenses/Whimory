@@ -28,4 +28,12 @@ public class ReportDao {
 	public Report selectOne(int report_no) {
 		return sqlSession.selectOne("reportMapper.selectOne", report_no);
 	}
+	
+	public int updateAddReadCount(int report_no) {
+		return sqlSession.update("reportMapper.updateAddReadCount", report_no);
+	}
+	
+	public int updateAddLikeCount(int report_no) {
+		return sqlSession.update("reportMapper.updateAddLikeCount", report_no);
+	}
 }

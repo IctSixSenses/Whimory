@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -90,5 +91,20 @@ public class ReportController {
 		}
 
 		return mv;
+	}
+	
+	@RequestMapping("rplike.do")
+	public String reportAddLikeMethod(Model model, 
+			@RequestParam("report_no") int report_no,
+			@RequestParam("page") int page) {
+		// 공감수 1 증가 처리
+		int result = reportService.updateAddLikeCount(report_no);
+		
+		if (result > 0) {
+			return "redirect:rpdetail.do?report_no=" + report_no + "&page=" + page;
+		} else {
+			model.addAttribute("message", "공감수 증가 처리 실패");
+			return "common/error";
+		}
 	}
 }
