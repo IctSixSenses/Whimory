@@ -1,5 +1,10 @@
 package com.test.whimory.user.model.service;
 
-public class UserService {
+import com.test.whimory.user.model.vo.User;
+
+public interface UserService {
+	//회원서비스
+	User selectUser(String user_id);//회원 정보 조회하기
+	User selectLogin(User user); //로그인 관련 메소드
 
 }
