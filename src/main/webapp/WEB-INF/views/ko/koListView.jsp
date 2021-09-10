@@ -9,70 +9,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Whimory</title>
-<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
-$(function(){
-	var count = $('#klist-detail').length
-	if(count % 3 == 0){
-		$('#klist-row').html($('#klist-row').html() + '<br>');
-	}
-});
-
-function moveWriteForm(){
-	location.href="${pageContext.servletContext.contextPath}/kwmove.do";
-}
-</script>
-<style>
-.submenu {
-	width: 200px;
-	position: absolute;
-	top: 250px;
-	text-align: center;
-}
-
-.submenu ul li {
-	list-style-type: none;
-	text-align: center;
-}
-
-.submenu ul li h5 a {
-	text-decoration: none;
-	width: 90px;
-	height: 30px;
-	display: block;
-	color: black;
-	margin: 0;
-	padding-top: 5px;
-	align: center;
-}
-
-.submenu h5 a:hover {
-	text-decoration: none;
-	width: 90px;
-	height: 30px;
-	display: block;
-	text-align: center;
-	font-weight: bold;
-	margin: 0;
-	text-shadow: 1px 1px 1px white;
-	background-color: pink;
-	color: white;
-}
-
+<title>Whimory KO</title>
+<style type="text/css">
 .k-list {
 	clear: left;
 	position: relative;
-	width: 1050px;
-	left: 260px;
+	width: 1000px;
+	left: 230px;
 }
 
-#ko_image {
+.ko_image {
 	width: 270px;
 	height: 190px;
 	align: center;
 }
 </style>
+<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -81,40 +33,7 @@ function moveWriteForm(){
 <br><br>
 
 <%-- 서브 메뉴바 --%>
-<div class="submenu">
-<ul>
-	<li><font size="5"><b>Korea Origin</b></font></li>
-	<hr align="center">
-	<li><h5>
-		<c:url var="klist" value="klist.do" />
-		<a href="${ klist }">전체보기</a>
-	</h5></li>
-	<li><h5>
-		<c:url var="history" value="kcate.do">
-			<c:param name="cate" value="history" />
-		</c:url>
-		<a href="${ history }">역사</a>
-	</h5></li>
-	<li><h5>
-		<c:url var="culture" value="kcate.do">
-			<c:param name="cate" value="culture" />
-		</c:url>
-		<a href="${ culture }">문화</a>
-	</h5></li>
-	<li><h5>
-		<c:url var="food" value="kcate.do">
-			<c:param name="cate" value="food" />
-		</c:url>
-		<a href="${ food }">음식</a>
-	</h5></li>
-	<li><h5>
-		<c:url var="culheri" value="kcate.do">
-			<c:param name="cate" value="culheri" />
-		</c:url>
-		<a href="${ culheri }">문화재</a>
-	</h5></li>	
-</ul>
-</div>
+<c:import url="/WEB-INF/views/ko/koSubMenubar.jsp" />
 
 <%-- 게시글 목록 --%>
 <section class="k-list">
@@ -144,10 +63,10 @@ function moveWriteForm(){
 			</c:if>
 			<td style="width:350px; align:center;">
 				<c:url var="kdetail" value="kdetail.do">
-					<c:param name="ko_no" value="${ k.ko_no }" />
+					<c:param name="kNo" value="${ k.ko_no }" />
 				</c:url>
 				<a href="${ kdetail }">
-					<img id="ko_image" src="${ pageContext.servletContext.contextPath }/resources/ko_upfiles/${ k.ko_re_file }">
+					<img class="ko_image" src="${ pageContext.servletContext.contextPath }/resources/ko_upfiles/${ k.ko_re_file }">
 					<br>${ k.ko_title }
 				</a><br>
 				<div style="background: skyblue;">${ k.ko_hashtag }</div>

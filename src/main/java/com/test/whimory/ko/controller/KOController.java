@@ -48,6 +48,23 @@ public class KOController {
 		
 	} // koSearchCategory
 	
+	@RequestMapping("kdetail.do")
+	public String koDetailMethod(@RequestParam("kNo") int koNo, Model model) {
+		
+		koService.updateAddReadCount(koNo);
+		
+		KO ko = koService.selectKO(koNo);
+		
+		if(ko != null) {
+			model.addAttribute("ko", ko);
+			return "ko/koDetailView";
+		} else {
+			model.addAttribute("message", koNo + "번 게시글을 조회하지 못했습니다.");
+			return "common/error";
+		}
+		
+	} // koDetailMethod
+	
 	
 	
 	
