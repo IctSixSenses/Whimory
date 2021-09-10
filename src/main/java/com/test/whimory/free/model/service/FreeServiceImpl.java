@@ -57,8 +57,7 @@ public class FreeServiceImpl implements FreeService {
 
 	@Override
 	public int insertOrigin(Free free) {
-		// TODO Auto-generated method stub
-		return 0;
+		return freeDao.insertOrigin(free);
 	}
 
 	@Override
