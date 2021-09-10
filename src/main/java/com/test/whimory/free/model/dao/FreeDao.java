@@ -32,6 +32,11 @@ public class FreeDao {
 		return sqlSession.selectOne("freeMapper.selectOne", free_no);
 	}
 	
+	// 게시글 등록
+	public int insertOrigin(Free free) {
+		return sqlSession.insert("freeMapper.insertOrigin", free);
+	}
+	
 	
 	
 	

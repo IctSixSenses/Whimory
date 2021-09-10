@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 
 <!DOCTYPE html>
 <html>
@@ -17,9 +18,14 @@ function showWriteForm(){
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <hr>
 <h2 align="center">자유 토론 공간</h2>
-
 <br>
-
+<!-- 로그인한 회원만 게시글 등록 가능하도록 작업 // 로그아웃 기능 완성 시 테스트 필요 -->
+<%-- <c:if test="${ !empty sessionScope.loginMember }"> --%>
+	<div style="align:center;text-align:center;">
+		<button onclick="showWriteForm();">글쓰기</button>
+	</div>
+<%-- </c:if> --%>
+<br>
 <table align="center" border="1" cellspacing="0" cellpadding="5" width="860">
 <tr><td colspan="8"><h5>&nbsp; 총 게시글 갯수 : ${ listCount }</h5></td></tr>
 <tr align="center">
