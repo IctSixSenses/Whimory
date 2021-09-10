@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.test.whimory.common.Paging;
 import com.test.whimory.qna.model.service.QnaService;
 import com.test.whimory.qna.model.vo.QnaQuestion;
+import com.test.whimory.user.model.vo.User;
 
 @Controller
 public class QnaController {
@@ -26,7 +26,7 @@ public class QnaController {
 
 	// qna 질문 리스트 전체 조회
 	@RequestMapping("qlist.do")
-	public ModelAndView qnaListMethod(ModelAndView mv, @RequestParam(name = "page", required = false) String page) {
+	public ModelAndView qnaListMethod(ModelAndView mv, @RequestParam(name = "page", required = false) String page, HttpSession session) {
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
@@ -65,8 +65,14 @@ public class QnaController {
 			mv.addObject("startPage", startPage);
 			mv.addObject("endPage", endPage);
 			mv.addObject("limit", limit);
-
-			mv.setViewName("qna/qnaListView");
+			
+			User loginUser = (User) session.getAttribute("loginUser");
+			if(loginUser != null && loginUser.getAdmin_yn().equals("Y")) {
+				mv.setViewName("qna/qnaAdminListView");
+			} else {
+				mv.setViewName("qna/qnaListView");
+			}
+			
 		} else {
 			mv.addObject("message", currentPage + "페이지 목록 조회 실패");
 			mv.setViewName("common/error");
@@ -77,16 +83,25 @@ public class QnaController {
 	
 	// 질문 글 번호로 상세보기 처리
 	@RequestMapping("qdetail.do")
-	public String qnaDetailMethod(@RequestParam("qq_no") int qq_no, Model model, HttpSession session) {
+	public ModelAndView qnaDetailMethod(ModelAndView mv, @RequestParam("qq_no") int qq_no, @RequestParam("page") int page, HttpSession session) {
 		QnaQuestion question = qnaService.selectOne(qq_no);
 		
 		if (question != null) {
-			model.addAttribute("question", question);
-			return "qna/qnaDetailView";
-		} else {
-			model.addAttribute("message", qq_no + "번 공지 상세보기 실패!!!");
-			return "common/error";
+			mv.addObject("question", question);
+			mv.addObject("currentPage", page);
+			
+			User loginUser = (User) session.getAttribute("loginUser");
+			if(loginUser != null && loginUser.getAdmin_yn().equals("Y")) {
+				mv.setViewName("qna/qnaAdminDetailView");
+			}else {
+				mv.setViewName("qna/qnaDetailView");
+			}
+			
+		}else {
+			mv.addObject("message", qq_no + "번 질문 조회 실패");
+			mv.setViewName("common/error");
 		}
+		return mv;
 	}
 
 		

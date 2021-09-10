@@ -47,12 +47,6 @@
 <button onclick="javascript:history.go(-1);">목록보기</button></th></tr>
 </table>
 
-
-
-
-
-
-
 <hr>
 <c:import url="../common/footer.jsp" />
 </body>
