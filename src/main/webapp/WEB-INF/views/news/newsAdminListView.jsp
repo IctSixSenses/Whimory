@@ -13,13 +13,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Whimory</title>
+<script type="text/javascript">
+function showWriteForm(){
+   location.href = "${ pageContext.servletContext.contextPath }/wwform.do";
+}
 
+</script>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <hr>
 <h2 align="center">언론 보도</h2>
-
+<div style="align:center;text-align:center;">
+      <button onclick="showWriteForm();">글쓰기</button>
+   </div>
 <br>
 <table class="table table-hover">
 
@@ -37,6 +44,7 @@
    <td align="center"><a href="${ wdetail }"><img src="${ pageContext.servletContext.contextPath }/resources/images/logo02.png" style="width:200px;height:200px"></a>
    </td>
 </c:if>
+
 
 <c:url value="/wdetail.do" var="wdetail">
       <c:param name="news_no" value="${ news.news_no }" />

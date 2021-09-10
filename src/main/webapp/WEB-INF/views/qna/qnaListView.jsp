@@ -58,24 +58,24 @@ function goLogin(){
 
 <td align="center">${  q.qq_category }</td>
 
-<%-- <td>
+<td>
 <!-- 글 쓴 회원과 로그인 회원이 일치해야 상세보기할 수 있게 함 -->
-<c:if test="${ !empty sessionScope.loginUser and sessionScope.loginUser eq q.user_id }">
+<c:if test="${ !empty sessionScope.loginUser and sessionScope.loginUser.user_id eq q.user_id }">
    <c:url var="qdetail" value="qdetail.do">
       <c:param name="qq_no" value="${ q.qq_no }"/>
       <c:param name="page" value="${ currentPage }" />
    </c:url>
-   <a href="${ qdetail }">${ q.qq_title }</a>
+   <td align="center"><a href="${ qdetail }">${ q.qq_title }</a></td>
 </c:if>
-<c:if test="${ empty sessionScope.loginUser or sessionScope.loginUser ne q.user_id }">
+<c:if test="${ empty sessionScope.loginUser or sessionScope.loginUser.user_id ne q.user_id }">
    ${ q.qq_title }
 </c:if>
-</td> --%>
+<%-- </td>
 
 <c:url value="/qdetail.do" var="qdetail">
       <c:param name="qq_no" value="${ q.qq_no }" />
    </c:url>
-   <td align="center"><a href="${ qdetail }">${ q.qq_title }</a></td>
+   <td align="center"><a href="${ qdetail }">${ q.qq_title }</a></td> --%>
 
 <td align="center">
 <fmt:formatDate value="${  q.qq_date }" type="date" pattern="yyyy-MM-dd" /></td>
