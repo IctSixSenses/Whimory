@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%-- <c:set var="listCount" value="${ listCount }" /> --%>
+<c:set var="category" value="${ category }" />
 
 <!DOCTYPE html>
 <html>
@@ -25,6 +26,7 @@
 }
 </style>
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
+
 </head>
 
 <body>
@@ -41,18 +43,19 @@
 <div id="klist-row">
 	<c:set var="i" value="0" />
 	<c:set var="j" value="3" />
-	<table>
+	<table width="1000px">
 		<tr style="border-bottom: 0.5px solid gray">
 		<td><font size="5">전체 목록</font></td>
 		<td align="right">
 			<c:if test="${ loginUser.admin_yn ne null and loginUser.admin_yn eq 'Y' }">
-				<button onclick="kwmove.do">글쓰기</button>
+				<c:url var="kwf" value="kwmove.do" />
+				<button onclick="javascript:location.href='${kwf}'">글쓰기</button>
 			</c:if>
 		</td>
 		<td colspan="2" align="right">
 			<form action="ksearchword.do" method="post" align="right">
-				<input type="hidden" name="ko_category" value="#">
-				<input type="search" name="keyword" placeholder="검색어를 입력하세요">
+				<input type="hidden" name="ko_category" value="${ category }">
+				<input type="search" name="ko_title" placeholder="검색어를 입력하세요">
 				<input type="submit" value="검색">
 			</form>
 		</td>
@@ -63,7 +66,7 @@
 			</c:if>
 			<td style="width:350px; align:center;">
 				<c:url var="kdetail" value="kdetail.do">
-					<c:param name="kNo" value="${ k.ko_no }" />
+					<c:param name="ko_no" value="${ k.ko_no }" />
 				</c:url>
 				<a href="${ kdetail }">
 					<img class="ko_image" src="${ pageContext.servletContext.contextPath }/resources/ko_upfiles/${ k.ko_re_file }">
