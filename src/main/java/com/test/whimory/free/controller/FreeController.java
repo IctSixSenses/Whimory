@@ -130,11 +130,11 @@ public class FreeController {
 		return "free/freeWriteForm";
 	}
 
-	// 파일업로드 기능이 있는 게시글 등록 요청
+	// 파일업로드 기능이 있는 게시글 등록
 	@RequestMapping(value = "finsert.do", method = RequestMethod.POST)
 	public String freeInsertMethod(Free free, HttpServletRequest request, Model model,
 			@RequestParam(name = "upfile", required = false) MultipartFile mfile) {
-		
+
 		// 업로드된 파일 저장 폴더 지정하기 → freeWriteForm.jsp에서 첨부파일 upfile로 전송되는 파일 받는애(mfile)
 		String savePath = request.getSession().getServletContext().getRealPath("resources/free_upfiles");
 
@@ -159,7 +159,7 @@ public class FreeController {
 
 					if (!originFile.renameTo(renameFile)) {
 						// renameTo() 메소드가 실패한 경우(false)에는 직접 수동으로 변경
-						//  => 원본 파일 읽어서 파일 복사 후, 원본 파일 삭제 처리
+						// => 원본 파일 읽어서 파일 복사 후, 원본 파일 삭제 처리
 						FileInputStream fin = new FileInputStream(originFile);
 						FileOutputStream fout = new FileOutputStream(renameFile);
 
@@ -189,16 +189,141 @@ public class FreeController {
 		} // 첨부 파일 존재하지 않을 경우
 
 		if (freeService.insertOrigin(free) > 0) {
-			return "redirect:flist.do?";
+			return "redirect:flist.do";
 		} else {
 			model.addAttribute("message", "게시글 등록에 실패하였습니다.");
 			return "common/error";
 		}
 	}
 
+	// 게시글 수정 페이지로 이동
+	@RequestMapping("fupview.do")
+	public String moveFreeUpdateView(@RequestParam("free_no") int free_no, @RequestParam("page") int currentPage,
+									Model model) {
+		Free free = freeService.selectOne(free_no);
+
+		if (free != null) {
+			model.addAttribute("free", free);
+			model.addAttribute("page", currentPage);
+			return "free/freeUpdateView";
+		} else {
+			model.addAttribute("message", free_no + "번 게시글 수정 페이지 이동 처리에 실패하였습니다.");
+			return "common/error";
+		}
+	}
+	
+	// 파일업로드 기능이 있는 게시글 수정
+	@RequestMapping(value = "fupdate.do", method = RequestMethod.POST)
+	public String freeUpdateMethod(Free free, HttpServletRequest request, Model model,
+			@RequestParam("page") int page, @RequestParam(name = "delflag", required = false) String delFlag,
+			@RequestParam(name = "upfile", required = false) MultipartFile mfile) {
+
+		// 업로드된 파일 저장 폴더 지정
+		String savePath = request.getSession().getServletContext().getRealPath("resources/free_upfiles");
+
+		// 원래 첨부파일이 있는데, 삭제를 선택한 경우
+		if (free.getFree_org_file() != null && delFlag != null && delFlag.equals("yes")) {
+			logger.info("등록했던 첨부파일 삭제 체크");
+			// 저장 폴더에서 파일 삭제
+			new File(savePath + "\\" + free.getFree_re_file()).delete();
+			free.setFree_org_file(null);
+			free.setFree_re_file(null);
+		}
+
+		// 새로운 첨부파일이 있을 때, 저장폴더의 이전 파일을 삭제
+		if (!mfile.isEmpty()) {
+			logger.info("새로운 첨부파일이 있을 때");
+			
+			// 저장 폴더의 이전 파일을 삭제(기존 첨부파일이 있는데, 파일삭제를 선택한 경우)
+			if (free.getFree_org_file() != null && delFlag != null && delFlag.equals("yes")) {
+				logger.info("이전 첨부파일 삭제");
+				
+				// 저장 폴더에서 파일 삭제
+				new File(savePath + "\\" + free.getFree_re_file()).delete();
+				free.setFree_org_file(null);
+				free.setFree_re_file(null);
+			}
+
+			String fileName = mfile.getOriginalFilename();
+			if (fileName != null && fileName.length() > 0) {
+				try {
+					mfile.transferTo(new File(savePath + "\\" + fileName));
+
+					// 바꿀 파일명에 대한 문자열 생성 → 게시글 등록 요청 시점의 날짜정보 이용
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+
+					// 변경할 파일명 생성
+					String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis()));
+					// 원본 파일의 확장자를 추출하여 변경 파일명에 붙여줌
+					renameFileName += "." + fileName.substring(fileName.lastIndexOf(".") + 1);
+
+					// 파일명 변경 실행 : java.io.File 이용
+					File originFile = new File(savePath + "\\" + fileName);
+					File renameFile = new File(savePath + "\\" + renameFileName);
+
+					if (!originFile.renameTo(renameFile)) {
+
+						// renameTo() 메소드가 실패한 경우(false) 직접 수동으로 변경
+						// 원본 파일 복사 후 삭제로 처리
+						FileInputStream fin = new FileInputStream(originFile);
+						FileOutputStream fout = new FileOutputStream(renameFile);
+
+						int data = -1;
+						byte[] buffer = new byte[1024];
+
+						while ((data = fin.read(buffer, 0, buffer.length)) != -1) {
+							fout.write(buffer, 0, buffer.length);
+						}
+
+						fin.close();
+						fout.close();
+						originFile.delete(); // 저장된 원본 파일 삭제
+					} // 수동으로 이름 변경
+
+					free.setFree_re_file(renameFileName);
+				} catch (Exception e) {
+					e.printStackTrace();
+					model.addAttribute("message", "전송파일 저장을 실패하였습니다.");
+					return "common/error";
+				}
+
+			} // 업로드된 파일 존재할 경우
+
+			free.setFree_org_file(mfile.getOriginalFilename());
+			logger.info("finsert.do : " + free);
+		}
+
+		if (freeService.updateOrigin(free) > 0) {
+			model.addAttribute("page", page);
+			model.addAttribute("free_no", free.getFree_no());
+			return "redirect:fdetail.do";
+		} else {
+			model.addAttribute("message", free.getFree_no() + "번 게시글 수정을 실패하였습니다.");
+			return "common/error";
+		}
+
+	}
+	
+	// 게시글 삭제
+	@RequestMapping("fdelete.do")
+	public String boardDeleteMethod(Free free, HttpServletRequest request, Model model) {
+
+		if (freeService.deleteOrigin(free) > 0) {
+			// 글 삭제 성공 시, 저장폴더에 첨부파일도 삭제 처리
+			if (free.getFree_re_file() != null) {
+				new File(request.getSession().getServletContext().getRealPath("resources/free_upfiles") + "\\"
+						+ free.getFree_re_file());
+			}
+
+			return "redirect:flist.do?page=1";
+		} else {
+			model.addAttribute("message", free.getFree_no() + "번 게시글 삭제를 실패하였습니다.");
+			return "common/error";
+		}
+	}
 	
 	
 	
 	
-	
+
 }

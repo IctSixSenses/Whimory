@@ -68,14 +68,12 @@ public class FreeServiceImpl implements FreeService {
 
 	@Override
 	public int updateOrigin(Free free) {
-		// TODO Auto-generated method stub
-		return 0;
+		return freeDao.updateOrigin(free);
 	}
 
 	@Override
-	public int deleteOrigin(int free_no) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteOrigin(Free free) {
+		return freeDao.deleteOrigin(free);
 	}
 
 	@Override

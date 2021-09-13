@@ -36,8 +36,15 @@ public class FreeDao {
 	public int insertOrigin(Free free) {
 		return sqlSession.insert("freeMapper.insertOrigin", free);
 	}
+
+	// 게시글 수정
+	public int updateOrigin(Free free) {
+		return sqlSession.update("freeMapper.updateOrigin", free);
+	}
 	
-	
+	public int deleteOrigin(Free free) {
+		return sqlSession.delete("freeMapper.deleteOrigin", free);
+	}
 	
 	
 }
