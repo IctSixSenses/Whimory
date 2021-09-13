@@ -46,7 +46,7 @@
 			<c:param name="report_no" value="${ report.report_no }" />
 			<c:param name="page" value="${ currentPage }" />
 		</c:url>
-		<button onclick="javascript:location.href="${ rpuf }">수정페이지로 이동</button>
+		<button onclick="javascript:location.href='${ rpuf }';">수정페이지로 이동</button>
 		</c:if>
 		<c:if test="${ loginUser.user_id == report.user_id }">
 			<c:url var="rpdelete" value="rpdelete.do">
@@ -72,6 +72,7 @@
 		
 </th></tr>
 </table>
+
 <br>
 <c:if test="${ !empty report.admin_comment }">
 	<table align="center" width="500" border="1" cellspacing="0" cellpadding="5">

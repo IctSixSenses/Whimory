@@ -12,8 +12,12 @@
 <hr>
 <h1 align="center">역사왜곡 제보 게시판</h1>
 <h2 align="center">총 게시글 갯수: ${ listCount }</h2>
+<c:if test="${ !empty loginUser }">
+	<div style="align: center; text-align: center;">
+		<button onclick="javascript:location.href='rpwf.do';">글쓰기</button>
+	</div>
+</c:if>
 <br>
-
 <table align="center" border="1" cellspacing="0" cellpadding="5" width="700">
 <tr>
 	<th></th>

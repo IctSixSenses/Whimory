@@ -36,4 +36,16 @@ public class ReportDao {
 	public int updateAddLikeCount(int report_no) {
 		return sqlSession.update("reportMapper.updateAddLikeCount", report_no);
 	}
+	
+	public int insertReport(Report report) {
+		return sqlSession.insert("reportMapper.insertReport", report);
+	}
+	
+	public int updateReport(Report report) {
+		return sqlSession.update("reportMapper.updateReport", report);
+	}
+	
+	public int deleteReport(int report_no) {
+		return sqlSession.delete("reportMapper.deleteReport", report_no);
+	}
 }

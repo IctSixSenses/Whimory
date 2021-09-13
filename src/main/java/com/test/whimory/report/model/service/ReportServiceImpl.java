@@ -51,8 +51,7 @@ public class ReportServiceImpl implements ReportService {
 
 	@Override
 	public int insertReport(Report report) {
-		// TODO Auto-generated method stub
-		return 0;
+		return reportDao.insertReport(report);
 	}
 
 	@Override
@@ -63,14 +62,12 @@ public class ReportServiceImpl implements ReportService {
 
 	@Override
 	public int updateReport(Report report) {
-		// TODO Auto-generated method stub
-		return 0;
+		return reportDao.updateReport(report);
 	}
 
 	@Override
 	public int deleteReport(int report_no) {
-		// TODO Auto-generated method stub
-		return 0;
+		return reportDao.deleteReport(report_no);
 	}
 
 	@Override
