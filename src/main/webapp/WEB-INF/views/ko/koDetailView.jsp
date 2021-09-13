@@ -27,6 +27,25 @@
 	align: center;
 }
 </style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+function deleteCheck(){
+	
+	<c:url var="kdel" value="kdelete.do">
+		<c:param name="kNo" value="${ ko.ko_no }" />
+		<c:param name="rfile" value="${ ko.ko_re_file }" />
+	</c:url>
+	
+	if(confirm("게시글을 삭제하시겠습니까?") == true){
+		location.href="${ kdel }";
+	} else {
+		return false;
+	}
+	
+}
+</script>
 </head>
 
 <body>
@@ -56,9 +75,17 @@
 		</td>
 		<td colspan="4" align="right">
 			<c:if test="${ loginUser.admin_yn eq 'Y' }">
-				<button onclick="kupview.do">수정</button>
-				<button onclick="kdelete.do">삭제</button>
-				<button onclick="kwmove.do">글쓰기</button>
+				<c:url var="kmu" value="kupview.do">
+					<c:param name="ko_no" value="${ ko.ko_no }" />
+				</c:url>
+				<button class="btn btn-outline-success" 
+						onclick="javascript:location.href='${kmu}'; return false;">수정</button>
+				
+				<button class="btn btn-outline-success" onclick="deleteCheck(); return false;">삭제</button>
+				
+				<c:url var="kwf" value="kwmove.do" />
+				<button class="btn btn-outline-success" 
+						onclick="javascript:location.href='${kwf}'; return false;">글쓰기</button>
 			</c:if>
 		</td>
 	</tr>
