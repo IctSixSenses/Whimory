@@ -8,10 +8,31 @@
 <head>
 <meta charset="UTF-8">
 <title>Whimory</title>
+<style type="text/css"> 
+table tr td a { text-decoration:none } 
+</style> 
+<link rel="stylesheet"
+	  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
 <script type="text/javascript">
+function moveLoginPage(){
+	alert("로그인 후 이용 가능한 서비스입니다.\n로그인 페이지로 이동합니다.");	
+	location.href = "${ pageContext.servletContext.contextPath }/loginPage.do";
+}
 function showWriteForm(){
    location.href = "${ pageContext.servletContext.contextPath }/fwform.do";
 }
+
+function freeDel(){
+	var answer;
+	
+	answer = confirm("게시글을 정말 삭제하시겠습니까?\n삭제 후 복구가 불가능합니다.");
+	
+	if(answer == true){
+		location.href = "${ pageContext.servletContext.contextPath }/fdelete.do";
+	}
+}
+
 </script>
 </head>
 <body>
@@ -19,45 +40,87 @@ function showWriteForm(){
 <hr>
 <h2 align="center">자유 토론 공간</h2>
 <br>
-<!-- 로그인한 회원만 게시글 등록 가능하도록 작업 // 로그아웃 기능 완성 시 테스트 필요 -->
-<%-- <c:if test="${ !empty sessionScope.loginMember }"> --%>
+<!-- 로그인 여부에 따라 로그인페이지/게시글 작성 페이지로 이동, 관리자는 작성 x -->
+<c:if test="${ empty sessionScope.loginUser }">
 	<div style="align:center;text-align:center;">
-		<button onclick="showWriteForm();">글쓰기</button>
+    	<button onclick="moveLoginPage();">게시글 작성</button>
+    </div>
+</c:if>
+<c:if test="${ !empty sessionScope.loginUser and sessionScope.loginUser.admin_yn eq 'N' }">
+	<div style="align:center;text-align:center;">
+		<button onclick="showWriteForm();">게시글 작성</button>
 	</div>
-<%-- </c:if> --%>
+</c:if>
 <br>
-<table align="center" border="1" cellspacing="0" cellpadding="5" width="860">
-<tr><td colspan="8"><h5>&nbsp; 총 게시글 갯수 : ${ listCount }</h5></td></tr>
-<tr align="center">
-	<th width="80">번호</th>
-	<th width="250">제목</th>
-	<th width="100">작성자</th>
-	<th width="130">등록일</th>
-	<th width="100">첨부파일</th>
-	<th width="100">조회수</th>
-	<th width="100">추천수</th>
-	<th width="100">신고수</th>
-</tr>
-<c:forEach items="${ list }" var="li">
-<tr align="center">
-	<td>${ li.free_no }</td>
-	<td>
-		<c:url var="fdetail" value="fdetail.do">
-			<c:param name="free_no" value="${ li.free_no }" />
-			<c:param name="page" value="${ currentPage }" />
-		</c:url>
-		<a href="${ fdetail }">${ li.free_title }</a>
-	</td>
-	<td>${ li.user_id }</td>
-	<td>${ li.free_date }</td>
-	<td>${ li.free_org_file }</td>
-	<td>${ li.free_readcount }</td>
-	<td>${ li.free_like }</td>
-	<td>${ li.free_bad }</td>
-</tr>
-</c:forEach>
+
+<table align="center" width="1150px">
+	<tr>
+		<td><h5>총 게시글 갯수 : ${ listCount }</h5></td>
+		<td align="right">
+			<form action="">
+				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
+				<button type="submit">검색</button>
+			</form>
+		</td>
+	</tr>
+</table>
+<div style="height:10px"></div>
+
+<table class="table table-lightgray" style="table-layout: fixed; width:1200px" align="center" cellspacing="0" cellpadding="3" >
+	<thead>
+		<tr align="center" class="thead-light">
+			<th width="50px">번호</th>
+			<th width="300px" colspan="3">제목</th>
+			<th width="120px">작성자</th>
+			<th width="150px">등록일</th>
+			<th width="100px">첨부파일</th>
+			<th width="100px">조회수</th>
+			<th width="100px">추천수</th>
+			<th width="100px">신고수</th>
+			<th width="120px">
+				<c:if test="${ loginUser.admin_yn eq 'Y' }">삭제여부</c:if>
+			</th>
+		</tr>
+	</thead>	
+	<c:forEach items="${ list }" var="li">
+		<input type="hidden" id="free_no" value="${ li.free_no }">
+		<input type="hidden" id="free_re_file" value="${ li.free_re_file }">
+		<tr align="center">
+			<td>${ li.free_no }</td>
+			<td colspan="3" align="left">
+				<c:url var="fdetail" value="fdetail.do">
+					<c:param name="free_no" value="${ li.free_no }" />
+					<c:param name="page" value="${ currentPage }" />
+				</c:url>
+				<a href="${ fdetail }">&nbsp;&nbsp;${ li.free_title }</a>
+			</td>
+			<td>${ li.user_id }</td>
+			<td>${ li.free_date }</td>
+			<td>
+				<c:if test="${ !empty li.free_re_file }">
+					v
+				</c:if>
+				<c:if test="${ empty li.free_re_file }">
+					&nbsp;
+				</c:if>
+			</td>
+			<td>${ li.free_readcount }</td>
+			<td>${ li.free_like }</td>
+			<td>${ li.free_bad }</td>
+			<td>
+				<c:if test="${ loginUser.admin_yn eq 'Y' }">
+					<button type="button" class="btn btn-outline-primary" onclick="freeDel();" >
+                    	<font style="vertical-align: inherit;">삭제</font>
+                    </button>
+
+				</c:if>
+			</td>
+		</tr>
+	</c:forEach>
 </table>
 <br>
+
+
 
 <!-- 페이징 처리 -->
 <div style="text-align:center;">
@@ -117,6 +180,7 @@ function showWriteForm(){
    <a href="${ ubl5 }">[맨끝]</a>
 </c:if>
 </div>
+
 
 <hr>
 <c:import url="/WEB-INF/views/common/footer.jsp" />

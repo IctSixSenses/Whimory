@@ -16,7 +16,7 @@
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp"/>
 <hr>
-<h2 align="center">${ requestScope.free.free_no } 번 게시글 상세보기</h2>
+<h2 align="center">${ requestScope.free.free_no }번 게시글 상세보기</h2>
 <br>
 
 <table align="center" width="700" border="1" cellspacing="0" cellpadding="5">
@@ -47,23 +47,39 @@
 		    	<c:param name="free_no" value="${ free.free_no }"/>
 		    	<c:param name="page" value="${ currentPage }"/>
 		    </c:url>
-		    <a href="${ ubup }">[수정페이지로 이동]</a>
-		    &nbsp; &nbsp; 
+		    <button onclick="javascript:location.href='${ ubup }'">수정하기</button>
+		    &nbsp; &nbsp;
+		</c:if>
+		<c:url var="ubl" value="/flist.do">  	
+		  	<c:param name="page" value="${ currentPage }"/>
+		</c:url>
+		<button onclick="javascript:location.href='${ ubl }'">목록보기</button>
+		<c:if test="${ loginUser.user_id eq free.user_id or sessionScope.loginUser.admin_yn eq 'Y'}"> 
 		    <c:url var="ubd" value="/fdelete.do">
 		    	<c:param name="free_no" value="${ free.free_no }"/>
 		    	<c:param name="free_re_file" value="${ free.free_re_file }"/>
 		    </c:url>
-		    <a href="${ ubd }">[글삭제]</a>
+		    <button onclick="javascript:location.href='${ ubd }'">삭제하기</button>
 		    &nbsp; &nbsp; 
 	    </c:if>
 	</c:if> 
-	&nbsp; &nbsp; 
-	<c:url var="ubl" value="/flist.do">  	
-	  	<c:param name="page" value="${ currentPage }"/>
-	</c:url>
-	<button onclick="javascript:location.href='${ ubl }'">목록</button>
+
+
+
 	</th></tr>
 </table>
+
+<%-- 댓글 --%>
+<table>
+	<tr><td>
+		<div>
+		
+		
+		</div>
+	</td></tr>
+</table>
+
+
 
 
 <hr>

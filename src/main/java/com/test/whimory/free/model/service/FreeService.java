@@ -17,7 +17,7 @@ public interface FreeService {
 	int insertOrigin(Free free);	//원글 등록
 	int insertReply(Free free);		//댓글 등록
 	int updateOrigin(Free free);	//원글 수정
-	int deleteOrigin(int free_no);	//원글 삭제
+	int deleteOrigin(Free free);	//원글 삭제
 	int deleteReply(int free_reply_no);	//댓글 삭제
 	int addReadCount(int free_no);	//조회수 증가
 	int addLikeCount(int free_no);	//추천수 증가
