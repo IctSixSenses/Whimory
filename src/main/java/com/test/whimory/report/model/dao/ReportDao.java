@@ -48,4 +48,12 @@ public class ReportDao {
 	public int deleteReport(int report_no) {
 		return sqlSession.delete("reportMapper.deleteReport", report_no);
 	}
+	
+	public int updateComment(Report comment) {
+		return sqlSession.update("reportMapper.updateComment", comment);
+	}
+	
+	public int deleteComment(int report_no) {
+		return sqlSession.update("reportMapper.deleteComment", report_no);
+	}
 }

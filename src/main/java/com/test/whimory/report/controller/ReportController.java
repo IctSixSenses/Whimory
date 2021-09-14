@@ -311,4 +311,32 @@ public class ReportController {
 			return "common/error";
 		}
 	}
+	
+	// 답변 등록 요청 처리용
+	@RequestMapping(value = "cmupdate.do", method = RequestMethod.POST)
+	public String commentUpdateMethod(Report comment, HttpServletRequest request, Model model
+			, @RequestParam("page") int page) {
+		if (reportService.updateComment(comment) > 0) {
+			model.addAttribute("report_no", comment.getReport_no());
+			model.addAttribute("page", page);
+			return "redirect:rpdetail.do";
+		} else {
+			model.addAttribute("message", "답변 등록 실패.");
+			return "common/error";
+		}
+	}
+	
+	// 답변 삭제 요청 처리용
+	@RequestMapping(value = "cmdelete.do")
+	public String commentDeleteMethod(@RequestParam("report_no") int report_no
+			, @RequestParam("page") int page , Model model) {
+		if (reportService.deleteComment(report_no) > 0) {
+			model.addAttribute("report_no", report_no);
+			model.addAttribute("page", page);
+			return "redirect:rpdetail.do";
+		} else {
+			model.addAttribute("message", "답변 삭제 실패.");
+			return "common/error";
+		}
+	}
 }
