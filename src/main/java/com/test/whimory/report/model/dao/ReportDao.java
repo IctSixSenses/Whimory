@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.test.whimory.common.Paging;
+import com.test.whimory.common.SearchDate;
 import com.test.whimory.report.model.vo.Report;
 
 @Repository("reportDao")
@@ -16,9 +17,9 @@ public class ReportDao {
 	@Autowired
 	SqlSessionTemplate sqlSession;
 	
-	public ArrayList<Report> selectList(Paging page){
+	public ArrayList<Report> selectList(Paging page) {
 		List<Report> list = sqlSession.selectList("reportMapper.selectList", page);
-		return (ArrayList<Report>)list;
+		return (ArrayList<Report>) list;
 	}
 	
 	public int selectListCount() {
@@ -55,5 +56,20 @@ public class ReportDao {
 	
 	public int deleteComment(int report_no) {
 		return sqlSession.update("reportMapper.deleteComment", report_no);
+	}
+	
+	public ArrayList<Report> selectSearchTitle(String keyword){
+		List<Report> list = sqlSession.selectList("reportMapper.selectSearchTitle", keyword);
+		return (ArrayList<Report>) list;
+	}
+	
+	public ArrayList<Report> selectSearchWriter(String keyword){
+		List<Report> list = sqlSession.selectList("reportMapper.selectSearchWriter", keyword);
+		return (ArrayList<Report>) list;
+	}
+	
+	public ArrayList<Report> selectSearchDate(SearchDate dates){
+		List<Report> list = sqlSession.selectList("reportMapper.selectSearchDate", dates);
+		return (ArrayList<Report>) list;
 	}
 }

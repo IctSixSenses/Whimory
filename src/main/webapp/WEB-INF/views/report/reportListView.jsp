@@ -1,19 +1,87 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Whimory</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+
+function moveLoginPage(){
+	alert("로그인 후 이용 가능한 서비스입니다.\n로그인 페이지로 이동합니다.");	
+	location.href = "${ pageContext.servletContext.contextPath }/loginPage.do";
+}
+
+function showDiv(item){
+	if($(item).val() == "title"){
+		$("#titleDiv").css("display", "inline-block");
+		$("#writerDiv").css("display", "none");
+		$("#dateDiv").css("display", "none");
+	}
+	   
+	if($(item).val() == "writer"){
+		$("#titleDiv").css("display", "none");
+		$("#writerDiv").css("display", "inline-block");
+		$("#dateDiv").css("display", "none");
+	}
+	   
+	if($(item).val() == "date"){
+		$("#titleDiv").css("display", "none");
+		$("#writerDiv").css("display", "none");
+		$("#dateDiv").css("display", "inline-block");
+	}
+}
+
+</script>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <hr>
 <h1 align="center">역사왜곡 제보 게시판</h1>
 <h2 align="center">총 게시글 갯수: ${ listCount }</h2>
-<c:if test="${ !empty loginUser }">
-	<div style="align: center; text-align: center;">
+<table align="center" width="1150px">
+	<tr>
+		<td align="right">
+			<select class="form-control" onchange="showDiv(this)" style="width:90px; display:inline-block">
+				<option value="title">제목</option>
+				<option value="writer">작성자</option>
+				<option value="date">작성날짜</option>
+			</select>
+			<div id="titleDiv" style="display:inline-block">
+			<form action="rptitle.do" method="post">
+				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
+				<button type="submit">검색</button>
+			</form>
+			</div>
+			<div id="writerDiv" style="display:none">
+			<form action="rpwriter.do" method="post">
+				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
+				<button type="submit">검색</button>
+			</form>
+			</div>
+			<div id="dateDiv" style="display:none">
+			<form action="rpdate.do" method="post">
+				<input type="date" name="begin"> ~ <input type="date" name="end">
+				<button type="submit">검색</button>
+			</form>
+			</div>
+			
+		</td>
+	</tr>
+</table>
+<div style="height:10px"></div>
+<!-- 로그인 여부에 따라 로그인페이지/게시글 작성 페이지로 이동, 관리자는 작성 x -->
+<c:if test="${ empty loginUser }">
+	<div style="align:center;text-align:center;">
+    	<button onclick="moveLoginPage();">게시글 작성</button>
+    </div>
+</c:if>
+<c:if test="${ !empty loginUser and loginUser.admin_yn eq 'N' }">
+	<div style="align:center;text-align:center;">
 		<button onclick="javascript:location.href='rpwf.do';">글쓰기</button>
 	</div>
 </c:if>
@@ -54,6 +122,7 @@
 
 <%-- 페이징 처리 --%>
 <div style="text-align:center;">
+<button onclick="javascript:location.href='rplist.do?page=1';">전체 목록 보기</button><br>
 	<c:if test="${ currentPage <= 1 }">
 		[첫 페이지] &nbsp;
 	</c:if>

@@ -33,20 +33,17 @@ public class ReportServiceImpl implements ReportService {
 
 	@Override
 	public ArrayList<Report> selectSearchTitle(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+		return reportDao.selectSearchTitle(keyword);
 	}
 
 	@Override
 	public ArrayList<Report> selectSearchWriter(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+		return reportDao.selectSearchWriter(keyword);
 	}
 
 	@Override
 	public ArrayList<Report> selectSearchDate(SearchDate dates) {
-		// TODO Auto-generated method stub
-		return null;
+		return reportDao.selectSearchDate(dates);
 	}
 
 	@Override

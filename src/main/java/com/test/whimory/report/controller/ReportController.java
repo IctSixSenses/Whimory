@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.test.whimory.common.Paging;
+import com.test.whimory.common.SearchDate;
 import com.test.whimory.report.model.service.ReportService;
 import com.test.whimory.report.model.vo.Report;
 
@@ -338,5 +339,158 @@ public class ReportController {
 			model.addAttribute("message", "답변 삭제 실패.");
 			return "common/error";
 		}
+	}
+	
+	@RequestMapping(value = "rptitle.do", method = RequestMethod.POST)
+	public ModelAndView reportSearchTitleMethod(@RequestParam("keyword") String keyword, 
+			ModelAndView mv, @RequestParam(name = "page", required = false) String page) {
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+
+		// 페이징 처리
+		int limit = 10; // 한 페이지에 출력할 목록 갯수
+		// 페이지 계산을 위해 총 목록갯수 조회
+		int listCount = reportService.selectSearchTitle(keyword).size();
+		// 페이지 수 계산
+		// 목록이 11개이면 총 2페이지가 나오게 계산식 작성
+		int maxPage = (int) ((double) listCount / limit + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 시작값
+		// 뷰 페이지에 페이지 숫자를 10개씩 보여지게 한다면
+		int startPage = (int) ((double) currentPage / 10 + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 끝값
+		// 페이지 수가 10개이면
+		int endPage = startPage + 10 - 1;
+
+		if (maxPage < endPage) {
+			endPage = maxPage;
+		}
+
+		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		Paging paging = new Paging(startRow, endRow);
+		
+		ArrayList<Report> list = reportService.selectSearchTitle(keyword);
+		
+		if (list != null && list.size() > 0) {
+			mv.addObject("list", list);
+			mv.addObject("listCount", listCount);
+			mv.addObject("maxPage", maxPage);
+			mv.addObject("currentPage", currentPage);
+			mv.addObject("startPage", startPage);
+			mv.addObject("endPage", endPage);
+			mv.addObject("limit", limit);
+
+			mv.setViewName("report/reportListView");
+		} else {
+			mv.addObject("message", keyword + "로 검색된 정보가 없습니다.");
+			mv.setViewName("common/error");
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "rpwriter.do", method = RequestMethod.POST)
+	public ModelAndView reportSearchWriterMethod(@RequestParam("keyword") String keyword, 
+			ModelAndView mv, @RequestParam(name = "page", required = false) String page) {
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+
+		// 페이징 처리
+		int limit = 10; // 한 페이지에 출력할 목록 갯수
+		// 페이지 계산을 위해 총 목록갯수 조회
+		int listCount = reportService.selectSearchWriter(keyword).size();
+		// 페이지 수 계산
+		// 목록이 11개이면 총 2페이지가 나오게 계산식 작성
+		int maxPage = (int) ((double) listCount / limit + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 시작값
+		// 뷰 페이지에 페이지 숫자를 10개씩 보여지게 한다면
+		int startPage = (int) ((double) currentPage / 10 + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 끝값
+		// 페이지 수가 10개이면
+		int endPage = startPage + 10 - 1;
+
+		if (maxPage < endPage) {
+			endPage = maxPage;
+		}
+
+		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		Paging paging = new Paging(startRow, endRow);
+		
+		ArrayList<Report> list = reportService.selectSearchWriter(keyword);
+		
+		if (list != null && list.size() > 0) {
+			mv.addObject("list", list);
+			mv.addObject("listCount", listCount);
+			mv.addObject("maxPage", maxPage);
+			mv.addObject("currentPage", currentPage);
+			mv.addObject("startPage", startPage);
+			mv.addObject("endPage", endPage);
+			mv.addObject("limit", limit);
+
+			mv.setViewName("report/reportListView");
+		} else {
+			mv.addObject("message", keyword + "로 검색된 정보가 없습니다.");
+			mv.setViewName("common/error");
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "rpdate.do", method = RequestMethod.POST)
+	public ModelAndView reportSearchDateMethod(SearchDate dates, 
+			ModelAndView mv, @RequestParam(name = "page", required = false) String page) {
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+
+		// 페이징 처리
+		int limit = 10; // 한 페이지에 출력할 목록 갯수
+		// 페이지 계산을 위해 총 목록갯수 조회
+		int listCount = reportService.selectSearchDate(dates).size();
+		// 페이지 수 계산
+		// 목록이 11개이면 총 2페이지가 나오게 계산식 작성
+		int maxPage = (int) ((double) listCount / limit + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 시작값
+		// 뷰 페이지에 페이지 숫자를 10개씩 보여지게 한다면
+		int startPage = (int) ((double) currentPage / 10 + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 끝값
+		// 페이지 수가 10개이면
+		int endPage = startPage + 10 - 1;
+
+		if (maxPage < endPage) {
+			endPage = maxPage;
+		}
+
+		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		Paging paging = new Paging(startRow, endRow);
+		
+		ArrayList<Report> list = reportService.selectSearchDate(dates);
+		
+		if (list != null && list.size() > 0) {
+			mv.addObject("list", list);
+			mv.addObject("listCount", listCount);
+			mv.addObject("maxPage", maxPage);
+			mv.addObject("currentPage", currentPage);
+			mv.addObject("startPage", startPage);
+			mv.addObject("endPage", endPage);
+			mv.addObject("limit", limit);
+
+			mv.setViewName("report/reportListView");
+		} else {
+			mv.addObject("message", "해당 날짜로 검색된 정보가 없습니다.");
+			mv.setViewName("common/error");
+		}
+		
+		return mv;
 	}
 }
