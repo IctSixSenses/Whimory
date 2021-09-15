@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.test.whimory.common.Paging;
 import com.test.whimory.free.model.service.FreeService;
 import com.test.whimory.free.model.vo.Free;
+import com.test.whimory.free.model.vo.FreeReply;
 
 @Controller
 public class FreeController {
@@ -86,16 +87,20 @@ public class FreeController {
 	@RequestMapping("fdetail.do")
 	public ModelAndView freeDetailMethod(ModelAndView mv, @RequestParam("free_no") int free_no,
 			@RequestParam("page") int page) {
-
+		
 		// 조회수 1 증가 처리
 		freeService.addReadCount(free_no);
 
 		// 해당 게시글 조회
 		Free free = freeService.selectOne(free_no);
-
+		
+		// 해당 게시글에 댓글 조회
+		ArrayList<FreeReply> frlist = freeService.selectReplyList(free_no);
+				
 		if (free != null) {
 			mv.addObject("free", free);
 			mv.addObject("currentPage", page);
+			mv.addObject("frlist", frlist);		// 댓글 조회
 			mv.setViewName("free/freeDetailView");
 		} else {
 			mv.addObject("message", free_no + "번 게시글 조회를 실패하였습니다.");
@@ -306,24 +311,88 @@ public class FreeController {
 	
 	// 게시글 삭제
 	@RequestMapping("fdelete.do")
-	public String boardDeleteMethod(Free free, HttpServletRequest request, Model model) {
-
-		if (freeService.deleteOrigin(free) > 0) {
-			// 글 삭제 성공 시, 저장폴더에 첨부파일도 삭제 처리
-			if (free.getFree_re_file() != null) {
-				new File(request.getSession().getServletContext().getRealPath("resources/free_upfiles") + "\\"
-						+ free.getFree_re_file());
+	public String boardDeleteMethod(@RequestParam("free_no") int free_no, 
+									HttpServletRequest request, Model model) {
+		
+		Free free = freeService.selectOne(free_no);
+		
+		// 저장폴더에 첨부파일도 삭제 처리 후, 글 삭제
+		if (free != null && free.getFree_re_file() != null) {
+				new File(request.getSession().getServletContext().getRealPath("resources/free_upfiles") + "\\" + free.getFree_re_file()).delete();
 			}
-
+		
+		if (freeService.deleteOrigin(free_no) > 0) {
+		
 			return "redirect:flist.do?page=1";
+			
 		} else {
-			model.addAttribute("message", free.getFree_no() + "번 게시글 삭제를 실패하였습니다.");
+			model.addAttribute("message", free_no + "번 게시글 삭제를 실패하였습니다.");
 			return "common/error";
 		}
 	}
 	
+	// 게시글 전체 목록에서 '제목'으로 검색 
+	@RequestMapping(value = "fsearchTitle.do", method = RequestMethod.POST)
+	public String freeSearchTitleMethod(@RequestParam("keyword") String keyword, Model model) {
+		logger.info(keyword);
+		ArrayList<Free> list = freeService.selectSearchTitle(keyword);
+
+		if (list.size() > 0) {
+			model.addAttribute("list", list);
+			return "free/freeListView";
+		} else {
+			model.addAttribute("message", keyword + "로 검색된 게시글 정보가 없습니다.");
+			return "common/error";
+		}
+	}
 	
+	// 게시글 전체 목록에서 '작성자'로 검색
+	@RequestMapping(value = "fsearchWriter.do", method = RequestMethod.POST)
+	public String freeSearchWriterMethod(@RequestParam("keyword") String keyword, Model model) {
+		logger.info(keyword);
+		ArrayList<Free> list = freeService.selectSearchWriter(keyword);
+
+		if (list.size() > 0) {
+			model.addAttribute("list", list);
+			return "free/freeListView";
+		} else {
+			model.addAttribute("message", keyword + "로 검색된 게시글 정보가 없습니다.");
+			return "common/error";
+		}
+	}
+
+	// 게시글 전체 목록에서 '내용'으로 검색
+	@RequestMapping(value = "fsearchContent.do", method = RequestMethod.POST)
+	public String freeSearchContentMethod(@RequestParam("keyword") String keyword, Model model) {
+		logger.info(keyword);
+		ArrayList<Free> list = freeService.selectSearchContent(keyword);
+
+		if (list.size() > 0) {
+			model.addAttribute("list", list);
+			return "free/freeListView";
+		} else {
+			model.addAttribute("message", keyword + "로 검색된 게시글 정보가 없습니다.");
+			return "common/error";
+		}
+	}
 	
+	// 게시글 상세보기에 등록된 댓글 목록 조회
+	@RequestMapping("frlist.do")
+	public ModelAndView replyListMethod(ModelAndView mv, @RequestParam(name = "free_no", required = false) int free_no) {
+
+		ArrayList<FreeReply> frlist = freeService.selectReplyList(free_no);
+
+		if (frlist != null && frlist.size() > 0) {
+			mv.addObject("frlist", frlist);
+
+			mv.setViewName("free/freeDetailView");
+		} else {
+			mv.addObject("message", "댓글 조회를 실패하였습니다.");
+			mv.setViewName("common/error");
+		}
+
+		return mv;
+	}
 	
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.test.whimory.common.Paging;
 import com.test.whimory.free.model.vo.Free;
+import com.test.whimory.free.model.vo.FreeReply;
 
 @Repository("freeDao")
 public class FreeDao {
@@ -42,9 +43,37 @@ public class FreeDao {
 		return sqlSession.update("freeMapper.updateOrigin", free);
 	}
 	
-	public int deleteOrigin(Free free) {
-		return sqlSession.delete("freeMapper.deleteOrigin", free);
+	// 게시글 삭제
+	public int deleteOrigin(int free_no) {
+		return sqlSession.delete("freeMapper.deleteOrigin", free_no);
 	}
 	
+	// 전체 목록에서 '제목'으로 검색
+	public ArrayList<Free> selectSearchTitle(String keyword) {
+		List<Free> list = sqlSession.selectList("freeMapper.selectSearchTitle", keyword);
+		return (ArrayList<Free>) list;
+	}
 	
+	// 전체 목록에서 '작성자'로 검색
+	public ArrayList<Free> selectSearchWriter(String keyword) {
+		List<Free> list = sqlSession.selectList("freeMapper.selectSearchWriter", keyword);
+		return (ArrayList<Free>) list;
+	}
+
+	// 전체 목록에서 '내용'으로 검색
+	public ArrayList<Free> selectSearchContent(String keyword) {
+		List<Free> list = sqlSession.selectList("freeMapper.selectSearchContent", keyword);
+		return (ArrayList<Free>) list;
+	}
+	
+	// 게시글 댓글 조회
+	public ArrayList<FreeReply> selectReplyList(int free_no) {
+		List<FreeReply> list = sqlSession.selectList("freeMapper.selectReplyList", free_no);
+		return (ArrayList<FreeReply>)list;
+	}
+	
+	// 댓글 등록
+	public int insertReply(FreeReply freply) {
+		return sqlSession.insert("freeMapper.insertReply", freply);
+	}
 }

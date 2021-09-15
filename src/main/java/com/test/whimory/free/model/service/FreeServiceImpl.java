@@ -33,26 +33,22 @@ public class FreeServiceImpl implements FreeService {
 
 	@Override
 	public ArrayList<Free> selectSearchTitle(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+		return freeDao.selectSearchTitle(keyword);
 	}
 
 	@Override
 	public ArrayList<Free> selectSearchWriter(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+		return freeDao.selectSearchWriter(keyword);
 	}
 
 	@Override
 	public ArrayList<Free> selectSearchContent(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+		return freeDao.selectSearchContent(keyword);
 	}
 
 	@Override
 	public ArrayList<FreeReply> selectReplyList(int free_no) {
-		// TODO Auto-generated method stub
-		return null;
+		return freeDao.selectReplyList(free_no);
 	}
 
 	@Override
@@ -61,9 +57,8 @@ public class FreeServiceImpl implements FreeService {
 	}
 
 	@Override
-	public int insertReply(Free free) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertReply(FreeReply freply) {
+		return freeDao.insertReply(freply);
 	}
 
 	@Override
@@ -72,8 +67,8 @@ public class FreeServiceImpl implements FreeService {
 	}
 
 	@Override
-	public int deleteOrigin(Free free) {
-		return freeDao.deleteOrigin(free);
+	public int deleteOrigin(int free_no) {
+		return freeDao.deleteOrigin(free_no);
 	}
 
 	@Override
