@@ -55,9 +55,8 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public int updateComment(Report report) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateComment(Report comment) {
+		return reportDao.updateComment(comment);
 	}
 
 	@Override
@@ -72,8 +71,7 @@ public class ReportServiceImpl implements ReportService {
 
 	@Override
 	public int deleteComment(int report_no) {
-		// TODO Auto-generated method stub
-		return 0;
+		return reportDao.deleteComment(report_no);
 	}
 
 	@Override

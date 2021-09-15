@@ -48,7 +48,7 @@
 		</c:url>
 		<button onclick="javascript:location.href='${ rpuf }';">수정페이지로 이동</button>
 		</c:if>
-		<c:if test="${ loginUser.user_id == report.user_id }">
+		<c:if test="${ loginUser.user_id == report.user_id or loginUser.admin_yn eq 'Y' }">
 			<c:url var="rpdelete" value="rpdelete.do">
 			<c:param name="report_no" value="${ report.report_no }" />
 			<c:param name="report_re_file" value="${ report.report_re_file }" />
@@ -81,7 +81,37 @@
 		<td>${ report.admin_comment }</td>
 		<td>${ report.comment_date }</td>
 	</tr>
+	<c:if test="${ loginUser.admin_yn eq 'Y' }">
+	<tr><th colspan="3">
+			<c:url var="cmdelete" value="cmdelete.do">
+			<c:param name="report_no" value="${ report.report_no }" />
+			<c:param name="page" value="${ currentPage }" />
+			</c:url>
+			<button onclick="javascript:location.href='${ cmdelete }';">삭제하기</button>
+		</th>
+	</tr>
+	</c:if>
 	</table>
+</c:if>
+<c:if test="${ empty report.admin_comment && loginUser.admin_yn eq 'Y' }">
+	<script>
+  		document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);;
+	</script>
+	
+	<form action="cmupdate.do" method="post">
+	<table align="center">
+	<tr>
+		<input type="hidden" name="page" value="${ currentPage }">
+		<input type="hidden" name="report_no" value="${ report.report_no }">
+		<input type="hidden" name="admin_id" value="${ loginUser.user_id }">
+		<td><textarea rows="5" cols="50" name="admin_comment"></textarea></td>
+	</tr>
+	<tr><th colspan="2">
+		<input type="submit" value="답변하기">
+		</th>
+	</tr>
+	</table>
+	</form>
 </c:if>
 
 <hr>
