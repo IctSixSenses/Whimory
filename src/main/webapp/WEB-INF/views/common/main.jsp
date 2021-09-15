@@ -14,6 +14,7 @@
 	crossorigin="anonymous">
 
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
 	<header> 
@@ -35,14 +36,13 @@
 	<section>
 	<!-- 본격 메인 페이지 구성 -->
 	
-	<c:url var="klist" value="klist.do" />
-	<a href="${ klist }">정보게시판 목록 이동</a>
+	
+		<!-- 다슬: 정보 게시판 부분 -->
+		<c:import url="/WEB-INF/views/ko/koTop10.jsp" />
+	
 	
 	</section>
 	
-
-
-
 
 	<br><br><br><br><br><br><br><br><br><br><br><br>
 	<hr style="clear: both;">

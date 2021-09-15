@@ -7,6 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Whimory KO</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" 
+	rel="stylesheet" 
+	integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" 
+	crossorigin="anonymous">
 <style type="text/css">
 .k-list {
 	clear: left;
@@ -37,9 +41,9 @@ function cancleCheck(){
 <div class="k-list">
 <form action="kinsert.do" method="post" enctype="multipart/form-data" >
 	<input type="hidden" name="user_id" value="${ loginUser.user_id }">
-	<table width="900px" align="center">
+	<table width="800px" align="center">
 	<tr>
-		<td>
+		<td width="100px">
 			<select name="ko_category">
 				<option value="history">역사</option>
 				<option value="culture">문화</option>
@@ -47,20 +51,22 @@ function cancleCheck(){
 				<option value="culheri">문화재</option>
 			</select>
 		</td>
-		<td><input type="text" name="ko_title" size="70" required placeholder="제목을 입력하세요."></td>
+		<td colspan="8">
+			<input type="text" name="ko_title" size="83" required placeholder="제목을 입력하세요.">
+		</td>
 	</tr>
 	<tr>
-		<td colspan="2"><textarea name="ko_content" cols="100" rows="20" required placeholder="내용을 입력하세요."></textarea></td>
+		<td colspan="9"><textarea name="ko_content" cols="100" rows="20" required placeholder="내용을 입력하세요."></textarea></td>
 	</tr>
-	<tr><td colspan="2"><input type="file" name="kfile"></td></tr>
-	<tr><td colspan="2"><input type="text" name="ko_hashtag" size="90" placeholder="해시태그"></td></tr>
-	<tr><td colspan="2"><input type="text" name="ko_link1" size="90" placeholder="영상 링크 1"></td></tr>
-	<tr><td colspan="2"><input type="text" name="ko_link2" size="90" placeholder="영상 링크 2"></td></tr>
-	<tr><td colspan="2"><input type="text" name="ko_link3" size="90" placeholder="영상 링크 3"></td></tr>
+	<tr><td colspan="9"><input type="file" name="kfile"></td></tr>
+	<tr><td colspan="9"><input type="text" name="ko_hashtag" size="97" placeholder="해시태그"></td></tr>
+	<tr><td colspan="9"><input type="text" name="ko_link1" size="97" placeholder="영상 링크 1"></td></tr>
+	<tr><td colspan="9"><input type="text" name="ko_link2" size="97" placeholder="영상 링크 2"></td></tr>
+	<tr><td colspan="9"><input type="text" name="ko_link3" size="97" placeholder="영상 링크 3"></td></tr>
 	<tr>
-		<td colspan="2" align="center">
-			<input type="submit" value="등록">
-			<input type="button" value="등록 취소" onclick="cancleCheck();">
+		<td colspan="9" align="center">
+			<input class="btn btn-outline-success" type="submit" value="등록">
+			<input class="btn btn-outline-success" type="button" value="등록 취소" onclick="cancleCheck();">
 		</td>
 	</tr>
 	</table>

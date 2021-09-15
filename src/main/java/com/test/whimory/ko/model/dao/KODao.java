@@ -19,6 +19,11 @@ public class KODao {
 		List<KO> list = sqlSession.selectList("koMapper.selectList");
 		return (ArrayList<KO>) list;
 	}
+	
+	public ArrayList<KO> selectTop10(){
+		List<KO> list = sqlSession.selectList("koMapper.selectTop10");
+		return (ArrayList<KO>) list;
+	}
 
 	public ArrayList<KO> selectSearchCategory(String cate) {
 		List<KO> list = sqlSession.selectList("koMapper.selectSearchCategory", cate);
