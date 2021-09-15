@@ -18,6 +18,7 @@
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp"/>
 <hr>
+
 <h3 align="center">${ requestScope.free.free_no }번 게시글 상세보기</h3>
 <br>
 
@@ -45,9 +46,10 @@
 	</tr>
 </table>
 
-<table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3">
+<!-- 게시글 상세보기 -->
+<table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3" >
 	<tr>
-		<td colspan="10" align="center" style="font-size: 16pt; background: WhiteSmoke" >${ free.free_title }</td>
+		<td colspan="10" align="center" style="font-size: 17pt; background: WhiteSmoke" >${ free.free_title }</td>
 	</tr>
 	<tr>
 		<th colspan="1" align="right">작성자</th>
@@ -88,14 +90,18 @@
 </table>
 
 <%-- 댓글 등록 폼 --%>
-<div align="center" width="1000px">함께 이야기 해봐요😆</div>
+<div align="center" width="1000px" style="font-size:20px;">함께 이야기 해봐요😆</div>
+<div align="center" width="1000px" height="20px"></div>
 
 <c:if test="${ !empty loginUser }">
 	<form action="frinsert.do" method="post">
+		<input type="hidden" name="page" id="page" value="${ currentPage } ">
+		<input type="hidden" name="free_no" id="free_no" value="${ free.free_no }">
+		<input type="hidden" name="user_id" id="user_id" value="${ loginUser.user_id }">
 		<table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3">
-			<tr>
+			<tr style="border-top:none;">
 				<td colspan="1" align="center">${ loginUser.user_id }</td>
-				<td colspan="8"><textarea rows="3" cols="105"name="freply" placeholder="댓글을 입력하세요"></textarea></td>	
+				<td colspan="8"><textarea rows="3" cols="105" name="free_reply_content" placeholder="댓글을 입력하세요"></textarea></td>	
 				<td colspan="1"><input type="submit" value="등록" class="button"></td>
 			</tr>
 		</table>
@@ -106,7 +112,7 @@
 <table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3">
    <c:forEach items="${ frlist }" var="frli">
 		<tr>
-			<td colspan="1" align="center">${ frli.user_id }</td>
+			<th colspan="1" align="center">&nbsp;&nbsp;&nbsp;${ frli.user_id }</th>
 			<td colspan="8">${ frli.free_reply_content }</td>	
 			<c:if test="${ loginUser.user_id eq frli.user_id or loginUser.admin_yn eq 'Y'}"> 
 				<td colspan="1">

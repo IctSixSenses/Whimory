@@ -55,7 +55,7 @@ function fsearch(){
 <!-- 로그인 여부에 따라 로그인페이지/게시글 작성 페이지로 이동, 관리자는 작성 x -->
 <c:if test="${ empty sessionScope.loginUser }">
    <div style="align:center;text-align:center;">
-       <button onclick="moveLoginPage();">게시글 작성</button>
+       <button class="btn btn-outline-primary" onclick="moveLoginPage();">게시글 작성</button>
     </div>
 </c:if>
 <c:if test="${ !empty sessionScope.loginUser and sessionScope.loginUser.admin_yn eq 'N' }">
@@ -68,11 +68,7 @@ function fsearch(){
 <table align="center" width="1150px">
 	<tr>
 		<td><h5>총 게시글 갯수 : ${ listCount }</h5></td>
-      	<td align="right">
       	
-		<!-- 게시판 내 검색기능 --> 	
-
-      	</td>
 	</tr>
 </table>
 
