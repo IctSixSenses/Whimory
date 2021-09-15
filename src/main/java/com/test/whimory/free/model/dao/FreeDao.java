@@ -76,4 +76,13 @@ public class FreeDao {
 	public int insertReply(FreeReply freply) {
 		return sqlSession.insert("freeMapper.insertReply", freply);
 	}
+	
+	// 댓글 삭제
+	public int deleteReply(int free_reply_no) {
+		return sqlSession.delete("freeMapper.deleteReply", free_reply_no);
+	}
+
+
+	
+	
 }

@@ -83,7 +83,7 @@ public class FreeController {
 		return mv;
 	}
 
-	// 게시글 상세보기
+	// 게시글 상세보기 + 댓글 조회
 	@RequestMapping("fdetail.do")
 	public ModelAndView freeDetailMethod(ModelAndView mv, @RequestParam("free_no") int free_no,
 			@RequestParam("page") int page) {
@@ -94,7 +94,7 @@ public class FreeController {
 		// 해당 게시글 조회
 		Free free = freeService.selectOne(free_no);
 		
-		// 해당 게시글에 댓글 조회
+		// 해당 게시글의 댓글 조회
 		ArrayList<FreeReply> frlist = freeService.selectReplyList(free_no);
 				
 		if (free != null) {
@@ -316,7 +316,7 @@ public class FreeController {
 		
 		Free free = freeService.selectOne(free_no);
 		
-		// 저장폴더에 첨부파일도 삭제 처리 후, 글 삭제
+		// 저장폴더에 첨부파일도 삭제 처리 후, 글 삭제(confirm 창 때문에 순서 변경함)
 		if (free != null && free.getFree_re_file() != null) {
 				new File(request.getSession().getServletContext().getRealPath("resources/free_upfiles") + "\\" + free.getFree_re_file()).delete();
 			}
@@ -376,23 +376,24 @@ public class FreeController {
 		}
 	}
 	
-	// 게시글 상세보기에 등록된 댓글 목록 조회
-	@RequestMapping("frlist.do")
-	public ModelAndView replyListMethod(ModelAndView mv, @RequestParam(name = "free_no", required = false) int free_no) {
+	// 댓글 등록
+	@RequestMapping(value = "frinsert.do", method = RequestMethod.POST)
+	public String replyInsertMethod(FreeReply freply, @RequestParam("page") int page, Model model) {
 
-		ArrayList<FreeReply> frlist = freeService.selectReplyList(free_no);
-
-		if (frlist != null && frlist.size() > 0) {
-			mv.addObject("frlist", frlist);
-
-			mv.setViewName("free/freeDetailView");
+		// 서비스 보내서 처리하고, 결과 리턴
+		if (freeService.insertReply(freply) > 0) {
+			
+			model.addAttribute("page", page);
+			model.addAttribute("free_no", freply.getFree_no());
+			return "redirect:fdetail.do?free_no=" + freply.getFree_no();
 		} else {
-			mv.addObject("message", "댓글 조회를 실패하였습니다.");
-			mv.setViewName("common/error");
+			model.addAttribute("message", freply.getFree_no() + "번 게시글 댓글 등록을 실패하였습니다.");
+			return "common/error";
 		}
-
-		return mv;
 	}
 	
 
+	
+	
+	
 }

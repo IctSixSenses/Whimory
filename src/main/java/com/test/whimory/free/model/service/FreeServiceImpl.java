@@ -73,8 +73,7 @@ public class FreeServiceImpl implements FreeService {
 
 	@Override
 	public int deleteReply(int free_reply_no) {
-		// TODO Auto-generated method stub
-		return 0;
+		return freeDao.deleteReply(free_reply_no);
 	}
 
 	@Override
