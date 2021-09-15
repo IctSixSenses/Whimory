@@ -3,11 +3,15 @@ package com.test.whimory.ko.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.test.whimory.ko.model.service.KOService;
@@ -36,11 +41,46 @@ public class KOController {
 			model.addAttribute("list", list);
 			return "ko/koListView";
 		} else {
-			model.addAttribute("message", "ko 전체 목록을 조회하는 것을 실패했습니다");
+			model.addAttribute("message", "ko 전체 목록을 조회하지 못했습니다");
 			return "common/error";
 		}
 		
 	} // koListMethod
+	
+	@RequestMapping(value="ktop10.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String koTop10Method(Model model) throws UnsupportedEncodingException {
+		ArrayList<KO> list = koService.selectTop10();
+		
+		
+		JSONObject sendJson = new JSONObject(); JSONArray jarr = new JSONArray();
+		 
+		for (KO ko : list) { 
+		
+			JSONObject job = new JSONObject();
+			
+			job.put("ko_no", ko.getKo_no());
+			job.put("ko_title", URLEncoder.encode(ko.getKo_title(), "UTF-8"));
+			job.put("ko_re_file", ko.getKo_re_file());
+			job.put("user_id", ko.getUser_id());
+			job.put("ko_editor", ko.getKo_editor());
+			
+			jarr.add(job);
+		}
+		 
+		sendJson.put("list", jarr);
+		 
+		return sendJson.toJSONString();
+		 
+		
+//		if(list.size() > 0) {
+//			model.addAttribute("list", list);
+//			return "ko/koTop10";
+//		} else {
+//			model.addAttribute("message", "ko Top10을 조회하지 못했습니다");
+//			return "common/error";
+//		}
+	}
 	
 	@RequestMapping("kcate.do")
 	public String koSearchCategory(@RequestParam("cate") String category, Model model) {
@@ -48,9 +88,19 @@ public class KOController {
 		
 		if(list.size() > 0) {
 			model.addAttribute("list", list);
-			
 			model.addAttribute("category", category);
-			return "ko/koListView";
+			
+			String pageName = null;
+			
+			switch(category) {
+			case "history": pageName = "ko/koHistoryListView"; break;
+			case "culture": pageName = "ko/koCultureListView"; break;
+			case "food": pageName = "ko/koFoodListView"; break;
+			case "culheri": pageName = "ko/koCulheriListView"; break;
+			}
+			
+			return pageName;
+			
 		} else {
 			model.addAttribute("message", category + "별 목록을 조회하는 데 실패했습니다.");
 			return "common/error";
@@ -101,10 +151,10 @@ public class KOController {
 		// 저장 폴더 지정
 		String savePath = request.getSession().getServletContext().getRealPath("resources/ko_upfiles");
 
-		// 첨부파일 있을 떄만 업로드된 파일을 지정 폴더로 옮기기
+		// 첨부파일 있을 때만 업로드된 파일을 지정 폴더로 옮기기
 		if (!mfile.isEmpty()) {
 			String fileName = mfile.getOriginalFilename();
-
+			
 			// 이름 바꾸기
 			if (fileName != null && fileName.length() > 0) {
 				try {
@@ -157,6 +207,29 @@ public class KOController {
 
 		} // if: 첨부파일 있을 때
 		
+		if(ko.getKo_link1() != null && ko.getKo_link2() != null && ko.getKo_link3() != null) {
+			
+			String link1 = ko.getKo_link1();
+			ko.setKo_image1(link1.substring(link1.lastIndexOf("=") + 1));
+			String link2 = ko.getKo_link2();
+			ko.setKo_image2(link2.substring(link2.lastIndexOf("=") + 1));
+			String link3 = ko.getKo_link1();
+			ko.setKo_image3(link3.substring(link3.lastIndexOf("=") + 1));
+			
+		} else if(ko.getKo_link1() != null && ko.getKo_link2() != null) {
+			
+			String link1 = ko.getKo_link1();
+			ko.setKo_image1(link1.substring(link1.lastIndexOf("=") + 1));
+			String link2 = ko.getKo_link2();
+			ko.setKo_image2(link2.substring(link2.lastIndexOf("=") + 1));
+			
+		} else if(ko.getKo_link1() != null) {
+			
+			String link1 = ko.getKo_link1();
+			ko.setKo_image1(link1.substring(link1.lastIndexOf("=") + 1));
+			
+		}
+		
 		if(koService.insertKO(ko) > 0) {
 			return "redirect:klist.do";
 		} else {
@@ -183,18 +256,10 @@ public class KOController {
 	
 	@RequestMapping(value="kupdate.do", method=RequestMethod.POST)
 	public String koUpdateMethod(KO ko, Model model, HttpServletRequest request,
-			@RequestParam(name="kfile", required=false) MultipartFile mfile,
-			@RequestParam(name="delFlag", required=false) String delFlag) {
+			@RequestParam(name="kfile", required=false) MultipartFile mfile) {
 
 		// 저장 폴더 지정
 		String savePath = request.getSession().getServletContext().getRealPath("resources/ko_upfiles");
-
-		// 첨부파일 삭제할 때
-		if (ko.getKo_org_file() != null && delFlag != null && delFlag.equals("yes")) {
-			new File(savePath + "\\" + ko.getKo_re_file()).delete();
-			ko.setKo_org_file(null);
-			ko.setKo_re_file(null);
-		}
 
 		// 새로운 첨부파일이 있을 때
 		if (!mfile.isEmpty()) {
@@ -256,7 +321,37 @@ public class KOController {
 
 			ko.setKo_org_file(mfile.getOriginalFilename());
 
-		} // if: 첨부파일 있을 때
+		} else {
+			ko.setKo_org_file(ko.getKo_org_file());
+			ko.setKo_re_file(ko.getKo_re_file());
+		}
+		
+
+		if(ko.getKo_link1() != null && ko.getKo_link2() != null && ko.getKo_link3() != null) {
+			
+			String link1 = ko.getKo_link1();
+			ko.setKo_image1(link1.substring(link1.lastIndexOf("=") + 1));
+			String link2 = ko.getKo_link2();
+			ko.setKo_image2(link2.substring(link2.lastIndexOf("=") + 1));
+			String link3 = ko.getKo_link1();
+			ko.setKo_image3(link3.substring(link3.lastIndexOf("=") + 1));
+			
+		} else if(ko.getKo_link1() != null && ko.getKo_link2() != null) {
+			
+			String link1 = ko.getKo_link1();
+			ko.setKo_image1(link1.substring(link1.lastIndexOf("=") + 1));
+			String link2 = ko.getKo_link2();
+			ko.setKo_image2(link2.substring(link2.lastIndexOf("=") + 1));
+			ko.setKo_image3(null);
+			
+		} else if(ko.getKo_link1() != null) {
+			
+			String link1 = ko.getKo_link1();
+			ko.setKo_image1(link1.substring(link1.lastIndexOf("=") + 1));
+			ko.setKo_image2(null);
+			ko.setKo_image3(null);
+			
+		}
 		
 		if(koService.updateKO(ko) > 0) {
 			model.addAttribute("ko", ko);

@@ -11,16 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Whimory KO</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" 
-	rel="stylesheet" 
-	integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" 
-	crossorigin="anonymous">
 <style type="text/css">
-a {
-	text-decoration: none;
-	color: black;
-}
-
 .k-list {
 	clear: left;
 	position: relative;
@@ -34,6 +25,10 @@ a {
 	align: center;
 }
 
+a {
+	text-decoration: none;
+	color: black;
+}
 </style>
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 
@@ -55,18 +50,18 @@ a {
 	<c:set var="j" value="3" />
 	<table width="1000px">
 		<tr style="border-bottom: 0.5px solid gray">
-		<td colspan="4"><font size="5">전체 목록</font></td>
+		<td><font size="5">역사</font></td>
 		<td align="right">
 			<c:if test="${ loginUser.admin_yn ne null and loginUser.admin_yn eq 'Y' }">
 				<c:url var="kwf" value="kwmove.do" />
-				<button class="btn btn-info" onclick="javascript:location.href='${kwf}'">글쓰기</button>
+				<button onclick="javascript:location.href='${kwf}'">글쓰기</button>
 			</c:if>
 		</td>
-		<td colspan="4" align="right">
+		<td colspan="2" align="right">
 			<form action="ksearchword.do" method="post" align="right">
 				<input type="hidden" name="ko_category" value="${ category }">
-				<input type="search" name="ko_title" size="30" placeholder="검색어를 입력하세요">
-				<input type="submit" class="btn btn-outline-info" value="검색">
+				<input type="search" name="ko_title" placeholder="검색어를 입력하세요">
+				<input type="submit" value="검색">
 			</form>
 		</td>
 		</tr>
@@ -74,7 +69,7 @@ a {
 			<c:if test="${ i % j == 0 }">
 				<tr style="height:370px">
 			</c:if>
-			<td colspan="3" style="width:350px; align:center;">
+			<td style="width:350px; align:center;">
 				<c:url var="kdetail" value="kdetail.do">
 					<c:param name="ko_no" value="${ k.ko_no }" />
 				</c:url>
@@ -82,7 +77,7 @@ a {
 					<img class="ko_image" src="${ pageContext.servletContext.contextPath }/resources/ko_upfiles/${ k.ko_re_file }">
 					<br>${ k.ko_title }
 				</a><br>
-				<div style="background: #FFE4E1;">${ k.ko_hashtag }</div>
+				<div style="background: skyblue;">${ k.ko_hashtag }</div>
 			</td>
 			<c:if test="${ i % j == j - 1 }">
 				</tr>
