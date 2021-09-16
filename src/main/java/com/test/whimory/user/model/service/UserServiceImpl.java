@@ -1,5 +1,7 @@
 package com.test.whimory.user.model.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User selectUser(String user_id) {
 		return userDao.selectUser(user_id);
+	}
+	
+	//회원 목록
+	@Override
+	public ArrayList<User> selectList(){
+		return userDao.selectList();
 	}
 
 }
