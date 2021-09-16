@@ -38,7 +38,7 @@
 <tr><th colspan="2">
 
 <%-- 수정페이지로 이동 버튼 --%>
-<c:url var="qupdate" value="/qupmove.do">
+<c:url var="qupdate" value="/qupview.do">
    <c:param name="qq_no" value="${ question.qq_no }" />
 </c:url>
 <button onclick="javascript:location.href='${ qupdate }';">수정하기</button> &nbsp; 

@@ -55,7 +55,7 @@ public class NewsDao {
 	
 	// 글 등록날짜로 검색하기
 	public ArrayList<News> selectSearchDate(SearchDate sdate){
-		List<News> list = sqlSession.selectList("newsMapper.selectNew3", sdate);
+		List<News> list = sqlSession.selectList("newsMapper.selectSearchDate", sdate);
 		return (ArrayList<News>) list;
 	}
 	

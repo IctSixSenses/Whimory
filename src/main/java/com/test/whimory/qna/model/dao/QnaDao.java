@@ -59,25 +59,25 @@ public class QnaDao {
 	
 	// 작성자로 질문 검색
 	public ArrayList<QnaQuestion> selectSearchWriter(String keyword){
-		List<QnaQuestion> list = sqlSession.selectList("qnaMapper.searchWriter", keyword);
+		List<QnaQuestion> list = sqlSession.selectList("qnaMapper.selectSearchWriter", keyword);
 		return (ArrayList<QnaQuestion>) list;
 	}
 	
 	// 제목으로 질문 검색
 	public ArrayList<QnaQuestion> selectSearchTitle(String keyword){
-		List<QnaQuestion> list = sqlSession.selectList("qnaMapper.searchTitle", keyword);
+		List<QnaQuestion> list = sqlSession.selectList("qnaMapper.selectSearchTitle", keyword);
 		return (ArrayList<QnaQuestion>) list;
 	}
 	
 	// 질문 분류로 질문 검색
 	public ArrayList<QnaQuestion> selectSearchCategory(String keyword){
-		List<QnaQuestion> list = sqlSession.selectList("qnaMapper.searchCategory", keyword);
+		List<QnaQuestion> list = sqlSession.selectList("qnaMapper.selectSearchCategory", keyword);
 		return (ArrayList<QnaQuestion>) list;
 	}
 	
 	// 질문 등록 날짜로 질문 검색
 	public ArrayList<QnaQuestion> selectSearchDate(SearchDate sdate){
-		List<QnaQuestion> list = sqlSession.selectList("qnaMapper.searchDate", sdate);
+		List<QnaQuestion> list = sqlSession.selectList("qnaMapper.selectSearchDate", sdate);
 		return (ArrayList<QnaQuestion>) list;
 		}
 }
