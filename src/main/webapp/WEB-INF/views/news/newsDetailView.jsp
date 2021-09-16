@@ -13,16 +13,16 @@
 <c:import url="../common/menubar.jsp" />
 <hr>
 
-<h2 align="center">언론 보도</h2><br>
+<h2 align="center">${ news.news_title }</h2><br>
 
 <table align="center" width="1000" border="1" cellspacing="5" cellpadding="10">
-<tr><td>${ news.news_title }</td></tr> <br>
+<tr><td>${ news.news_title }</td></tr>
 <tr><td>${ news.news_date }</td></tr> <br>
 
 <c:if test="${ news.news_org_file != null }">
-<tr><td><img src="${ pageContext.servletContext.contextPath }/resources/images/${ news.news_org_file }" style="width:230px;height:300px"></td></tr> <br>
+<tr><td><img src="${ pageContext.servletContext.contextPath }/resources/news_upfiles/${ news.news_re_file }" style="width:230px;height:300px"></td></tr> <br>
 </c:if>
-<c:if test="${ news.news_org_file == null }">
+<c:if test="${ news.news_org_file == null }">S
 </c:if>
 
 <tr><td>${ news.news_content }</td></tr> <br>
