@@ -13,14 +13,14 @@
 <c:import url="../common/menubar.jsp" />
 <hr>
 
-<h2 align="center">언론 보도</h2><br>
+<h2 align="center">${ news.news_title }</h2><br>
 
 <table align="center" width="1000" border="1" cellspacing="5" cellpadding="10">
 <tr><td>${ news.news_title }</td></tr> <br>
 <tr><td>${ news.news_date }</td></tr> <br>
 
 <c:if test="${ news.news_org_file != null }">
-<tr><td><img src="${ pageContext.servletContext.contextPath }/resources/images/${ news.news_org_file }" style="width:230px;height:300px"></td></tr> <br>
+<tr><td><img src="${ pageContext.servletContext.contextPath }/resources/news_upfiles/${ news.news_re_file }" style="width:230px;height:300px"></td></tr> <br>
 </c:if>
 <c:if test="${ news.news_org_file == null }">
 </c:if>
@@ -32,7 +32,7 @@
 <tr><th colspan="2">
 
 <%-- 수정페이지로 이동 버튼 --%>
-<c:url var="wupdate" value="/wupmove.do">
+<c:url var="wupdate" value="/wupview.do">
    <c:param name="news_no" value="${ news.news_no }" />
 </c:url>
 <button onclick="javascript:location.href='${ wupdate }';">수정하기</button> &nbsp; 

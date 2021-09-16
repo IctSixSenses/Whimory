@@ -37,7 +37,7 @@ function showWriteForm(){
       <c:param name="news_no" value="${ news.news_no }" />
 </c:url>
 <c:if test="${ news.news_org_file != null }">
-   <td align="center"><a href="${ wdetail }"><img src="${ pageContext.servletContext.contextPath }/resources/images/${ news.news_org_file }" style="width:200px;height:200px"></a>
+   <td align="center"><a href="${ wdetail }"><img src="${ pageContext.servletContext.contextPath }/resources/news_upfiles/${ news.news_re_file }" style="width:200px;height:200px"></a>
    </td>
 </c:if>
 <c:if test="${ news.news_org_file == null }">
