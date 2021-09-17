@@ -17,20 +17,90 @@
 <head>
 <meta charset="UTF-8">
 <title>Whimory</title>
+<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 function showWriteForm(){
    location.href = "${ pageContext.servletContext.contextPath }/qwform.do";
 }
 
 function goLogin(){
-	   location.href = "${ pageContext.servletContext.contextPath }/login.do";
-	}
+      location.href = "${ pageContext.servletContext.contextPath }/loginPage.do";
+   }
+   
+function showDiv(item){
+   
+   if($(item).val() == "writer"){
+      $("#writerDiv").css("display", "inline-block");
+      $("#titleDiv").css("display", "none");
+      $("#categoryDiv").css("display", "none");
+      $("#dateDiv").css("display", "none");
+   }
+   
+   if($(item).val() == "title"){
+      $("#writerDiv").css("display", "none");
+      $("#titleDiv").css("display", "inline-block");
+      $("#categoryDiv").css("display", "none");
+      $("#dateDiv").css("display", "none");
+   }
+      
+   if($(item).val() == "category"){
+      $("#writerDiv").css("display", "none");
+      $("#titleDiv").css("display", "none");
+      $("#categoryDiv").css("display", "inline-block");
+      $("#dateDiv").css("display", "none");
+   }
+      
+   if($(item).val() == "date"){
+      $("#writerDiv").css("display", "none");
+      $("#titleDiv").css("display", "none");
+      $("#categoryDiv").css("display", "none");
+      $("#dateDiv").css("display", "inline-block");
+   }
+}
+
 </script>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <hr>
 <h2 align="center">무엇이든 물어보세요</h2>
+<table align="center" width="1150px">
+   <tr>
+      <td align="right">
+         <select onchange="showDiv(this)">
+            <option value="writer">작성자</option>
+            <option value="title">제목</option>
+            <option value="category">질문분류</option>
+            <option value="date">작성날짜</option>
+         </select>
+         <div id="writerDiv" style="display:inline-block">
+         <form action="qsearchWriter.do" method="post">
+            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
+            <button type="submit">검색</button>
+         </form>
+         </div>
+         <div id="titleDiv" style="display:none">
+         <form action="qsearchTitle.do" method="post">
+            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
+            <button type="submit">검색</button>
+         </form>
+         </div>
+         <div id="categoryDiv" style="display:none">
+         <form action="qsearchCategory.do" method="post">
+            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
+            <button type="submit">검색</button>
+         </form>
+         </div>
+         <div id="dateDiv" style="display:none">
+         <form action="qsearchDate.do" method="post">
+            <input type="date" name="begin"> ~ <input type="date" name="end">
+            <button type="submit">검색</button>
+         </form>
+         </div>
+         
+      </td>
+   </tr>
+</table>
 <!-- 게시글 쓰기(등록)은 로그인한 회원만 가능함 -->
 <c:if test="${ empty sessionScope.loginUser }">
    <div style="align:center;text-align:center;">
@@ -46,11 +116,11 @@ function goLogin(){
 <br>
 <table class="table table-hover">
 <tr class="table-light">
-	<th>작성자</th>
-	<th>질문 분류</th>
-	<th>제목</th>
-	<th>작성일</th>
-	<th>답변여부</th>
+   <th>작성자</th>
+   <th>질문 분류</th>
+   <th>제목</th>
+   <th>작성일</th>
+   <th>답변여부</th>
 </tr>
 <c:forEach items="${ requestScope.list }" var="q">
 <tr>
@@ -146,7 +216,6 @@ function goLogin(){
 
 
     
-
 
 
 

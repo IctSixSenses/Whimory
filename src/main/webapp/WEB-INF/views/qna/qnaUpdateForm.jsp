@@ -31,7 +31,6 @@
 	<td>
 		<form>
 			<select name="qq_category">
-				<option value="none">=== 선택 ===</option>
 				<option value="whimory1">정보게시판</option>
 				<option value="whimory2">공지사항</option>
 				<option value="whimory3">언론보도</option>

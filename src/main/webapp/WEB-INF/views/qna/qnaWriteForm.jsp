@@ -25,7 +25,6 @@
 	<td>
 		<form>
 			<select name="qq_category">
-				<option value="none">=== 선택 ===</option>
 				<option value="정보게시판">정보게시판</option>
 				<option value="공지사항">공지사항</option>
 				<option value="언론보도">언론보도</option>
