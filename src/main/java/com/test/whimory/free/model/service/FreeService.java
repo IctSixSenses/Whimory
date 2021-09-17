@@ -15,7 +15,7 @@ public interface FreeService {
 	ArrayList<Free> selectSearchContent(String keyword);	//글 내용 검색
 	ArrayList<FreeReply> selectReplyList(int free_no);		//댓글 목록(원글의 상세보기 page)
 	int insertOrigin(Free free);	//원글 등록
-	int insertReply(Free free);		//댓글 등록
+	int insertReply(FreeReply freply);		//댓글 등록
 	int updateOrigin(Free free);	//원글 수정
 	int deleteOrigin(int free_no);	//원글 삭제
 	int deleteReply(int free_reply_no);	//댓글 삭제

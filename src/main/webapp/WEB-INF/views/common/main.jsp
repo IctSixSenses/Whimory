@@ -37,9 +37,9 @@
 	<!-- 본격 메인 페이지 구성 -->
 	
 	
-	
-	
-	
+	<!-- 다슬: 정보 게시판 부분 -->
+	<c:import url="/WEB-INF/views/ko/koTop10.jsp" />
+
 	</section>
 	
 

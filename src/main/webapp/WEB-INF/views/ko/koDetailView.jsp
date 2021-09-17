@@ -22,11 +22,33 @@
 }
 
 .image-thumb {
-	width: 220px;
+	width: 230px;
 	height: 170px;
 	align: center;
 }
 </style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" 
+	rel="stylesheet" 
+	integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" 
+	crossorigin="anonymous">
+
+<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+function deleteCheck(){
+	
+	<c:url var="kdel" value="kdelete.do">
+		<c:param name="kNo" value="${ ko.ko_no }" />
+		<c:param name="rfile" value="${ ko.ko_re_file }" />
+	</c:url>
+	
+	if(confirm("게시글을 삭제하시겠습니까?") == true){
+		location.href="${ kdel }";
+	} else {
+		return false;
+	}
+	
+}
+</script>
 </head>
 
 <body>
@@ -56,9 +78,17 @@
 		</td>
 		<td colspan="4" align="right">
 			<c:if test="${ loginUser.admin_yn eq 'Y' }">
-				<button onclick="kupview.do">수정</button>
-				<button onclick="kdelete.do">삭제</button>
-				<button onclick="kwmove.do">글쓰기</button>
+				<c:url var="kmu" value="kupview.do">
+					<c:param name="ko_no" value="${ ko.ko_no }" />
+				</c:url>
+				<button class="btn btn-outline-success" 
+						onclick="javascript:location.href='${kmu}'; return false;">수정</button>
+				
+				<button class="btn btn-outline-success" onclick="deleteCheck(); return false;">삭제</button>
+				
+				<c:url var="kwf" value="kwmove.do" />
+				<button class="btn btn-success" 
+						onclick="javascript:location.href='${kwf}'; return false;">글쓰기</button>
 			</c:if>
 		</td>
 	</tr>
@@ -88,46 +118,32 @@
 	</tr>
 	<tr height="50px"><td>&nbsp;</td></tr>
 	<tr style="border-top: 0.5px solid Gainsboro; border-bottom: 0.5px solid Gainsboro; height: 200px">
-		<td colspan="2" align="center">
-			<c:if test="${ ko.ko_link1 ne null }">
+		<c:if test="${ ko.ko_link1 ne null }">
+			<td colspan="2" align="center">
+			
 				<a href="${ ko.ko_link1 }">
 					<img class="image-thumb" src="http://img.youtube.com/vi/${ ko.ko_image1 }/mqdefault.jpg">
 				</a>
-			</c:if>
-			<c:if test="${ ko.ko_link1 eq null }">
-				<a href="${ ko.ko_link1 }">
-					<img class="image-thumb" src="${ pageContext.servletContext.contextPath }/resources/ko_upfiles/basic.jpg">
-				</a>
-			</c:if>
-		</td>
-		<td colspan="2" align="center">
-			<c:if test="${ ko.ko_link2 ne null }">
+			</td>
+		</c:if>
+		<c:if test="${ ko.ko_link2 ne null }">
+			<td colspan="2" align="center">		
 				<a href="${ ko.ko_link2 }">
 					<img class="image-thumb" src="http://img.youtube.com/vi/${ ko.ko_image2 }/mqdefault.jpg">
 				</a>
-			</c:if>
-			<c:if test="${ ko.ko_link2 eq null }">
-				<a href="#">
-					<img class="image-thumb" src="${ pageContext.servletContext.contextPath }/resources/ko_upfiles/basic.jpg">
-				</a>
-			</c:if>
-		</td>
-		<td colspan="2" align="center">
-			<c:if test="${ ko.ko_link3 ne null }">
+			</td>
+		</c:if>
+		<c:if test="${ ko.ko_link3 ne null }">
+			<td colspan="2" align="center">
 				<a href="${ ko.ko_link3 }">
 					<img class="image-thumb" src="http://img.youtube.com/vi/${ ko.ko_image3 }/mqdefault.jpg">
 				</a>
-			</c:if>
-			<c:if test="${ ko.ko_link3 eq null }">
-				<a href="#">
-					<img class="image-thumb" src="${ pageContext.servletContext.contextPath }/resources/ko_upfiles/basic.jpg">
-				</a>
-			</c:if>
-		</td>
+			</td>
+		</c:if>
 	</tr>
 	<tr height="50px"><td colspan="6" align="center">
-		<c:url var="klst" value="javascript:history.go(-1)" />
-		<button onclick="${ klst }">전체 목록</button>
+		<c:url var="klst" value="klist.do" />
+		<button class="btn btn-outline-success" onclick="javascript:location.href='${ klst }'">전체 목록</button>
 	</td></tr>
 	</table>
 </div>

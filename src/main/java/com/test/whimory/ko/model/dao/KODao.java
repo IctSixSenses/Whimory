@@ -19,6 +19,11 @@ public class KODao {
 		List<KO> list = sqlSession.selectList("koMapper.selectList");
 		return (ArrayList<KO>) list;
 	}
+	
+	public ArrayList<KO> selectTop10(){
+		List<KO> list = sqlSession.selectList("koMapper.selectTop10");
+		return (ArrayList<KO>) list;
+	}
 
 	public ArrayList<KO> selectSearchCategory(String cate) {
 		List<KO> list = sqlSession.selectList("koMapper.selectSearchCategory", cate);
@@ -38,7 +43,14 @@ public class KODao {
 	}
 
 	public ArrayList<KO> selectSearchKeyword(KO ko) {
-		List<KO> list = sqlSession.selectList("koMapper.selectSearchKeyword", ko);
+		List<KO> list;
+		
+		if(ko.getKo_category().equals(" ")) {
+			list = sqlSession.selectList("koMapper.selectSearchCateKeyword", ko);
+		} else {
+			list = sqlSession.selectList("koMapper.selectSearchKeyword", ko);
+		}
+		
 		return (ArrayList<KO>) list;
 	}
 

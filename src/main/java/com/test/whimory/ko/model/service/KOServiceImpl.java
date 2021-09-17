@@ -20,6 +20,12 @@ public class KOServiceImpl implements KOService {
 		List<KO> list = koDao.selectList();
 		return (ArrayList<KO>)list;
 	}
+	
+	@Override
+	public ArrayList<KO> selectTop10(){
+		List<KO> list = koDao.selectTop10();
+		return (ArrayList<KO>)list;
+	}
 
 	@Override
 	public ArrayList<KO> selectSearchCategory(String cate) {

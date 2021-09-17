@@ -7,6 +7,7 @@ import com.test.whimory.ko.model.vo.KO;
 public interface KOService {
 	
 	ArrayList<KO> selectList();
+	ArrayList<KO> selectTop10();
 	ArrayList<KO> selectSearchCategory(String cate);
 	int selectListCount();
 	KO selectKO(int ko_no);
