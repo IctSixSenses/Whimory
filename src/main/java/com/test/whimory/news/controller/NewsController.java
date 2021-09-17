@@ -3,12 +3,17 @@ package com.test.whimory.news.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +22,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.test.whimory.common.SearchDate;
 import com.test.whimory.news.model.service.NewsService;
 import com.test.whimory.news.model.vo.News;
-import com.test.whimory.qna.model.vo.QnaQuestion;
+import com.test.whimory.notice.model.vo.Notice;
 import com.test.whimory.user.model.vo.User;
 
 @Controller
@@ -270,5 +277,92 @@ public class NewsController {
 			model.addAttribute("message", news_no + "번 언론보도 삭제 실패");
 			return "common/error";
 		}
+	}
+	
+	// 언론보도 글 제목으로 검색
+	@RequestMapping(value = "wsearchTitle.do", method = RequestMethod.POST)
+	public String newsSearchTitleMethod(@RequestParam("keyword") String keyword, Model model, HttpSession session) {
+		ArrayList<News> list = newsService.selectSearchTitle(keyword);
+
+		if (list.size() > 0) {
+			model.addAttribute("list", list);
+			User loginUser = (User) session.getAttribute("loginUser");
+			if (loginUser != null && loginUser.getAdmin_yn().equals("Y")) {
+				return "news/newsAdminListView";
+			}else {
+			return "news/newsListView";
+			}
+		} else {
+			model.addAttribute("message", keyword + "로 검색된 정보가 없습니다.");
+			return "common/error";
+		}
+	}
+	
+	// 언론보도 글 내용으로 검색
+	@RequestMapping(value = "wsearchContent.do", method = RequestMethod.POST)
+	public String newsSearchContentMethod(@RequestParam("keyword") String keyword, Model model, HttpSession session) {
+		ArrayList<News> list = newsService.selectSearchContent(keyword);
+
+		if (list.size() > 0) {
+			model.addAttribute("list", list);
+			User loginUser = (User) session.getAttribute("loginUser");
+			if (loginUser != null && loginUser.getAdmin_yn().equals("Y")) {
+				return "news/newsAdminListView";
+			}else {
+			return "news/newsListView";
+			}
+		} else {
+			model.addAttribute("message", keyword + "로 검색된 정보가 없습니다.");
+			return "common/error";
+		}
+	}
+	
+	// 언론보도 글 등록 날짜로 검색
+	@RequestMapping(value = "wsearchDate.do", method = RequestMethod.POST)
+	public String newsSearchDateMethod(SearchDate sdate, Model model, HttpSession session) {
+		ArrayList<News> list = newsService.selectSearchDate(sdate);
+
+		if (list.size() > 0) {
+			model.addAttribute("list", list);
+			User loginUser = (User) session.getAttribute("loginUser");
+			if (loginUser != null && loginUser.getAdmin_yn().equals("Y")) {
+				return "news/newsAdminListView";
+			}else {
+			return "news/newsListView";
+			}
+		} else {
+			model.addAttribute("message", "날짜로 검색된 정보가 없습니다.");
+			return "common/error";
+		}
+	}
+	
+	// 언론보도 최신 글 3개 조회
+	@RequestMapping(value = "new3.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String noticeNewTop3Method(HttpServletResponse response) throws UnsupportedEncodingException {
+		// 최신 언론보도 3개 조회
+		ArrayList<News> list = newsService.selectNew3();
+
+		// 전송용 json 객체 준비
+		JSONObject sendJson = new JSONObject();
+		// list 옮길 json 배열 준비
+		JSONArray jarr = new JSONArray();
+
+		// list 를 jarr 로 옮기기(복사)
+		for (News news : list) {
+			// notice 필드값 저장할 json 객체 생성
+			JSONObject job = new JSONObject();
+
+			job.put("news_no", news.getNews_no());
+			job.put("news_title", URLEncoder.encode(news.getNews_title(), "utf-8"));
+
+			// job 를 jarr 에 저장
+			jarr.add(job);
+		}
+
+		// 전송용 json 객체에 jarr 담음
+		sendJson.put("list", jarr);
+
+		return sendJson.toJSONString(); // jsonView 가 리턴됨
 	}
 }
