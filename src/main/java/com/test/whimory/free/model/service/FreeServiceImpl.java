@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.test.whimory.common.Paging;
 import com.test.whimory.free.model.dao.FreeDao;
 import com.test.whimory.free.model.vo.Free;
+import com.test.whimory.free.model.vo.FreeBad;
+import com.test.whimory.free.model.vo.FreeLike;
 import com.test.whimory.free.model.vo.FreeReply;
 
 @Service("FreeService")
@@ -77,22 +79,48 @@ public class FreeServiceImpl implements FreeService {
 	}
 
 	@Override
-	public int addReadCount(int free_no) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateAddReadCount(int free_no) {
+		return freeDao.updateAddReadCount(free_no);
 	}
 
 	@Override
-	public int addLikeCount(int free_no) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int selectLikeYN(FreeLike flike) {
+		return freeDao.selectLikeYN(flike);
 	}
 
 	@Override
-	public int addBadCount(int free_no) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int selectBadYN(FreeBad fbad) {
+		return freeDao.selectBadYN(fbad);
 	}
 
+	@Override
+	public int selectLikeCount(FreeLike flike) {
+		return freeDao.selectLikeCount(flike);
+	}
+
+	@Override
+	public int selectBadCount(FreeBad fbad) {
+		return freeDao.selectBadCount(fbad);
+	}
+
+	@Override
+	public int insertAddLikeCount(FreeLike flike) {
+		return freeDao.insertAddLikeCount(flike);
+	}
+
+	@Override
+	public int insertAddBadCount(FreeBad fbad) {
+		return freeDao.insertAddBadCount(fbad);
+	}
+
+	@Override
+	public int updateAddLikeCount(int free_no) {
+		return freeDao.updateAddLikeCount(free_no);
+	}
+
+	@Override
+	public int updateAddBadCount(int free_no) {
+		return freeDao.updateAddBadCount(free_no);
+	}
 	
 }

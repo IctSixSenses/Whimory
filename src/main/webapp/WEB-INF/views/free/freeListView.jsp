@@ -11,16 +11,13 @@
 <style type="text/css"> 
 table tr td a { text-decoration:none } 
 </style> 
-<link rel="stylesheet"
-     href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 function moveLoginPage(){
    alert("로그인 후 이용 가능한 서비스입니다.\n로그인 페이지로 이동합니다.");   
    location.href = "${ pageContext.servletContext.contextPath }/loginPage.do";
-}
-function showWriteForm(){
-   location.href = "${ pageContext.servletContext.contextPath }/fwform.do";
 }
 
 function freeDel(button, free_re_file){
@@ -35,14 +32,24 @@ function freeDel(button, free_re_file){
    }
 }
 
-function fsearch(){
-	
-	
-	
-	location.href = "${ pageContext.servletContext.contextPath }/fwform.do";
-	
-	
-	
+function showDiv(item){
+	if($(item).val() == "title"){
+		$("#titleDiv").css("display", "inline-block");
+		$("#writerDiv").css("display", "none");
+		$("#contentDiv").css("display", "none");
+	}
+	   
+	if($(item).val() == "writer"){
+		$("#titleDiv").css("display", "none");
+		$("#writerDiv").css("display", "inline-block");
+		$("#contentDiv").css("display", "none");
+	}
+	   
+	if($(item).val() == "content"){
+		$("#titleDiv").css("display", "none");
+		$("#writerDiv").css("display", "none");
+		$("#contentDiv").css("display", "inline-block");
+	}
 }
 
 </script>
@@ -60,15 +67,41 @@ function fsearch(){
 </c:if>
 <c:if test="${ !empty sessionScope.loginUser and sessionScope.loginUser.admin_yn eq 'N' }">
    <div style="align:center;text-align:center;">
-      <button class="btn btn-outline-primary" onclick="showWriteForm();">게시글 작성</button>
+      <button class="btn btn-outline-primary" onclick="javascript:location.href='fwform.do';">게시글 작성</button>
    </div>
 </c:if>
 <br>
 
 <table align="center" width="1150px">
 	<tr>
-		<td><h5>총 게시글 갯수 : ${ listCount }</h5></td>
-      	
+		<td colspan="2"><h5>총 게시글 갯수 : ${ listCount }</h5></td>
+      	<td align="right">
+    	<!-- 게시판 내 검색기능 -->  
+		<td colspan="8"align="right">
+			<select class="form-control" onchange="showDiv(this)" style="width:85px; display:inline-block">
+				<option value="title">제목</option>
+				<option value="writer">작성자</option>
+				<option value="content">내용</option>
+			</select>
+			<div id="titleDiv" style="display:inline-block">
+				<form action="fstitle.do" method="post">
+					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
+					<button type="submit" class="btn btn-outline-primary">검색</button>
+				</form>
+			</div>
+			<div id="writerDiv" style="display:none">
+				<form action="fswriter.do" method="post">
+					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
+					<button type="submit" class="btn btn-outline-primary">검색</button>
+				</form>
+			</div>
+			<div id="contentDiv" style="display:none">
+				<form action="fscontent.do" method="post">
+					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
+					<button type="submit" class="btn btn-outline-primary">검색</button>
+				</form>
+			</div>
+		</td>
 	</tr>
 </table>
 
