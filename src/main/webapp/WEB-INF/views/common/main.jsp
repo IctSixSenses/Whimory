@@ -46,6 +46,7 @@
 	
 	<section>
 		<c:import url="/WEB-INF/views/news/news3.jsp" />
+	</section>
 
 
 	<br>
