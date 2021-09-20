@@ -44,6 +44,11 @@
 	</section>
 	
 
+	<section>
+		<c:import url="/WEB-INF/views/news/news3.jsp" />
+	</section>
+
+
 	<br><br><br><br><br><br><br><br><br><br><br><br>
 	<hr style="clear: both;">
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
