@@ -79,5 +79,21 @@ public class QnaDao {
 	public ArrayList<QnaQuestion> selectSearchDate(SearchDate sdate){
 		List<QnaQuestion> list = sqlSession.selectList("qnaMapper.selectSearchDate", sdate);
 		return (ArrayList<QnaQuestion>) list;
-		}
+	}
+	
+	// 답변 조회
+	public ArrayList<QnaAnswer> selectAnswerList(int qq_no){
+		List<QnaAnswer> list = sqlSession.selectList("qnaMapper.selectAnswerList", qq_no);
+		return (ArrayList<QnaAnswer>) list; 
+	}
+
+	// 답변 여부 y 업데이트
+	public int updateQqyn(int qq_no) {
+		return sqlSession.update("qnaMapper.updateQqyn", qq_no);
+	}
+	
+	// 답변 여부 n 업데이트
+	public int updateQQYN(int qq_no) {
+		return sqlSession.update("qnaMapper.updateQQYN", qq_no);
+	}
 }

@@ -20,4 +20,7 @@ public interface QnaService {
 	ArrayList<QnaQuestion> selectSearchTitle(String keyword);
 	ArrayList<QnaQuestion> selectSearchCategory(String keyword);
 	ArrayList<QnaQuestion> selectSearchDate(SearchDate sdate);
+	ArrayList<QnaAnswer> selectAnswerList(int qq_no);
+	int updateQqyn(int qq_no);	// 답변여부 y로 바꾸기
+	int updateQQYN(int qq_no);	// 답변여부 n
 }
