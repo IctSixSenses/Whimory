@@ -22,9 +22,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.test.whimory.common.Paging;
 import com.test.whimory.common.SearchDate;
+import com.test.whimory.free.model.vo.FreeReply;
 import com.test.whimory.qna.model.service.QnaService;
+import com.test.whimory.qna.model.vo.QnaAnswer;
 import com.test.whimory.qna.model.vo.QnaQuestion;
-import com.test.whimory.report.model.vo.Report;
 import com.test.whimory.user.model.vo.User;
 
 @Controller
@@ -98,9 +99,12 @@ public class QnaController {
 			@RequestParam("page") int page, HttpSession session) {
 		QnaQuestion question = qnaService.selectOne(qq_no);
 
+		ArrayList<QnaAnswer> alist = qnaService.selectAnswerList(qq_no); // 답변 조회
+
 		if (question != null) {
 			mv.addObject("question", question);
 			mv.addObject("currentPage", page);
+			mv.addObject("alist", alist);	// 답변 조회
 
 			User loginUser = (User) session.getAttribute("loginUser");
 			if (loginUser != null && loginUser.getAdmin_yn().equals("Y")) {
@@ -295,7 +299,7 @@ public class QnaController {
 					} // 직접 이름바꾸기
 
 					question.setQq_re_file(renameFileName);
-		
+
 				} catch (Exception e) {
 					e.printStackTrace();
 					model.addAttribute("message", "전송파일 저장 실패.");
@@ -316,11 +320,12 @@ public class QnaController {
 			return "common/error";
 		}
 	}
-	
+
 	// 질문 삭제
 	@RequestMapping("qdelete.do")
 	public String qnaDeleteMethod(@RequestParam("qq_no") int qq_no,
-			@RequestParam(name = "rfile", required = false) String renameFileName, HttpServletRequest request, Model model) {
+			@RequestParam(name = "rfile", required = false) String renameFileName, HttpServletRequest request,
+			Model model) {
 		if (qnaService.deleteQuestion(qq_no) > 0) {
 			// 첨부파일이 있는 글일 때, 저장폴더에 있는 파일도 삭제함
 			if (renameFileName != null) {
@@ -333,11 +338,11 @@ public class QnaController {
 			return "common/error";
 		}
 	}
-	
+
 	// qna 질문 작성자로 검색
 	@RequestMapping(value = "qsearchWriter.do", method = RequestMethod.POST)
-	public ModelAndView qnaSearchWriterMethod(@RequestParam("keyword") String keyword, 
-			ModelAndView mv, @RequestParam(name = "page", required = false) String page) {
+	public ModelAndView qnaSearchWriterMethod(@RequestParam("keyword") String keyword, ModelAndView mv,
+			@RequestParam(name = "page", required = false) String page) {
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
@@ -365,9 +370,9 @@ public class QnaController {
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
 		Paging paging = new Paging(startRow, endRow);
-		
+
 		ArrayList<QnaQuestion> list = qnaService.selectSearchWriter(keyword);
-		
+
 		if (list != null && list.size() > 0) {
 			mv.addObject("list", list);
 			mv.addObject("listCount", listCount);
@@ -382,14 +387,14 @@ public class QnaController {
 			mv.addObject("message", keyword + "로 검색된 정보가 없습니다.");
 			mv.setViewName("common/error");
 		}
-		
+
 		return mv;
 	}
-	
+
 	// qna 질문 제목으로 검색
 	@RequestMapping(value = "qsearchTitle.do", method = RequestMethod.POST)
-	public ModelAndView qnaSearchTitleMethod(@RequestParam("keyword") String keyword, 
-			ModelAndView mv, @RequestParam(name = "page", required = false) String page) {
+	public ModelAndView qnaSearchTitleMethod(@RequestParam("keyword") String keyword, ModelAndView mv,
+			@RequestParam(name = "page", required = false) String page) {
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
@@ -417,9 +422,9 @@ public class QnaController {
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
 		Paging paging = new Paging(startRow, endRow);
-		
+
 		ArrayList<QnaQuestion> list = qnaService.selectSearchTitle(keyword);
-		
+
 		if (list != null && list.size() > 0) {
 			mv.addObject("list", list);
 			mv.addObject("listCount", listCount);
@@ -434,14 +439,14 @@ public class QnaController {
 			mv.addObject("message", keyword + "로 검색된 정보가 없습니다.");
 			mv.setViewName("common/error");
 		}
-		
+
 		return mv;
 	}
-	
+
 	// qna 질문 분류로 검색
 	@RequestMapping(value = "qsearchCategory.do", method = RequestMethod.POST)
-	public ModelAndView qnaSearchCategoryMethod(@RequestParam("keyword") String keyword, 
-			ModelAndView mv, @RequestParam(name = "page", required = false) String page) {
+	public ModelAndView qnaSearchCategoryMethod(@RequestParam("keyword") String keyword, ModelAndView mv,
+			@RequestParam(name = "page", required = false) String page) {
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
@@ -469,9 +474,9 @@ public class QnaController {
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
 		Paging paging = new Paging(startRow, endRow);
-		
+
 		ArrayList<QnaQuestion> list = qnaService.selectSearchCategory(keyword);
-		
+
 		if (list != null && list.size() > 0) {
 			mv.addObject("list", list);
 			mv.addObject("listCount", listCount);
@@ -486,14 +491,14 @@ public class QnaController {
 			mv.addObject("message", keyword + "로 검색된 정보가 없습니다.");
 			mv.setViewName("common/error");
 		}
-		
+
 		return mv;
 	}
-	
+
 	// qna 질문 날짜로 검색
 	@RequestMapping(value = "qsearchDate.do", method = RequestMethod.POST)
-	public ModelAndView qnaSearchDateMethod(SearchDate sdate, 
-			ModelAndView mv, @RequestParam(name = "page", required = false) String page) {
+	public ModelAndView qnaSearchDateMethod(SearchDate sdate, ModelAndView mv,
+			@RequestParam(name = "page", required = false) String page) {
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
@@ -521,9 +526,9 @@ public class QnaController {
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
 		Paging paging = new Paging(startRow, endRow);
-		
+
 		ArrayList<QnaQuestion> list = qnaService.selectSearchDate(sdate);
-		
+
 		if (list != null && list.size() > 0) {
 			mv.addObject("list", list);
 			mv.addObject("listCount", listCount);
@@ -538,7 +543,40 @@ public class QnaController {
 			mv.addObject("message", "해당 날짜로 검색된 정보가 없습니다.");
 			mv.setViewName("common/error");
 		}
-		
+
 		return mv;
+	}
+
+	// 답변 등록
+	@RequestMapping(value = "ainsert.do", method = RequestMethod.POST)
+	public String answerInsertMethod(QnaAnswer answer, @RequestParam("qq_no") int qq_no, @RequestParam("page") int page, Model model) {
+
+		// 서비스 보내서 처리하고, 결과 리턴
+		if (qnaService.insertAnswer(answer) > 0) {
+
+			model.addAttribute("page", page);
+			model.addAttribute("qq_no", answer.getQq_no());
+			qnaService.updateQqyn(qq_no);
+			return "redirect:qdetail.do?qq_no=" + answer.getQq_no();
+		} else {
+			model.addAttribute("message", answer.getQq_no() + "번 답변 등록 실패하였습니다.");
+			return "common/error";
+		}
+	}
+
+	// 답변 삭제
+	@RequestMapping("adelete.do")
+	public String answerDeleteMethod(@RequestParam("qq_no") int qq_no, @RequestParam("page") int page, 
+									@RequestParam("qa_no") int qa_no, Model model) {
+		if (qnaService.deleteAnswer(qa_no) > 0) {
+			
+			model.addAttribute("page", page);
+			model.addAttribute("qq_no", qq_no);
+			qnaService.updateQQYN(qq_no);
+			return "redirect:qdetail.do";
+		} else {
+			model.addAttribute("message", qa_no + "번 답변 삭제 실패");
+			return "common/error";
+		}
 	}
 }

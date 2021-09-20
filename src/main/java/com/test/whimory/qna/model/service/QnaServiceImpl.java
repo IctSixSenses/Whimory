@@ -76,4 +76,19 @@ public class QnaServiceImpl implements QnaService {
 	public ArrayList<QnaQuestion> selectSearchDate(SearchDate sdate){
 		return qnaDao.selectSearchDate(sdate);
 	}
+	
+	@Override
+	public ArrayList<QnaAnswer> selectAnswerList(int qq_no){
+		return qnaDao.selectAnswerList(qq_no);
+	}
+	
+	@Override
+	public int updateQqyn(int qq_no) {
+		return qnaDao.updateQqyn(qq_no);
+	}
+	
+	@Override
+	public int updateQQYN(int qq_no) {
+		return qnaDao.updateQQYN(qq_no);
+	}
 }

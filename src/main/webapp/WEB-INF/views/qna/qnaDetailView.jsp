@@ -56,7 +56,30 @@
 <button onclick="javascript:history.go(-1);">목록보기</button></th></tr>
 </table>
 
+<!-- 댓글 목록 -->
 
+<table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3">
+   
+   <c:forEach items="${ alist }" var="ali">
+   <c:if test="${!empty ali.qa_content }">
+		<tr>
+			<th colspan="1" align="center">&nbsp;&nbsp;&nbsp;${ ali.user_id }</th>
+			<td colspan="8">${ ali.qa_content }</td>	
+			<td colspan="1">${ ali.qa_date }</td>
+		</tr>
+	</c:if>
+	
+	<c:if test="${empty ali.qa_content }">
+		<tr>
+			<td colspan="8">등록된 답변이 없습니다.</td>
+		</tr>
+	</c:if>
+	</c:forEach>
+	
+	
+	
+
+</table>
 
 
 

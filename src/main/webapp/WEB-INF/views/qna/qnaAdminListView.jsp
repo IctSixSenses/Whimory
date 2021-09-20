@@ -56,11 +56,11 @@
 <td align="center">${  q.qq_yn }</td>
 
 <td align="center">
-<c:if test="${ qa_content == null }">
-	-
-</c:if>
-<c:if test="${ qa_content != null }">
+<c:if test="${ q.qq_yn eq 'Y'}">
 	${  qa_date }
+</c:if>
+<c:if test="${ q.qq_yn eq 'N' }">
+	-
 </c:if>
 </td>
 </tr>

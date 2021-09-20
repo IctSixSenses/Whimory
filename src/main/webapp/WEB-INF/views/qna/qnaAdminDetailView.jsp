@@ -47,6 +47,42 @@
 <button onclick="javascript:history.go(-1);">목록보기</button></th></tr>
 </table>
 
+<!-- 댓글 목록 -->
+<table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3">
+   <c:forEach items="${ alist }" var="ali">
+		<tr>
+			<th colspan="2" align="center">&nbsp;&nbsp;&nbsp;${ ali.user_id }</th>
+			<td colspan="8">${ ali.qa_content }</td>	
+			<td colspan="2">${ ali.qa_date }</td>	
+	
+				<td colspan="2">
+					<c:url var="adelete" value="/adelete.do">
+						<c:param name="page" value="${ currentPage }"/>
+						<c:param name="qq_no" value="${ ali.qq_no }"/>
+				    	<c:param name="qa_no" value="${ ali.qa_no }"/>
+				    </c:url>
+				    <button onclick="javascript:location.href='${ adelete }'" class="btn btn-outline-danger">삭제</button>&nbsp; 
+				</td>
+		
+		</tr>
+	</c:forEach>
+</table>
+<%-- 댓글 등록 폼 --%>
+<div align="center" width="1000px" style="font-size:20px;">답변을 남겨주세요</div>
+<div align="center" width="1000px" height="20px"></div>
+
+	<form action="ainsert.do" method="post">
+		<input type="hidden" name="page" id="page" value="${ currentPage } ">
+		<input type="hidden" name="qq_no" id="qq_no" value="${ question.qq_no }">
+		<input type="hidden" name="user_id" id="user_id" value="${ loginUser.user_id }">
+		<table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3">
+			<tr style="border-top:none;">
+				<td colspan="1" align="center">${ loginUser.user_id }</td>
+				<td colspan="10"><textarea rows="3" cols="105" name="qa_content" placeholder="답변을 남겨주세요."></textarea></td>	
+				<td colspan="1"><input type="submit" value="등록" class="button"></td>
+			</tr>
+		</table>
+	</form>
 <hr>
 <c:import url="../common/footer.jsp" />
 </body>
