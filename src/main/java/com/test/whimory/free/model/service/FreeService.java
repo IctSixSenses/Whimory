@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.test.whimory.common.Paging;
 import com.test.whimory.free.model.vo.Free;
+import com.test.whimory.free.model.vo.FreeBad;
+import com.test.whimory.free.model.vo.FreeLike;
 import com.test.whimory.free.model.vo.FreeReply;
 
 public interface FreeService {
@@ -19,13 +21,13 @@ public interface FreeService {
 	int updateOrigin(Free free);	//원글 수정
 	int deleteOrigin(int free_no);	//원글 삭제
 	int deleteReply(int free_reply_no);	//댓글 삭제
-	int addReadCount(int free_no);	//조회수 증가
-	int addLikeCount(int free_no);	//추천수 증가
-	int addBadCount(int free_no);	//신고수 증가
-	
-	//신고 추천 관련은 추후 작성
-	
-	
-	
-	
+	int updateAddReadCount(int free_no);	//조회수 증가
+	int selectLikeYN(FreeLike flike);	//추천 검사(추천 여부)
+	int selectBadYN(FreeBad fbad);	//신고 검사(신고 여부)
+	int selectLikeCount(FreeLike flike);	//추천수 조회
+	int selectBadCount(FreeBad fbad);	//신고수 조회
+	int insertAddLikeCount(FreeLike flike);	//추천수 등록
+	int insertAddBadCount(FreeBad fbad);		//신고수 등록
+	int updateAddLikeCount(int free_no);	//추천수 증가
+	int updateAddBadCount(int free_no);	 //신고수 증가
 }

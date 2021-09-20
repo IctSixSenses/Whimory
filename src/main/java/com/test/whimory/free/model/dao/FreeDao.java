@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.test.whimory.common.Paging;
 import com.test.whimory.free.model.vo.Free;
+import com.test.whimory.free.model.vo.FreeBad;
+import com.test.whimory.free.model.vo.FreeLike;
 import com.test.whimory.free.model.vo.FreeReply;
 
 @Repository("freeDao")
@@ -81,8 +83,51 @@ public class FreeDao {
 	public int deleteReply(int free_reply_no) {
 		return sqlSession.delete("freeMapper.deleteReply", free_reply_no);
 	}
-
-
 	
+	// 게시글 조회수 증가
+	public int updateAddReadCount(int free_no) {
+		return sqlSession.update("freeMapper.updateAddReadCount", free_no);
+	}
+
+	// 게시글 추천수 증가
+	public int updateAddLikeCount(int free_no) {
+		return sqlSession.update("freeMapper.updateAddLikeCount", free_no);
+	}
+
+	// 게시글 신고수 증가
+	public int updateAddBadCount(int free_no) {
+		return sqlSession.update("freeMapper.updateAddBadCount", free_no);
+	}
+
+	// 추천 여부
+	public int selectLikeYN(FreeLike flike) {
+		return sqlSession.selectOne("freeMapper.selectLikeYN", flike);
+	}
+
+	// 신고 여부
+	public int selectBadYN(FreeBad fbad) {
+		return sqlSession.selectOne("freeMapper.selectBadYN", fbad);
+	}
+
+	// 추천수 조회
+	public int selectLikeCount(FreeLike flike) {
+		return sqlSession.selectOne("freeMapper.selectLikeCount", flike);
+	}
+
+	// 신고수 조회
+	public int selectBadCount(FreeBad fbad) {
+		return sqlSession.selectOne("freeMapper.selectBadCount", fbad);
+	}
+
+	// 추천 등록
+	public int insertAddLikeCount(FreeLike flike) {
+		return sqlSession.insert("freeMapper.insertAddLikeCount", flike);
+	}
+
+	// 신고 등록
+	public int insertAddBadCount(FreeBad fbad) {
+		return sqlSession.insert("freeMapper.insertAddBadCount", fbad);
+	}
+
 	
 }

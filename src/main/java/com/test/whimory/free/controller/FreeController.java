@@ -22,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.test.whimory.common.Paging;
 import com.test.whimory.free.model.service.FreeService;
 import com.test.whimory.free.model.vo.Free;
+import com.test.whimory.free.model.vo.FreeBad;
+import com.test.whimory.free.model.vo.FreeLike;
 import com.test.whimory.free.model.vo.FreeReply;
 
 @Controller
@@ -89,7 +91,7 @@ public class FreeController {
 			@RequestParam("page") int page) {
 		
 		// 조회수 1 증가 처리
-		freeService.addReadCount(free_no);
+		freeService.updateAddReadCount(free_no);
 
 		// 해당 게시글 조회
 		Free free = freeService.selectOne(free_no);
@@ -332,48 +334,162 @@ public class FreeController {
 	}
 	
 	// 게시글 전체 목록에서 '제목'으로 검색 
-	@RequestMapping(value = "fsearchTitle.do", method = RequestMethod.POST)
-	public String freeSearchTitleMethod(@RequestParam("keyword") String keyword, Model model) {
-		logger.info(keyword);
+	@RequestMapping(value = "fstitle.do", method = RequestMethod.POST)
+	public ModelAndView freeSearchTitleMethod(@RequestParam("keyword") String keyword, ModelAndView mav, 
+							@RequestParam(name = "page", required = false) String page) {
+		
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+
+		// 페이징 처리
+		int limit = 10; // 한 페이지에 출력할 목록 갯수
+		// 페이지 계산을 위해 총 목록갯수 조회
+		int listCount = freeService.selectSearchTitle(keyword).size();
+		// 페이지 수 계산
+		// 목록이 11개이면 총 2 페이지가 나오게 계산식 작성 ↓
+		int maxPage = (int) ((double) listCount / limit + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 시작값을 지정
+		// 뷰페이지에 페이지 숫자를 10개씩 보여지게 한다면
+		int startPage = (int) ((double) currentPage / 10 + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 끝값
+		// 페이지 수가 10개이면
+		int endPage = startPage + 10 - 1;
+
+		if (maxPage < endPage) {
+			endPage = maxPage;
+		}
+
+		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		Paging paging = new Paging(startRow, endRow); // 객체로 준비함
+		
 		ArrayList<Free> list = freeService.selectSearchTitle(keyword);
 
-		if (list.size() > 0) {
-			model.addAttribute("list", list);
-			return "free/freeListView";
+		if (list != null && list.size() > 0) {
+			mav.addObject("list", list);
+			mav.addObject("listCount", listCount);
+			mav.addObject("maxPage", maxPage);
+			mav.addObject("currentPage", currentPage);
+			mav.addObject("startPage", startPage);
+			mav.addObject("endPage", endPage);
+			mav.addObject("limit", limit);
+			
+			mav.setViewName("free/freeListView");
 		} else {
-			model.addAttribute("message", keyword + "로 검색된 게시글 정보가 없습니다.");
-			return "common/error";
+			mav.addObject("message", "'" + keyword + "'(으)로 검색된 게시글 정보가 없습니다.");
+			mav.setViewName("common/error");
 		}
+		
+		return mav;
 	}
 	
 	// 게시글 전체 목록에서 '작성자'로 검색
-	@RequestMapping(value = "fsearchWriter.do", method = RequestMethod.POST)
-	public String freeSearchWriterMethod(@RequestParam("keyword") String keyword, Model model) {
-		logger.info(keyword);
+	@RequestMapping(value = "fswriter.do", method = RequestMethod.POST)
+	public ModelAndView freeSearchWriterMethod(@RequestParam("keyword") String keyword, ModelAndView mav, 
+							@RequestParam(name = "page", required = false) String page) {
+
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+
+		// 페이징 처리
+		int limit = 10; // 한 페이지에 출력할 목록 갯수
+		// 페이지 계산을 위해 총 목록갯수 조회
+		int listCount = freeService.selectSearchWriter(keyword).size();
+		// 페이지 수 계산
+		// 목록이 11개이면 총 2 페이지가 나오게 계산식 작성 ↓
+		int maxPage = (int) ((double) listCount / limit + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 시작값을 지정
+		// 뷰페이지에 페이지 숫자를 10개씩 보여지게 한다면
+		int startPage = (int) ((double) currentPage / 10 + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 끝값
+		// 페이지 수가 10개이면
+		int endPage = startPage + 10 - 1;
+
+		if (maxPage < endPage) {
+			endPage = maxPage;
+		}
+
+		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		Paging paging = new Paging(startRow, endRow); // 객체로 준비함
+
 		ArrayList<Free> list = freeService.selectSearchWriter(keyword);
 
-		if (list.size() > 0) {
-			model.addAttribute("list", list);
-			return "free/freeListView";
+		if (list != null && list.size() > 0) {
+			mav.addObject("list", list);
+			mav.addObject("listCount", listCount);
+			mav.addObject("maxPage", maxPage);
+			mav.addObject("currentPage", currentPage);
+			mav.addObject("startPage", startPage);
+			mav.addObject("endPage", endPage);
+			mav.addObject("limit", limit);
+			
+			mav.setViewName("free/freeListView");
 		} else {
-			model.addAttribute("message", keyword + "로 검색된 게시글 정보가 없습니다.");
-			return "common/error";
+			mav.addObject("message", "검색된 게시글 정보가 없습니다.");
+			mav.setViewName("common/error");
 		}
+
+		return mav;
 	}
 
 	// 게시글 전체 목록에서 '내용'으로 검색
-	@RequestMapping(value = "fsearchContent.do", method = RequestMethod.POST)
-	public String freeSearchContentMethod(@RequestParam("keyword") String keyword, Model model) {
-		logger.info(keyword);
+	@RequestMapping(value = "fscontent.do", method = RequestMethod.POST)
+	public ModelAndView freeSearchContentMethod(@RequestParam("keyword") String keyword, ModelAndView mav, 
+							@RequestParam(name = "page", required = false) String page) {
+		
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+
+		// 페이징 처리
+		int limit = 10; // 한 페이지에 출력할 목록 갯수
+		// 페이지 계산을 위해 총 목록갯수 조회
+		int listCount = freeService.selectSearchContent(keyword).size();
+		// 페이지 수 계산
+		// 목록이 11개이면 총 2 페이지가 나오게 계산식 작성 ↓
+		int maxPage = (int) ((double) listCount / limit + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 시작값을 지정
+		// 뷰페이지에 페이지 숫자를 10개씩 보여지게 한다면
+		int startPage = (int) ((double) currentPage / 10 + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 끝값
+		// 페이지 수가 10개이면
+		int endPage = startPage + 10 - 1;
+
+		if (maxPage < endPage) {
+			endPage = maxPage;
+		}
+
+		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		Paging paging = new Paging(startRow, endRow); // 객체로 준비함
+		
 		ArrayList<Free> list = freeService.selectSearchContent(keyword);
 
-		if (list.size() > 0) {
-			model.addAttribute("list", list);
-			return "free/freeListView";
+		if (list != null && list.size() > 0) {
+			mav.addObject("list", list);
+			mav.addObject("listCount", listCount);
+			mav.addObject("maxPage", maxPage);
+			mav.addObject("currentPage", currentPage);
+			mav.addObject("startPage", startPage);
+			mav.addObject("endPage", endPage);
+			mav.addObject("limit", limit);
+			
+			mav.setViewName("free/freeListView");
 		} else {
-			model.addAttribute("message", keyword + "로 검색된 게시글 정보가 없습니다.");
-			return "common/error";
+			mav.addObject("message", "검색된 게시글 정보가 없습니다.");
+			mav.setViewName("common/error");
 		}
+		
+		return mav;
 	}
 	
 	// 댓글 등록
@@ -392,8 +508,61 @@ public class FreeController {
 		}
 	}
 	
+	// 댓글 삭제
+	@RequestMapping("frdelete.do")
+	public String replyDeleteMethod(@RequestParam("free_no") int free_no, @RequestParam("page") int page, 
+			@RequestParam("free_reply_no") int free_reply_no, HttpServletRequest request, Model model) {
 
+		if (freeService.deleteReply(free_reply_no) > 0) {
+			
+			model.addAttribute("page", page);
+			model.addAttribute("free_no", free_no);
+			return "redirect:fdetail.do";
+
+		} else {
+			model.addAttribute("message", "댓글 삭제를 실패하였습니다.");
+			return "common/error";
+		}
+	}
 	
+	// 추천수 1 증가
+	@RequestMapping("flike.do")
+	public String freeAddLikeMethod(Model model, @RequestParam("page") int page,
+								 FreeLike flike, FreeBad fbad) {
+		
+		// 추천/신고 검사(추천/신고 여부) => 추천/신고 둘중 하나만 가능
+		int result1 = freeService.selectLikeYN(flike);
+		int result2 = freeService.selectBadYN(fbad);
+		
+		if(result1 == 0 && result2 == 0) {
+			// 추천수 등록
+			freeService.insertAddLikeCount(flike);
+			// 추천수 1 증가
+			freeService.updateAddLikeCount(flike.getFree_no());
 	
+		}
+		return "redirect:fdetail.do?free_no=" + flike.getFree_no() + "&page=" + page;
+		
+	}
+	
+	// 신고수 1 증가
+	@RequestMapping("fbad.do")
+	public String freeAddBadMethod(Model model, @RequestParam("page") int page,
+			 					FreeLike flike, FreeBad fbad) {
+		
+		// 추천/신고 검사(추천/신고 여부) => 추천/신고 둘중 하나만 가능
+		int result1 = freeService.selectLikeYN(flike);
+		int result2 = freeService.selectBadYN(fbad);
+
+		if (result1 == 0 && result2 == 0) {
+			// 신고수 등록
+			freeService.insertAddBadCount(fbad);
+			// 신고수 1 증가
+			freeService.updateAddBadCount(fbad.getFree_no());
+
+		}
+		return "redirect:fdetail.do?free_no=" + fbad.getFree_no() + "&page=" + page;
+
+	}
 	
 }

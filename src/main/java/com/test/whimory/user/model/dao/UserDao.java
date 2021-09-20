@@ -1,6 +1,7 @@
 package com.test.whimory.user.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,4 +24,22 @@ public class UserDao {
 	public User selectUser(String user_id) {
 		return session.selectOne("userMapper.selectUser", user_id);
 	}
+	
+	//회원 목록 보기
+	public ArrayList<User> selectList(){
+		List<User> list = session.selectList("userMapper.selectList");
+		return (ArrayList<User>)list;
+	}
+	
+	//회원 가입 (기본형)
+	public int insertUser(User user) {
+		return session.insert("userMapper.insertUser", user);
+	}
+	
+	//회원 탈퇴
+	public int deleteUser(String user_id) {
+		return session.delete("userMapper.deleteUser", user_id);
+	}
+	
+	//카카오 로그인
 }
