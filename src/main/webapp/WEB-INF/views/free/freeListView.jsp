@@ -74,30 +74,31 @@ function showDiv(item){
 
 <table align="center" width="1150px">
 	<tr>
-		<td colspan="2"><h5>총 게시글 갯수 : ${ listCount }</h5></td>
-      	<td align="right">
+		<td colspan="3"><h5>총 게시글 갯수 : ${ listCount }</h5></td>
     	<!-- 게시판 내 검색기능 -->  
-		<td colspan="8"align="right">
-			<select class="form-control" onchange="showDiv(this)" style="width:85px; display:inline-block">
+		<td colspan="7"align="right">
+			<div style="float: left; width: 50%;">
+			<select class="form-control" onchange="showDiv(this)" style="width:80px; display:inline-block">
 				<option value="title">제목</option>
 				<option value="writer">작성자</option>
 				<option value="content">내용</option>
 			</select>
-			<div id="titleDiv" style="display:inline-block">
+			</div>
+			<div id="titleDiv" style="display:inline-block; float: left; width: 40%;">
 				<form action="fstitle.do" method="post">
-					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
+					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 					<button type="submit" class="btn btn-outline-primary">검색</button>
 				</form>
 			</div>
-			<div id="writerDiv" style="display:none">
+			<div id="writerDiv" style="display:none; float: left; width: 40%;">
 				<form action="fswriter.do" method="post">
-					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
+					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control" >
 					<button type="submit" class="btn btn-outline-primary">검색</button>
 				</form>
 			</div>
-			<div id="contentDiv" style="display:none">
+			<div id="contentDiv" style="display:none; float: left; width: 40%;">
 				<form action="fscontent.do" method="post">
-					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
+					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control" >
 					<button type="submit" class="btn btn-outline-primary">검색</button>
 				</form>
 			</div>
