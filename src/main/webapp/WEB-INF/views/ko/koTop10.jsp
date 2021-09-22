@@ -21,10 +21,10 @@
 	height: 400px;
 }
 
-div div p a {
+div.carousel-caption, div.d-none, div.d-md-block {
 	text-decoration: none;
-	background: #FFE4E1;
-	color: white;
+	text-color: black;
+	background: #FFFAF0;
 }
 </style>
 <!--js-->
@@ -61,20 +61,20 @@ $(function(){
 					values += "<div class='carousel-item active'>" + 
 						"<img class='image-ktop' src='${ pageContext.servletContext.contextPath }/resources/ko_upfiles/"+ 
 						json.list[i].ko_re_file + "'" +
-						"class='d-block w-100' alt='...'>" +
+						"class='d-block w-100' alt='이미지 파일'>" +
 						"<div class='carousel-caption d-none d-md-block'>" +
-				        "<p><a href='kdetail.do?ko_no=" + json.list[i].ko_no +
-				        "'><h5>" + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ") + "</h5>" +
-				        "summary</a></p></div></div>"
+				        "<p class='koSummary'><a href='kdetail.do?ko_no=" + json.list[i].ko_no + "'><h5>" + 
+				        decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ") + "</h5>" +
+				        decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ") + "</a></p></div></div>"
 				} else {
 					values += "<div class='carousel-item'>" + 
 					"<img class='image-ktop' src='${ pageContext.servletContext.contextPath }/resources/ko_upfiles/"+ 
 					json.list[i].ko_re_file + "'" +
-					"class='d-block w-100' alt='...'>" +
+					"class='d-block w-100' alt='이미지 파일'>" +
 					"<div class='carousel-caption d-none d-md-block'>" +
-			        "<p><a href='kdetail.do?ko_no=" + json.list[i].ko_no +
-			        "'><h5>" + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ") + "</h5>" +
-			        "summary</a></p></div></div>"
+			        "<p class='koSummary'><a href='kdetail.do?ko_no=" + json.list[i].ko_no + "'><h5>" + 
+			        decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ") + "</h5>" +
+			        decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ") + "</a></p></div></div>"
 				}
 				
 			}

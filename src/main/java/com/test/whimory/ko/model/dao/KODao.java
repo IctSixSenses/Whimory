@@ -53,6 +53,10 @@ public class KODao {
 		
 		return (ArrayList<KO>) list;
 	}
+	
+	public String selectContent(int ko_no) {
+		return sqlSession.selectOne("koMapper.selectContent", ko_no);
+	}
 
 	public int insertKO(KO ko) {
 		return sqlSession.insert("koMapper.insertKO", ko);
