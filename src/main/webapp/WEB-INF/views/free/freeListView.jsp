@@ -8,11 +8,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Whimory</title>
-<style type="text/css"> 
+<!-- Bootstrap CSS -->
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
+<style type="text/css">
+html head{
+	font-family: Roboto, Nanum Gothic;
+}
+html body{
+	font-family: Roboto, Nanum Gothic;
+} 
 table tr td a { text-decoration:none } 
 </style> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 function moveLoginPage(){
@@ -76,7 +85,7 @@ function showDiv(item){
 	<tr>
 		<td colspan="3"><h5>총 게시글 갯수 : ${ listCount }</h5></td>
     	<!-- 게시판 내 검색기능 -->  
-		<td colspan="7"align="right">
+		<td colspan="7" align="right">
 			<div style="float: left; width: 50%;">
 			<select class="form-control" onchange="showDiv(this)" style="width:80px; display:inline-block">
 				<option value="title">제목</option>
@@ -84,7 +93,7 @@ function showDiv(item){
 				<option value="content">내용</option>
 			</select>
 			</div>
-			<div id="titleDiv" style="display:inline-block; float: left; width: 40%;">
+			<div id="titleDiv" style="display:inline-block; float: left; width: 40%;" >
 				<form action="fstitle.do" method="post">
 					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 					<button type="submit" class="btn btn-outline-primary">검색</button>
@@ -142,7 +151,7 @@ function showDiv(item){
          <td>${ li.free_date }</td>
          <td>
             <c:if test="${ !empty li.free_re_file }">
-               v
+               <i class="fas fa-file-download"></i>
             </c:if>
             <c:if test="${ empty li.free_re_file }">
                &nbsp;
