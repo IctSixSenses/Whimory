@@ -29,8 +29,8 @@ a {
 }
 
 .ko_image {
-	width: 270px;
-	height: 190px;
+	width: 300px;
+	height: 210px;
 	align: center;
 }
 
@@ -82,7 +82,11 @@ a {
 					<img class="ko_image" src="${ pageContext.servletContext.contextPath }/resources/ko_upfiles/${ k.ko_re_file }">
 					<br>${ k.ko_title }
 				</a><br>
-				<div style="background: #FFE4E1;">${ k.ko_hashtag }</div>
+				<div style="background: #FFE4E1;">
+					<c:forTokens items="${ k.ko_hashtag }" delims="," var="hashtag">
+						<c:out value="#${hashtag}" />
+					</c:forTokens>
+				</div>
 			</td>
 			<c:if test="${ i % j == j - 1 }">
 				</tr>

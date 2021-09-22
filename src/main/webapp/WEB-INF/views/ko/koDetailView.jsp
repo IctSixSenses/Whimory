@@ -8,6 +8,11 @@
 <meta charset="UTF-8">
 <title>Whimory KO</title>	
 <style type="text/css">
+#url1, #url2, #url3 {
+	color: black;
+	text-decoration: none;
+}
+
 .k-list {
 	clear: left;
 	position: relative;
@@ -32,7 +37,87 @@
 	integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" 
 	crossorigin="anonymous">
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+		crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" 
+		integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" 
+		crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" 
+		integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" 
+		crossorigin="anonymous"></script>
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>;
+<script type="text/javascript">
+$(document).ready(function () {
+	var url = '${ ko.ko_link1 }';
+	var playkey = url.substring(url.lastIndexOf("=") + 1);
+	
+	$.get(
+		"https://www.googleapis.com/youtube/v3/videos", {
+			part: 'snippet',
+			id: playkey,
+			key: 'AIzaSyDjW3FfjY-Jm_oaIEJAd_yZZnXVwVEygG4'
+		},
+
+		function (data) {
+			var output;
+			$.each(data.items, function (i, item) {
+				vTitle = item.snippet.title;
+				vThumbnail = item.snippet.thumbnails.standard.url;
+				output = '<img class="image-thumb" src ="' + vThumbnail + '"><br>' + vTitle;
+				$("#url1").append(output);
+			})
+		}
+	);
+});
+
+$(document).ready(function () {
+	var url = '${ ko.ko_link2 }';
+	var playkey = url.substring(url.lastIndexOf("=") + 1);
+	
+	$.get(
+		"https://www.googleapis.com/youtube/v3/videos", {
+			part: 'snippet',
+			id: playkey,
+			key: 'AIzaSyDjW3FfjY-Jm_oaIEJAd_yZZnXVwVEygG4'
+		},
+
+		function (data) {
+			var output;
+			$.each(data.items, function (i, item) {
+				vTitle = item.snippet.title;
+				vThumbnail = item.snippet.thumbnails.standard.url;
+				output = '<img class="image-thumb" src ="' + vThumbnail + '"><br>' + vTitle;
+				$("#url2").append(output);
+			})
+		}
+	);
+});
+
+$(document).ready(function () {
+	var url = '${ ko.ko_link3 }';
+	var playkey = url.substring(url.lastIndexOf("=") + 1);
+	
+	$.get(
+		"https://www.googleapis.com/youtube/v3/videos", {
+			part: 'snippet',
+			id: playkey,
+			key: 'AIzaSyDjW3FfjY-Jm_oaIEJAd_yZZnXVwVEygG4'
+		},
+
+		function (data) {
+			var output;
+			$.each(data.items, function (i, item) {
+				vTitle = item.snippet.title;
+				vThumbnail = item.snippet.thumbnails.standard.url;
+				output = '<img class="image-thumb" src ="' + vThumbnail + '"><br>' + vTitle;
+				$("#url3").append(output);
+			})
+		}
+	);
+});
+</script>
 <script type="text/javascript">
 function deleteCheck(){
 	
@@ -48,6 +133,7 @@ function deleteCheck(){
 	}
 	
 }
+
 </script>
 </head>
 
@@ -94,8 +180,20 @@ function deleteCheck(){
 	</tr>
 	<tr style="border-top: 0.5px solid Gainsboro; height:10px;"><td>&nbsp;</td></tr>
 	<tr height="40px">
-		<td colspan="2"><font size="6">${ ko.ko_title }</font></td>
-		<td colspan="4" align="right">
+		<td colspan="4"><font size="6">${ ko.ko_title }</font> &nbsp;
+			<c:if test="${ loginUser.admin_yn eq 'Y' }">
+				<c:url var="ktts" value="ktts.do">
+					<c:param name="ko_no" value="${ ko.ko_no }" />
+				</c:url>
+				<a href="javascript:location.href='${ktts}'">
+					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" 
+						class="bi bi-headphones" viewBox="0 0 16 16">
+					<path d="M8 3a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V8a6 6 0 1 1 12 0v5a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1V8a5 5 0 0 0-5-5z"/>
+					</svg>
+				</a>
+			</c:if>
+		</td>
+		<td colspan="2" align="right">
 			<c:if test="${ ko.ko_modify eq null }">
 				등록일:&nbsp;<fmt:formatDate value="${ ko.ko_date }" pattern="yyyy.MM.dd." />
 				 &nbsp; 조회수 ${ ko.ko_readcount }	
@@ -107,36 +205,46 @@ function deleteCheck(){
 		</td>
 	</tr>
 	<tr style="border-top: 0.5px solid Gainsboro; height:50px"><td>&nbsp;</td></tr>
-	<tr><td colspan="6" align="center">
+	<tr><td colspan="4" align="center">
 		<img class="ko_image"src="${ pageContext.servletContext.contextPath }/resources/ko_upfiles/${ ko.ko_re_file }">
-	</td></tr>
+	</td>
+	<td colspan="2">
+		<audio controls>
+			<source src="${ pageContext.servletContext.contextPath }/resources/ko_mp3/${ ko.ko_no }.mp3" type="audio/mp3">
+		</audio>
+		
+	</td>
+	</tr>
 	<tr height="30px"><td>&nbsp;</td></tr>
 	<tr><td colspan="6">${ ko.ko_content }</td></tr>
 	<tr height="50px"><td>&nbsp;</td></tr>
 	<tr style="height: 30px; background: WhiteSmoke;">
-		<td colspan="6">${ ko.ko_hashtag }</td>
+		<td colspan="6">
+			<c:forTokens items="${ ko.ko_hashtag }" delims="," var="hashtag">
+				<c:out value="#${hashtag}" />
+			</c:forTokens>
+		</td>
 	</tr>
 	<tr height="50px"><td>&nbsp;</td></tr>
 	<tr style="border-top: 0.5px solid Gainsboro; border-bottom: 0.5px solid Gainsboro; height: 200px">
 		<c:if test="${ ko.ko_link1 ne null }">
 			<td colspan="2" align="center">
-			
 				<a href="${ ko.ko_link1 }">
-					<img class="image-thumb" src="http://img.youtube.com/vi/${ ko.ko_image1 }/mqdefault.jpg">
+					<div id="url1"></div>
 				</a>
 			</td>
 		</c:if>
 		<c:if test="${ ko.ko_link2 ne null }">
 			<td colspan="2" align="center">		
 				<a href="${ ko.ko_link2 }">
-					<img class="image-thumb" src="http://img.youtube.com/vi/${ ko.ko_image2 }/mqdefault.jpg">
+					<div id="url2"></div>
 				</a>
 			</td>
 		</c:if>
 		<c:if test="${ ko.ko_link3 ne null }">
 			<td colspan="2" align="center">
 				<a href="${ ko.ko_link3 }">
-					<img class="image-thumb" src="http://img.youtube.com/vi/${ ko.ko_image3 }/mqdefault.jpg">
+					<div id="url3"></div>
 				</a>
 			</td>
 		</c:if>
