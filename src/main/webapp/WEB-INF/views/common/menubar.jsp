@@ -91,7 +91,7 @@ html body{
 	<nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="main.do">Home</a></li>
-          <li><a class="nav-link scrollto" href="#">공지사항</a></li>
+          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/nlist.do">공지사항</a></li>
           <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/wlist.do">언론보도</a></li>
           <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/rplist.do?page=1">역사 왜곡 제보하기</a></li>
           <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/flist.do?page=1">자유 토론 공간</a></li>
