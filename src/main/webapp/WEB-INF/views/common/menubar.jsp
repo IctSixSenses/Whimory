@@ -40,7 +40,7 @@ li#menu1 a, #menu2 a, #menu3 a, #menu4 a, #menu5 a{
      	<a class="navbar-brand" title="메인 페이지로 이동" href="main.do">
      		<img src="${ pageContext.servletContext.contextPath }/resources/images/logo01.png" width="120" height="40">
      	</a>&nbsp;&nbsp;
-        <li class="nav-item" id="menu1"><a class="nav-link" href="#">공지사항</a></li>&nbsp;&nbsp;
+        <li class="nav-item" id="menu1"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/nlist.do">공지사항</a></li>&nbsp;&nbsp;
 		<li class="nav-item" id="menu2"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/wlist.do">언론보도</a></li>&nbsp;&nbsp;
         <li class="nav-item" id="menu3"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/rplist.do?page=1">역사 왜곡 제보하기</a></li>&nbsp;&nbsp;
         <li class="nav-item" id="menu4"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/flist.do?page=1">자유 토론 공간</a></li>&nbsp;&nbsp;
