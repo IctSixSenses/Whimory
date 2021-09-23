@@ -8,6 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Whimory</title>
+<!-- Favicons -->
+<link href="${ pageContext.request.contextPath }/resources/images/tgmark.png" rel="icon">
+
 <!-- Bootstrap CSS -->
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
 <style type="text/css">
@@ -19,16 +22,17 @@ html body{
 } 
 table tr td a { text-decoration:none } 
 </style> 
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 function moveLoginPage(){
    alert("로그인 후 이용 가능한 서비스입니다.\n로그인 페이지로 이동합니다.");   
    location.href = "${ pageContext.servletContext.contextPath }/loginPage.do";
 }
-
 function freeDel(button, free_re_file){
    
 	free_no = button.id.substring(4);
@@ -40,7 +44,6 @@ function freeDel(button, free_re_file){
       location.href = "${ pageContext.servletContext.contextPath }/fdelete.do?free_no=" + free_no;
    }
 }
-
 function showDiv(item){
 	if($(item).val() == "title"){
 		$("#titleDiv").css("display", "inline-block");
@@ -60,12 +63,11 @@ function showDiv(item){
 		$("#contentDiv").css("display", "inline-block");
 	}
 }
-
 </script>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr>
+
 <h2 align="center">자유 토론 공간</h2>
 <br>
 <!-- 로그인 여부에 따라 로그인페이지/게시글 작성 페이지로 이동, 관리자는 작성 x -->
@@ -234,7 +236,7 @@ function showDiv(item){
 </c:if>
 </div>
 
-<hr>
+<br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

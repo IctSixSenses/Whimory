@@ -6,6 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Whimory</title>
+
+<!-- Favicons -->
+<link href="${ pageContext.request.contextPath }/resources/images/tgmark.png" rel="icon">
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
@@ -22,7 +26,7 @@ html body{
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr>
+
 <h3 align="center">${ requestScope.free.free_no }번 게시글 수정 페이지</h3>
 <br>
 
@@ -68,9 +72,7 @@ html body{
 	</table>
 </form>
 
-
-
-
-
+<br><br><br><br><br>
+<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
