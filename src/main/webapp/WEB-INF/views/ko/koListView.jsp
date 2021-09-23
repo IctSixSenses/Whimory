@@ -15,9 +15,24 @@
 	rel="stylesheet" 
 	integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" 
 	crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
 <style type="text/css">
-a {
+
+/* 폰트 적용 */
+html head{
+	font-family: Roboto, Nanum Gothic;
+}
+html body{
+	font-family: Roboto, Nanum Gothic;
+}
+
+/* 본문 css */
+div table tr td a {
 	text-decoration: none;
+	color: black;
+}
+
+div table tr td a:hover {
 	color: black;
 }
 
@@ -65,7 +80,7 @@ a {
 		<td colspan="4" align="right">
 			<form action="ksearchword.do" method="post" align="right">
 				<input type="hidden" name="ko_category" value="${ category }">
-				<input type="search" name="ko_title" size="30" placeholder="검색어를 입력하세요">
+				<input type="search" name="ko_title" size="30" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 				<input type="submit" class="btn btn-outline-info" value="검색">
 			</form>
 		</td>
