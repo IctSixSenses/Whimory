@@ -3,6 +3,7 @@ package com.test.whimory.ko.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -23,6 +24,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.cloud.texttospeech.v1.AudioConfig;
+import com.google.cloud.texttospeech.v1.AudioEncoding;
+import com.google.cloud.texttospeech.v1.SsmlVoiceGender;
+import com.google.cloud.texttospeech.v1.SynthesisInput;
+import com.google.cloud.texttospeech.v1.SynthesizeSpeechResponse;
+import com.google.cloud.texttospeech.v1.TextToSpeechClient;
+import com.google.cloud.texttospeech.v1.VoiceSelectionParams;
+import com.google.protobuf.ByteString;
 import com.test.whimory.ko.model.service.KOService;
 import com.test.whimory.ko.model.vo.KO;
 
@@ -64,6 +73,7 @@ public class KOController {
 			job.put("ko_re_file", ko.getKo_re_file());
 			job.put("user_id", ko.getUser_id());
 			job.put("ko_editor", ko.getKo_editor());
+			job.put("ko_summary", ko.getKo_summary());
 			
 			jarr.add(job);
 		}
@@ -71,15 +81,7 @@ public class KOController {
 		sendJson.put("list", jarr);
 		 
 		return sendJson.toJSONString();
-		 
 		
-//		if(list.size() > 0) {
-//			model.addAttribute("list", list);
-//			return "ko/koTop10";
-//		} else {
-//			model.addAttribute("message", "ko Top10을 조회하지 못했습니다");
-//			return "common/error";
-//		}
 	}
 	
 	@RequestMapping("kcate.do")
@@ -207,28 +209,6 @@ public class KOController {
 
 		} // if: 첨부파일 있을 때
 		
-		if(ko.getKo_link1() != null && ko.getKo_link2() != null && ko.getKo_link3() != null) {
-			
-			String link1 = ko.getKo_link1();
-			ko.setKo_image1(link1.substring(link1.lastIndexOf("=") + 1));
-			String link2 = ko.getKo_link2();
-			ko.setKo_image2(link2.substring(link2.lastIndexOf("=") + 1));
-			String link3 = ko.getKo_link1();
-			ko.setKo_image3(link3.substring(link3.lastIndexOf("=") + 1));
-			
-		} else if(ko.getKo_link1() != null && ko.getKo_link2() != null) {
-			
-			String link1 = ko.getKo_link1();
-			ko.setKo_image1(link1.substring(link1.lastIndexOf("=") + 1));
-			String link2 = ko.getKo_link2();
-			ko.setKo_image2(link2.substring(link2.lastIndexOf("=") + 1));
-			
-		} else if(ko.getKo_link1() != null) {
-			
-			String link1 = ko.getKo_link1();
-			ko.setKo_image1(link1.substring(link1.lastIndexOf("=") + 1));
-			
-		}
 		
 		if(koService.insertKO(ko) > 0) {
 			return "redirect:klist.do";
@@ -326,32 +306,6 @@ public class KOController {
 			ko.setKo_re_file(ko.getKo_re_file());
 		}
 		
-
-		if(ko.getKo_link1() != null && ko.getKo_link2() != null && ko.getKo_link3() != null) {
-			
-			String link1 = ko.getKo_link1();
-			ko.setKo_image1(link1.substring(link1.lastIndexOf("=") + 1));
-			String link2 = ko.getKo_link2();
-			ko.setKo_image2(link2.substring(link2.lastIndexOf("=") + 1));
-			String link3 = ko.getKo_link1();
-			ko.setKo_image3(link3.substring(link3.lastIndexOf("=") + 1));
-			
-		} else if(ko.getKo_link1() != null && ko.getKo_link2() != null) {
-			
-			String link1 = ko.getKo_link1();
-			ko.setKo_image1(link1.substring(link1.lastIndexOf("=") + 1));
-			String link2 = ko.getKo_link2();
-			ko.setKo_image2(link2.substring(link2.lastIndexOf("=") + 1));
-			ko.setKo_image3(null);
-			
-		} else if(ko.getKo_link1() != null) {
-			
-			String link1 = ko.getKo_link1();
-			ko.setKo_image1(link1.substring(link1.lastIndexOf("=") + 1));
-			ko.setKo_image2(null);
-			ko.setKo_image3(null);
-			
-		}
 		
 		if(koService.updateKO(ko) > 0) {
 			model.addAttribute("ko", ko);
@@ -384,6 +338,44 @@ public class KOController {
 		}
 		
 	} // koDeleteMethod
+	
+	@RequestMapping("ktts.do")
+	public String synthesizeText(@RequestParam("ko_no") int ko_no, HttpServletRequest request) throws Exception {
+		
+		// Instantiates a client
+		String text = koService.selectContent(ko_no);
+		
+		String savePath = request.getSession().getServletContext().getRealPath("resources/ko_mp3");
+		
+		try (TextToSpeechClient textToSpeechClient = TextToSpeechClient.create()) {
+			// Set the text input to be synthesized
+			SynthesisInput input = SynthesisInput.newBuilder().setText(text).build();
+			
+			// Build the voice request
+			VoiceSelectionParams voice =
+					VoiceSelectionParams.newBuilder().setLanguageCode("ko_KR")
+					.setSsmlGender(SsmlVoiceGender.FEMALE) // ssmlVoiceGender = SsmlVoiceGender.FEMALE
+					.build();
+
+			// Select the type of audio file you want returned
+			AudioConfig audioConfig = AudioConfig.newBuilder().setAudioEncoding(AudioEncoding.MP3).build();
+			
+			// Perform the text-to-speech request
+			SynthesizeSpeechResponse response = textToSpeechClient.synthesizeSpeech(input, voice, audioConfig);
+
+			// Get the audio contents from the response
+			ByteString audioContents = response.getAudioContent();
+
+			// Write the response to the output file.
+			try (OutputStream out 
+					= new FileOutputStream("C:\\final_workspace\\Whimory\\src\\main\\webapp\\resources\\ko_mp3\\" + ko_no + ".mp3")) {
+				out.write(audioContents.toByteArray());
+	    }
+	  }
+		
+		return "redirect:kdetail.do?ko_no=" + ko_no;
+		
+	} // synthesizeText
 	
 	
 	

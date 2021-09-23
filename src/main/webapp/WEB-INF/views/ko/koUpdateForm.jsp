@@ -47,15 +47,36 @@ function cancleCheck(){
 	
 	<table width="800px" align="center">
 	<tr style="height:40px; border-bottom: 2px solid gray"><td colspan="9">
-		<h5>Korea Origin 글쓰기</h5>
+		<h5>Korea Origin ${ ko.ko_no }번 게시글 수정 페이지</h5>
 	</td></tr>
-	<tr height="40px">
+	<tr height="50px">
 		<td width="100px">
 			<select name="ko_category">
-				<option value="history">역사</option>
-				<option value="culture">문화</option>
-				<option value="food">음식</option>
-				<option value="culheri">문화재</option>
+				<c:set var="cate" value='${ ko.ko_category }' />
+				<c:if test="${ cate == 'history' }">
+					<option value="history" selected>역사</option>
+					<option value="culture">문화</option>
+					<option value="food">음식</option>
+					<option value="culheri">문화재</option>
+				</c:if>
+				<c:if test="${ cate == 'culture' }">
+					<option value="history">역사</option>
+					<option value="culture" selected>문화</option>
+					<option value="food">음식</option>
+					<option value="culheri">문화재</option>
+				</c:if>
+				<c:if test="${ cate == 'food' }">
+					<option value="history">역사</option>
+					<option value="culture">문화</option>
+					<option value="food" selected>음식</option>
+					<option value="culheri">문화재</option>
+				</c:if>
+				<c:if test="${ cate == 'culheri' }">
+					<option value="history">역사</option>
+					<option value="culture">문화</option>
+					<option value="food">음식</option>
+					<option value="culheri" selected>문화재</option>
+				</c:if>
 			</select>
 		</td>
 		<td colspan="8">
@@ -64,6 +85,9 @@ function cancleCheck(){
 	</tr>
 	<tr>
 		<td colspan="9"><textarea name="ko_content" cols="100" rows="20" required>${ ko.ko_content }</textarea></td>
+	</tr>
+	<tr>
+		<td colspan="9"><textarea name="ko_summary" rows="2" cols="100" required>${ ko.ko_summary }</textarea></td>	
 	</tr>
 	<tr><td colspan="9">
 		<c:if test="${ !empty ko.ko_org_file }">

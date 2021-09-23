@@ -42,7 +42,10 @@ function cancleCheck(){
 <form action="kinsert.do" method="post" enctype="multipart/form-data" >
 	<input type="hidden" name="user_id" value="${ loginUser.user_id }">
 	<table width="800px" align="center">
-	<tr>
+	<tr style="height:40px; border-bottom: 2px solid gray"><td colspan="9">
+		<h5>Korea Origin 글쓰기</h5>
+	</td></tr>
+	<tr style="height:50px; padding-top:10px;">
 		<td width="100px">
 			<select name="ko_category">
 				<option value="history">역사</option>
@@ -57,6 +60,9 @@ function cancleCheck(){
 	</tr>
 	<tr>
 		<td colspan="9"><textarea name="ko_content" cols="100" rows="20" required placeholder="내용을 입력하세요."></textarea></td>
+	</tr>
+	<tr>
+		<td colspan="9"><textarea name="ko_summary" rows="2" cols="100" required placeholder="한줄 요약"></textarea></td>	
 	</tr>
 	<tr><td colspan="9"><input type="file" name="kfile"></td></tr>
 	<tr><td colspan="9"><input type="text" name="ko_hashtag" size="97" placeholder="해시태그"></td></tr>

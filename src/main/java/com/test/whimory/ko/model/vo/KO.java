@@ -20,15 +20,13 @@ public class KO implements java.io.Serializable {
 	private String ko_link1;
 	private String ko_link2;
 	private String ko_link3;
-	private String ko_image1;
-	private String ko_image2;
-	private String ko_image3;
+	private String ko_summary;
 	
 	public KO() {}
 
 	public KO(int ko_no, String ko_category, String user_id, String ko_editor, String ko_title, String ko_content,
 			String ko_org_file, String ko_re_file, Date ko_date, Date ko_modify, int ko_readcount, String ko_hashtag,
-			String ko_link1, String ko_link2, String ko_link3, String ko_image1, String ko_image2, String ko_image3) {
+			String ko_link1, String ko_link2, String ko_link3, String ko_summary) {
 		super();
 		this.ko_no = ko_no;
 		this.ko_category = ko_category;
@@ -45,9 +43,7 @@ public class KO implements java.io.Serializable {
 		this.ko_link1 = ko_link1;
 		this.ko_link2 = ko_link2;
 		this.ko_link3 = ko_link3;
-		this.ko_image1 = ko_image1;
-		this.ko_image2 = ko_image2;
-		this.ko_image3 = ko_image3;
+		this.ko_summary = ko_summary;
 	}
 
 	public int getKo_no() {
@@ -170,28 +166,12 @@ public class KO implements java.io.Serializable {
 		this.ko_link3 = ko_link3;
 	}
 
-	public String getKo_image1() {
-		return ko_image1;
+	public String getKo_summary() {
+		return ko_summary;
 	}
 
-	public void setKo_image1(String ko_image1) {
-		this.ko_image1 = ko_image1;
-	}
-
-	public String getKo_image2() {
-		return ko_image2;
-	}
-
-	public void setKo_image2(String ko_image2) {
-		this.ko_image2 = ko_image2;
-	}
-
-	public String getKo_image3() {
-		return ko_image3;
-	}
-
-	public void setKo_image3(String ko_image3) {
-		this.ko_image3 = ko_image3;
+	public void setKo_summary(String ko_summary) {
+		this.ko_summary = ko_summary;
 	}
 
 	public static long getSerialversionuid() {
@@ -204,10 +184,9 @@ public class KO implements java.io.Serializable {
 				+ ko_editor + ", ko_title=" + ko_title + ", ko_content=" + ko_content + ", ko_org_file=" + ko_org_file
 				+ ", ko_re_file=" + ko_re_file + ", ko_date=" + ko_date + ", ko_modify=" + ko_modify + ", ko_readcount="
 				+ ko_readcount + ", ko_hashtag=" + ko_hashtag + ", ko_link1=" + ko_link1 + ", ko_link2=" + ko_link2
-				+ ", ko_link3=" + ko_link3 + ", ko_image1=" + ko_image1 + ", ko_image2=" + ko_image2 + ", ko_image3="
-				+ ko_image3 + "]";
+				+ ", ko_link3=" + ko_link3 + ", ko_summary=" + ko_summary + "]";
 	}
-	
+
 	
 	
 }

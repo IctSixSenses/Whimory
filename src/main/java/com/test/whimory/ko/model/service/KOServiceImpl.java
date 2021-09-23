@@ -55,6 +55,11 @@ public class KOServiceImpl implements KOService {
 	}
 
 	@Override
+	public String selectContent(int ko_no) {
+		return koDao.selectContent(ko_no);
+	}
+
+	@Override
 	public int insertKO(KO ko) {
 		return koDao.insertKO(ko);
 	}
