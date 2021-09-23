@@ -9,6 +9,7 @@
 <title>Whimory</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
+
 <!-- Bootstrap CSS -->
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
 <style type="text/css">
@@ -20,6 +21,7 @@ html body{
 } 
 table tr td a { text-decoration:none } 
 </style> 
+
 </head>
 <body>
 <c:import url="../common/menubar.jsp" />
@@ -56,6 +58,17 @@ table tr td a { text-decoration:none }
 	
 	<tr><th colspan="10">
 		<div width="850" align="center">
+
+			<%-- 수정페이지로 이동 버튼 --%>
+			<c:url var="wupdate" value="/wupview.do">
+	   			<c:param name="news_no" value="${ news.news_no }" />
+			</c:url>
+			<button onclick="javascript:location.href='${ wupdate }';" class="btn btn-outline-info">수정하기</button> &nbsp; 
+	
+			<%-- 이전페이지로 이동 --%>
+			<button onclick="javascript:history.go(-1);" class="btn btn-info">목록보기</button> &nbsp; 
+			
+
 			<%-- 삭제하기 버튼 --%>
 			<c:url var="wdelete" value="/wdelete.do">
 			   <c:param name="news_no" value="${ news.news_no }" />
@@ -63,6 +76,7 @@ table tr td a { text-decoration:none }
 			      <c:param name="rfile" value="${ news.news_re_file }" />
 			   </c:if>
 			</c:url>
+
 			<button onclick="javascript:location.href='${ wdelete }';" class="btn btn-outline-danger">삭제하기</button>  &nbsp;
 	
 			<%-- 이전페이지로 이동 --%>
@@ -73,6 +87,9 @@ table tr td a { text-decoration:none }
 	   			<c:param name="news_no" value="${ news.news_no }" />
 			</c:url>
 			<button onclick="javascript:location.href='${ wupdate }';" class="btn btn-outline-info">수정하기</button>
+
+			<button onclick="javascript:location.href='${ wdelete }';" class="btn btn-outline-danger">삭제하기</button> 
+
 			
 			</th></tr>
 		</div>

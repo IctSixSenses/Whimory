@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.test.whimory.common.Paging;
 import com.test.whimory.common.SearchDate;
 import com.test.whimory.report.model.vo.Report;
+import com.test.whimory.report.model.vo.ReportLike;
 
 @Repository("reportDao")
 public class ReportDao {
@@ -30,8 +31,16 @@ public class ReportDao {
 		return sqlSession.selectOne("reportMapper.selectOne", report_no);
 	}
 	
+	public int selectReportLike(ReportLike rplike) {
+		return sqlSession.selectOne("reportMapper.selectReportLike", rplike);
+	}
+	
 	public int updateAddReadCount(int report_no) {
 		return sqlSession.update("reportMapper.updateAddReadCount", report_no);
+	}
+	
+	public int insertAddLikeCount(ReportLike rplike) {
+		return sqlSession.insert("reportMapper.insertAddLikeCount", rplike);
 	}
 	
 	public int updateAddLikeCount(int report_no) {

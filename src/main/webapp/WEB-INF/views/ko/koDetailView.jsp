@@ -7,7 +7,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Whimory KO</title>	
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
 <style type="text/css">
+
+/* 폰트 적용 */
+html head{
+	font-family: Roboto, Nanum Gothic;
+}
+html body{
+	font-family: Roboto, Nanum Gothic;
+}
+
+/* 본문 css */
 #url1, #url2, #url3 {
 	color: black;
 	text-decoration: none;

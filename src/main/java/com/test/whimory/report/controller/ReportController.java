@@ -21,8 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.test.whimory.common.Paging;
 import com.test.whimory.common.SearchDate;
+import com.test.whimory.free.model.vo.FreeBad;
+import com.test.whimory.free.model.vo.FreeLike;
 import com.test.whimory.report.model.service.ReportService;
 import com.test.whimory.report.model.vo.Report;
+import com.test.whimory.report.model.vo.ReportLike;
 
 @Controller
 public class ReportController {
@@ -104,15 +107,24 @@ public class ReportController {
 
 	@RequestMapping("rplike.do")
 	public String reportAddLikeMethod(Model model, @RequestParam("report_no") int report_no,
-			@RequestParam("page") int page) {
+			@RequestParam("user_id") String user_id, @RequestParam("page") int page) {
 		// 공감수 1 증가 처리
-		int result = reportService.updateAddLikeCount(report_no);
+		ReportLike rplike = new ReportLike();
+		rplike.setReport_no(report_no);
+		rplike.setUser_id(user_id);
+		
+		if (reportService.selectReportLike(rplike) == 0) {
+			int result1 = reportService.insertAddLikeCount(rplike);
+			int result2 = reportService.updateAddLikeCount(report_no);
 
-		if (result > 0) {
-			return "redirect:rpdetail.do?report_no=" + report_no + "&page=" + page;
+			if (result1 > 0 && result2 > 0) {
+				return "redirect:rpdetail.do?report_no=" + report_no + "&page=" + page;
+			} else {
+				model.addAttribute("message", "공감수 증가 처리 실패");
+				return "common/error";
+			}
 		} else {
-			model.addAttribute("message", "공감수 증가 처리 실패");
-			return "common/error";
+			return "redirect:rpdetail.do?report_no=" + report_no + "&page=" + page;
 		}
 	}
 
@@ -312,11 +324,11 @@ public class ReportController {
 			return "common/error";
 		}
 	}
-	
+
 	// 답변 등록 요청 처리용
 	@RequestMapping(value = "cmupdate.do", method = RequestMethod.POST)
-	public String commentUpdateMethod(Report comment, HttpServletRequest request, Model model
-			, @RequestParam("page") int page) {
+	public String commentUpdateMethod(Report comment, HttpServletRequest request, Model model,
+			@RequestParam("page") int page) {
 		if (reportService.updateComment(comment) > 0) {
 			model.addAttribute("report_no", comment.getReport_no());
 			model.addAttribute("page", page);
@@ -326,11 +338,11 @@ public class ReportController {
 			return "common/error";
 		}
 	}
-	
+
 	// 답변 삭제 요청 처리용
 	@RequestMapping(value = "cmdelete.do")
-	public String commentDeleteMethod(@RequestParam("report_no") int report_no
-			, @RequestParam("page") int page , Model model) {
+	public String commentDeleteMethod(@RequestParam("report_no") int report_no, @RequestParam("page") int page,
+			Model model) {
 		if (reportService.deleteComment(report_no) > 0) {
 			model.addAttribute("report_no", report_no);
 			model.addAttribute("page", page);
@@ -340,10 +352,10 @@ public class ReportController {
 			return "common/error";
 		}
 	}
-	
+
 	@RequestMapping(value = "rptitle.do", method = RequestMethod.POST)
-	public ModelAndView reportSearchTitleMethod(@RequestParam("keyword") String keyword, 
-			ModelAndView mv, @RequestParam(name = "page", required = false) String page) {
+	public ModelAndView reportSearchTitleMethod(@RequestParam("keyword") String keyword, ModelAndView mv,
+			@RequestParam(name = "page", required = false) String page) {
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
@@ -371,9 +383,9 @@ public class ReportController {
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
 		Paging paging = new Paging(startRow, endRow);
-		
+
 		ArrayList<Report> list = reportService.selectSearchTitle(keyword);
-		
+
 		if (list != null && list.size() > 0) {
 			mv.addObject("list", list);
 			mv.addObject("listCount", listCount);
@@ -388,13 +400,13 @@ public class ReportController {
 			mv.addObject("message", keyword + "로 검색된 정보가 없습니다.");
 			mv.setViewName("common/error");
 		}
-		
+
 		return mv;
 	}
-	
+
 	@RequestMapping(value = "rpwriter.do", method = RequestMethod.POST)
-	public ModelAndView reportSearchWriterMethod(@RequestParam("keyword") String keyword, 
-			ModelAndView mv, @RequestParam(name = "page", required = false) String page) {
+	public ModelAndView reportSearchWriterMethod(@RequestParam("keyword") String keyword, ModelAndView mv,
+			@RequestParam(name = "page", required = false) String page) {
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
@@ -422,9 +434,9 @@ public class ReportController {
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
 		Paging paging = new Paging(startRow, endRow);
-		
+
 		ArrayList<Report> list = reportService.selectSearchWriter(keyword);
-		
+
 		if (list != null && list.size() > 0) {
 			mv.addObject("list", list);
 			mv.addObject("listCount", listCount);
@@ -439,13 +451,13 @@ public class ReportController {
 			mv.addObject("message", keyword + "로 검색된 정보가 없습니다.");
 			mv.setViewName("common/error");
 		}
-		
+
 		return mv;
 	}
-	
+
 	@RequestMapping(value = "rpdate.do", method = RequestMethod.POST)
-	public ModelAndView reportSearchDateMethod(SearchDate dates, 
-			ModelAndView mv, @RequestParam(name = "page", required = false) String page) {
+	public ModelAndView reportSearchDateMethod(SearchDate dates, ModelAndView mv,
+			@RequestParam(name = "page", required = false) String page) {
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
@@ -473,9 +485,9 @@ public class ReportController {
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
 		Paging paging = new Paging(startRow, endRow);
-		
+
 		ArrayList<Report> list = reportService.selectSearchDate(dates);
-		
+
 		if (list != null && list.size() > 0) {
 			mv.addObject("list", list);
 			mv.addObject("listCount", listCount);
@@ -490,7 +502,7 @@ public class ReportController {
 			mv.addObject("message", "해당 날짜로 검색된 정보가 없습니다.");
 			mv.setViewName("common/error");
 		}
-		
+
 		return mv;
 	}
 }
