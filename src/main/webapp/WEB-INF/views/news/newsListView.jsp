@@ -13,9 +13,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Whimory</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap CSS -->
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
+<style type="text/css">
+html head{
+	font-family: Roboto, Nanum Gothic;
+}
+html body{
+	font-family: Roboto, Nanum Gothic;
+} 
+table tr td a { text-decoration:none } 
+</style> 
 <script type="text/javascript">
-
 function showDiv(item){
 	   
 	   if($(item).val() == "title"){
@@ -74,31 +85,31 @@ function showDiv(item){
    </tr>
 </table>
 <br>
-<table class="table table-hover">
+<hr>
+<table class="table table-lightgray table-hover" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3">
 
-<c:forEach items="${ requestScope.list }" var="news">
-<tr>
-
-<c:url value="/wdetail.do" var="wdetail">
-      <c:param name="news_no" value="${ news.news_no }" />
-</c:url>
-<c:if test="${ news.news_org_file != null }">
-   <td align="center"><a href="${ wdetail }"><img src="${ pageContext.servletContext.contextPath }/resources/news_upfiles/${ news.news_re_file }" style="width:200px;height:200px"></a>
-   </td>
-</c:if>
-<c:if test="${ news.news_org_file == null }">
-   <td align="center"><a href="${ wdetail }"><img src="${ pageContext.servletContext.contextPath }/resources/images/logo02.png" style="width:200px;height:200px"></a>
-   </td>
-</c:if>
-
-<c:url value="/wdetail.do" var="wdetail">
-      <c:param name="news_no" value="${ news.news_no }" />
-</c:url>
-   <td align="center"><a href="${ wdetail }">${ news.news_title }</a>
-</td>
-
-</tr>
-</c:forEach>
+	<c:forEach items="${ requestScope.list }" var="news">
+		<input type="hidden" id="news_no" value="${ news.news_no }">
+		<tr align="center">
+			<c:url value="/wdetail.do" var="wdetail">
+	      		<c:param name="news_no" value="${ news.news_no }" />
+			</c:url>
+			
+			<c:if test="${ news.news_org_file != null }">
+	   			<td colspan="3" align="center"><a href="${ wdetail }"><img src="${ pageContext.servletContext.contextPath }/resources/news_upfiles/${ news.news_re_file }" style="width:200px;height:200px"></a></td>
+			</c:if>
+			<c:if test="${ news.news_org_file == null }">
+	  			 <td colspan="3" align="center"><a href="${ wdetail }"><img src="${ pageContext.servletContext.contextPath }/resources/images/logo02.png" style="width:200px;height:200px"></a></td>
+			</c:if>
+	
+	
+			<c:url value="/wdetail.do" var="wdetail">
+		      <c:param name="news_no" value="${ news.news_no }" />
+			</c:url>
+		  		<td colspan="7" align="left" style="font-size:16pt;"><a href="${ wdetail }">${ news.news_title }</a></td>
+		
+		</tr>
+	</c:forEach>
 </table>
 
 <br>
