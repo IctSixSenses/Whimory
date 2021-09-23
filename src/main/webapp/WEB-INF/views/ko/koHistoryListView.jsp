@@ -11,7 +11,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Whimory KO</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" 
+	rel="stylesheet" 
+	integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" 
+	crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
 <style type="text/css">
+
+/* 폰트 적용 */
+html head{
+	font-family: Roboto, Nanum Gothic;
+}
+html body{
+	font-family: Roboto, Nanum Gothic;
+}
+
+/* 본문 css */
 .k-list {
 	clear: left;
 	position: relative;
@@ -25,8 +40,12 @@
 	align: center;
 }
 
-a {
+div table tr td a {
 	text-decoration: none;
+	color: black;
+}
+
+div table tr td a:hover {
 	color: black;
 }
 </style>
@@ -54,14 +73,14 @@ a {
 		<td align="right">
 			<c:if test="${ loginUser.admin_yn ne null and loginUser.admin_yn eq 'Y' }">
 				<c:url var="kwf" value="kwmove.do" />
-				<button onclick="javascript:location.href='${kwf}'">글쓰기</button>
+				<button class="btn btn-info" onclick="javascript:location.href='${kwf}'">글쓰기</button>
 			</c:if>
 		</td>
 		<td colspan="2" align="right">
 			<form action="ksearchword.do" method="post" align="right">
 				<input type="hidden" name="ko_category" value="${ category }">
-				<input type="search" name="ko_title" placeholder="검색어를 입력하세요">
-				<input type="submit" value="검색">
+				<input type="search" name="ko_title" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+				<input type="submit" class="btn btn-outline-info" value="검색">
 			</form>
 		</td>
 		</tr>
@@ -77,7 +96,11 @@ a {
 					<img class="ko_image" src="${ pageContext.servletContext.contextPath }/resources/ko_upfiles/${ k.ko_re_file }">
 					<br>${ k.ko_title }
 				</a><br>
-				<div style="background: skyblue;">${ k.ko_hashtag }</div>
+				<div style="background: #FFE4E1;">
+					<c:forTokens items="${ k.ko_hashtag }" delims="," var="hashtag">
+						<c:out value="#${hashtag}" />
+					</c:forTokens>
+				</div>
 			</td>
 			<c:if test="${ i % j == j - 1 }">
 				</tr>

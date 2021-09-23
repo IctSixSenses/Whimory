@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.test.whimory.common.Paging;
 import com.test.whimory.common.SearchDate;
 import com.test.whimory.report.model.vo.Report;
+import com.test.whimory.report.model.vo.ReportLike;
 
 public interface ReportService {
 	ArrayList<Report> selectList(Paging page);
@@ -19,5 +20,7 @@ public interface ReportService {
 	int deleteReport(int report_no);
 	int deleteComment(int report_no);
 	int updateAddReadCount(int report_no);
+	int insertAddLikeCount(ReportLike rplike);
 	int updateAddLikeCount(int report_no);
+	int selectReportLike(ReportLike rplike);
 }
