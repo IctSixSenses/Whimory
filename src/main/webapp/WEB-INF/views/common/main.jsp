@@ -6,23 +6,60 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
 <title>Whimory</title>
+
+<!-- Favicons -->
+<link href="${ pageContext.request.contextPath }/resources/images/logo03.png" rel="icon">
+  
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
 
+  <!-- Vendor CSS Files -->
+  <link href="${ pageContext.request.contextPath }/resources/plugins/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="${ pageContext.request.contextPath }/resources/plugins/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="${ pageContext.request.contextPath }/resources/plugins/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="${ pageContext.request.contextPath }/resources/plugins/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="${ pageContext.request.contextPath }/resources/plugins/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="${ pageContext.request.contextPath }/resources/plugins/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="${ pageContext.request.contextPath }/resources/plugins/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  
+<!-- Template Main CSS File -->
+<link href="${ pageContext.request.contextPath }/resources/plugins/assets/css/style.css" rel="stylesheet">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
+
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
+
+<style type="text/css">
+html head{
+	font-family: Roboto, Nanum Gothic;
+}
+html body{
+	font-family: Roboto, Nanum Gothic;
+}
+.hero-container{
+    width: 750px;
+    align: center;
+  }
+</style>
 
 </head>
 <body>
 	<header> 
 	<c:import url="/WEB-INF/views/common/menubar.jsp" />
-	<hr style="clear: both;">
 	
-	<!-- 현주 추가 : 로그인하기 버튼 -->
-	<c:import url="/WEB-INF/views/user/loginbutton.jsp" />
+
+
+
+
+
+
 	
 	<!-- 검색창 부분 -->
 	<form class="d-flex" style="align:center">
@@ -44,6 +81,7 @@
 	</section>
 	
 
+	<!-- 은별: 언론보도 newTop3 부분 -->
 	<section>
 		<c:import url="/WEB-INF/views/news/news3.jsp" />
 	</section>

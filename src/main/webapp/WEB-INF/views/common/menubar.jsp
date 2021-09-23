@@ -5,28 +5,80 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
 <title>Whimory</title>
+
+<!-- Favicons -->
+<link href="${ pageContext.request.contextPath }/resources/images/logo03.png" rel="icon">
+
+<!-- Vendor CSS Files -->
+<link href="${ pageContext.request.contextPath }/resources/plugins/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+<link href="${ pageContext.request.contextPath }/resources/plugins/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="${ pageContext.request.contextPath }/resources/plugins/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="${ pageContext.request.contextPath }/resources/plugins/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+<link href="${ pageContext.request.contextPath }/resources/plugins/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+<link href="${ pageContext.request.contextPath }/resources/plugins/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+<link href="${ pageContext.request.contextPath }/resources/plugins/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+<!-- Template Main CSS File -->
+<link href="${ pageContext.request.contextPath }/resources/plugins/assets/css/style.css" rel="stylesheet">
+
 <!-- Bootstrap CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
-<style type="text/css">
 
-ul#menubar a img#logo{
-	width:50;
-	height:50;
-	align: center;
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
+
+<style type="text/css">
+html head{
+	font-family: Roboto, Nanum Gothic;
 }
-li#menu1 a, #menu2 a, #menu3 a, #menu4 a, #menu5 a{
+html body{
+	font-family: Roboto, Nanum Gothic;
+}
+.maila{
+	text-decoration: none;
+}
+.navbar li a {
+	font-family: Roboto, Nanum Gothic;
 	font-size: 13pt;
-	font-family: Arial;
 }
 
 </style>
+
+<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	//로그인 페이지로 이동
+	function movePage() {
+		location.href = "loginPage.do";
+	}
+	
+	//회원 가입 페이지로 이동
+	function movePage2() {
+		location.href = "enrollPage.do";
+	}
+</script>
 </head>
 <body>
+
+    <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-envelope d-flex align-items-center"><a href="0308tjdus@gmail.com" class="maila">0308tjdus@gmail.com</a></i>
+        <i class="bi bi-phone d-flex align-items-center ms-4"><span>+82 02) 1234-5678</span></i>
+      </div>
+      <div class="social-links d-none d-md-flex">
+        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+      </div>
+
 <br><br>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
@@ -41,17 +93,68 @@ li#menu1 a, #menu2 a, #menu3 a, #menu4 a, #menu5 a{
      		<img src="${ pageContext.servletContext.contextPath }/resources/images/logo01.png" width="120" height="40">
      	</a>&nbsp;&nbsp;
         <li class="nav-item" id="menu1"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/nlist.do">공지사항</a></li>&nbsp;&nbsp;
-		<li class="nav-item" id="menu2"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/wlist.do">언론보도</a></li>&nbsp;&nbsp;
+		    <li class="nav-item" id="menu2"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/wlist.do">언론보도</a></li>&nbsp;&nbsp;
         <li class="nav-item" id="menu3"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/rplist.do?page=1">역사 왜곡 제보하기</a></li>&nbsp;&nbsp;
         <li class="nav-item" id="menu4"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/flist.do?page=1">자유 토론 공간</a></li>&nbsp;&nbsp;
         <li class="nav-item" id="menu5"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/qlist.do?page=1">Q&A</a></li>
       </ul>
+
     </div>
+  </section>
+  
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center" style="height:100px;">
+    <div class="container d-flex align-items-center justify-content-between">
+    
+      <div class="logo">
+        <a href="${ pageContext.servletContext.contextPath }/main.do"><img src="${ pageContext.request.contextPath }/resources/images/logo00.png" title="메인페이지로 이동" alt="휘모리" width="100px" height="45px"></a>
+      </div>
 
-  </div>
-</nav>
+	<nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="main.do">Home</a></li>
+          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/nlist.do">공지사항</a></li>
+          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/wlist.do">언론보도</a></li>
+          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/rplist.do?page=1">역사 왜곡 제보하기</a></li>
+          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/flist.do?page=1">자유 토론 공간</a></li>
+          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/qlist.do?page=1">QNA</a></li>
+		</ul>
+    </nav><!-- .navbar -->
 
+	<div id="loginform" align="right">
+			<!-- 아무도 로그인이 되지 않은 경우 -->
+			<c:if test="${ empty loginUser }">
+				<button class="btn btn-outline-primary" onclick="movePage()">로그인</button> &nbsp; &nbsp;
+				<button class="btn btn-outline-primary" onclick="movePage2()">회원가입</button> &nbsp; &nbsp;
+			</c:if>
 
+			<!-- 관리자로 로그인이 된 상태인 경우 (마이페이지 및 메뉴 항목 수정 예정)//이름 출력 -->
+			<c:if test="${ !empty sessionScope.loginUser and loginUser.admin_yn eq 'Y' }">
+				${ sessionScope.loginUser.user_name } 님 어서오세요. &nbsp; &nbsp;
+					<button class="btn btn-outline-primary" onclick="javascript:location.href='logout.do';">로그아웃</button>  &nbsp; &nbsp;
+					<button class="btn btn-outline-primary" onclick="javascript:location.href='ulist.do';">회원 정보 보기</button>
+			</c:if>
+			<!-- 일반 회원이 로그인 된 경우 (마이페이지 및 메뉴 항목 수정 예정) // 이름 출력 -->
+			<c:if test="${ !empty sessionScope.loginUser and loginUser.admin_yn eq 'N' }">
+				<c:url var= "callMyinfo" value="/myinfo.do">
+					<c:param name="user_id" value="${loginUser.user_id}" />
+				</c:url>
+				${ sessionScope.loginUser.user_name } 회원님, 어서오세요!  &nbsp; 
+				<a href="${ callMyinfo }"><img src="${ pageContext.servletContext.contextPath }/resources/images/loginimg.png" title="마이페이지" width="40" height="40"></a>&nbsp;&nbsp;
+				<button class="btn btn-outline-secondary" onclick="javascript:location.href='logout.do';">로그아웃</button> &nbsp; &nbsp; 
+			</c:if>
+		</div>
+	
+    </div>
+  </header><!-- End Header -->
+  
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
 
