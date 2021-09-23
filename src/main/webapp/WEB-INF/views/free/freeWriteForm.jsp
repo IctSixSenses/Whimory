@@ -5,6 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Whimory</title>
+
+<!-- Favicons -->
+<link href="${ pageContext.request.contextPath }/resources/images/tgmark.png" rel="icon">
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
@@ -20,7 +24,7 @@ html body{
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr>
+
 <h3 align="center">자유 토론 게시글 등록 페이지</h3>
 <br>
 
@@ -55,9 +59,7 @@ html body{
 	</tr>
 </table>
 
-
-
-<hr>
+<br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

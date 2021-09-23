@@ -10,7 +10,7 @@
 <title>Whimory</title>
 
 <!-- Favicons -->
-<link href="${ pageContext.request.contextPath }/resources/images/logo03.png" rel="icon">
+<link href="${ pageContext.request.contextPath }/resources/images/tgmark.png" rel="icon">
 
 <!-- Vendor CSS Files -->
 <link href="${ pageContext.request.contextPath }/resources/plugins/assets/vendor/animate.css/animate.min.css" rel="stylesheet">

@@ -10,7 +10,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>Whimory</title>
+
+<!-- Favicons -->
+<link href="${ pageContext.request.contextPath }/resources/images/tgmark.png" rel="icon">
+
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
@@ -29,12 +34,9 @@ table#tbrp, #tbrpli, #tbrpins{
 }
 </style>
 
-
 </head>
-
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp"/>
-<hr>
 
 <h3 align="center">${ requestScope.free.free_no }번 게시글 상세보기</h3>
 <br>
@@ -174,7 +176,7 @@ table#tbrp, #tbrpli, #tbrpins{
 </table>
 
 
-<hr>
+<br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
