@@ -65,7 +65,6 @@ html body{
 </script>
 </head>
 <body>
-
     <!-- ======= Top Bar ======= -->
   <section id="topbar" class="fixed-top d-flex align-items-center">
     <div class="container d-flex justify-content-center justify-content-md-between">
@@ -78,27 +77,6 @@ html body{
         <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
         <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
       </div>
-
-<br><br>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="menubar">
-     	<a class="navbar-brand" title="메인 페이지로 이동" href="main.do">
-     		<img src="${ pageContext.servletContext.contextPath }/resources/images/logo01.png" width="120" height="40">
-     	</a>&nbsp;&nbsp;
-        <li class="nav-item" id="menu1"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/nlist.do">공지사항</a></li>&nbsp;&nbsp;
-		    <li class="nav-item" id="menu2"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/wlist.do">언론보도</a></li>&nbsp;&nbsp;
-        <li class="nav-item" id="menu3"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/rplist.do?page=1">역사 왜곡 제보하기</a></li>&nbsp;&nbsp;
-        <li class="nav-item" id="menu4"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/flist.do?page=1">자유 토론 공간</a></li>&nbsp;&nbsp;
-        <li class="nav-item" id="menu5"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/qlist.do?page=1">Q&A</a></li>
-      </ul>
-
     </div>
   </section>
   
@@ -113,7 +91,7 @@ html body{
 	<nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="main.do">Home</a></li>
-          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/nlist.do">공지사항</a></li>
+          <li><a class="nav-link scrollto" href="#">공지사항</a></li>
           <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/wlist.do">언론보도</a></li>
           <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/rplist.do?page=1">역사 왜곡 제보하기</a></li>
           <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/flist.do?page=1">자유 토론 공간</a></li>
