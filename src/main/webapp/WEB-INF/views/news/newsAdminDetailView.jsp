@@ -2,52 +2,71 @@
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
- <c:set var="currentPage" value="${ requestScope.currentPage }" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Whimory</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <c:import url="../common/menubar.jsp" />
 <hr>
 
-<h2 align="center">${ news.news_title }</h2><br>
+<br>
 
-<table align="center" width="1000" border="1" cellspacing="5" cellpadding="10">
-<tr><td>${ news.news_title }</td></tr> <br>
-<tr><td>${ news.news_date }</td></tr> <br>
-
-<c:if test="${ news.news_org_file != null }">
-<tr><td><img src="${ pageContext.servletContext.contextPath }/resources/news_upfiles/${ news.news_re_file }" style="width:230px;height:300px"></td></tr> <br>
-</c:if>
-<c:if test="${ news.news_org_file == null }">
-</c:if>
-
-<tr><td>${ news.news_content }</td></tr> <br>
-<tr><td>보도일 &nbsp; ${ news.news_at_date }</td></tr> <br>
-<tr><td>원본 출처 :  <a href="${ news.news_link }">${ news.news_link }</a></td></tr> <br>
-
-<tr><th colspan="2">
-
-<%-- 수정페이지로 이동 버튼 --%>
-<c:url var="wupdate" value="/wupview.do">
-   <c:param name="news_no" value="${ news.news_no }" />
-</c:url>
-<button onclick="javascript:location.href='${ wupdate }';">수정하기</button> &nbsp; 
-
-<%-- 삭제하기 버튼 --%>
-<c:url var="wdelete" value="/wdelete.do">
-   <c:param name="news_no" value="${ news.news_no }" />
-   <c:if test="${ !empty news.news_org_file }">
-      <c:param name="rfile" value="${ news.news_re_file }" />
-   </c:if>
-</c:url>
-<button onclick="javascript:location.href='${ wdelete }';">삭제하기</button> &nbsp; 
-
-<%-- 이전페이지로 이동 --%>
-<button onclick="javascript:history.go(-1);">목록보기</button></th></tr>
+<table class="table" style="table-layout:fixed; width:850px;" align="center">
+	<tr>
+		<td colspan="10"><h2 align="center">${ news.news_title }</h2></td>
+	</tr>
+	<tr>
+		<td colspan="10" align="right" style="font-size:15pt;">${ news.news_date }</td>
+	</tr>
+	
+	<c:if test="${ news.news_org_file != null }">
+	<tr>
+		<td colspan="10" align="center"><img src="${ pageContext.servletContext.contextPath }/resources/news_upfiles/${ news.news_re_file }" style="width:750px;height:550px"></td>
+	</tr>
+	</c:if>
+	<c:if test="${ news.news_org_file == null }">
+	</c:if>
+	
+	<tr>
+		<td colspan="10">${ news.news_content }</td>
+	</tr> 
+	<tr>
+		<td colspan="10" align="left">보도일 &nbsp; ${ news.news_at_date }</td>
+	</tr>
+	<tr>
+		<td colspan="10" align="left">원본 출처 :  <a href="${ news.news_link }">${ news.news_link }</a></td>
+	</tr>
+		
+	
+	<tr><th colspan="10">
+		<div width="850" align="center">
+			<%-- 수정페이지로 이동 버튼 --%>
+			<c:url var="wupdate" value="/wupview.do">
+	   			<c:param name="news_no" value="${ news.news_no }" />
+			</c:url>
+			<button onclick="javascript:location.href='${ wupdate }';" class="btn btn-outline-info">수정하기</button> &nbsp; 
+	
+			<%-- 이전페이지로 이동 --%>
+			<button onclick="javascript:history.go(-1);" class="btn btn-info">목록보기</button> &nbsp; 
+			
+			<%-- 삭제하기 버튼 --%>
+			<c:url var="wdelete" value="/wdelete.do">
+			   <c:param name="news_no" value="${ news.news_no }" />
+			   <c:if test="${ !empty news.news_org_file }">
+			      <c:param name="rfile" value="${ news.news_re_file }" />
+			   </c:if>
+			</c:url>
+			<button onclick="javascript:location.href='${ wdelete }';" class="btn btn-outline-danger">삭제하기</button> 
+			
+			</th></tr>
+		</div>
+	
+	
 
 </table>
 
