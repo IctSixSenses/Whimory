@@ -18,7 +18,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Whimory</title>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+<!-- Bootstrap CSS -->
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
+<style type="text/css">
+html head{
+	font-family: Roboto, Nanum Gothic;
+}
+html body{
+	font-family: Roboto, Nanum Gothic;
+} 
+table tr td a { text-decoration:none } 
+</style> 
+<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
@@ -26,45 +40,35 @@
 <h2 align="center">QNA 답변내역</h2>
 
 <br>
-<table class="table table-hover">
-<tr class="table-light">
-	<th>작성자</th>
-	<th>질문 분류</th>
-	<th>제목</th>
-	<th>작성일</th>
-	<th>답변여부</th>
-	<th>답변일</th>
-</tr>
-<c:forEach items="${ requestScope.list }" var="q">
-<tr>
-<td align="center">${ q.user_id }</td>
-
-<td align="center">${  q.qq_category }</td>
-
-</td>
-
-<c:url value="/qdetail.do" var="qdetail">
-      <c:param name="qq_no" value="${ q.qq_no }" />
-      <c:param name="page" value="${ currentPage }" />
-   </c:url>
-   <td align="center"><a href="${ qdetail }">${ q.qq_title }</a>
-</td>
-   
-<td align="center">
-<fmt:formatDate value="${  q.qq_date }" type="date" pattern="yyyy-MM-dd" /></td>
-
-<td align="center">${  q.qq_yn }</td>
-
-<td align="center">
-<c:if test="${ q.qq_yn eq 'Y'}">
-	${  qa_date }
-</c:if>
-<c:if test="${ q.qq_yn eq 'N' }">
-	-
-</c:if>
-</td>
-</tr>
-</c:forEach>
+<table class="table table-lightgray table-hover" style="table-layout: fixed; width:1200px" align="center" cellspacing="0" cellpadding="3" >
+	<thead>
+		<tr align="center" class="thead-light">
+			<th width="100px">작성자</th>
+			<th width="200px">질문 분류</th>
+			<th width="700px">제목</th>
+			<th width="120px">작성일</th>
+			<th width="80px">답변여부</th>
+		</tr>
+	</thead>
+	
+	<c:forEach items="${ requestScope.list }" var="q">
+		<tr align="center">
+			<td>${ q.user_id }</td>
+			<td>${  q.qq_category }</td>	
+			<c:url value="/qdetail.do" var="qdetail">
+		      <c:param name="qq_no" value="${ q.qq_no }" />
+		      <c:param name="page" value="${ currentPage }" />
+		   </c:url>
+		   <td align="center"><a href="${ qdetail }">${ q.qq_title }</a></td>
+		   
+		<td align="center">
+		<fmt:formatDate value="${  q.qq_date }" type="date" pattern="yyyy-MM-dd" /></td>
+		
+		<td align="center">${  q.qq_yn }</td>
+		
+		
+		</tr>
+	</c:forEach>
 </table>
 <br>
 <!-- 페이징 처리 -->

@@ -9,6 +9,17 @@
 <title>Whimory</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap CSS -->
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
+<style type="text/css">
+html head{
+	font-family: Roboto, Nanum Gothic;
+}
+html body{
+	font-family: Roboto, Nanum Gothic;
+} 
+table tr td a { text-decoration:none } 
+</style> 
 </head>
 <body>
 <c:import url="../common/menubar.jsp" />

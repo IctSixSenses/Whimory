@@ -6,6 +6,17 @@
 <meta charset="UTF-8">
 <title>Whimory</title>
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap CSS -->
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
+<style type="text/css">
+html head{
+	font-family: Roboto, Nanum Gothic;
+}
+html body{
+	font-family: Roboto, Nanum Gothic;
+} 
+table tr td a { text-decoration:none } 
+</style> 
 <script type="text/javascript">
    
    $(function() {
@@ -47,7 +58,7 @@
       <!-- 최근 등록된 언론보도 3개 출력 : ajax -->
       <div style="float:right;">
          <h5>언론보도 New Top3</h5>
-         <table id="News3" border="1" solid="black" width="400" border-collapse="collapse">
+         <table id="News3" border="1" solid="black" width="500" border-collapse="collapse">
             <tr align="center" bgcolor="lightgrey">
                <th>No.</th>
                <th>Name</th>
