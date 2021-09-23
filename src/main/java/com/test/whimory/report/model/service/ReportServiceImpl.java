@@ -9,6 +9,7 @@ import com.test.whimory.common.Paging;
 import com.test.whimory.common.SearchDate;
 import com.test.whimory.report.model.dao.ReportDao;
 import com.test.whimory.report.model.vo.Report;
+import com.test.whimory.report.model.vo.ReportLike;
 
 @Service("reportService")
 public class ReportServiceImpl implements ReportService {
@@ -75,10 +76,20 @@ public class ReportServiceImpl implements ReportService {
 	public int updateAddReadCount(int report_no) {
 		return reportDao.updateAddReadCount(report_no);
 	}
+	
+	@Override
+	public int insertAddLikeCount(ReportLike rplike) {
+		return reportDao.insertAddLikeCount(rplike);
+	}
 
 	@Override
 	public int updateAddLikeCount(int report_no) {
 		return reportDao.updateAddLikeCount(report_no);
 	}
 
+	@Override
+	public int selectReportLike(ReportLike rplike) {
+		return reportDao.selectReportLike(rplike);
+	}
+	
 }
