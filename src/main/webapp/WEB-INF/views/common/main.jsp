@@ -72,8 +72,8 @@ html body{
 <body>
 	<header> 
 	<c:import url="/WEB-INF/views/common/menubar.jsp" />
-	
-
+	<!-- 현주 : 관리자용 추가 -->
+	<c:import url="/WEB-INF/views/common/menubarA.jsp" />
 
 
 

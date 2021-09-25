@@ -23,6 +23,12 @@ public class ReportDao {
 		return (ArrayList<Report>) list;
 	}
 	
+	//현주 추가 부분 - 나의 제보 내역
+	public ArrayList<Report> selectListU(Paging page){
+		List<Report> list = sqlSession.selectList("reportMapper.selectListU", page);
+		return (ArrayList<Report>) list;
+	}
+	
 	public int selectListCount() {
 		return sqlSession.selectOne("reportMapper.selectListCount");
 	}

@@ -32,54 +32,55 @@ $(".mail_check_button").click(function(){
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
+<hr>
 <!-- 회원가입폼 -->
 <h1 align="center">휘모리(Whimory) 회원가입</h1>
-<table>
+
 <form method="post" action="uinsert.do">
 <input type="hidden" name="origin_userpwd" value="${ requestScope.user.user_pwd }">
 <table id="outer" align="center" width="500" cellspacing="5" cellpadding="0">
-<tr>
+<tr height = "60">
 	<th width="120">이 름</th>
 	<td><input type="text" name="user_name" ></td>
 </tr>
-<tr>
+<tr height = "60">
 	<th>아이디</th>
 	<td><input type="text" name="user_id"></td>
 </tr>
-<tr>
+<tr height = "60">
 	<th>암 호</th>
 	<td><input type="password" name="user_pwd" id="userpwd" required></td>
 </tr>
-<tr>
+<tr height = "60">
 	<th>암호확인</th>
 	<td><input type="password" id="userpwd2" onblur="validate();" required></td>
 </tr>
-<tr>
+<tr height = "60">
 	<th>성 별</th>
 	<td><input type="radio" name="gender" value="M" checked> 남자 &nbsp; 
 	    <input type="radio" name="gender" value="F"> 여자</td>
 </tr>
-<tr>
-	<th>나 이</th>
-	<td><input type="number" name="age" min="19" max="200"></td>
+<tr height = "60">
+	<th>생년월일</th>
+	<td><input type="date" name="birth"></td>
 </tr>
-<tr>
+<tr height = "60">
 	<th>전화번호</th>
 	<td><input type="tel" name="phone"></td>
 </tr>
-<tr>
+<tr height = "60">
 	<th>이메일</th>
 	<td><input type="email" class="mail_input" name="email" ></td>
-	<td><input type="button" class="mail_check_button" value="인증하기"></td>
+	<!-- <td><input type="button" class="mail_check_button" value="인증하기"></td> -->
 </tr>
-<tr>
+<!--  <tr height = "60">
 	<th>인증번호 입력</th>
 	<td><input type="text" name="mailcheck" class = "mail_check_input_box"></td>
 	<td><input type="button" value="확인"></td>
-</tr>
-<tr>
+</tr> -->
+<tr height = "60">
 	<th colspan="2">
-		<a href="javascript:history.go(-1);">이전 페이지로 이동</a> &nbsp; 
+		<a href="javascript:history.go(-1);">이전 페이지</a> &nbsp; 
 		<input type="submit" value="회원가입"> &nbsp; 
 		<input type="reset" value="취소하기"> &nbsp; 		
 		<a href="main.do">시작 페이지로</a> &nbsp;
@@ -92,7 +93,6 @@ $(".mail_check_button").click(function(){
 </table>
 </form>
 <hr>
-</table>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

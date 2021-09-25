@@ -36,10 +36,27 @@ public class UserDao {
 		return session.insert("userMapper.insertUser", user);
 	}
 	
+	//회원 정보 수정
+	public int updateUser(User user) {
+		return session.update("userMapper.updateUser", user);
+	}
+	
+	//회원 이름 검색하기
+	public ArrayList<User> selectSearchUserid(String keyword) {
+		List<User> list = session.selectList("userMapper.selectSearchUserid", keyword);
+		return (ArrayList<User>)list;
+	}
+	
 	//회원 탈퇴
 	public int deleteUser(String user_id) {
 		return session.delete("userMapper.deleteUser", user_id);
 	}
 	
+	
+	
 	//카카오 로그인
+	
+	
+	//메일 인증 하는걸 어떻게 해야할까...
+	
 }

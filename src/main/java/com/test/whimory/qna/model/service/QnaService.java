@@ -23,4 +23,5 @@ public interface QnaService {
 	ArrayList<QnaAnswer> selectAnswerList(int qq_no);
 	int updateQqyn(int qq_no);	// 답변여부 y로 바꾸기
 	int updateQQYN(int qq_no);	// 답변여부 n
+	ArrayList<QnaQuestion> selectListU(Paging page); //현주 : 내 qna 질문 내역 보기
 }
