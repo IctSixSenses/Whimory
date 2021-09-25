@@ -29,10 +29,10 @@ function changeLogin(element){
 	console.log(userid);
 	if(element.checked == true && element.value == "false"){
 		console.log("로그인 불가로 변경");
-		location.href = "${ pageContext.servletContext.contextPath }/loginOK.do?user_id=" + user_id + "&login_ok=N";
+		location.href = "${ pageContext.servletContext.contextPath }/loginOK.do?user_id=" + user_id + "&login_access_yn=N";
 	}else{
 		console.log("로그인 가능으로 변경");
-		location.href = "${ pageContext.servletContext.contextPath }/loginOK.do?user_id=" + user_id + "&login_ok=Y";		
+		location.href = "${ pageContext.servletContext.contextPath }/loginOK.do?user_id=" + user_id + "&login_access_yn=Y";		
 	}
 }
 </script>
@@ -48,7 +48,7 @@ function changeLogin(element){
 	<form class="d-flex" style="align:center">
 		<input class="form-control me-2" type="search"
 			placeholder="검색어를 입력하세요." aria-label="Search" style="width: 200px" >
-		<button class="btn btn-outline-success" type="submit">Search</button>
+		<button class="btn btn-outline-success" type="submit" >검색하기</button>
 	</form>
 
 <!-- 검색 창 마무리 -->
@@ -94,8 +94,10 @@ value="false" checked> 제한
 </c:forEach>
 </table>
 
+<div align="center">
 <button class="btn btn-outline-primary"
-					onclick="javascript:history.go(-1):;">뒤로 가기</button> &nbsp; &nbsp;
+					onclick="javascript:history.go(-1):;">뒤로 가기</button>
+					</div>
 <hr>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 

@@ -25,6 +25,11 @@
 	function movePage2() {
 		location.href = "enrollPage.do";
 	}
+	
+	//아이디/비밀번호 찾기 페이지로 이동
+	function movePage3() {
+		location.href = "findaccount.do";
+	}
 </script>
 </head>
 <body>
@@ -34,6 +39,7 @@
 			<c:if test="${ empty loginUser }">
 				<button class="btn btn-outline-primary" onclick="movePage()">로그인하기</button> &nbsp; &nbsp;
 				<button class="btn btn-outline-primary" onclick="movePage2()">회원가입하기</button> &nbsp; &nbsp;
+				<button class="btn btn-outline-primary" onclick="movePage3()">계정 찾기</button> &nbsp; &nbsp;
 			</c:if>
 
 			<!-- 관리자로 로그인이 된 상태인 경우 (마이페이지 및 메뉴 항목 수정 예정)//이름 출력 -->
