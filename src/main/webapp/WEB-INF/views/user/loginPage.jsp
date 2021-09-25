@@ -53,7 +53,7 @@ function kakaoLoginPro(response){
 	
 	//회원 가입 페이지로 이동
 	function movePage2() {
-		location.href = "enrollPage.do";
+		location.href = "enroll.do";
 	}
 	
 	//아이디 비밀번호 찾기

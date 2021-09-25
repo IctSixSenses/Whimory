@@ -17,5 +17,7 @@ public interface UserService {
 	int updateUser(User user); //회원 정보 수정
 	int updateLoginOk(User user); //회원 로그인 허용 설정
 	int insertUser(User user); //회원 가입
+	User selectUserId(User user);//회원 아이디 찾기
+	int updatePwd(User user); //비밀번호 변경하기
 	
 }

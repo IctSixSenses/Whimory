@@ -75,5 +75,17 @@ public class UserServiceImpl implements UserService {
 	public int insertUser(User user) {
 		return userDao.insertUser(user);
 	}
+	
+	//회원아이디 찾기
+	@Override
+	public User selectUserId(User user) {
+		return userDao.selectUserId(user);
+	}
+	
+	//비밀번호 변경하기
+	@Override
+	public int updatePwd(User user) {
+		return userDao.updatePwd(user);
+	}
 
 }

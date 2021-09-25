@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%request.setCharacterEncoding("UTF-8"); %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
@@ -12,6 +13,8 @@
 <hr>
 <!-- 해당 과정에서 인증 절차가 어떻게 들어가면 되는지 고민중 -->
 <!-- 아이디 찾기 -->
+<h2 align="center">아이디 찾기</h2>
+<br>
 <div id="findid" align="center">
 <form action="findid.do" method="post">
 <label>이름 : <input type="text" name="user_name"></label><br><br>
@@ -23,7 +26,8 @@
 
 <hr>
 <!-- 비밀번호 변경하기 -->
-<!-- 아이디 찾기 -->
+<h2 align = "center">비밀번호 찾기</h2>
+<br>
 <div id="findpwd" align="center">
 <form action="findid.do" method="post">
 <label>아이디 : <input type="text" name="user_name"></label><br><br>

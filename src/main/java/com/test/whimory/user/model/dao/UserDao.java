@@ -52,6 +52,16 @@ public class UserDao {
 		return session.delete("userMapper.deleteUser", user_id);
 	}
 	
+	//아이디 찾기
+	public User selectUserId(User user) {
+		return session.selectOne("userMapper.selectUserId", user);
+	}
+	
+	//비밀번호 변경하기
+	public int updatePwd(User user) {
+		return session.update("userMapper.updatePwd", user);
+	}
+	
 	
 	
 	//카카오 로그인

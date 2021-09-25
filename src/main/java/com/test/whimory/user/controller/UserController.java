@@ -170,15 +170,15 @@ public class UserController {
 	//아이디 변경
 		@RequestMapping("findid.do")
 		public ModelAndView findIdMethod(
-				@RequestParam("user_name") String user_name, ModelAndView mv) {
+				User user, ModelAndView mv) {
 			
-			User user = userService.selectUser(user_name);
+			User findUser = userService.selectUserId(user);
 			
 			if(user != null) {
 				mv.addObject("user", user);
 				mv.setViewName("user/findId");
 			}else {
-				mv.addObject("message", user_name + "아이디 조회 실패!");
+				mv.addObject("message", user.getuser_name() + "아이디 조회 실패!");
 				mv.setViewName("common/error");
 			}
 			
@@ -188,15 +188,15 @@ public class UserController {
 		//비밀번호 변경
 		@RequestMapping("changepwd.do")
 		public ModelAndView changePwdMethod(
-				@RequestParam("user_name") String user_name, ModelAndView mv) {
+				User user, ModelAndView mv) {
 			
-			User user = userService.selectUser(user_name);
+		//	User changePwd = userService.updatePwd(user);
 			
 			if(user != null) {
 				mv.addObject("user", user);
 				mv.setViewName("user/findId");
 			}else {
-				mv.addObject("message", user_name + "계정 정보 조회 실패!");
+				mv.addObject("message", user + "비밀번호 변경 실패!");
 				mv.setViewName("common/error");
 			}
 			
