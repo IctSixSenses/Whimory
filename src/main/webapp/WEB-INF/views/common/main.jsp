@@ -107,6 +107,102 @@ html body{
 <br><br><br><br><br><br><br><br><br><br><br><br>
 
 
+<!-- 언론보도 NewTop5 -->
+
+
+
+<!-- 구글 캘린더 -->
+
+
+
+<!-- 명언카드 -->
+
+
+
+<!-- 영화추천 작업 -->
+
+
+ <main id="main"><!-- Start #main -->
+
+
+<!-- ======= 팀원 소감 및 한마디 Section ======= -->
+    <section id="testimonials" class="testimonials">
+      <div class="container position-relative">
+
+        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="${ pageContext.request.contextPath }/resources/plugins/assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                <h3>Seoyoen Na</h3>
+                <h4>Team Leader</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- 서연 -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="${ pageContext.request.contextPath }/resources/plugins/assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                <h3>Daseul Kim</h3>
+                <h4>Team Crew</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- 다슬 -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="${ pageContext.request.contextPath }/resources/plugins/assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+                <h3>Eunbyeol Kim</h3>
+                <h4>Team Crew</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  은별이가 랩을 한다 홍홍홍. 형돈이도 랩을 한다 홍홍홍
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- 은별 -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="${ pageContext.request.contextPath }/resources/plugins/assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+                <h3>Hyunju Park</h3>
+                <h4>Team Crew</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  아리랑 아리랑 아라리요 아리랑 고개로~홍 넘~어간다.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>>
+            </div><!-- 현주 -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="${ pageContext.request.contextPath }/resources/plugins/assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+                <h3>Seongin Choi</h3>
+                <h4>Team Crew</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  눼....
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- 성인 -->
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </section><!-- End 팀원 소감 및 한마디 Section -->
 
 
 <!-- Contact 및 Kakao Map API -->
@@ -256,6 +352,8 @@ html body{
         </div>
       </div>
     </section>
+
+  </main><!-- End #main -->
 
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>

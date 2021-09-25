@@ -48,7 +48,12 @@ html body{
 	font-family: Roboto, Nanum Gothic;
 	font-size: 13pt;
 }
-
+.kolo {
+	text-decoration: none;
+	font-size: 16pt;
+	color: #404f52;
+	background-color: white;
+}
 </style>
 
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
@@ -69,23 +74,22 @@ html body{
   <section id="topbar" class="fixed-top d-flex align-items-center">
     <div class="container d-flex justify-content-center justify-content-md-between">
       <div class="contact-info d-flex align-items-center">
-        <i class="bi bi-envelope d-flex align-items-center"><a href="0308tjdus@gmail.com" class="maila">0308tjdus@gmail.com</a></i>
-        <i class="bi bi-phone d-flex align-items-center ms-4"><span>+82 02) 1234-5678</span></i>
+        <img src="https://img.icons8.com/ios/50/000000/hand.png" width="20" height="20"/><span>&nbsp;본 사이트는 대한민국 정부와는 무관하며, 20대 청년들의 자발적인 의지로 개설되었습니다.</span></i>
       </div>
       <div class="social-links d-none d-md-flex">
-        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="${ pageContext.servletContext.contextPath }/klist.do" class="kolo" title="정보게시판 바로가기"><b>KOREA ORIGIN</b>
+        	<img src="${ pageContext.servletContext.contextPath }/resources/images/krflag.png" width="40" height="27" title="정보게시판 바로가기">
+        	<font size="2rem" color="#212529">← 클릭시 정보게시판으로 이동</font></a>
       </div>
     </div>
   </section>
   
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center" style="height:100px;">
-    <div class="container d-flex align-items-center justify-content-between">
+    <div class="container d-flex align-items-center justify-content-between" style="height:50;">
     
-      <div class="logo">
-        <a href="${ pageContext.servletContext.contextPath }/main.do"><img src="${ pageContext.request.contextPath }/resources/images/logo00.png" title="메인페이지로 이동" alt="휘모리" width="100px" height="45px"></a>
+      <div class="logo" >
+        <a href="${ pageContext.servletContext.contextPath }/main.do"><img src="${ pageContext.request.contextPath }/resources/images/logo00.png" title="메인페이지로 이동" alt="휘모리" width="125" height="120"></a>
       </div>
 
 	<nav id="navbar" class="navbar">
@@ -108,7 +112,7 @@ html body{
 
 			<!-- 관리자로 로그인이 된 상태인 경우 (마이페이지 및 메뉴 항목 수정 예정)//이름 출력 -->
 			<c:if test="${ !empty sessionScope.loginUser and loginUser.admin_yn eq 'Y' }">
-				${ sessionScope.loginUser.user_name } 님 어서오세요. &nbsp; &nbsp;
+				${ sessionScope.loginUser.user_name } 님, 어서오세요! &nbsp; &nbsp;
 					<button class="btn btn-outline-primary" onclick="javascript:location.href='logout.do';">로그아웃</button>  &nbsp; &nbsp;
 					<button class="btn btn-outline-primary" onclick="javascript:location.href='ulist.do';">회원 정보 보기</button>
 			</c:if>
@@ -117,7 +121,7 @@ html body{
 				<c:url var= "callMyinfo" value="/myinfo.do">
 					<c:param name="user_id" value="${loginUser.user_id}" />
 				</c:url>
-				${ sessionScope.loginUser.user_name } 회원님, 어서오세요!  &nbsp; 
+				${ sessionScope.loginUser.user_name } 회원님, 어서오세요! &nbsp; 
 				<a href="${ callMyinfo }"><img src="${ pageContext.servletContext.contextPath }/resources/images/loginimg.png" title="마이페이지" width="40" height="40"></a>&nbsp;&nbsp;
 				<button class="btn btn-outline-secondary" onclick="javascript:location.href='logout.do';">로그아웃</button> &nbsp; &nbsp; 
 			</c:if>

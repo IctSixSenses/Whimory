@@ -95,22 +95,25 @@ function showDiv(item){
 				<option value="content">내용</option>
 			</select>
 			</div>
-			<div id="titleDiv" style="display:inline-block; float: left; width: 40%;" >
+			<div id="titleDiv" style="display:inline-block; float: left; width: 50%;" >
 				<form action="fstitle.do" method="post">
 					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
-					<button type="submit" class="btn btn-outline-primary">검색</button>
+					<button type="submit" class="btn btn-outline-primary">검색</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button class="btn btn-primary" onclick="javascript:location.href='flist.do';">전체목록</button>
 				</form>
 			</div>
-			<div id="writerDiv" style="display:none; float: left; width: 40%;">
+			<div id="writerDiv" style="display:none; float: left; width: 50%;">
 				<form action="fswriter.do" method="post">
 					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control" >
-					<button type="submit" class="btn btn-outline-primary">검색</button>
+					<button type="submit" class="btn btn-outline-primary">검색</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button class="btn btn-primary" onclick="javascript:location.href='flist.do';">전체목록</button>
 				</form>
 			</div>
-			<div id="contentDiv" style="display:none; float: left; width: 40%;">
+			<div id="contentDiv" style="display:none; float: left; width: 50%;">
 				<form action="fscontent.do" method="post">
 					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control" >
-					<button type="submit" class="btn btn-outline-primary">검색</button>
+					<button type="submit" class="btn btn-outline-primary">검색</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button class="btn btn-primary" onclick="javascript:location.href='flist.do';">전체목록</button>
 				</form>
 			</div>
 		</td>
@@ -150,7 +153,14 @@ function showDiv(item){
             <a href="${ fdetail }">&nbsp;&nbsp;${ li.free_title }</a>
          </td>
          <td>${ li.user_id }</td>
-         <td>${ li.free_date }</td>
+         <td>
+         	<c:if test="${ empty li.free_modify }">
+				<fmt:formatDate value="${ li.free_date }" pattern="yyyy-MM-dd" />
+			</c:if>
+			<c:if test="${ !empty li.free_modify }">
+				<fmt:formatDate value="${ li.free_modify }" pattern="yyyy-MM-dd" />
+			</c:if>
+         </td>
          <td>
             <c:if test="${ !empty li.free_re_file }">
                <i class="fas fa-file-download"></i>
