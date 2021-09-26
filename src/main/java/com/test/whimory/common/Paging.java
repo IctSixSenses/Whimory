@@ -2,17 +2,16 @@ package com.test.whimory.common;
 
 import java.sql.Date;
 
-public class Paging implements java.io.Serializable {
+public class Paging implements java.io.Serializable{
 	private static final long SerialVersionUID = 9999L;
 	
 	private int startRow;
 	private int endRow;
-
-	private Date begin;
-	private Date end;
-	private String keyword;
-	private String user_id; //qna 혹은 나의 제보내역 보기를 할때 임시로 값 저장을 해주기 위해 추가
-  
+	private String user_id;		// 현주: qna 혹은 나의 제보내역 보기 시, 임시로 값 저장을 해주기 위해 추가 
+	private Date begin;			// 다슬 추가
+	private Date end;			// 다슬 추가
+	private String keyword;		// 다슬 추가
+	
 	public Paging() {}
 
 	public Paging(int startRow, int endRow) {
@@ -20,14 +19,6 @@ public class Paging implements java.io.Serializable {
 		this.startRow = startRow;
 		this.endRow = endRow;
 	}
-	
-	public Paging(int startRow, int endRow, String user_id) { //오버라이딩
-		super();
-		this.startRow = startRow;
-		this.endRow = endRow;
-		this.user_id = user_id;
-	}
-	
 
 	public Paging(int startRow, int endRow, String keyword) {
 		super();
@@ -44,7 +35,6 @@ public class Paging implements java.io.Serializable {
 		this.end = end;
 	}
 
-	
 	public int getStartRow() {
 		return startRow;
 	}
@@ -59,6 +49,14 @@ public class Paging implements java.io.Serializable {
 
 	public void setEndRow(int endRow) {
 		this.endRow = endRow;
+	}
+
+	public String getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 
 	public Date getBegin() {
@@ -87,19 +85,13 @@ public class Paging implements java.io.Serializable {
 
 	public static long getSerialversionuid() {
 		return SerialVersionUID;
-
-	public String getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
 	}
 
 	@Override
 	public String toString() {
-		return "Paging [startRow=" + startRow + ", endRow=" + endRow + "]";
+		return "Paging [startRow=" + startRow + ", endRow=" + endRow + ", user_id=" + user_id + ", begin=" + begin
+				+ ", end=" + end + ", keyword=" + keyword + "]";
 	}
-	
-	
+
+
 }
