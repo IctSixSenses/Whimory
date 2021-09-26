@@ -22,7 +22,7 @@ table tr td a { text-decoration:none }
 </head>
 <body>
 <c:import url="../common/menubar.jsp" />
-<hr>
+
 <h1 align="center">언론보도 수정</h1>
 <br>
 <!-- form 에서 입력값들과 파일을 함께 전송하려면
@@ -37,6 +37,7 @@ table tr td a { text-decoration:none }
 	<table class="table" style="table-layout: fixed; width:800px" align="center" cellspacing="0" cellpadding="3">
 	<tr>
 		<th>관리자ID</th>
+			<input type="hidden" name="user_id" id="user_id" value="${ loginUser.user_id }">
 			<td colspan="7">${ loginUser.user_id }</td>
 		</tr>
 	

@@ -23,7 +23,7 @@ table tr td a { text-decoration:none }
 </head>
 <body>
 <c:import url="../common/menubar.jsp" />
-<hr>
+
 
 <h1 align="center">질문할게요!</h1><br>
 
@@ -32,6 +32,7 @@ table tr td a { text-decoration:none }
 <table class="table" style="table-layout: fixed; width:800px" align="center" cellspacing="0" cellpadding="3">
 	<tr>
 		<th width="100">작성자</th>
+		<input type="hidden" name="user_id" id="user_id" value="${ loginUser.user_id }">
 		<td colspan="10">${ loginUser.user_id }</td>
 	</tr>
 	<tr>
