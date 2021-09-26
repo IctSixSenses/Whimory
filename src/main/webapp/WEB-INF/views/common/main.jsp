@@ -18,6 +18,10 @@
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" 
+	rel="stylesheet" 
+	integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" 
+	crossorigin="anonymous">
 
   <!-- Vendor CSS Files -->
   <link href="${ pageContext.request.contextPath }/resources/plugins/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -66,36 +70,265 @@ html body{
 .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
 .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
 .info .link {color: #5085BB;}
+
+
+.btn-get-started{
+	text-decoration: none;
+	font-family: Nanum Gothic;
+}
 </style>
 
+<!--js-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" 
+		integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" 
+		crossorigin="anonymous">
+</script>
+
+<!--separate-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" 
+		integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" 
+		crossorigin="anonymous">
+</script>
+
+
+<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
+<script>
+$(function(){
+	$.ajax({
+		url: "ktop10.do",
+		type: "post",
+		dataType: "json",
+		success: function(data){
+			console.log("success: " + data);
+			
+			// object --> string
+			var str = JSON.stringify(data);
+			
+			// string --> json
+			var json = JSON.parse(str);
+			
+			values = "";
+			for(var i in json.list){
+				
+				if(i == 0){
+					values += "<div class='carousel-item active'"
+						+ "style='background-image: url(${ pageContext.request.contextPath }/resources/ko_upfiles/" + json.list[i].ko_re_file + ");'>"
+						+ "<div class='carousel-container'><div class='carousel-content'>"
+				        + "<h2 class='animate__animated animate__fadeInDown'>"
+				        + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
+				        + "</h2><p class='animate__animated animate__fadeInUp'>"
+				        + decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ") 
+				        + "</p><a href='kdetail.do?ko_no=" + json.list[i].ko_no
+				        + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
+				} else if(i == 1) {
+					values += "<div class='carousel-item'"
+						+ "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_14.jpg);'>" 
+						+ "<div class='carousel-container'><div class='carousel-content'>"
+				        + "<h2 class='animate__animated animate__fadeInDown'>"
+				        + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
+				        + "</h2><p class='animate__animated animate__fadeInUp'>"
+				        + decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ") 
+				        + "</p><a href='kdetail.do?ko_no=" + json.list[i].ko_no
+				        + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
+				}else if(i == 2) {
+					values += "<div class='carousel-item'"
+						+ "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_02.jpg);'>" 
+						+ "<div class='carousel-container'><div class='carousel-content'>"
+				        + "<h2 class='animate__animated animate__fadeInDown'>"
+				        + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
+				        + "</h2><p class='animate__animated animate__fadeInUp'>"
+				        + decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ")
+				        + decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ") 
+				        + "</p><a href='kdetail.do?ko_no=" + json.list[i].ko_no
+				        + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
+				} else if(i == 3) {
+					values += "<div class='carousel-item'"
+						+ "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_07.jpeg);'>" 
+						+ "<div class='carousel-container'><div class='carousel-content'>"
+				        + "<h2 class='animate__animated animate__fadeInDown'>"
+				        + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
+				        + "</h2><p class='animate__animated animate__fadeInUp'>"
+				        + decodeURIComponetn(json.list[i].ko_summary).replace(/\+/gi, " ") 
+				        + "</p><a href='kdetail.do?ko_no=" + json.list[i].ko_no
+				        + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
+				} else if(i == 4) {
+					values += "<div class='carousel-item'"
+						+ "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_09.jpg);'>" 
+						+ "<div class='carousel-container'><div class='carousel-content'>"
+				        + "<h2 class='animate__animated animate__fadeInDown'>"
+				        + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
+				        + "</h2><p class='animate__animated animate__fadeInUp'>"
+				        + decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ") 
+				        + "</p><a href='kdetail.do?ko_no=" + json.list[i].ko_no
+				        + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
+				} else if(i == 7) {
+					values += "<div class='carousel-item'"
+						+ "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_05.jpg);'>" 
+						+ "<div class='carousel-container'><div class='carousel-content'>"
+				        + "<h2 class='animate__animated animate__fadeInDown'>"
+				        + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
+				        + "</h2><p class='animate__animated animate__fadeInUp'>"
+				        + decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ") 
+				        + "</p><a href='kdetail.do?ko_no=" + json.list[i].ko_no
+				        + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
+				} else {
+					values += "<div class='carousel-item'" 
+						+ "style='background-image: url(${ pageContext.request.contextPath }/resources/ko_upfiles/" + json.list[i].re_re_file + ");'>"
+						+ "<div class='carousel-container'><div class='carousel-content'>"
+				        + "<h2 class='animate__animated animate__fadeInDown'>"
+				        + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
+				        + "</h2><p class='animate__animated animate__fadeInUp'>"
+				        + decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ")
+				        + "</p><a href='kdetail.do?ko_no=" + json.list[i].ko_no 
+				        + "</p><a href='kdetail.do?ko_no=" + json.list[i].ko_no
+				        + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
+				}
+				
+			}
+			
+			$(".carousel-inner").html($(".carousel-inner").html() + values);
+			
+		},
+		error: function(jqXHR, textstatus, errorthrown){
+			console.log("error: " + jqXHR + ", " + textstatus + ", " + errorthrown);
+		}
+	});
+}); //정보게시판 ajax 종료
+
+
+</script>
 </head>
 <body>
 	<header> 
 	<c:import url="/WEB-INF/views/common/menubar.jsp" />
 	
-
-
-
-
-
-
-	
-	<!-- 검색창 부분 -->
-	<form class="d-flex" style="align:center">
-		<input class="form-control me-2" type="search"
-			placeholder="검색어를 입력하세요." aria-label="Search" style="width: 200px" >
-		<button class="btn btn-outline-success" type="submit">Search</button>
-	</form>
 	
 	</header>
+
+  <!-- ======= 정보게시판 top10 시작 =======  -->
+	<div align="center">
+		<section id="hero" style="width:850px; height:520px">
+			<div class="hero-container" style="width:850px; height:520px">
+				<div id="heroCarousel" data-bs-interval="3500" class="carousel slide carousel-fade" data-bs-ride="carousel">
+					
+					<ol class="carousel-indicators" id="hero-carousel-indicators">
+						<li data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true"></li>
+						<li data-bs-target="#heroCarousel" data-bs-slide-to="1"></li>
+						<li data-bs-target="#heroCarousel" data-bs-slide-to="2"></li>
+						<li data-bs-target="#heroCarousel" data-bs-slide-to="3"></li>
+						<li data-bs-target="#heroCarousel" data-bs-slide-to="4"></li>
+						<li data-bs-target="#heroCarousel" data-bs-slide-to="5"></li>
+						<li data-bs-target="#heroCarousel" data-bs-slide-to="6"></li>
+						<li data-bs-target="#heroCarousel" data-bs-slide-to="7"></li>
+						<li data-bs-target="#heroCarousel" data-bs-slide-to="8"></li>
+						<li data-bs-target="#heroCarousel" data-bs-slide-to="9"></li>
+						
+					</ol>
+					
+					<div class="carousel-inner" role="listbox">
+						<!-- ajax 내용이 추가되는 곳 -->
+					</div>
+					
+					<a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon ri-arrow-left-line" aria-hidden="true"></span>
+					</a>
+					
+					<a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+						<span class="carousel-control-next-icon ri-arrow-right-line" aria-hidden="true"></span>
+					</a>
+		
+				</div>
+			</div>
+		</section>
+	</div>
+  <!-- ======= 정보게시판 top10 종료 =======  -->
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    <!-- ======= 언론보도 newTop5 시작 =======  -->
+	<div class="page-head-blog">
 	
-	<section>
-
-	<!-- 다슬: 정보 게시판 부분 -->
-	<c:import url="/WEB-INF/views/ko/koTop10.jsp" />
-
-
-	</section>
+              <div class="single-blog-page">
+                <!-- recent start -->
+                <div class="left-blog">
+                  <h4>recent post</h4>
+                  <div class="recent-post">
+                    <!-- start single post -->
+                    <div class="recent-single-post">
+                      <div class="post-img">
+                        <a href="#">
+                          <img src="assets/img/blog/1.jpg" alt="">
+                        </a>
+                      </div>
+                      <div class="pst-content">
+                        <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
+                      </div>
+                    </div>
+                    <!-- End single post -->
+                    <!-- start single post -->
+                    <div class="recent-single-post">
+                      <div class="post-img">
+                        <a href="#">
+                          <img src="assets/img/blog/2.jpg" alt="">
+                        </a>
+                      </div>
+                      <div class="pst-content">
+                        <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
+                      </div>
+                    </div>
+                    <!-- End single post -->
+                    <!-- start single post -->
+                    <div class="recent-single-post">
+                      <div class="post-img">
+                        <a href="#">
+                          <img src="assets/img/blog/3.jpg" alt="">
+                        </a>
+                      </div>
+                      <div class="pst-content">
+                        <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
+                      </div>
+                    </div>
+                    <!-- End single post -->
+                    <!-- start single post -->
+                    <div class="recent-single-post">
+                      <div class="post-img">
+                        <a href="#">
+                          <img src="assets/img/blog/4.jpg" alt="">
+                        </a>
+                      </div>
+                      <div class="pst-content">
+                        <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
+                      </div>
+                    </div>
+                    <!-- End single post -->
+                  </div>
+                </div>
+                <!-- recent end -->
+              </div>
+              
+            </div>
+  <!-- ======= 언론보도 newTop5 종료 =======  -->
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 	
 
 	<!-- 은별: 언론보도 newTop3 부분 -->
@@ -106,7 +339,6 @@ html body{
 
 <br><br><br><br><br><br><br><br><br><br><br><br>
 
-<!-- testtesttest -->
 
 <!-- 언론보도 NewTop5 -->
 
@@ -182,7 +414,7 @@ html body{
                   아리랑 아리랑 아라리요 아리랑 고개로~홍 넘~어간다.
                   <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
-              </div>>
+              </div>
             </div><!-- 현주 -->
 
             <div class="swiper-slide">
@@ -203,10 +435,13 @@ html body{
         </div>
 
       </div>
-    </section><!-- End 팀원 소감 및 한마디 Section -->
+    </section>
+<!-- ======= 팀원 소감 및 한마디 Section 종료 ======= -->
 
 
-<!-- Contact 및 Kakao Map API -->
+
+
+<!-- ======= 서연 Contact 및 Kakao Map API 시작 ======= -->
 <section id="contact" class="contact">
 	 <div class="contact-inner area-padding">
         <div class="contact-overly"></div>
@@ -355,6 +590,8 @@ html body{
     </section>
 
   </main><!-- End #main -->
+<!-- ======= 서연 Contact 및 Kakao Map API 종료 ======= -->
+
 
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
