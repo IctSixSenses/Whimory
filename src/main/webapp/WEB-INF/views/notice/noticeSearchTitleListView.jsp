@@ -49,6 +49,10 @@ table tr td a:hover, div a:hover {
 	text-decoration: underline;
 }
 
+.date {
+	width:140px;
+}
+
 </style>
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -107,7 +111,7 @@ function fn_searchtBoard(){
 		<td colspan="7">
 			<div style="float: left; width: 250px;">
 			<select onchange="showDiv(this);" class="form-control" style="width:100px; float: right; display:inline-block">
-				<option value="title">제목</option>
+				<option selected value="title">제목</option>
 				<option value="content">내용</option>
 				<option value="date">날짜</option>
 			</select>
@@ -121,15 +125,15 @@ function fn_searchtBoard(){
 				</form>
 			</div>
 			<div id="contentDiv" style="display:none; float: left; width: 500px;">
-				<form action="nsearchContent.do" method="post">
+				<form action="nsearchContent.do" method="get">
 					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 300px; float: left;" class="form-control">
 					<input type="submit" class="btn btn-outline-primary" value="검색">
 					<input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
 				</form>
 			</div>
 			<div id="dateDiv" style="display:none; float: left; width: 500px;">
-				<form action="nsearchDate.do" method="post">
-					<input type="date" name="begin"> ~ <input type="date" name="end">
+				<form action="nsearchDate.do" method="get">
+					<input class="date" type="date" name="begin"> ~ <input class="date" type="date" name="end">
 					<input type="submit" class="btn btn-outline-primary" value="검색">
 					<input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
 				</form>
@@ -140,7 +144,8 @@ function fn_searchtBoard(){
 			<c:if test="${ loginUser.admin_yn eq 'Y' }">
 				<c:url var="nwm" value="nwmove.do" />
 				<button class="btn btn-primary" onclick="javascript:location.href='${ nwm }'">글쓰기</button>
-			</c:if></td>
+			</c:if>
+		</td>
 	</tr>
 </table>
 
@@ -159,6 +164,10 @@ function fn_searchtBoard(){
 		</tr>
 	</thead>
 	
+	<c:if test="${ listCount eq 0 }">
+		<tr style="text-align:center; hegiht:80px;"><td colspan="8">해당 검색어로 검색된 게시글이 없습니다.</td></tr>
+	</c:if>
+	<c:if test="${ listCount ne 0 }">
 	<c:forEach items="${ list }" var="nlst">
 		<tr align="center">
 			<td>${ nlst.notice_no }</td>
@@ -188,7 +197,7 @@ function fn_searchtBoard(){
 	         <td>${ nlst.notice_readcount }</td>
          </tr>
 	</c:forEach>
-		
+	</c:if>
 </table>
 
 <!-- 페이징 처리 -->

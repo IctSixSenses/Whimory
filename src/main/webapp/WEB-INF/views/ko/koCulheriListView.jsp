@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<%-- <c:set var="listCount" value="${ listCount }" /> --%>
+<c:set var="list" value="${ list }" />
+<c:set var="listCount" value="${ listCount }" />
 <c:set var="category" value="${ category }" />
 
 <!DOCTYPE html>
@@ -55,7 +56,12 @@ div table tr td a:hover {
 }
 </style>
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+function resetList(){
+	location.href="${ pageContext.servletContext.contextPath }/klist.do";
+}
 
+</script>
 </head>
 
 <body>
@@ -83,12 +89,16 @@ div table tr td a:hover {
 			</c:if>
 		</td>
 		<td colspan="7" align="right">
-			<div style="width: 450px;">
+			<div style="width: 430px;">
 				<form action="ksearchword.do" method="post" align="right">
 					<input type="hidden" name="ko_category" value="${ category }">
 					<input type="search" name="ko_title" size="30" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 					<input type="submit" class="btn btn-outline-primary" style="float: left;" value="검색">
-					<input type="reset" class="btn btn-primary" onclick="resetList(); return false;" style="float: left;" value="전체 목록">
+					<c:if test="${ listCount != list.size() }">
+						<div id="searchReset">
+							<input type="reset" class="btn btn-primary" onclick="resetList(); return false;" style="float: left;" value="전체 목록">
+						</div>
+					</c:if>
 				</form>
 			</div>
 		</td>

@@ -45,8 +45,8 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public ArrayList<Notice> selectSearchContent(String keyword) {
-		List<Notice> list = noticeDao.selectSearchContent(keyword);
+	public ArrayList<Notice> selectSearchContent(Paging paging) {
+		List<Notice> list = noticeDao.selectSearchContent(paging);
 		return (ArrayList<Notice>)list;
 	}
 
@@ -72,10 +72,15 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public int selectSearchCount(String keyword) {
-		return noticeDao.selectSearchCount(keyword);
+	public int selectSearchTitleCount(String keyword) {
+		return noticeDao.selectSearchTitleCount(keyword);
 	}
 
+	@Override
+	public int selectSearchContentCount(String keyword) {
+		return noticeDao.selectSearchContentCount(keyword);
+	}
+	
 	@Override
 	public int selectSearchDateCount(Paging paging) {
 		return noticeDao.selectSearchDateCount(paging);
