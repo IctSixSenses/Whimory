@@ -96,4 +96,10 @@ public class QnaDao {
 	public int updateQQYN(int qq_no) {
 		return sqlSession.update("qnaMapper.updateQQYN", qq_no);
 	}
+	
+	//현주 추가 : 내 qna 내역 보기
+	public ArrayList<QnaQuestion> selectListU(Paging page){
+		List<QnaQuestion> list = sqlSession.selectList("qnaMapper.selectListU", page);
+		return (ArrayList<QnaQuestion>) list;
+	}
 }

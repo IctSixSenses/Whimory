@@ -91,4 +91,10 @@ public class QnaServiceImpl implements QnaService {
 	public int updateQQYN(int qq_no) {
 		return qnaDao.updateQQYN(qq_no);
 	}
+	
+	//나의 제보 내역 확인하기 추가
+	@Override
+	public ArrayList<QnaQuestion> selectListU(Paging page){
+		return qnaDao.selectListU(page);
+	}
 }

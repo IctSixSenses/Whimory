@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,16 +17,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.test.whimory.common.Paging;
 import com.test.whimory.common.SearchDate;
-import com.test.whimory.free.model.vo.FreeBad;
-import com.test.whimory.free.model.vo.FreeLike;
 import com.test.whimory.report.model.service.ReportService;
 import com.test.whimory.report.model.vo.Report;
 import com.test.whimory.report.model.vo.ReportLike;
+import com.test.whimory.user.model.vo.User;
 
 @Controller
 public class ReportController {
@@ -500,6 +501,58 @@ public class ReportController {
 			mv.setViewName("report/reportListView");
 		} else {
 			mv.addObject("message", "해당 날짜로 검색된 정보가 없습니다.");
+			mv.setViewName("common/error");
+		}
+
+		return mv;
+	}
+	@RequestMapping("rplistu.do")
+	public ModelAndView reportListUMethod(ModelAndView mv, @RequestParam(name = "page", required = false) String page, HttpSession session,
+			HttpServletRequest request, SessionStatus status, Model model) {
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+
+		// 페이징 처리
+		int limit = 10; // 한 페이지에 출력할 목록 갯수
+		// 페이지 계산을 위해 총 목록갯수 조회
+		int listCount = reportService.selectListCount();
+		// 페이지 수 계산
+		// 목록이 11개이면 총 2페이지가 나오게 계산식 작성
+		int maxPage = (int) ((double) listCount / limit + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 시작값
+		// 뷰 페이지에 페이지 숫자를 10개씩 보여지게 한다면
+		int startPage = (int) ((double) currentPage / 10 + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 끝값
+		// 페이지 수가 10개이면
+		int endPage = startPage + 10 - 1;
+
+		if (maxPage < endPage) {
+			endPage = maxPage;
+		}
+
+		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		User loginUser = (User) session.getAttribute("loginUser");
+		String user_id = loginUser.getUser_id(); //로그인된 정보를 가져와서 넣어줌
+		Paging paging = new Paging(startRow, endRow, user_id);
+
+		ArrayList<Report> list = reportService.selectListU(paging);
+
+		if (list != null && list.size() > 0) {
+			mv.addObject("list", list);
+			mv.addObject("listCount", listCount);
+			mv.addObject("maxPage", maxPage);
+			mv.addObject("currentPage", currentPage);
+			mv.addObject("startPage", startPage);
+			mv.addObject("endPage", endPage);
+			mv.addObject("limit", limit);
+
+			mv.setViewName("user/reportListView");
+		} else {
+			mv.addObject("message", currentPage + "페이지 목록 조회 실패.");
 			mv.setViewName("common/error");
 		}
 

@@ -21,6 +21,11 @@ public class ReportServiceImpl implements ReportService {
 	public ArrayList<Report> selectList(Paging page) {
 		return reportDao.selectList(page);
 	}
+	
+	@Override
+	public ArrayList<Report> selectListU(Paging page){
+		return reportDao.selectListU(page);
+	}
 
 	@Override
 	public int selectListCount() {

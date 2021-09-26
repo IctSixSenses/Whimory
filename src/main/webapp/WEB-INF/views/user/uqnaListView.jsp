@@ -77,41 +77,40 @@ function showDiv(item){
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-
-<h2 align="center">무엇이든 물어보세요</h2>
+<hr>
+<c:import url="/WEB-INF/views/common/menubarA.jsp"></c:import>
+<h2 align="center">나의 1대1 문의 내역</h2>
 <table align="center" width="1150px">
    <tr>
-      <td colspan="7" align="right">
-      	<div style="float: left; width: 50%;">
-         <select class="form-control" onchange="showDiv(this)" style="width:80px; display:inline-block">
+      <td align="right">
+         <select onchange="showDiv(this)">
             <option value="writer">작성자</option>
             <option value="title">제목</option>
             <option value="category">질문분류</option>
             <option value="date">작성날짜</option>
          </select>
-        </div>
-         <div id="writerDiv" style="display:inline-block; float: left; width: 40%;">
+         <div id="writerDiv" style="display:inline-block">
          <form action="qsearchWriter.do" method="post">
-            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
-            <button type="submit" class="btn btn-outline-primary">검색</button>
+            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
+            <button type="submit">검색</button>
          </form>
          </div>
-         <div id="titleDiv" style="display:none; float: left; width: 40%;">
+         <div id="titleDiv" style="display:none">
          <form action="qsearchTitle.do" method="post">
-            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
-            <button type="submit" class="btn btn-outline-primary">검색</button>
+            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
+            <button type="submit">검색</button>
          </form>
          </div>
-         <div id="categoryDiv" style="display:none; float: left; width: 40%;">
+         <div id="categoryDiv" style="display:none">
          <form action="qsearchCategory.do" method="post">
-            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
-            <button type="submit" class="btn btn-outline-primary">검색</button>
+            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
+            <button type="submit">검색</button>
          </form>
          </div>
-         <div id="dateDiv" style="display:none; float: left; width: 40%;">
+         <div id="dateDiv" style="display:none">
          <form action="qsearchDate.do" method="post">
             <input type="date" name="begin"> ~ <input type="date" name="end">
-            <button type="submit" class="btn btn-outline-primary">검색</button>
+            <button type="submit">검색</button>
          </form>
          </div>
          
@@ -152,20 +151,14 @@ function showDiv(item){
 		      		<c:param name="qq_no" value="${ q.qq_no }"/>
 		      		<c:param name="page" value="${ currentPage }" />
 		   		</c:url>
-		   		<td align="left"><a href="${ qdetail }">${ q.qq_title }</a></td>
+		   		<td align="center"><a href="${ qdetail }">${ q.qq_title }</a></td>
 			</c:if>
 			<c:if test="${ empty sessionScope.loginUser or sessionScope.loginUser.user_id ne q.user_id }">
-	 			<td align="left">${ q.qq_title }</td>
+	 			<td align="center">${ q.qq_title }</td>
 			</c:if>
 		   
 			<td align="center">
-				<c:if test="${ empty q.qq_modify }">
-					<fmt:formatDate value="${ q.qq_date}" pattern="yyyy.MM.dd" />
-				</c:if>
-				<c:if test="${ !empty q.qq_modify }">
-					<fmt:formatDate value="${ q.qq_modify }" pattern="yyyy.MM.dd" />
-				</c:if>
-			</td>
+			<fmt:formatDate value="${  q.qq_date }" type="date" pattern="yyyy-MM-dd" /></td>
 		
 			<td align="center">${  q.qq_yn }</td>
 		

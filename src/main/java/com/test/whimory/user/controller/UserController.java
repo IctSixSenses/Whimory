@@ -1,6 +1,9 @@
 package com.test.whimory.user.controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -12,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.test.whimory.user.model.service.UserService;
 import com.test.whimory.user.model.vo.User;
+
 //회원 컨트롤러
 @Controller
 public class UserController {
@@ -34,14 +39,14 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	
 	//이메일 인증을 위한 의존성 주입
 	@Autowired
 	private JavaMailSender mailSender;
 	
-	//암호화 추가 예정
-//	@Autowired
-//	private BcryptPasswordEncoder bcryptPasswordEncoder;
+	//암호화 추가
+	//@Autowired
+	//private BCryptPasswordEncoder bcryptPasswordEncoder;
+	BCryptPasswordEncoder bcryptPasswordEncoder = new BCryptPasswordEncoder();
 
 	//로그인 페이지로 이동하기
 	@RequestMapping("loginPage.do")
@@ -53,6 +58,12 @@ public class UserController {
 	@RequestMapping("enrollPage.do")
 	public String moveEnrollPage() {
 		return "user/enrollPage";
+	}
+	
+	//아이디 비밀번호 찾기 페이지
+	@RequestMapping("findaccount.do")
+	public String moveFindPage() {
+		return "user/findAccount";
 	}
 	
 	//비암호화 확인용 (회원가입 기능 완료 후 암호화 예정)
@@ -156,6 +167,42 @@ public class UserController {
 		return mv;
 	}
 	
+	//아이디 변경
+		@RequestMapping("findid.do")
+		public ModelAndView findIdMethod(
+				User user, ModelAndView mv) {
+			
+			User findUser = userService.selectUserId(user);
+			
+			if(user != null) {
+				mv.addObject("user", user);
+				mv.setViewName("user/findId");
+			}else {
+				mv.addObject("message", user.getuser_name() + "아이디 조회 실패!");
+				mv.setViewName("common/error");
+			}
+			
+			return mv;
+		}
+		
+		//비밀번호 변경
+		@RequestMapping("changepwd.do")
+		public ModelAndView changePwdMethod(
+				User user, ModelAndView mv) {
+			
+		//	User changePwd = userService.updatePwd(user);
+			
+			if(user != null) {
+				mv.addObject("user", user);
+				mv.setViewName("user/findId");
+			}else {
+				mv.addObject("message", user + "비밀번호 변경 실패!");
+				mv.setViewName("common/error");
+			}
+			
+			return mv;
+		}
+	
 	//회원 정보 리스트
 	@RequestMapping("ulist.do")
 	public String userListViewMethod(Model model) {
@@ -171,19 +218,138 @@ public class UserController {
 	}
 	
 	//회원 가입 (기본형)
-//	@RequestMapping(value="enroll.do", method=RequestMethod.POST)
-//	public String userInsert(User user, Model model) {
-//		logger.info("enroll.do : " + user);
-//		
+	@RequestMapping(value="uinsert.do", method=RequestMethod.POST)
+	public String userInsert(User user, Model model) {
+		logger.info("enroll.do : " + user);
+		
 		//패스워드 암호화 처리
-	//	user.setUserpwd(bcryptPasswordEncoder.encode(user.getUser_pwd()));
+		user.setUser_pwd(bcryptPasswordEncoder.encode(user.getUser_pwd()));
 	//회원 가입 기능
-//		if(userService.insertUser(user) > 0) {
-//			return "common/main";
-//		}else {
-//			model.addAttribute("message", "회원 가입 실패!");
-//			return "common/error";
-//		}		
-//	}
+		if(userService.insertUser(user) > 0) {
+			return "common/main";
+		}else {
+			model.addAttribute("message", "회원 가입 실패!");
+			return "common/error";
+		}		
+	}
+	
+	//카카오 로그인 확인
+	@RequestMapping(value="/kakaoLoginPro.do", method=RequestMethod.POST)
+	public Map<String, Object> kakaoLoginPro(@RequestParam Map<String,Object> paramMap,HttpSession session) throws SQLException, Exception {
+		System.out.println("paramMap:" + paramMap);
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		
+		Map<String, Object> kakaoConnectionCheck = userService.kakaoConnectionCheck(paramMap);
+		if(kakaoConnectionCheck == null) { //일치하는 이메일 없으면 가입
+			resultMap.put("JavaData", "register");
+		}else if(kakaoConnectionCheck.get("KAKAOLOGIN") == null && kakaoConnectionCheck.get("EMAIL") != null) { //이메일 가입 되어있고 카카오 연동 안되어 있을시
+			System.out.println("kakaoLogin");
+			userService.setKakaoConnection(paramMap);
+			Map<String, Object> loginCheck = userService.userKakaoLoginPro(paramMap);
+			session.setAttribute("userInfo", loginCheck);
+			resultMap.put("JavaData", "YES");
+		}else{
+			Map<String, Object> loginCheck = userService.userKakaoLoginPro(paramMap);
+			session.setAttribute("userInfo", loginCheck);
+			resultMap.put("JavaData", "YES");
+		}
+		
+		return resultMap;
+	}
+	
+	//sns 로그인 했을 경우 추가 정보 입력
+	@RequestMapping(value="setSnsInfo.do")
+	public String setKakaoInfo(Model model,HttpSession session,@RequestParam Map<String,Object> paramMap) {
+		System.out.println("setKakaoInfo");	
+		System.out.println("param ==>"+paramMap);
+		
+		model.addAttribute("email",paramMap.get("email"));
+		model.addAttribute("password",paramMap.get("id"));
+		model.addAttribute("flag",paramMap.get("flag"));
+		return "user/setSnsInfo";
+	}
+	
+	//로그인 허용
+	@RequestMapping("loginOK.do")
+	public String changeLoginOKMethod(User user, 
+			Model model) {
+		logger.info("loginOK.do : " + user.getUser_id()
+						+ ", " + user.getLogin_access_yn());
+		
+		if(userService.updateLoginOk(user) > 0) {
+			return "redirect:ulist.do";
+		}else {
+			model.addAttribute("message", "로그인 제한/허용 처리 오류");
+			return "common/error";
+		}
+	}
+	
+	//회원 정보 수정
+	@RequestMapping(value="uupdate.do", method=RequestMethod.POST)
+	public String userUpdateMethod(User user, 
+			Model model, 
+			@RequestParam("origin_userpwd") String originUserpwd) {
+		logger.info("uupdate.do : " + user);
+		logger.info("opwd : " + originUserpwd);		
+		
+		//새로운 암호가 전송이 왔다면
+		String user_pwd = user.getUser_pwd().trim();
+		if(user_pwd != null && user_pwd.length() > 0) {
+			//기존 암호와 다른 값이면
+			if(!bcryptPasswordEncoder.matches(user_pwd, originUserpwd)) {
+				user.setUser_pwd(bcryptPasswordEncoder.encode(
+					user_pwd));
+			}
+		}else {
+			//새로운 암호가 없다면, 원래 암호를 기록함
+			user.setUser_pwd(originUserpwd);
+		}
+		
+		logger.info("after : " + user);
+		
+		if(userService.updateUser(user) > 0) {
+			//컨트롤러의 메소드를 직접 호출할 수 있음
+			return "redirect:myinfo.do?user_id=" + user.getUser_id();
+		}else {
+			model.addAttribute("message", 
+					user.getUser_id() + " 회원정보 수정 실패!");
+			return "common/error";
+		}	
+		
+	}
+	
+	
+	//회원 이름 검색
+	@RequestMapping(value="usearch.do", method=RequestMethod.POST)
+	public String memberSearchMethod(
+			HttpServletRequest request, Model model) {
+		String action = request.getParameter("action");
+		String keyword = null, beginDate = null, endDate = null;
+		
+		if(action.equals("enrolldate")) {
+			beginDate = request.getParameter("begin");
+			endDate = request.getParameter("end");
+		}else {
+			keyword = request.getParameter("keyword");
+		}
+		
+		//서비스 메소드로 전송하고 결과받을 리스트 준비
+		ArrayList<User> list = null;
+		
+		switch(action) {
+		case "id":		list = userService.selectSearchUserid(keyword);
+					break;
+		}
+		
+		if(list.size() > 0) {
+			model.addAttribute("list", list);
+			return "user/userListView";
+		}else {
+			model.addAttribute("message", 
+					action + " 검색에 대한 "
+					+ keyword + " 결과가 존재하지 않습니다.");
+			return "common/error";
+		}
+	}
 	
 }

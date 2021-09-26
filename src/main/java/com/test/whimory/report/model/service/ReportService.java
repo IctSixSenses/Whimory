@@ -9,6 +9,7 @@ import com.test.whimory.report.model.vo.ReportLike;
 
 public interface ReportService {
 	ArrayList<Report> selectList(Paging page);
+	ArrayList<Report> selectListU(Paging page);//현주 추가 부분 - 나의 제보 내역 보기
 	int selectListCount();
 	Report selectOne(int report_no);
 	ArrayList<Report> selectSearchTitle(String keyword);
