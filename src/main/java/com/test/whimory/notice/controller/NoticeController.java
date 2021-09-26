@@ -128,7 +128,7 @@ public class NoticeController {
 		// 페이징 처리
 		int limit = 10;
 		// 페이지 계산을 위해 총 목록 개수 조회
-		int listCount = noticeService.selectSearchCount(paging.getKeyword());
+		int listCount = noticeService.selectSearchTitleCount(paging.getKeyword());
 		// 페이지 수 계산
 		int maxPage = (int)((double) listCount / limit + 0.9);
 		// 현재 페이지가 포함된 페이지 그룹의 시작값 지정
@@ -169,16 +169,25 @@ public class NoticeController {
 			
 			return "notice/noticeSearchTitleListView";
 		} else {
-			model.addAttribute("messgae", "해당 검색어로 검색된 게시글이 없습니다.");
-			return "common/error";
+			model.addAttribute("listCount", 0);
+			model.addAttribute("currentPage", 1);
+			model.addAttribute("maxPage", 1);
+			
+			return "notice/noticeSearchTitleListView";
 		}
+		
+		
+//		else {
+//			model.addAttribute("message", "해당 검색어로 검색된 게시글이 없습니다.");
+//			return "common/error";
+//		}
 		
 	} // noticeSearchTitleMethod
 	
 	// 내용 검색 처리용
-	@RequestMapping(value = "nsearchContent.do", method = RequestMethod.POST)
+	@RequestMapping(value = "nsearchContent.do", method = RequestMethod.GET)
 	public String noticeSearchContentMethod(@RequestParam(name="page", required=false) String page, 
-			@RequestParam("keyword") String keyword, Model model) {
+			Paging paging, Model model) {
 		
 		int currentPage = 1;
 		if (page != null) {
@@ -188,7 +197,7 @@ public class NoticeController {
 		// 페이징 처리
 		int limit = 10;
 		// 페이지 계산을 위해 총 목록 개수 조회
-		int listCount = noticeService.selectListCount();
+		int listCount = noticeService.selectSearchContentCount(paging.getKeyword());
 		// 페이지 수 계산
 		int maxPage = (int)((double) listCount / limit + 0.9);
 		// 현재 페이지가 포함된 페이지 그룹의 시작값 지정
@@ -205,10 +214,17 @@ public class NoticeController {
 		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
-		Paging paging = new Paging(startRow, endRow); // 객체로 준비함
+		paging.setStartRow(startRow);
+		paging.setEndRow(endRow);
 		
 		
-		ArrayList<Notice> list = noticeService.selectSearchContent(keyword);
+		ArrayList<Notice> list = noticeService.selectSearchContent(paging);
+		
+		
+//		Paging paging = new Paging(startRow, endRow); // 객체로 준비함
+//		
+//		
+//		ArrayList<Notice> list = noticeService.selectSearchContent(keyword);
 		
 		if(list != null & list.size() > 0) {
 			model.addAttribute("list", list);
@@ -218,17 +234,21 @@ public class NoticeController {
 			model.addAttribute("startPage", startPage);
 			model.addAttribute("endPage", endPage);
 			model.addAttribute("limit", limit);
+			model.addAttribute("keyword", paging.getKeyword());
 			
-			return "notice/noticeListView";
+			return "notice/noticeSearchContentListView";
 		} else {
-			model.addAttribute("messgae", keyword + "(으)로 검색된 게시글이 없습니다.");
-			return "common/error";
+			model.addAttribute("listCount", 0);
+			model.addAttribute("currentPage", 1);
+			model.addAttribute("maxPage", 1);
+			
+			return "notice/noticeSearchContentListView";
 		}
 		
 	} // noticeSearchContentMethod
 
 	// 날짜 검색 처리용
-	@RequestMapping(value = "nsearchDate.do", method = RequestMethod.POST)
+	@RequestMapping(value = "nsearchDate.do", method = RequestMethod.GET)
 	public String noticeSearchDateMethod(Paging paging, Model model,
 			@RequestParam(name="page", required=false) String page) {
 		
@@ -276,10 +296,13 @@ public class NoticeController {
 			model.addAttribute("begin", paging.getBegin());
 			model.addAttribute("end", paging.getEnd());
 			
-			return "notice/noticeListView";
+			return "notice/noticeSearchDateListView";
 		} else {
-			model.addAttribute("messgae", "해당 날짜로 검색된 게시글이 없습니다.");
-			return "common/error";
+			model.addAttribute("listCount", 0);
+			model.addAttribute("currentPage", 1);
+			model.addAttribute("maxPage", 1);
+			
+			return "notice/noticeSearchDateListView";
 		}
 		
 	} // noticeSearchDateMethod

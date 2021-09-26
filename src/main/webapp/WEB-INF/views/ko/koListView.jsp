@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<%-- <c:set var="listCount" value="${ listCount }" /> --%>
+<c:set var="list" value="${ list }" />
+<c:set var="listCount" value="${ listCount }" />
 <c:set var="category" value="${ category }" />
 
 <!DOCTYPE html>
@@ -60,6 +61,7 @@ div table tr td a:hover {
 function resetList(){
 	location.href="${ pageContext.servletContext.contextPath }/klist.do";
 }
+
 </script>
 </head>
 
@@ -80,7 +82,10 @@ function resetList(){
 	<c:set var="j" value="3" />
 	<table width="1000px">
 		<tr style="height: 50px; border-bottom: 0.5px solid gray">
-		<td colspan="2"><font size="5">전체 목록</font>
+		<td colspan="2">
+			<c:if test="${ category eq null }">
+				<font size="5">전체 목록</font>
+			</c:if>
 			&nbsp;&nbsp;
 			<c:if test="${ loginUser.admin_yn ne null and loginUser.admin_yn eq 'Y' }">
 				<c:url var="kwf" value="kwmove.do" />
@@ -88,16 +93,25 @@ function resetList(){
 			</c:if>
 		</td>
 		<td colspan="7" align="right">
-			<div style="width: 450px;">
+			<div style="width: 430px;">
 				<form action="ksearchword.do" method="post" align="right">
 					<input type="hidden" name="ko_category" value="${ category }">
 					<input type="search" name="ko_title" size="30" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
-					<input type="submit" class="btn btn-outline-primary" style="float: left;" value="검색">
-					<input type="reset" class="btn btn-primary" onclick="resetList(); return false;" style="float: left;" value="전체 목록">
+					<input type="submit" onclick="showDiv();" class="btn btn-outline-primary" style="float: left;" value="검색">
+					<c:if test="${ listCount != list.size() or size == 0 }">
+						<div id="searchReset">
+							<input type="reset" class="btn btn-primary" onclick="resetList(); return false;" style="float: left;" value="전체 목록">
+						</div>
+					</c:if>
 				</form>
 			</div>
 		</td>
 		</tr>
+		
+		<c:if test="${ size == 0 }">
+			<tr height="70px" align="center"><td colspan="9"><font size="5">해당 검색어로 검색된 게시글이 없습니다.</font></td></tr>
+		</c:if>
+		
 		<c:forEach items="${ list }" var="k" >
 			<c:if test="${ i % j == 0 }">
 				<tr style="height:370px">

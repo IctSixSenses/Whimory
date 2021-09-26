@@ -100,22 +100,19 @@ function resetList(){
 			<div id="titleDiv" style="display:inline-block; float: left; width: 500px;">
 				<form action="nsearchTitle.do" method="get">
 					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 300px; float: left;" class="form-control">
-					<input type="submit" class="btn btn-outline-primary" value="검색">
-					<input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
+					<input type="submit" class="btn btn-outline-primary"  value="검색">
 				</form>
 			</div>
 			<div id="contentDiv" style="display:none; float: left; width: 500px;">
-				<form action="nsearchContent.do" method="post">
+				<form action="nsearchContent.do" method="get">
 					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 300px; float: left;" class="form-control">
 					<input type="submit" class="btn btn-outline-primary" value="검색">
-					<input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
 				</form>
 			</div>
 			<div id="dateDiv" style="display:none; float: left; width: 500px;">
-				<form action="nsearchDate.do" method="post">
+				<form action="nsearchDate.do" method="get">
 					<input type="date" name="begin"> ~ <input type="date" name="end">
 					<input type="submit" class="btn btn-outline-primary" value="검색">
-					<input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
 				</form>
 			</div>
 		</td>
@@ -124,7 +121,8 @@ function resetList(){
 			<c:if test="${ loginUser.admin_yn eq 'Y' }">
 				<c:url var="nwm" value="nwmove.do" />
 				<button class="btn btn-primary" onclick="javascript:location.href='${ nwm }'">글쓰기</button>
-			</c:if></td>
+			</c:if>
+		</td>
 	</tr>
 </table>
 

@@ -39,8 +39,8 @@ public class NoticeDao {
 		return (ArrayList<Notice>)list;
 	}
 	
-	public ArrayList<Notice> selectSearchContent(String keyword){
-		List<Notice> list = sqlSession.selectList("noticeMapper.selectSearchContent", keyword);
+	public ArrayList<Notice> selectSearchContent(Paging paging){
+		List<Notice> list = sqlSession.selectList("noticeMapper.selectSearchContent", paging);
 		return (ArrayList<Notice>)list;
 	}
 
@@ -64,12 +64,16 @@ public class NoticeDao {
 		return sqlSession.delete("noticeMapper.deleteNotice", notice_no);
 	}
 
-	public int selectSearchCount(String keyword) {
-		return sqlSession.selectOne("noticeMapper.selectSearchCount");
+	public int selectSearchTitleCount(String keyword) {
+		return sqlSession.selectOne("noticeMapper.selectSearchTitleCount", keyword);
+	}
+
+	public int selectSearchContentCount(String keyword) {
+		return sqlSession.selectOne("noticeMapper.selectSearchContentCount", keyword);
 	}
 
 	public int selectSearchDateCount(Paging paging) {
-		return sqlSession.selectOne("noticeMapper.selectSearchDateCount");
+		return sqlSession.selectOne("noticeMapper.selectSearchDateCount", paging);
 	}
 	
 	
