@@ -132,7 +132,7 @@ public class UserController {
 		User loginUser = userService.selectUser(user.getUser_id());
 
 		if (loginUser != null && bcryptPasswordEncoder.matches(user.getUser_pwd(), loginUser.getUser_pwd())
-				&& loginUser.getLogin_access_yn().equals('Y')) {
+				&& loginUser.getLogin_access_yn().equals("Y")) {
 			// 세션 객체 생성 > 세션 안에 회원정보 저장
 			session.setAttribute("loginUser", loginUser);
 			status.setComplete(); // 요청 성공. 200 전송보냄
@@ -468,7 +468,7 @@ public class UserController {
 	// 회원 탈퇴
 	@RequestMapping("udelete.do")
 	public String userDeleteMethod(@RequestParam("user_id") String user_id, Model model) {
-		userService.insertUserDrop(user_id);
+		//userService.insertUserDrop(user_id);
 
 		if (userService.updateUserD(user_id) > 0) {
 			if (userService.insertUserDrop(user_id) > 0) {
