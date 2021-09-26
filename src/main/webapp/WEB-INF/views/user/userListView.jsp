@@ -18,17 +18,30 @@
 <c:import url="/WEB-INF/views/common/menubarA.jsp" />
 <hr>
 <h1 align="center">회원 관리 페이지</h1>
-
+<br>
 <!-- 검색 창 -->
 <!-- 검색창 부분 -->
-	<form class="d-flex" style="align:center">
-		<input class="form-control me-2" type="search"
-			placeholder="검색어를 입력하세요." aria-label="Search" style="width: 200px" >
-		<button class="btn btn-outline-success" type="submit" >검색하기</button>
-	</form>
+<div align="center">
+	<table align="center" width="1150px">
+	<tr>
+		<td colspan="3"></td>
+    	<!-- 게시판 내 검색기능 -->
+		<td colspan="4" align="right">
+			<div id="usearch" style="display:inline-block; float: left; width: 40%;">
+			<form action="usearch.do" method="post">
+			<input type="hidden" name="action" value="id">
+				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+				<button type="submit" class="btn btn-outline-primary">검색</button>
+			</form>
+			</div>
+		</td>
+	</tr>
+</table>
+</div>
 
 <!-- 검색 창 마무리 -->
-
+<br>
+<br>
 
 <!-- 회원 정보 출력 테이블 -->
 <table align="center" border="1" cellspacing="0" cellpadding="3">
@@ -36,6 +49,7 @@
 <th>아이디</th><th>이름</th><th>성별</th><th>생일</th><th>전화번호</th>
 <th>이메일</th><th>가입날짜</th><th>마지막 로그인 날짜</th>
 <th>관리자 여부</th>
+<th>로그인 가능 여부</th>
 </tr>
 <c:forEach items="${ requestScope.list }" var="m">
 <tr>
@@ -55,36 +69,44 @@ dateStyle="medium" /></td>
  value="true" checked> 관리자 &nbsp; 
 <input type="radio" name="admin_${ m.user_id }" onchange="changeLogin(this);"
 value="false"> 일반회원 -->
+<form method="post" name="changeAdmin" action="adminchangeN.do">
+<input type = "hidden" name="user_id" value="${m.user_id}">
 <button class="btn btn-outline-primary"
-					onclick="changeLogin(this);">일반회원 권한 부여</button>
+					onclick="submit">일반회원 권한 부여</button>
+</form>
 </c:if>
 <c:if test="${ m.admin_yn eq 'N' }">
 <!--  <input type="radio" name="admin_${ m.user_id }" onchange="changeLogin(this);"
  value="true"> 관리자 &nbsp; 
 <input type="radio" name="admin_${ m.user_id }" onchange="changeLogin(this);"
 value="false" checked> 일반회원 -->
-<button class="btn btn-outline-primary"
-					onclick="changeLogin(this);">관리자 권한 부여</button>
+<form method="post" name="changAdminNot" action="adminchange.do">
+<input type = "hidden" name="user_id" value="${m.user_id}">
+<button class="btn btn-primary"
+					onclick="submit">관리자 권한 부여</button>
+</form>
 </c:if>
 </td>
 <td>
-<c:if test="${ m.login_access_yn eq 'Y' }">
-<input type="radio" name="loginok_${ m.user_id }" onchange="changeLogin(this);"
- value="true" checked> 가능 &nbsp; 
-<input type="radio" name="loginok_${ m.user_id }" onchange="changeLogin(this);"
-value="false"> 제한
-</c:if>
 <c:if test="${ m.login_access_yn eq 'N' }">
-<input type="radio" name="loginok_${ m.user_id }" onchange="changeLogin(this);"
- value="true"> 가능 &nbsp; 
-<input type="radio" name="loginok_${ m.user_id }" onchange="changeLogin(this);"
-value="false" checked> 제한
+<form method="post" name="updateloginOK" action="loginchangeY.do">
+<input type = "hidden" name="user_id" value="${m.user_id}">
+<button class="btn btn-outline-success"
+					onclick="submit">접속 허용 하기</button>
+</form>
+</c:if>
+<c:if test="${ m.login_access_yn eq 'Y' }">
+<form method="post" name="updateloginNo" action="loginchangeN.do">
+<input type = "hidden" name="user_id" value="${m.user_id}">
+<button class="btn btn-outline-danger"
+					onclick="submit">접속 제한 하기</button>
+</form>
 </c:if>
 </td>
 </tr>
 </c:forEach>
 </table>
-
+<br>
 <div align="center">
 <button class="btn btn-primary"
 					onclick="javascript:history.go(-1);">뒤로 가기</button>

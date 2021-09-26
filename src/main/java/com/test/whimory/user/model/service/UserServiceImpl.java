@@ -64,6 +64,12 @@ public class UserServiceImpl implements UserService {
 		return userDao.selectSearchUserid(keyword);
 	}
 	
+	//탈퇴회원 아이디 정보 찾기
+	@Override
+	public ArrayList<UserDrop> selectSearchDUserid(String keyword) {
+		return userDao.selectSearchDUserid(keyword);
+	}
+	
 	//회원 정보 업데이트
 	@Override
 	public int updateUser(User user) {
@@ -101,15 +107,28 @@ public class UserServiceImpl implements UserService {
 		return userDao.updatePwd(user);
 	}
 	
+	//아이디 중복검사
 	@Override
 	public int selectCheckId(String user_id) {
 		return userDao.selectCheckId(user_id);
 	}
 	
-	//관리자 권한 부여
+	//일반 회원 권한 부여
 	@Override
-	public int updateAdmin(User user) {
-		return userDao.updateAdmin(user);
+	public int updateAdminN(String user_id) {
+		return userDao.updateAdminN(user_id);
+	}
+	
+	//로그인 제한
+	@Override
+	public int updateloginN(String user_id) {
+		return userDao.updateloginN(user_id);
+	}
+	
+	//로그인 허용
+	@Override
+	public int updateloginOK(String user_id) {
+		return userDao.updateloginOK(user_id);
 	}
 	
 	//로그인 제한 부여
@@ -135,4 +154,11 @@ public class UserServiceImpl implements UserService {
 	public int updateUserD(String user_id) {
 		return userDao.updateUserD(user_id);
 	}
+	
+	@Override
+	public int updateAdmin(String user_id) {
+		return userDao.updateAdmin(user_id);
+	}
+	
+	
 }
