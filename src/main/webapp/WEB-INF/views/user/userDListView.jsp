@@ -9,22 +9,6 @@
 <meta charset="UTF-8">
 <title>관리자 회원 관리 페이지</title>
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
-$(function(){
-	$("input[name=item]").on("change", function(){
-		
-		$("input[name=item]").each(function(index){
-			//radio 하나씩 checked 인지 확인하고
-			if($(this).is(":checked")){
-				$("form.sform").eq(index).css("display", "block");
-			}else{
-				$("form.sform").eq(index).css("display", "none");
-			}
-		});
-	});
-});
-
-</script>
 
 </head>
 <body>
@@ -32,18 +16,31 @@ $(function(){
 <hr>
 <c:import url="/WEB-INF/views/common/menubarA.jsp" />
 <h1 align="center">탈퇴회원 정보 보기</h1>
+<br><br>
 
 <!-- 검색 창 -->
 <!-- 검색창 부분 -->
-	<form class="d-flex" style="align:center">
-		<input class="form-control me-2" type="search"
-			placeholder="검색어를 입력하세요." aria-label="Search" style="width: 200px" >
-		<button class="btn btn-outline-success" type="submit" >검색하기</button>
-	</form>
+<div align="center">
+	<table align="center" width="1150px">
+	<tr>
+		<td colspan="3"></td>
+    	<!-- 게시판 내 검색기능 -->
+		<td colspan="4" align="right">
+			<div id="usearch" style="display:inline-block; float: left; width: 40%;">
+			<form action="usearchD.do" method="post">
+			<input type="hidden" name="action" value="id">
+				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+				<button type="submit" class="btn btn-outline-primary">검색</button>
+			</form>
+			</div>
+		</td>
+	</tr>
+</table>
+</div>
 
 <!-- 검색 창 마무리 -->
 
-
+<br><br>
 <!-- 회원 정보 출력 테이블 -->
 <table align="center" border="1" cellspacing="0" cellpadding="3">
 <tr>
@@ -70,6 +67,7 @@ dateStyle="medium" />
 </tr>
 </c:forEach>
 </table>
+<br><br>
 
 <div align="center">
 <button class="btn btn-outline-primary"

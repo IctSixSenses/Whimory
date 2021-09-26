@@ -48,9 +48,9 @@ public class UserController {
 	// private JavaMailSender mailSender;
 
 	// 암호화 추가 (왜 어노테이션이 안먹는지 모르겠습니다..)
-	// @Autowired
-	// private BCryptPasswordEncoder bcryptPasswordEncoder;
-	BCryptPasswordEncoder bcryptPasswordEncoder = new BCryptPasswordEncoder();
+	 @Autowired
+	 private BCryptPasswordEncoder bcryptPasswordEncoder;
+	//BCryptPasswordEncoder bcryptPasswordEncoder = new BCryptPasswordEncoder();
 
 	// 아이디 중복 체크
 	@RequestMapping(value = "idchk.do", method = RequestMethod.POST)
@@ -438,14 +438,9 @@ public class UserController {
 	@RequestMapping(value = "usearch.do", method = RequestMethod.POST)
 	public String userSearchMethod(HttpServletRequest request, Model model) {
 		String action = request.getParameter("action");
-		String keyword = null, beginDate = null, endDate = null;
+		String keyword = null;
 
-		if (action.equals("enrolldate")) {
-			beginDate = request.getParameter("begin");
-			endDate = request.getParameter("end");
-		} else {
 			keyword = request.getParameter("keyword");
-		}
 
 		// 서비스 메소드로 전송하고 결과받을 리스트 준비
 		ArrayList<User> list = null;
@@ -464,23 +459,96 @@ public class UserController {
 			return "common/error";
 		}
 	}
+	
+	//탈퇴회원 목록 검색창
+	@RequestMapping(value = "usearchD.do", method = RequestMethod.POST)
+	public String userSearchDMethod(HttpServletRequest request, Model model) {
+		String action = request.getParameter("action");
+		String keyword = null;
 
-	// 회원 탈퇴
-	@RequestMapping("udelete.do")
-	public String userDeleteMethod(@RequestParam("user_id") String user_id, Model model) {
-		//userService.insertUserDrop(user_id);
+			keyword = request.getParameter("keyword");
 
-		if (userService.updateUserD(user_id) > 0) {
-			if (userService.insertUserDrop(user_id) > 0) {
-				return "redirect:logout.do";
-			} else {
-				model.addAttribute("message", user_id + "회원 삭제 실패!");
-				return "common/error";
-			}
+		// 서비스 메소드로 전송하고 결과받을 리스트 준비
+		ArrayList<UserDrop> list = null;
+
+		switch (action) {
+		case "id":
+			list = userService.selectSearchDUserid(keyword);
+			break;
+		}
+
+		if (list.size() > 0) {
+			model.addAttribute("list", list);
+			return "user/userDListView";
 		} else {
-			model.addAttribute("message", user_id + "회원 삭제 실패!");
+			model.addAttribute("message", action + " 검색에 대한 " + keyword + " 결과가 존재하지 않습니다.");
 			return "common/error";
 		}
 	}
+
+	// 회원 탈퇴
+	@RequestMapping("udelete.do")
+	public String userDeleteMethod(@RequestParam("user_id") String user_id, HttpServletRequest request, Model model) {
+
+		if (userService.updateUserD(user_id) > 0) {
+			if (userService.insertUserDrop(user_id) > 0) {
+				HttpSession session = request.getSession(false);
+				session.invalidate();
+				return "common/main";
+			} else {
+				model.addAttribute("message", user_id + "회원 탈퇴 실패!");
+				return "common/error";
+			}
+		} else {
+			model.addAttribute("message", user_id + "회원 탈퇴 실패!");
+			return "common/error";
+		}
+	}
+
+	
+	//관리자 권한 부여
+	@RequestMapping("adminchange.do")
+	public String adminChangeMethod(@RequestParam("user_id") String user_id, Model model) {
+		if(userService.updateAdmin(user_id)>0) {
+			return "redirect:ulist.do";
+		}else {
+			model.addAttribute("message", user_id + " 권한 변경 실패!");
+			return "common/error";
+		}
+	}
+	
+	//일반 회원 권한 부여
+	@RequestMapping("adminchangeN.do")
+	public String adminChangeNMethod(@RequestParam("user_id") String user_id, Model model) {
+		if(userService.updateAdminN(user_id)>0) {
+			return "redirect:ulist.do";
+		}else {
+			model.addAttribute("message", user_id + " 권한 변경 실패!");
+			return "common/error";
+		}
+	}
+	
+	//접속 제한 버튼
+		@RequestMapping("loginchangeN.do")
+		public String loginChangeNMethod(@RequestParam("user_id") String user_id, Model model) {
+			if(userService.updateloginOK(user_id)>0) {
+				return "redirect:ulist.do";
+			}else {
+				model.addAttribute("message", user_id + " 권한 변경 실패!");
+				return "common/error";
+			}
+		}
+		
+		//접속 허용 버튼
+		@RequestMapping("loginchangeY.do")
+		public String loginChangeYMethod(@RequestParam("user_id") String user_id, Model model) {
+			if(userService.updateloginN(user_id)>0) {
+				return "redirect:ulist.do";
+			}else {
+				model.addAttribute("message", user_id + " 권한 변경 실패!");
+				return "common/error";
+			}
+		}
+	
 
 }

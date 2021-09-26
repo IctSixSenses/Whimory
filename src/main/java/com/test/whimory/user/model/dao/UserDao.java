@@ -48,6 +48,12 @@ public class UserDao {
 		return (ArrayList<User>)list;
 	}
 	
+	//탈퇴회원 이름 검색하기
+		public ArrayList<UserDrop> selectSearchDUserid(String keyword) {
+			List<UserDrop> list = session.selectList("userMapper.selectSearchDUserid", keyword);
+			return (ArrayList<UserDrop>)list;
+		}
+	
 	//회원 탈퇴
 	public int deleteUser(String user_id) {
 		return session.delete("userMapper.deleteUser", user_id);
@@ -69,8 +75,8 @@ public class UserDao {
 	}
 	
 	//관리자 권한 변경
-	public int updateAdmin(User user) {
-		return session.update("userMapper.updateAdmin", user);
+	public int updateAdmin(String user_id) {
+		return session.update("userMapper.updateAdmin", user_id);
 	}
 	
 	//로그인 제한ㄴ
@@ -97,6 +103,21 @@ public class UserDao {
 	//회원 탈퇴시 로그인 방지
 	public int updateUserD(String user_id) {
 		return session.update("userMapper.updateUserD", user_id);
+	}
+
+	//일반 회원으로 권한 변경
+	public int updateAdminN(String user_id) {
+		return session.update("userMapper.updateAdminN", user_id);
+	}
+
+	//로그인 허용
+	public int updateloginOK(String user_id) {
+		return session.update("userMapper.updateLoginOK", user_id);
+	}
+
+	//로그인 제한
+	public int updateloginN(String user_id) {
+		return session.update("userMapper.updateLoginNo", user_id);
 	}
 	
 }

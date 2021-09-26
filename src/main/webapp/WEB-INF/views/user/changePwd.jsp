@@ -33,7 +33,7 @@ function validate(){
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <hr>
-<h3>
+<h3 align="center">
 ${user.user_name} 님 어서오세요.
 </h3>
 <div id="changpwd" align = "center">

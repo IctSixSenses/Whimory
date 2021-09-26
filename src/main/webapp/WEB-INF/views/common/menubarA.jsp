@@ -86,7 +86,7 @@ html body{
           <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/rplista.do?page=1">역사 왜곡 제보 내역</a></li>
           <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/qlista.do?page=1">1:1 답변 내역</a></li>
           <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/udlist.do">탈퇴 회원 관리</a></li>
-          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/udelete.do?user_id=${loginUser.user_id}">탈퇴 하기</a></li>
+          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/udelete.do?user_id=${sessionScope.loginUser.user_id}">탈퇴 하기</a></li>
           <!-- <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/qlist.do?page=1">검색 키워드 관리</a></li> -->
 		</ul>
     </nav>
@@ -98,7 +98,7 @@ html body{
           <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/myinfo.do?user_id=${loginUser.user_id}">내 정보 수정</a></li>
           <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/rplistu.do?page=1">제보 내역</a></li>
           <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/qlistu.do?page=1">1:1 문의 내역</a></li>
-          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/udelete.do?user_id=${loginUser.user_id}">탈퇴 하기</a></li>
+          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/udelete.do?user_id=${sessionScope.loginUser.user_id}">탈퇴 하기</a></li>
           <!-- <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/qlist.do?page=1">검색 키워드 관리</a></li> -->
 		</ul>
     </nav>
