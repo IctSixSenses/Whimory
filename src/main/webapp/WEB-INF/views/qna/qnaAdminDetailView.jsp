@@ -23,7 +23,7 @@ table tr td a { text-decoration:none }
 </head>
 <body>
 <c:import url="../common/menubar.jsp" />
-<hr>
+
 
 <h2 align="center">질문했어요!</h2><br>
 
@@ -79,22 +79,30 @@ table tr td a { text-decoration:none }
 
 <!-- 댓글 목록 -->
 <table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3" id="tbrpli">
+   <c:if test="${ alist.size() > 0 }">
    <c:forEach items="${ alist }" var="ali">
-		<tr>
-			<th colspan="2" align="center">&nbsp;&nbsp;&nbsp;${ ali.user_id }</th>
-			<td colspan="12">${ ali.qa_content }</td>	
-			<td colspan="2">${ ali.qa_date }</td>	
-	
-				<td colspan="2">
+      <tr>
+         <th colspan="2" align="center">&nbsp;&nbsp;&nbsp;${ ali.user_id }</th>
+            <td colspan="12">${ ali.qa_content }</td>   
+            <td colspan="2">${ ali.qa_date }</td> 
+            
+            <td colspan="2">
 					<c:url var="adelete" value="/adelete.do">
 						<c:param name="page" value="${ currentPage }"/>
 						<c:param name="qq_no" value="${ ali.qq_no }"/>
 				    	<c:param name="qa_no" value="${ ali.qa_no }"/>
 				    </c:url>
 				    <button onclick="javascript:location.href='${ adelete }'" class="btn btn-outline-danger">삭제</button>&nbsp; 
-				</td>
-		</tr>
-	</c:forEach>
+			</td>  
+      </tr>
+     </c:forEach>
+   </c:if>
+   
+   <c:if test="${ alist.size() == 0 }">
+      <tr>
+         <td>답변 미등록 질문입니다. 답변을 작성해 주세요.</td>
+      </tr>
+   </c:if>
 </table>
 <%-- 댓글 등록 폼 --%>
 <table align="center" width="1000px" height="100px" style="font-size:20px;" id="tbrp" >
@@ -105,11 +113,11 @@ table tr td a { text-decoration:none }
 		<input type="hidden" name="page" id="page" value="${ currentPage } ">
 		<input type="hidden" name="qq_no" id="qq_no" value="${ question.qq_no }">
 		<input type="hidden" name="user_id" id="user_id" value="${ loginUser.user_id }">
-		<table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3">
-			<tr style="border-top:none;">
-				<td colspan="1" align="center">${ loginUser.user_id }</td>
-				<td colspan="10"><textarea rows="3" cols="105" name="qa_content" placeholder="답변을 남겨주세요."></textarea></td>	
-				<td colspan="1"><input type="submit" value="등록" class="btn btn-outline-primary"></td>
+		<table class="table" style="table-layout: fixed; width:1000px; border-collapse:collapse;" align="center" cellspacing="0" cellpadding="3" id="tbrpins">
+			<tr>
+				<td align="center">${ loginUser.user_id }</td>
+				<td colspan="8"><textarea rows="3" cols="92" name="qa_content" placeholder="답변을 남겨주세요."></textarea></td>	
+				<td><input type="submit" value="등록" class="btn btn-outline-primary"></td>
 			</tr>
 		</table>
 	</form>
