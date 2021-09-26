@@ -24,7 +24,7 @@ table tr td a { text-decoration:none }
 </head>
 <body>
 <c:import url="../common/menubar.jsp" />
-<hr>
+
 
 <h2 align="center">질문했어요!</h2><br>
 
@@ -90,13 +90,23 @@ table tr td a { text-decoration:none }
 <hr>
 <!-- 댓글 목록 -->
 <table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3" id="tbrpli">
+   
+      <c:if test="${ alist.size() > 0 }">
    <c:forEach items="${ alist }" var="ali">
-		<tr>
-			<th colspan="2" align="center">&nbsp;&nbsp;&nbsp;${ ali.user_id }</th>
-			<td colspan="12">${ ali.qa_content }</td>	
-			<td colspan="2">${ ali.qa_date }</td>		
-		</tr>
-	</c:forEach>
+      <tr>
+         <th colspan="2" align="center">&nbsp;&nbsp;&nbsp;${ ali.user_id }</th>
+            <td colspan="12">${ ali.qa_content }</td>   
+            <td colspan="2">${ ali.qa_date }</td>   
+      </tr>
+     </c:forEach>
+   </c:if>
+   
+   <c:if test="${ alist.size() == 0 }">
+      <tr>
+         <td>답변이 아직 등록되어 있지 않습니다. 조금만 기다려주시면 감사하겠습니다. :D</td>
+      </tr>
+   </c:if>
+ 
 </table>
 
 
