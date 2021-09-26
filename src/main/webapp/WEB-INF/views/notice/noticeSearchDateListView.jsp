@@ -8,6 +8,8 @@
 <c:set var="endPage" value="${ endPage }" />
 <c:set var="currentPage" value="${ currentPage }" />
 <c:set var="maxPage" value="${ maxPage }" />
+<c:set var="begin" value="${ begin }" />
+<c:set var="end" value="${ end }" />
 
 <!DOCTYPE html>
 <html>
@@ -74,6 +76,21 @@ function showDiv(item){
 function resetList(){
 	location.href="${ pageContext.servletContext.contextPath }/nlist.do";
 }
+
+
+function search(pageNo){
+    var comSubmit = new ComSubmit();
+    comSubmit.setUrl("<c:url value='searchTitle.do' />");
+    comSubmit.addParam("page", ${currentPage});
+    comSubmit.submit();
+}
+
+// 검색
+function fn_searchtBoard(){
+    var comSubmit = new ComSubmit("frm");
+    comSubmit.setUrl("<c:url value='/board/searchBoard.do' />");
+    comSubmit.submit();
+}
 </script>
 </head>
 <body>
@@ -98,9 +115,9 @@ function resetList(){
 			</div>
 			
 			<div id="titleDiv" style="display:inline-block; float: left; width: 500px;">
-				<form action="nsearchTitle.do" method="get">
+				<form id="searchForm">
 					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 300px; float: left;" class="form-control">
-					<input type="submit" class="btn btn-outline-primary" value="검색">
+					<input type="submit" onclick="search(); return false;" class="btn btn-outline-primary" value="검색">
 					<input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
 				</form>
 			</div>
@@ -181,16 +198,20 @@ function resetList(){
       &lt;&lt; &nbsp;
    </c:if>
    <c:if test="${ currentPage > 1 }">
-      <c:url var="nlist" value="nlist.do">
+      <c:url var="nlist" value="nsearchDate.do">
          <c:param name="page" value="1" />
+         <c:param name="begin" value="${ begin }" />
+         <c:param name="end" value="${ end }" />
       </c:url>
       <a href="${ nlist }">&lt;&lt;</a> &nbsp;
    </c:if>
    
 <!-- 이전 그룹으로 이동 처리 -->
 <c:if test="${ (currentPage - 10) < startPage && (currentPage - 10) > 1 }">
-   <c:url var="nlist" value="nlist.do">
+   <c:url var="nlist" value="nsearchDate.do">
       <c:param name="page" value="${ startPage - 10 }"/>
+         <c:param name="begin" value="${ begin }" />
+         <c:param name="end" value="${ end }" />
    </c:url>
    <a href="${ nlist }">&lt;</a> &nbsp;
 </c:if>
@@ -204,8 +225,10 @@ function resetList(){
       <font weight="bolder" size="4"><b>${ p }</b></font>
    </c:if>
    <c:if test="${ p ne currentPage }">
-      <c:url var="nlist" value="nlist.do">
+      <c:url var="nlist" value="nsearchDate.do">
          <c:param name="page" value="${ p }"/>
+         <c:param name="begin" value="${ begin }" />
+         <c:param name="end" value="${ end }" />
       </c:url>
       <a href="${ nlist }">${ p }</a>
    </c:if>
@@ -213,8 +236,10 @@ function resetList(){
 
 <!-- 다음 그룹으로 이동 처리 -->
 <c:if test="${ (currentPage + 10) > endPage && (currentPage + 10) < maxPage }">
-   <c:url var="nlist" value="nlist.do">
+   <c:url var="nlist" value="nsearchDate.do">
       <c:param name="page" value="${ endPage + 10 }"/>
+         <c:param name="begin" value="${ begin }" />
+         <c:param name="end" value="${ end }" />
    </c:url>
    <a href="${ nlist }">&gt;</a> &nbsp;
 </c:if>
@@ -227,8 +252,10 @@ function resetList(){
    &nbsp; &gt;&gt;
 </c:if>   
 <c:if test="${ currentPage < maxPage }">
-   <c:url var="nlist" value="nlist.do">
+   <c:url var="nlist" value="nsearchDate.do">
       <c:param name="page" value="${ maxPage }"/>
+         <c:param name="begin" value="${ begin }" />
+         <c:param name="end" value="${ end }" />
    </c:url>
    &nbsp; <a href="${ nlist }">&gt;&gt;</a>
 </c:if>

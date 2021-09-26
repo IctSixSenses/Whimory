@@ -34,8 +34,8 @@ public class NoticeDao {
 		return sqlSession.update("noticeMapper.updateAddReadcount", noticeNo);
 	}
 	
-	public ArrayList<Notice> selectSearchTitle(String keyword){
-		List<Notice> list = sqlSession.selectList("noticeMapper.selectSearchTitle", keyword);
+	public ArrayList<Notice> selectSearchTitle(Paging paging){
+		List<Notice> list = sqlSession.selectList("noticeMapper.selectSearchTitle", paging);
 		return (ArrayList<Notice>)list;
 	}
 	
@@ -44,9 +44,32 @@ public class NoticeDao {
 		return (ArrayList<Notice>)list;
 	}
 
-	public ArrayList<Notice> selectSearchDate(SearchDate sdate){
-		List<Notice> list = sqlSession.selectList("noticeMapper.selectSearchDate", sdate);
+	public ArrayList<Notice> selectSearchDate(Paging paging){
+		List<Notice> list = sqlSession.selectList("noticeMapper.selectSearchDate", paging);
 		return (ArrayList<Notice>)list;
+	}
+	
+	// 공지사항 글 등록
+	public int insertNotice(Notice notice) {
+		return sqlSession.insert("noticeMapper.insertNotice", notice);
+	}
+
+	// 공지사항 글 수정
+	public int updateNotice(Notice notice) {
+		return sqlSession.update("noticeMapper.updateNotice", notice);
+	}
+
+	// 공지사항 글 삭제
+	public int deleteNotice(int notice_no) {
+		return sqlSession.delete("noticeMapper.deleteNotice", notice_no);
+	}
+
+	public int selectSearchCount(String keyword) {
+		return sqlSession.selectOne("noticeMapper.selectSearchCount");
+	}
+
+	public int selectSearchDateCount(Paging paging) {
+		return sqlSession.selectOne("noticeMapper.selectSearchDateCount");
 	}
 	
 	

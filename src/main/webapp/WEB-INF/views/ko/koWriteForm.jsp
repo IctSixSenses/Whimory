@@ -7,6 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Whimory KO</title>
+<!-- Favicons -->
+<link href="${ pageContext.request.contextPath }/resources/images/tgmark.png" rel="icon">
+
+<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" 
 	rel="stylesheet" 
 	integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" 
@@ -45,14 +49,14 @@ function cancleCheck(){
 
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr style="clear:both;"><br>
+<br>
 
 <c:import url="/WEB-INF/views/ko/koSubMenubar.jsp" />
 
 <div class="k-list">
 <form action="kinsert.do" method="post" enctype="multipart/form-data" >
 	<input type="hidden" name="user_id" value="${ loginUser.user_id }">
-	<table width="800px" align="center">
+	<table class="table" style="table-layout: fixed; width:800px" align="center" cellspacing="0" cellpadding="3">
 	<tr style="height:40px; border-bottom: 2px solid gray"><td colspan="9">
 		<h5>Korea Origin 글쓰기</h5>
 	</td></tr>
@@ -70,20 +74,26 @@ function cancleCheck(){
 		</td>
 	</tr>
 	<tr>
-		<td colspan="9"><textarea name="ko_content" cols="100" rows="20" required placeholder="내용을 입력하세요."></textarea></td>
+		<td colspan="9"><textarea name="ko_content" cols="95" rows="20" required placeholder="내용을 입력하세요."></textarea></td>
 	</tr>
 	<tr>
-		<td colspan="9"><textarea name="ko_summary" rows="2" cols="100" required placeholder="한줄 요약"></textarea></td>	
+		<td colspan="9"><textarea name="ko_summary" rows="2" cols="95" required placeholder="한줄 요약"></textarea></td>	
 	</tr>
 	<tr><td colspan="9"><input type="file" name="kfile"></td></tr>
-	<tr><td colspan="9"><input type="text" name="ko_hashtag" size="97" placeholder="해시태그"></td></tr>
-	<tr><td colspan="9"><input type="text" name="ko_link1" size="97" placeholder="영상 링크 1"></td></tr>
-	<tr><td colspan="9"><input type="text" name="ko_link2" size="97" placeholder="영상 링크 2"></td></tr>
-	<tr><td colspan="9"><input type="text" name="ko_link3" size="97" placeholder="영상 링크 3"></td></tr>
+	<tr><td colspan="9"><input type="text" name="ko_hashtag" size="95" placeholder="해시태그"></td></tr>
+	<tr><td colspan="9">
+		<div style="height:40px;">
+			<input type="text" name="ko_link1" size="95" placeholder="영상 링크 1">
+		</div><div style="height:40px;">
+			<input type="text" name="ko_link2" size="95" placeholder="영상 링크 2">
+		</div><div style="height:40px;">
+			<input type="text" name="ko_link3" size="95" placeholder="영상 링크 3">
+		</div>
+	</td></tr>
 	<tr>
 		<td colspan="9" align="center">
-			<input class="btn btn-outline-success" type="submit" value="등록">
-			<input class="btn btn-outline-success" type="button" value="등록 취소" onclick="cancleCheck();">
+			<input class="btn btn-primary" type="submit" value="등록">
+			<input class="btn btn-outline-danger" type="button" value="등록 취소" onclick="cancleCheck();">
 		</td>
 	</tr>
 	</table>
@@ -96,7 +106,7 @@ function cancleCheck(){
 
 
 
-<br><br><br><hr style="clear: both">
+<br><br><br>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

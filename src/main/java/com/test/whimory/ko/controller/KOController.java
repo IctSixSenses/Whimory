@@ -62,7 +62,8 @@ public class KOController {
 		ArrayList<KO> list = koService.selectTop10();
 		
 		
-		JSONObject sendJson = new JSONObject(); JSONArray jarr = new JSONArray();
+		JSONObject sendJson = new JSONObject(); 
+		JSONArray jarr = new JSONArray();
 		 
 		for (KO ko : list) { 
 		
@@ -71,9 +72,7 @@ public class KOController {
 			job.put("ko_no", ko.getKo_no());
 			job.put("ko_title", URLEncoder.encode(ko.getKo_title(), "UTF-8"));
 			job.put("ko_re_file", ko.getKo_re_file());
-			job.put("user_id", ko.getUser_id());
-			job.put("ko_editor", ko.getKo_editor());
-			job.put("ko_summary", ko.getKo_summary());
+			job.put("ko_summary", URLEncoder.encode(ko.getKo_summary(), "UTF-8"));
 			
 			jarr.add(job);
 		}
@@ -82,7 +81,7 @@ public class KOController {
 		 
 		return sendJson.toJSONString();
 		
-	}
+	} // koTop10Method
 	
 	@RequestMapping("kcate.do")
 	public String koSearchCategory(@RequestParam("cate") String category, Model model) {
@@ -329,7 +328,6 @@ public class KOController {
 			   			+ "\\" + renameFileName).delete();
 			}
 			
-			model.addAttribute("result", "delete success");
 			return "redirect:klist.do";
 			
 		} else {

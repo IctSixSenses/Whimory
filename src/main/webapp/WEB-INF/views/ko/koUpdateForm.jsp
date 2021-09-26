@@ -7,6 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Whimory KO</title>
+<!-- Favicons -->
+<link href="${ pageContext.request.contextPath }/resources/images/tgmark.png" rel="icon">
+
+<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" 
 	rel="stylesheet" 
 	integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" 
@@ -45,7 +49,7 @@ function cancleCheck(){
 
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr style="clear:both;"><br>
+<br>
 
 <c:import url="/WEB-INF/views/ko/koSubMenubar.jsp" />
 
@@ -56,7 +60,7 @@ function cancleCheck(){
 	<input type="hidden" name="ko_org_file" value="${ ko.ko_org_file }">
 	<input type="hidden" name="ko_re_file" value="${ ko.ko_re_file }">
 	
-	<table width="800px" align="center">
+	<table class="table" style="table-layout: fixed; width:800px" align="center" cellspacing="0" cellpadding="3">
 	<tr style="height:40px; border-bottom: 2px solid gray"><td colspan="9">
 		<h5>Korea Origin ${ ko.ko_no }번 게시글 수정 페이지</h5>
 	</td></tr>
@@ -95,10 +99,10 @@ function cancleCheck(){
 		</td>
 	</tr>
 	<tr>
-		<td colspan="9"><textarea name="ko_content" cols="100" rows="20" required>${ ko.ko_content }</textarea></td>
+		<td colspan="9"><textarea name="ko_content" cols="95" rows="20" required>${ ko.ko_content }</textarea></td>
 	</tr>
 	<tr>
-		<td colspan="9"><textarea name="ko_summary" rows="2" cols="100" required>${ ko.ko_summary }</textarea></td>	
+		<td colspan="9"><textarea name="ko_summary" rows="2" cols="95" required>${ ko.ko_summary }</textarea></td>	
 	</tr>
 	<tr><td colspan="9">
 		<c:if test="${ !empty ko.ko_org_file }">
@@ -110,21 +114,21 @@ function cancleCheck(){
 		</c:if>
 	</td></tr>
 	<tr><td colspan="9">
-		<input type="text" name="ko_hashtag" size="97" placeholder="해시태그" value="${ ko.ko_hashtag }">
+		<input type="text" name="ko_hashtag" size="95" placeholder="해시태그" value="${ ko.ko_hashtag }">
 	</td></tr>
 	<tr><td colspan="9">
-		<input type="text" name="ko_link1" size="97" placeholder="영상 링크1" value="${ ko.ko_link1 }">
-	</td></tr>
-	<tr><td colspan="9">
-		<input type="text" name="ko_link2" size="97" placeholder="영상 링크2" value="${ ko.ko_link2 }">
-	</td></tr>
-	<tr><td colspan="9">
-		<input type="text" name="ko_link3" size="97" placeholder="영상 링크3" value="${ ko.ko_link3 }">
+		<div style="height:40px;">
+			<input type="text" name="ko_link1" size="95" placeholder="영상 링크1" value="${ ko.ko_link1 }">
+		</div><div style="height:40px;">
+			<input type="text" name="ko_link2" size="95" placeholder="영상 링크2" value="${ ko.ko_link2 }">
+		</div><div style="height:40px;">
+			<input type="text" name="ko_link3" size="95" placeholder="영상 링크3" value="${ ko.ko_link3 }">
+		</div>
 	</td></tr>
 	<tr>
 		<td colspan="9" align="center">
-			<input class="btn btn-outline-success" type="submit" value="수정">
-			<input class="btn btn-outline-success" type="button" value="수정 취소" onclick="cancleCheck();">
+			<input class="btn btn-primary" type="submit" value="수정">
+			<input class="btn btn-outline-danger" type="button" value="수정 취소" onclick="cancleCheck();">
 		</td>
 	</tr>
 	</table>
@@ -137,7 +141,7 @@ function cancleCheck(){
 
 
 
-<br><br><br><hr style="clear: both">
+<br><br><br>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
