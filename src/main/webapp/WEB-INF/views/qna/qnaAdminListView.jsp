@@ -36,7 +36,7 @@ table tr td a { text-decoration:none }
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr>
+
 <h2 align="center">QNA 답변내역</h2>
 
 <br>
@@ -59,10 +59,16 @@ table tr td a { text-decoration:none }
 		      <c:param name="qq_no" value="${ q.qq_no }" />
 		      <c:param name="page" value="${ currentPage }" />
 		   </c:url>
-		   <td align="center"><a href="${ qdetail }">${ q.qq_title }</a></td>
+		   <td align="left"><a href="${ qdetail }">${ q.qq_title }</a></td>
 		   
 		<td align="center">
-		<fmt:formatDate value="${  q.qq_date }" type="date" pattern="yyyy-MM-dd" /></td>
+				<c:if test="${ empty q.qq_modify }">
+					<fmt:formatDate value="${ q.qq_date}" pattern="yyyy-MM-dd" />
+				</c:if>
+				<c:if test="${ !empty q.qq_modify }">
+					<fmt:formatDate value="${ q.qq_modify }" pattern="yyyy-MM-dd" />
+				</c:if>
+			</td>
 		
 		<td align="center">${  q.qq_yn }</td>
 		

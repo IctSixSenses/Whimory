@@ -14,6 +14,8 @@
 <meta charset="UTF-8">
 <title>Whimory</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap CSS -->
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
@@ -52,36 +54,39 @@ function showDiv(item){
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr>
+
 <h2 align="center">언론 보도</h2>
 <table align="center" width="1150px">
    <tr>
-      <td align="right">
-         <select onchange="showDiv(this)">
+   	<td colspan="3"><h5>   </h5></td>
+      <td colspan="7" align="right">
+      	<div style="float: left; width: 50%;">
+         <select class="form-control" onchange="showDiv(this)" style="width:80px; display:inline-block">
             <option value="title">제목</option>
             <option value="content">내용</option>
             <option value="date">작성날짜</option>
          </select>
-         <div id="titleDiv" style="display:inline-block">
+        </div>
+         <div id="titleDiv" style="display:inline-block; float: left; width: 40%;">
          <form action="wsearchTitle.do" method="post">
-            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
-            <button type="submit">검색</button>
+            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+            <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
          </div>
-         <div id="contentDiv" style="display:none">
+         <div id="contentDiv" style="display:none; float: left; width: 40%;">
          <form action="wsearchContent.do" method="post">
-            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
-            <button type="submit">검색</button>
+            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+            <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
          </div>
-         <div id="dateDiv" style="display:none">
+         <div id="dateDiv" style="display:none; float: left; width: 40%;">
          <form action="wsearchDate.do" method="post">
             <input type="date" name="begin"> ~ <input type="date" name="end">
-            <button type="submit">검색</button>
+            <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
          </div>
-         
       </td>
+      
    </tr>
 </table>
 <br>

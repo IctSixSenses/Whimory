@@ -57,36 +57,39 @@ function showDiv(item){
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr>
+
 <h2 align="center">언론 보도</h2>
 <table align="center" width="1150px">
    <tr>
-      <td align="right">
-         <select onchange="showDiv(this)">
+   	<td colspan="3"><h5>   </h5></td>
+      <td colspan="7" align="right">
+      	<div style="float: left; width: 50%;">
+         <select class="form-control" onchange="showDiv(this)" style="width:80px; display:inline-block">
             <option value="title">제목</option>
             <option value="content">내용</option>
             <option value="date">작성날짜</option>
          </select>
-         <div id="titleDiv" style="display:inline-block">
+        </div>
+         <div id="titleDiv" style="display:inline-block; float: left; width: 40%;">
          <form action="wsearchTitle.do" method="post">
-            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
-            <button type="submit">검색</button>
+            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+            <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
          </div>
-         <div id="contentDiv" style="display:none">
+         <div id="contentDiv" style="display:none; float: left; width: 40%;">
          <form action="wsearchContent.do" method="post">
-            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
-            <button type="submit">검색</button>
+            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+            <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
          </div>
-         <div id="dateDiv" style="display:none">
+         <div id="dateDiv" style="display:none; float: left; width: 40%;">
          <form action="wsearchDate.do" method="post">
             <input type="date" name="begin"> ~ <input type="date" name="end">
-            <button type="submit">검색</button>
+            <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
          </div>
-         
       </td>
+      
    </tr>
 </table>
 <div style="align:center;text-align:center;">
