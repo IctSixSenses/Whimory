@@ -6,7 +6,7 @@ public class UserDrop implements java.io.Serializable {
 	private static final long serialVersionUID = 1112L;
 	
 	private String user_id; // 탈퇴회원 아이디
-	private String d_username; // 탈퇴회원 명
+	private String d_user_name; // 탈퇴회원 명
 	private String d_gender; // 탈퇴회원 성별
 	private java.sql.Date d_birth; // 탈퇴회원 생년월일
 	private String d_phone; // 탈퇴회원 전화번호
@@ -17,11 +17,11 @@ public class UserDrop implements java.io.Serializable {
 	
 	public UserDrop() {}
 
-	public UserDrop(String user_id, String d_username, String d_gender, Date d_birth, String d_phone, String d_email,
+	public UserDrop(String user_id, String d_user_name, String d_gender, Date d_birth, String d_phone, String d_email,
 			Date d_join_date, Date d_last_login_date, Date drop_date) {
 		super();
 		this.user_id = user_id;
-		this.d_username = d_username;
+		this.d_user_name = d_user_name;
 		this.d_gender = d_gender;
 		this.d_birth = d_birth;
 		this.d_phone = d_phone;
@@ -39,12 +39,12 @@ public class UserDrop implements java.io.Serializable {
 		this.user_id = user_id;
 	}
 
-	public String getD_username() {
-		return d_username;
+	public String getD_user_name() {
+		return d_user_name;
 	}
 
-	public void setD_username(String d_username) {
-		this.d_username = d_username;
+	public void setD_username(String d_user_name) {
+		this.d_user_name = d_user_name;
 	}
 
 	public String getD_gender() {
@@ -109,7 +109,7 @@ public class UserDrop implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "UserDrop [user_id=" + user_id + ", d_username=" + d_username + ", d_gender=" + d_gender + ", d_birth="
+		return "UserDrop [user_id=" + user_id + ", d_user_name=" + d_user_name + ", d_gender=" + d_gender + ", d_birth="
 				+ d_birth + ", d_phone=" + d_phone + ", d_email=" + d_email + ", d_join_date=" + d_join_date
 				+ ", d_last_login_date=" + d_last_login_date + ", drop_date=" + drop_date + "]";
 	}

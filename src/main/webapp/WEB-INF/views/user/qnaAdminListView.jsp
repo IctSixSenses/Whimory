@@ -78,8 +78,8 @@ function showDiv(item){
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <hr>
-<c:import url="/WEB-INF/views/common/menubarA.jsp"></c:import>
-<h2 align="center">나의 1대1 문의 내역</h2>
+<c:import url="/WEB-INF/views/common/menubarA.jsp" />
+<h2 align="center">문의 내역 확인</h2>
 <table align="center" width="1150px">
    <tr>
       <td align="right">
@@ -117,18 +117,7 @@ function showDiv(item){
       </td>
    </tr>
 </table>
-<!-- 게시글 쓰기(등록)은 로그인한 회원만 가능함 -->
-<c:if test="${ empty sessionScope.loginUser }">
-   <div style="align:center;text-align:center;">
-      <button onclick="goLogin();" class="btn btn-outline-primary">글쓰기</button>
-   </div>
-</c:if>
 
-<c:if test="${ !empty sessionScope.loginUser }">
-   <div style="align:center;text-align:center;">
-      <button onclick="showWriteForm();" class="btn btn-outline-primary">글쓰기</button>
-   </div>
-</c:if>
 <br>
 <table class="table table-lightgray table-hover" style="table-layout: fixed; width:1200px" align="center" cellspacing="0" cellpadding="3" >
 	<thead>
@@ -162,7 +151,6 @@ function showDiv(item){
 		
 			<td align="center">${  q.qq_yn }</td>
 		
-		
 		</tr>
 	</c:forEach>
 </table>
@@ -183,14 +171,14 @@ function showDiv(item){
    [맨처음]&nbsp;
 </c:if>
 <c:if test="${ currentPage > 1 }">
-   <c:url var="ubl" value="/qlistu.do">
+   <c:url var="ubl" value="/qlista.do">
       <c:param name="page" value="1" />
    </c:url>
    <a href="${ ubl }">[맨처음]</a>
 </c:if>
 <!-- 이전 그룹으로 이동 처리 -->
 <c:if test="${ (currentPage - 10) < startPage and (currentPage - 10) > 1 }">
-   <c:url var="ubl2" value="/qlistu.do">
+   <c:url var="ubl2" value="/qlista.do">
       <c:param name="page" value="${ startPage - 10 }"/>
    </c:url>
    <a href="${ ubl2 }">[이전그룹]</a>
@@ -204,7 +192,7 @@ function showDiv(item){
       <font color="red" size="4"><b>[${ p }]</b></font>
    </c:if>
    <c:if test="${ p ne currentPage }">
-      <c:url var="ubl3" value="/qlistu.do">
+      <c:url var="ubl3" value="/qlista.do">
          <c:param name="page" value="${ p }"/>
       </c:url>
       <a href="${ ubl3 }">${ p }</a>
@@ -212,7 +200,7 @@ function showDiv(item){
 </c:forEach>
 <!-- 다음 그룹으로 이동 처리 -->
 <c:if test="${ (currentPage + 10) > endPage && (currentPage + 10) < maxPage }">
-   <c:url var="ubl4" value="/qlistu.do">
+   <c:url var="ubl4" value="/qlista.do">
       <c:param name="page" value="${ endPage + 10 }"/>
    </c:url>
    <a href="${ ubl4 }">[다음그룹]</a>
@@ -225,7 +213,7 @@ function showDiv(item){
    [맨끝]&nbsp;
 </c:if>   
 <c:if test="${ currentPage < maxPage }">
-   <c:url var="ubl5" value="/qlistu.do">
+   <c:url var="ubl5" value="/qlista.do">
       <c:param name="page" value="${ maxPage }"/>
    </c:url>
    <a href="${ ubl5 }">[맨끝]</a>

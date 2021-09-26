@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+request.setCharacterEncoding("UTF-8");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,9 +23,10 @@
 	<c:import url="/WEB-INF/views/common/menubar.jsp" />
 	<hr>
 	<div align="center">
-		<h3>${ user.user_name }님의 아이디는 ${ user.user_id } 입니다.</h3>
+		<h3>${ user.user_name }님의 아이디는 <br> 
+		&nbsp; &nbsp; ${ user.user_id } 입니다.</h3>
 		<button class="btn btn-outline-primary"
-			onclick="javascript:location.href='findpwd.do';">비밀번호 찾기</button>
+			onclick="javascript:location.href='findaccount.do';">비밀번호 찾기</button>
 		&nbsp; &nbsp;
 	</div>
 	<hr>

@@ -70,7 +70,7 @@ function kakaoLoginPro(response){
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <hr>
 <!-- title -->
-<h1 align="center">휘모리 Whimory 로그인</h1>
+<h1 align="center">휘모리(Whimory) 로그인</h1>
 <br>
 <!-- 로그인 창 -->
 <div id="login" align="center">
@@ -78,20 +78,17 @@ function kakaoLoginPro(response){
 <label>아이디 : <input type="text" name="user_id"></label><br><br>
 <label>비밀번호 : <input type="password" name="user_pwd"></label><br><br>
 <input class="btn btn-outline-primary" type= "submit" value = "로그인">
-<br><br>
 </form>
-
+<br>
 <!-- 회원가입 버튼 -->
-	<form class="d-flex" style="align:center">
-		<button class="btn btn-outline-success" onclick="movePage2()">회원가입</button>
-	</form>
-	
+		<button class="btn btn-outline-success" onclick="movePage2();">회원가입</button>
+<br>
 	<!-- 카카오 로그인 버튼 -->
-	<hr>
+<!-- 	<hr>
 	<form class="d-flex" style="align:center">
 		<button class="btn btn-outline-success" onclick="movePage4()">카카오로그인</button>
 	</form>
-	
+	 -->
 </div>
 <hr>
 <c:import url="/WEB-INF/views/common/footer.jsp" />

@@ -9,37 +9,13 @@
 <meta charset="UTF-8">
 <title>관리자 회원 관리 페이지</title>
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
-$(function(){
-	$("input[name=item]").on("change", function(){
-		
-		$("input[name=item]").each(function(index){
-			//radio 하나씩 checked 인지 확인하고
-			if($(this).is(":checked")){
-				$("form.sform").eq(index).css("display", "block");
-			}else{
-				$("form.sform").eq(index).css("display", "none");
-			}
-		});
-	});
-});
 
-function changeLogin(element){	
-	var user_id = element.name.substring(8);
-	console.log(userid);
-	if(element.checked == true && element.value == "false"){
-		console.log("로그인 불가로 변경");
-		location.href = "${ pageContext.servletContext.contextPath }/loginOK.do?user_id=" + user_id + "&login_access_yn=N";
-	}else{
-		console.log("로그인 가능으로 변경");
-		location.href = "${ pageContext.servletContext.contextPath }/loginOK.do?user_id=" + user_id + "&login_access_yn=Y";		
-	}
-}
 </script>
 
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
+<c:import url="/WEB-INF/views/common/menubarA.jsp" />
 <hr>
 <h1 align="center">회원 관리 페이지</h1>
 
@@ -58,23 +34,39 @@ function changeLogin(element){
 <table align="center" border="1" cellspacing="0" cellpadding="3">
 <tr>
 <th>아이디</th><th>이름</th><th>성별</th><th>생일</th><th>전화번호</th>
-<th>이메일</th><th>인증여부</th><th>가입날짜</th><th>마지막 수정날짜</th>
+<th>이메일</th><th>가입날짜</th><th>마지막 로그인 날짜</th>
 <th>관리자 여부</th>
-<th>로그인 제한 여부</th><th>경고 횟수 카운트</th>
 </tr>
 <c:forEach items="${ requestScope.list }" var="m">
 <tr>
-<td>${ m.user_id }</td>
+<td><a href="${ pageContext.servletContext.contextPath }/uinfo.do?user_id=${m.user_id}">${ m.user_id }</a></td>
 <td>${ m.user_name }</td>
 <td>${  (m.gender eq "M")? "남자" : "여자" }</td>
 <td>${ m.birth }</td>
 <td>${ m.phone }</td>
 <td>${ m.email }</td>
-<td>${ m.auth_status }</td>
 <td><fmt:formatDate value="${ m.join_date }" type="date" 
 dateStyle="medium" /> </td>
 <td><fmt:formatDate value="${ m.last_login_date }" type="date" 
 dateStyle="medium" /></td>
+<td>
+<c:if test="${ m.admin_yn eq 'Y' }">
+<!-- <input type="radio" name="admin_${ m.user_id }" onchange="changeLogin(this);"
+ value="true" checked> 관리자 &nbsp; 
+<input type="radio" name="admin_${ m.user_id }" onchange="changeLogin(this);"
+value="false"> 일반회원 -->
+<button class="btn btn-outline-primary"
+					onclick="changeLogin(this);">일반회원 권한 부여</button>
+</c:if>
+<c:if test="${ m.admin_yn eq 'N' }">
+<!--  <input type="radio" name="admin_${ m.user_id }" onchange="changeLogin(this);"
+ value="true"> 관리자 &nbsp; 
+<input type="radio" name="admin_${ m.user_id }" onchange="changeLogin(this);"
+value="false" checked> 일반회원 -->
+<button class="btn btn-outline-primary"
+					onclick="changeLogin(this);">관리자 권한 부여</button>
+</c:if>
+</td>
 <td>
 <c:if test="${ m.login_access_yn eq 'Y' }">
 <input type="radio" name="loginok_${ m.user_id }" onchange="changeLogin(this);"
@@ -83,20 +75,19 @@ dateStyle="medium" /></td>
 value="false"> 제한
 </c:if>
 <c:if test="${ m.login_access_yn eq 'N' }">
-<input type="radio" name="loginok_${ m.userid }" onchange="changeLogin(this);"
+<input type="radio" name="loginok_${ m.user_id }" onchange="changeLogin(this);"
  value="true"> 가능 &nbsp; 
-<input type="radio" name="loginok_${ m.userid }" onchange="changeLogin(this);"
+<input type="radio" name="loginok_${ m.user_id }" onchange="changeLogin(this);"
 value="false" checked> 제한
 </c:if>
 </td>
-<td>${ m.penalty_count }</td>
 </tr>
 </c:forEach>
 </table>
 
 <div align="center">
-<button class="btn btn-outline-primary"
-					onclick="javascript:history.go(-1):;">뒤로 가기</button>
+<button class="btn btn-primary"
+					onclick="javascript:history.go(-1);">뒤로 가기</button>
 					</div>
 <hr>
 <c:import url="/WEB-INF/views/common/footer.jsp" />

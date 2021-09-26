@@ -55,7 +55,7 @@ function showDiv(item){
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <hr>
 <c:import url="/WEB-INF/views/common/menubarA.jsp" />
-<h2 align="center">나의 제보 내역</h2>
+<h2 align="center">역사 왜곡 제보 목록</h2>
 <br>
 <!-- 로그인 여부에 따라 로그인페이지/게시글 작성 페이지로 이동, 관리자는 작성 x -->
 <c:if test="${ empty loginUser }">
@@ -70,7 +70,7 @@ function showDiv(item){
 </c:if>
 <table align="center" width="1150px">
 	<tr>
-		<td colspan="3"></td>
+		<td colspan="3"><h5>총 게시글 갯수 : ${ listCount }</h5></td>
     	<!-- 게시판 내 검색기능 -->
 		<td colspan="7" align="right">
 			<div style="float: left; width: 50%;">
@@ -141,7 +141,7 @@ function showDiv(item){
 
 <%-- 페이징 처리 --%>
 <div style="text-align:center;">
-<button class="btn btn-outline-primary" onclick="javascript:location.href='rplist.do?page=1';">역사 왜곡 게시판 전체 보기</button><br>
+<button class="btn btn-outline-primary" onclick="javascript:location.href='rplista.do?page=1';">목록 보기</button><br>
 	<c:if test="${ currentPage <= 1 }">
 		[맨처음] &nbsp;
 	</c:if>
@@ -154,7 +154,7 @@ function showDiv(item){
 	
 	<%-- 이전 페이지 그룹으로 이동 --%>
 	<c:if test="${ (currentPage - 10) < startPage and (currentPage - 10) > 1 }">
-	<c:url var="ubl2" value="/rplistu.do">
+	<c:url var="ubl2" value="/rplista.do">
 		<c:param name="page" value="${ startPage - 10 }"/>
 	</c:url>
 	<a href="${ ubl2 }">이전그룹</a>
@@ -169,7 +169,7 @@ function showDiv(item){
 			<font color="red" size="4">[${ p }]</font>
 		</c:if>
 		<c:if test="${ p != currentPage }">
-			<c:url var="rplist" value="/rplist.do">
+			<c:url var="rplist" value="/rplista.do">
 				<c:param name="page" value="${ p }" />
 			</c:url>
 			<a href="${ rplist }">${ p }</a>
@@ -178,7 +178,7 @@ function showDiv(item){
 	
 	<%-- 다음 페이지 그룹으로 이동 --%>
 	<c:if test="${ (currentPage + 10) > endPage && (currentPage + 10) < maxPage }">
-	<c:url var="ubl4" value="/rplistu.do">
+	<c:url var="ubl4" value="/rplista.do">
       <c:param name="page" value="${ endPage + 10 }"/>
 	</c:url>
 	<a href="${ ubl4 }">다음그룹</a>
@@ -191,7 +191,7 @@ function showDiv(item){
 		[맨끝] &nbsp;
 	</c:if>
 	<c:if test="${ currentPage < maxPage }">
-		<c:url var="rplist" value="/rplistu.do">
+		<c:url var="rplist" value="/rplista.do">
 			<c:param name="page" value="${ maxPage }" />
 		</c:url>
 		<a href="${ rplist }">[맨끝]</a> &nbsp;

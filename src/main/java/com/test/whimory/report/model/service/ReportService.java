@@ -24,4 +24,5 @@ public interface ReportService {
 	int insertAddLikeCount(ReportLike rplike);
 	int updateAddLikeCount(int report_no);
 	int selectReportLike(ReportLike rplike);
+	ArrayList<Report> selectListA(Paging paging); //현주 추가 - 관리자 반영 내역 확인용
 }

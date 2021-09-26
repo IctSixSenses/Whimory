@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.test.whimory.user.model.vo.User;
+import com.test.whimory.user.model.vo.UserDrop;
 
 public interface UserService {
 	//회원서비스
@@ -19,5 +20,13 @@ public interface UserService {
 	int insertUser(User user); //회원 가입
 	User selectUserId(User user);//회원 아이디 찾기
 	int updatePwd(User user); //비밀번호 변경하기
+	int selectCheckId(String user_id);
+	int updateAdmin(User user);//관리자 권한
+	int updateLoginOK(User user);//로그인 제한
+	ArrayList<UserDrop> selectDList();//탈퇴회원 리스트
+	User selectUserPwd(User user);//비밀번호 찾기로 넘어가게끔하는 확인 용도
+	int deleteUser(String user_id);//회원 탈퇴
+	int insertUserDrop(String user_id); //회원 탈퇴 시 탈퇴회원 테이블에 데이터 삽입
+	int updateUserD(String user_id); //회원 탈퇴 시 로그인 불가하게 설정
 	
 }
