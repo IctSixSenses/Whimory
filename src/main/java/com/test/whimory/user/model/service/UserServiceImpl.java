@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.test.whimory.user.model.dao.UserDao;
 import com.test.whimory.user.model.vo.User;
+import com.test.whimory.user.model.vo.UserDrop;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -32,6 +33,12 @@ public class UserServiceImpl implements UserService {
 	public ArrayList<User> selectList(){
 		return userDao.selectList();
 	}
+	
+	//탈퇴 회원 목록
+		@Override
+		public ArrayList<UserDrop> selectDList(){
+			return userDao.selectDList();
+		}
 
 	@Override
 	public Map<String, Object> userKakaoLoginPro(Map<String, Object> paramMap) {
@@ -82,10 +89,50 @@ public class UserServiceImpl implements UserService {
 		return userDao.selectUserId(user);
 	}
 	
+	//회원 비밀번호 페이지 넘어가기
+	@Override
+	public User selectUserPwd(User user) {
+		return userDao.selectUserPwd(user);
+	}
+	
 	//비밀번호 변경하기
 	@Override
 	public int updatePwd(User user) {
 		return userDao.updatePwd(user);
 	}
+	
+	@Override
+	public int selectCheckId(String user_id) {
+		return userDao.selectCheckId(user_id);
+	}
+	
+	//관리자 권한 부여
+	@Override
+	public int updateAdmin(User user) {
+		return userDao.updateAdmin(user);
+	}
+	
+	//로그인 제한 부여
+	@Override
+	public int updateLoginOK(User user) {
+		return userDao.updateLoginOK(user);
+	}
 
+	//회원 탈퇴(영구탈퇴)
+	@Override
+	public int deleteUser(String user_id) {
+		return userDao.deleteUser(user_id);
+	}
+	
+	//회원 탈퇴 시 동작
+	@Override
+	public int insertUserDrop(String user_id) {
+		return userDao.insertUserDrop(user_id);
+	}
+	
+	//회원 탈퇴시 동작(로그인 방지)
+	@Override
+	public int updateUserD(String user_id) {
+		return userDao.updateUserD(user_id);
+	}
 }

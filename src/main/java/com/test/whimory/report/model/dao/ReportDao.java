@@ -23,11 +23,6 @@ public class ReportDao {
 		return (ArrayList<Report>) list;
 	}
 	
-	//현주 추가 부분 - 나의 제보 내역
-	public ArrayList<Report> selectListU(Paging page){
-		List<Report> list = sqlSession.selectList("reportMapper.selectListU", page);
-		return (ArrayList<Report>) list;
-	}
 	
 	public int selectListCount() {
 		return sqlSession.selectOne("reportMapper.selectListCount");
@@ -87,4 +82,16 @@ public class ReportDao {
 		List<Report> list = sqlSession.selectList("reportMapper.selectSearchDate", dates);
 		return (ArrayList<Report>) list;
 	}
+	
+	//현주 추가 부분 - 회원 : 나의 제보 내역
+		public ArrayList<Report> selectListU(Paging page){
+			List<Report> list = sqlSession.selectList("reportMapper.selectListU", page);
+			return (ArrayList<Report>) list;
+		}
+		
+		//현주 추가 부분 - 관리자가 반영했는지 확인을 위한 부분
+				public ArrayList<Report> selectListA(Paging page){
+					List<Report> list = sqlSession.selectList("reportMapper.selectListA", page);
+					return (ArrayList<Report>) list;
+				}
 }

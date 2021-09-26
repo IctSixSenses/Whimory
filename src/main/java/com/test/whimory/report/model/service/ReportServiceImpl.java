@@ -22,10 +22,6 @@ public class ReportServiceImpl implements ReportService {
 		return reportDao.selectList(page);
 	}
 	
-	@Override
-	public ArrayList<Report> selectListU(Paging page){
-		return reportDao.selectListU(page);
-	}
 
 	@Override
 	public int selectListCount() {
@@ -97,4 +93,15 @@ public class ReportServiceImpl implements ReportService {
 		return reportDao.selectReportLike(rplike);
 	}
 	
+	//현주 추가 : 회원 - 제보한 리스트 목록 보기용
+	@Override
+	public ArrayList<Report> selectListU(Paging page){
+		return reportDao.selectListU(page);
+	}
+	
+	//현주 추가 : 관리자 - 제보 내역 반영 여부 확인용
+	@Override
+	public ArrayList<Report> selectListA(Paging page){
+		return reportDao.selectListU(page);
+	}
 }

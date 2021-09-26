@@ -79,24 +79,26 @@ html body{
 			<!-- 관리자로 로그인이 된 상태인 경우 (마이페이지 및 메뉴 항목 수정 예정)//이름 출력 -->
 			<c:if test="${ !empty sessionScope.loginUser and loginUser.admin_yn eq 'Y' }">
 					
-		<nav id="navbar" class="navbar">
+		<nav id="navbar" class="justify-content-end">
         <ul>
+         <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/myinfo.do?user_id=${loginUser.user_id}">내 정보 수정</a></li>
           <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/ulist.do">회원 관리</a></li>
-          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/qnalist.do?page=1">제보 확인 내역</a></li>
-          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/rplist.do?page=1">답변 내역</a></li>
+          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/rplista.do?page=1">역사 왜곡 제보 내역</a></li>
+          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/qlista.do?page=1">1:1 답변 내역</a></li>
           <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/udlist.do">탈퇴 회원 관리</a></li>
+          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/udelete.do?user_id=${loginUser.user_id}">탈퇴 하기</a></li>
           <!-- <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/qlist.do?page=1">검색 키워드 관리</a></li> -->
 		</ul>
     </nav>
 			</c:if>
 			<!-- 일반 회원이 로그인 된 경우 (마이페이지 및 메뉴 항목 수정 예정)-->
 			<c:if test="${ !empty sessionScope.loginUser and loginUser.admin_yn eq 'N' }"> 
-			<nav id="navbar" class="navbar">
+			<nav id="navbar" class="justify-content-end">
         <ul>
-          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/myinfo.do">내 정보 수정</a></li>
+          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/myinfo.do?user_id=${loginUser.user_id}">내 정보 수정</a></li>
           <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/rplistu.do?page=1">제보 내역</a></li>
           <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/qlistu.do?page=1">1:1 문의 내역</a></li>
-          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/udelete.do">탈퇴 하기</a></li>
+          <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/udelete.do?user_id=${loginUser.user_id}">탈퇴 하기</a></li>
           <!-- <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/qlist.do?page=1">검색 키워드 관리</a></li> -->
 		</ul>
     </nav>

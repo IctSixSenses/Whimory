@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.test.whimory.user.model.vo.User;
+import com.test.whimory.user.model.vo.UserDrop;
 
 @Repository("userDao")//UserDao
 public class UserDao {
@@ -61,12 +62,41 @@ public class UserDao {
 	public int updatePwd(User user) {
 		return session.update("userMapper.updatePwd", user);
 	}
+
+	//아이디 중복 체크
+	public int selectCheckId(String user_id) {
+		return session.selectOne("userMapper.selectCheckId", user_id);
+	}
 	
+	//관리자 권한 변경
+	public int updateAdmin(User user) {
+		return session.update("userMapper.updateAdmin", user);
+	}
 	
-	
-	//카카오 로그인
-	
-	
-	//메일 인증 하는걸 어떻게 해야할까...
+	//로그인 제한ㄴ
+	public int updateLoginOK(User user) {
+		return session.update("userMapper.updateLoginOK", user);
+	}
+
+	//탈퇴회원 리스트
+	public ArrayList<UserDrop> selectDList() {
+		List<UserDrop> list = session.selectList("userMapper.selectDList");
+		return (ArrayList<UserDrop>)list;
+	}
+
+	//비밀번호 변경 페이지로 넘어가기
+	public User selectUserPwd(User user) {
+		return session.selectOne("userMapper.selectUserPwd", user);
+	}
+
+	//회원 탈퇴시 데이터 옮기기
+	public int insertUserDrop(String user_id) {
+		return session.insert("userMapper.insertUserDrop", user_id);
+	}
+
+	//회원 탈퇴시 로그인 방지
+	public int updateUserD(String user_id) {
+		return session.update("userMapper.updateUserD", user_id);
+	}
 	
 }
