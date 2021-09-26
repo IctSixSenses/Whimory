@@ -39,8 +39,8 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public ArrayList<Notice> selectSearchTitle(String keyword) {
-		List<Notice> list = noticeDao.selectSearchTitle(keyword);
+	public ArrayList<Notice> selectSearchTitle(Paging paging) {
+		List<Notice> list = noticeDao.selectSearchTitle(paging);
 		return (ArrayList<Notice>)list;
 	}
 
@@ -51,12 +51,35 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public ArrayList<Notice> selectSearchDate(SearchDate sdate) {
-		List<Notice> list = noticeDao.selectSearchDate(sdate);
+	public ArrayList<Notice> selectSearchDate(Paging paging) {
+		List<Notice> list = noticeDao.selectSearchDate(paging);
 		return (ArrayList<Notice>)list;
 	}
 	
+	@Override
+	public int insertNotice(Notice notice) {
+		return noticeDao.insertNotice(notice);
+	}
 	
+	@Override
+	public int updateNotice(Notice notice) {
+		return noticeDao.updateNotice(notice);
+	}
+	
+	@Override
+	public int deleteNotice(int notice_no) {
+		return noticeDao.deleteNotice(notice_no);
+	}
+
+	@Override
+	public int selectSearchCount(String keyword) {
+		return noticeDao.selectSearchCount(keyword);
+	}
+
+	@Override
+	public int selectSearchDateCount(Paging paging) {
+		return noticeDao.selectSearchDateCount(paging);
+	}
 	
 
 }

@@ -40,27 +40,6 @@ html body{
 	font-size: 13pt;
 }
 
-/* .submenu table tr td {
-	text-align: center;
-}
-
-
-
-.submenu table tr td a:hover {
-	text-decoration: none;
-	width: 100px;
-	height: 30px;
-	display: block;
-	margin: 0;
-	padding-top: 5px;
-	text-align: center;
-	font-weight: bold;
-	font-size: 13pt;
-	text-shadow: 0.5px 0.5px 1px white;
-	background-color: pink;
-	color: white;
-} */
-
 </style>
 </head>
 <body>
@@ -68,9 +47,11 @@ html body{
 <div class="submenu">
 
 <table class="table table-hover" style="width:150px;" align="center">
-	<tr style="border-bottom: 1px solid Gainsboro;"><td>
-		<font size="5" align="center">Korea Origin</font>
-	</td></tr>
+	<thead>
+		<tr style="border-bottom: 1px solid Gainsboro;"><td>
+			<font size="5" align="center">Korea Origin</font>
+		</td></tr>
+	</thead>
 	<tr><td>
 		<c:url var="klist" value="klist.do" />
 		<a href="${ klist }">전체보기</a>

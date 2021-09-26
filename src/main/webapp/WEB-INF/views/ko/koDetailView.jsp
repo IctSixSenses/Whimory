@@ -6,7 +6,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Whimory KO</title>	
+<title>Whimory KO</title><!-- Favicons -->
+<link href="${ pageContext.request.contextPath }/resources/images/tgmark.png" rel="icon">
+
+<!-- Bootstrap -->	
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
 <style type="text/css">
 
@@ -150,7 +153,7 @@ function deleteCheck(){
 
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr style="clear:both"><br>
+<br>
 
 <%-- 서브 메뉴바 --%>
 <c:import url="/WEB-INF/views/ko/koSubMenubar.jsp" />
@@ -178,13 +181,13 @@ function deleteCheck(){
 				<c:url var="kmu" value="kupview.do">
 					<c:param name="ko_no" value="${ ko.ko_no }" />
 				</c:url>
-				<button class="btn btn-outline-success" 
+				<button class="btn btn-outline-primary" 
 						onclick="javascript:location.href='${kmu}'; return false;">수정</button>
 				
-				<button class="btn btn-outline-success" onclick="deleteCheck(); return false;">삭제</button>
+				<button class="btn btn-outline-danger" onclick="deleteCheck(); return false;">삭제</button>
 				
 				<c:url var="kwf" value="kwmove.do" />
-				<button class="btn btn-success" 
+				<button class="btn btn-primary" 
 						onclick="javascript:location.href='${kwf}'; return false;">글쓰기</button>
 			</c:if>
 		</td>
@@ -206,12 +209,12 @@ function deleteCheck(){
 		</td>
 		<td colspan="2" align="right">
 			<c:if test="${ ko.ko_modify eq null }">
-				등록일:&nbsp;<fmt:formatDate value="${ ko.ko_date }" pattern="yyyy.MM.dd." />
-				 &nbsp; 조회수 ${ ko.ko_readcount }	
+				<b>등록일</b> &nbsp;<fmt:formatDate value="${ ko.ko_date }" pattern="yyyy-MM-dd" />
+				 &nbsp; <b>조회수</b> ${ ko.ko_readcount } &nbsp;&nbsp;
 			</c:if>
 			<c:if test="${ ko.ko_modify ne null }">
-				수정일:&nbsp;<fmt:formatDate value="${ ko.ko_modify }" pattern="yyyy.MM.dd." />
-				 &nbsp; 조회수 ${ ko.ko_readcount }	
+				<b>수정일</b> &nbsp;<fmt:formatDate value="${ ko.ko_modify }" pattern="yyyy-MM-dd" />
+				 &nbsp; <b>조회수</b> ${ ko.ko_readcount } &nbsp;&nbsp;
 			</c:if>
 		</td>
 	</tr>
@@ -236,8 +239,9 @@ function deleteCheck(){
 			</c:forTokens>
 		</td>
 	</tr>
-	<tr height="50px"><td>&nbsp;</td></tr>
-	<tr style="border-top: 0.5px solid Gainsboro; border-bottom: 0.5px solid Gainsboro; height: 200px">
+	<tr height="40px"><td>&nbsp;</td></tr>
+	<tr><td colspan="6">&nbsp;&nbsp; 이런 영상도 추천드려요😉</td></tr>
+	<tr style="border-top: 0.5px solid Gainsboro; border-bottom: 0.5px solid Gainsboro; height: 220px">
 		<c:if test="${ ko.ko_link1 ne null }">
 			<td colspan="2" align="center">
 				<a href="${ ko.ko_link1 }">
@@ -262,7 +266,7 @@ function deleteCheck(){
 	</tr>
 	<tr height="50px"><td colspan="6" align="center">
 		<c:url var="klst" value="klist.do" />
-		<button class="btn btn-outline-success" onclick="javascript:location.href='${ klst }'">전체 목록</button>
+		<button class="btn btn-primary" onclick="javascript:location.href='${ klst }'">전체 목록</button>
 	</td></tr>
 	</table>
 </div>
@@ -274,7 +278,7 @@ function deleteCheck(){
 
 
 
-<br><br><br><hr style="clear:both">
+<br><br><br>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

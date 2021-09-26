@@ -12,8 +12,13 @@ public interface NoticeService {
 	int selectListCount();
 	Notice selectNotice(int noticeNo);
 	int updateAddReadcount(int noticeNo);
-	ArrayList<Notice> selectSearchTitle(String keyword);
+	ArrayList<Notice> selectSearchTitle(Paging paging);
 	ArrayList<Notice> selectSearchContent(String keyword);
-	ArrayList<Notice> selectSearchDate(SearchDate sdate);
+	ArrayList<Notice> selectSearchDate(Paging paging);
+	int insertNotice(Notice notice);
+	int updateNotice(Notice notice);
+	int deleteNotice(int notice_no);
+	int selectSearchCount(String keyword);
+	int selectSearchDateCount(Paging paging);
 	
 }
