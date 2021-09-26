@@ -28,7 +28,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.test.whimory.common.SearchDate;
 import com.test.whimory.news.model.service.NewsService;
 import com.test.whimory.news.model.vo.News;
-import com.test.whimory.notice.model.vo.Notice;
 import com.test.whimory.user.model.vo.User;
 
 @Controller
@@ -339,7 +338,7 @@ public class NewsController {
 	// 언론보도 최신 글 3개 조회
 	@RequestMapping(value = "new3.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String noticeNewTop3Method(HttpServletResponse response) throws UnsupportedEncodingException {
+	public String newsNewTop3Method(HttpServletResponse response) throws UnsupportedEncodingException {
 		// 최신 언론보도 3개 조회
 		ArrayList<News> list = newsService.selectNew3();
 
@@ -350,7 +349,7 @@ public class NewsController {
 
 		// list 를 jarr 로 옮기기(복사)
 		for (News news : list) {
-			// notice 필드값 저장할 json 객체 생성
+			// news 필드값 저장할 json 객체 생성
 			JSONObject job = new JSONObject();
 
 			job.put("news_no", news.getNews_no());
