@@ -6,26 +6,67 @@
 <head>
 <meta charset="UTF-8">
 <title>Whimory</title>
+
+<!-- Favicons -->
+<link href="${ pageContext.request.contextPath }/resources/images/tgmark.png" rel="icon">
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
+
+<style type="text/css">
+html head{
+	font-family: Roboto, Nanum Gothic;
+}
+html body{
+	font-family: Roboto, Nanum Gothic;
+}
+.p1{
+	font-size: 22pt;
+	font-weight: bolder;
+	color: #01b1d7;
+}
+</style>
 </head>
 <body>
-<!-- jstl 의 절대경로 표기 : / == /context-root명 -->
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr>
-<h1>에러 페이지</h1>
-<c:set var="e" value="<%= exception %>" />
-<c:if test="${ !empty e }"> 
-   <h3>jsp 페이지 오류 : ${ message }</h3>
-</c:if>
-<c:if test="${ empty e }">
-   <h3>servlet 메세지: ${ message }</h3>
-</c:if>
+
+<table align="center">
+	<tr>
+		<td><img src="${ pageContext.servletContext.contextPath }/resources/images/error_02.png" width="350" height="400"></td>
+		<td width="30"></td>
+		<td align="left" colspan="2">
+			<p class="p1">현재 찾을 수 없는 페이지를 요청하셨습니다.</p><br>
+			<font size="5"><b>Error 내용은 다음과 같습니다.</b></font><br> 
+			<font size="4">&nbsp;&nbsp;&nbsp;- Type :
+				<c:set var="e" value="<%= exception %>" />
+					<c:if test="${ !empty e }"> 
+					   JSP Error
+					</c:if>
+					<c:if test="${ empty e }">
+						Servlet Error
+					</c:if><br>
+						 &nbsp;&nbsp;&nbsp;- Message : ${ message }</font><br><br>		 
+			<font size="3.5">궁금한 점이 있으시면 언제든 QNA를 통해 문의바랍니다. 감사합니다.</font>
+						 		   
+		</td>
+	</tr>
+	<tr>
+		<td align="center" colspan="4" height="100">
+		<button class="btn btn-secondary" onclick="javascript:location.href='main.do';">메인페이지로 이동</button>
+		</td>
+	</tr>
+</table>
 <br>
-<c:url var="movemain" value="/main.do" />
-<a href="${movemain}">시작페이지로 이동</a>
-<hr>
-<!-- 상대경로는 기존의 표기방식 그대로 사용하면 됨 -->
+<br>
+<br>
+
 <c:import url="footer.jsp" />
 </body>
 </html>
-
-
