@@ -531,7 +531,7 @@ public class UserController {
 	//접속 제한 버튼
 		@RequestMapping("loginchangeN.do")
 		public String loginChangeNMethod(@RequestParam("user_id") String user_id, Model model) {
-			if(userService.updateloginOK(user_id)>0) {
+			if(userService.updateloginN(user_id)>0) {
 				return "redirect:ulist.do";
 			}else {
 				model.addAttribute("message", user_id + " 권한 변경 실패!");
@@ -542,7 +542,7 @@ public class UserController {
 		//접속 허용 버튼
 		@RequestMapping("loginchangeY.do")
 		public String loginChangeYMethod(@RequestParam("user_id") String user_id, Model model) {
-			if(userService.updateloginN(user_id)>0) {
+			if(userService.updateloginOK(user_id)>0) {
 				return "redirect:ulist.do";
 			}else {
 				model.addAttribute("message", user_id + " 권한 변경 실패!");

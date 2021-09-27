@@ -9,14 +9,11 @@
 <meta charset="UTF-8">
 <title>관리자 회원 관리 페이지</title>
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
-
-</script>
-
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
+<br><br><br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/menubarA.jsp" />
-<hr>
 <h1 align="center">회원 관리 페이지</h1>
 <br>
 <!-- 검색 창 -->
@@ -30,7 +27,7 @@
 			<div id="usearch" style="display:inline-block; float: left; width: 40%;">
 			<form action="usearch.do" method="post">
 			<input type="hidden" name="action" value="id">
-				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+				<input type="search" name="keyword" placeholder="회원 아이디를 입력하세요" style="width: 250px; float: left;" class="form-control">
 				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
 			</div>
@@ -44,7 +41,7 @@
 <br>
 
 <!-- 회원 정보 출력 테이블 -->
-<table align="center" border="1" cellspacing="0" cellpadding="3">
+<table class="table table-hover" style="table-layout: fixed; width:1650px" align="center" cellspacing="0" cellpadding="3">
 <tr>
 <th>아이디</th><th>이름</th><th>성별</th><th>생일</th><th>전화번호</th>
 <th>이메일</th><th>가입날짜</th><th>마지막 로그인 날짜</th>
@@ -88,6 +85,7 @@ value="false" checked> 일반회원 -->
 </c:if>
 </td>
 <td>
+
 <c:if test="${ m.login_access_yn eq 'N' }">
 <form method="post" name="updateloginOK" action="loginchangeY.do">
 <input type = "hidden" name="user_id" value="${m.user_id}">
@@ -99,10 +97,11 @@ value="false" checked> 일반회원 -->
 <form method="post" name="updateloginNo" action="loginchangeN.do">
 <input type = "hidden" name="user_id" value="${m.user_id}">
 <button class="btn btn-outline-danger"
-					onclick="submit">접속 제한 하기</button>
+				onclick="submit">접속 제한 하기</button>
 </form>
 </c:if>
-</td>
+ ${  (m.login_access_yn eq 'Y') ? "접속 가능" : "탈퇴 회원" }
+</td> 
 </tr>
 </c:forEach>
 </table>

@@ -13,7 +13,7 @@
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr>
+<br><br><br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/menubarA.jsp" />
 <h1 align="center">탈퇴회원 정보 보기</h1>
 <br><br>
@@ -21,7 +21,7 @@
 <!-- 검색 창 -->
 <!-- 검색창 부분 -->
 <div align="center">
-	<table align="center" width="1150px">
+	<table  align="center" width="1150px">
 	<tr>
 		<td colspan="3"></td>
     	<!-- 게시판 내 검색기능 -->
@@ -29,7 +29,7 @@
 			<div id="usearch" style="display:inline-block; float: left; width: 40%;">
 			<form action="usearchD.do" method="post">
 			<input type="hidden" name="action" value="id">
-				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+				<input type="search" name="keyword" placeholder="회원 아이디를 입력하세요" style="width: 250px; float: left;" class="form-control">
 				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
 			</div>
@@ -42,7 +42,7 @@
 
 <br><br>
 <!-- 회원 정보 출력 테이블 -->
-<table align="center" border="1" cellspacing="0" cellpadding="3">
+<table class="table table-hover" style="table-layout: fixed; width:1650px" align="center" cellspacing="0" cellpadding="3">
 <tr>
 <th>아이디</th><th>이름</th><th>성별</th><th>생일</th><th>전화번호</th>
 <th>이메일</th><th>가입날짜</th><th>마지막 로그인 날짜</th>

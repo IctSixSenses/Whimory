@@ -53,8 +53,9 @@ function showDiv(item){
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr>
+<br><br><br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/menubarA.jsp" />
+
 <h2 align="center">나의 제보 내역</h2>
 <br>
 <!-- 로그인 여부에 따라 로그인페이지/게시글 작성 페이지로 이동, 관리자는 작성 x -->

@@ -22,7 +22,7 @@
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr>
+<br><br><br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/menubarA.jsp"/>
 <h1 align="center">회원 정보 보기</h1>
 <br>

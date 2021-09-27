@@ -77,8 +77,8 @@ function showDiv(item){
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr>
-<c:import url="/WEB-INF/views/common/menubarA.jsp"></c:import>
+<br><br><br><br><br><br><br>
+<c:import url="/WEB-INF/views/common/menubarA.jsp"/>
 <h2 align="center">나의 1대1 문의 내역</h2>
 <table align="center" width="1150px">
    <tr>
