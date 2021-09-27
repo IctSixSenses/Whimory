@@ -59,9 +59,13 @@ function showDiv(item){
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 
 <h2 align="center">언론 보도</h2>
+<br>
+<div style="align:center;text-align:center;">
+      <button onclick="showWriteForm();" class="btn btn-outline-primary">글쓰기</button>
+</div>
 <table align="center" width="1150px">
    <tr>
-   	<td colspan="3"><h5>   </h5></td>
+   	<td colspan="3"><h5 style="font-size:15pt;">언론보도 전체 목록</h5></td>
       <td colspan="7" align="right">
       	<div style="float: left; width: 50%;">
          <select class="form-control" onchange="showDiv(this)" style="width:80px; display:inline-block">
@@ -92,10 +96,7 @@ function showDiv(item){
       
    </tr>
 </table>
-<div style="align:center;text-align:center;">
-      <button onclick="showWriteForm();" class="btn btn-outline-primary">글쓰기</button>
-</div>
-<br>
+
 <hr>
 <table class="table table-lightgray table-hover" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3">
 

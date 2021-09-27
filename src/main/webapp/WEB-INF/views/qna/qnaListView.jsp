@@ -79,8 +79,22 @@ function showDiv(item){
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 
 <h2 align="center">무엇이든 물어보세요</h2>
+<br>
+<!-- 게시글 쓰기(등록)은 로그인한 회원만 가능함 -->
+<c:if test="${ empty sessionScope.loginUser }">
+   <div style="align:center;text-align:center;">
+      <button onclick="goLogin();" class="btn btn-outline-primary">글쓰기</button>
+   </div>
+</c:if>
+
+<c:if test="${ !empty sessionScope.loginUser }">
+   <div style="align:center;text-align:center;">
+      <button onclick="showWriteForm();" class="btn btn-outline-primary">글쓰기</button>
+   </div>
+</c:if>
 <table align="center" width="1150px">
    <tr>
+   	<td colspan="3"><h5>총 질문 개수 : ${ listCount }</h5></td>
       <td colspan="7" align="right">
       	<div style="float: left; width: 50%;">
          <select class="form-control" onchange="showDiv(this)" style="width:80px; display:inline-block">
@@ -118,18 +132,7 @@ function showDiv(item){
       </td>
    </tr>
 </table>
-<!-- 게시글 쓰기(등록)은 로그인한 회원만 가능함 -->
-<c:if test="${ empty sessionScope.loginUser }">
-   <div style="align:center;text-align:center;">
-      <button onclick="goLogin();" class="btn btn-outline-primary">글쓰기</button>
-   </div>
-</c:if>
 
-<c:if test="${ !empty sessionScope.loginUser }">
-   <div style="align:center;text-align:center;">
-      <button onclick="showWriteForm();" class="btn btn-outline-primary">글쓰기</button>
-   </div>
-</c:if>
 <br>
 <table class="table table-lightgray table-hover" style="table-layout: fixed; width:1200px" align="center" cellspacing="0" cellpadding="3" >
 	<thead>
