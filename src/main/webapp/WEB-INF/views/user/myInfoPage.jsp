@@ -22,10 +22,11 @@
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr>
+<br><br><br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/menubarA.jsp"/>
+
 <h1 align="center">내 정보 수정</h1>
-<br>
+
 <form method="post" action="uupdate.do">
 <input type="hidden" name="origin_userpwd" value="${ requestScope.user.user_pwd }">
 <table id="outer" align="center" width="500" cellspacing="5" cellpadding="0">

@@ -77,8 +77,9 @@ function showDiv(item){
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr>
+<br><br><br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/menubarA.jsp" />
+
 <h2 align="center">문의 내역 확인</h2>
 <table align="center" width="1150px">
    <tr>
@@ -134,22 +135,22 @@ function showDiv(item){
 		<tr align="center">
 			<td>${ q.user_id }</td>
 			<td>${  q.qq_category }</td>	
-		   <!-- 글 쓴 회원과 로그인 회원이 일치해야 상세보기할 수 있게 함 -->
-			<c:if test="${ !empty sessionScope.loginUser and sessionScope.loginUser.user_id eq q.user_id }">
+		   <!-- 관리자는 글을 다 볼수있음 -->
+			<c:if test="${ !empty sessionScope.loginUser and sessionScope.loginUser.admin_yn eq 'Y' }">
 		   		<c:url var="qdetail" value="qdetail.do">
 		      		<c:param name="qq_no" value="${ q.qq_no }"/>
 		      		<c:param name="page" value="${ currentPage }" />
 		   		</c:url>
 		   		<td align="center"><a href="${ qdetail }">${ q.qq_title }</a></td>
 			</c:if>
-			<c:if test="${ empty sessionScope.loginUser or sessionScope.loginUser.user_id ne q.user_id }">
+		<!-- 	<c:if test="${ empty sessionScope.loginUser or sessionScope.loginUser.user_id ne q.user_id }">
 	 			<td align="center">${ q.qq_title }</td>
 			</c:if>
-		   
+		   -->
 			<td align="center">
 			<fmt:formatDate value="${  q.qq_date }" type="date" pattern="yyyy-MM-dd" /></td>
 		
-			<td align="center">${  q.qq_yn }</td>
+			<td align="center">${  q.qq_yn }</td> 
 		
 		</tr>
 	</c:forEach>
