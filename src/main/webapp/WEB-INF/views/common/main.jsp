@@ -186,7 +186,9 @@ $(function(){
 	      }
 	   });
 	}); //정보게시판 ajax 종료
+</script>
 
+<script>
 $(function() {
      $.ajax({
         url : "new3.do",
@@ -277,7 +279,8 @@ $(function() {
 	 </section>
   <!-- ======= 언론보도 newTop5 종료 =======  -->
   
-  
+  <!-- ======= 역사달력 ======= -->
+ 	<c:import url="/WEB-INF/views/common/calendar.jsp" />
   
   
   
@@ -286,14 +289,6 @@ $(function() {
 
 
 <br><br><br><br><br><br><br><br><br><br><br><br>
-
-
-<!-- 언론보도 NewTop5 -->
-
-
-
-<!-- 구글 캘린더 -->
-
 
 
 <!-- 명언카드 -->
