@@ -57,7 +57,7 @@ function showDiv(item){
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-
+<br><br><br><br><br><br><br>
 <h2 align="center">언론 보도</h2>
 <br>
 <div style="align:center;text-align:center;">

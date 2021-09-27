@@ -24,7 +24,7 @@ table tr td a { text-decoration:none }
 <body>
 <c:import url="../common/menubar.jsp" />
 
-
+<br><br><br><br><br><br><br>
 <h1 align="center">언론보도 등록 페이지</h1><br>
 
 <!-- form에서 입력값들과 파일을 함께 전송하려면 반드시 속성을 추가해야 함: enctype="multipart/form-data" -->

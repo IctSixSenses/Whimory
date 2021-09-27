@@ -24,7 +24,7 @@ table tr td a { text-decoration:none }
 <body>
 <c:import url="../common/menubar.jsp" />
 
-
+<br><br><br><br><br><br><br>
 <h2 align="center">질문했어요!</h2><br>
 
 <table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3" >

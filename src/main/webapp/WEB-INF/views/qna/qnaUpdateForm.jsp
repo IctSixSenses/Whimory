@@ -23,7 +23,7 @@ table tr td a { text-decoration:none }
 </head>
 <body>
 <c:import url="../common/menubar.jsp" />
-
+<br><br><br><br><br><br><br>
 <h1 align="center">질문 수정할게요!</h1>
 <br>
 <!-- form 에서 입력값들과 파일을 함께 전송하려면

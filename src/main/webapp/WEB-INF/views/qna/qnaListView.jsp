@@ -77,7 +77,7 @@ function showDiv(item){
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-
+<br><br><br><br><br><br><br>
 <h2 align="center">무엇이든 물어보세요</h2>
 <br>
 <!-- 게시글 쓰기(등록)은 로그인한 회원만 가능함 -->
