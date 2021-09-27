@@ -17,9 +17,15 @@ document.addEventListener('DOMContentLoaded', function() {
 	    eventSources: [
 			{
 				googleCalendarId: 'ko.south_korea#holiday@group.v.calendar.google.com',
-				color: '#be5683',
-				//textColor: 'black' 
-	        }
+				className: '대한민국의 휴일',
+				color: '#22741C'
+				//textColor: 'black'
+	        },
+			{
+				googleCalendarId: 'k14qgcpkhlldnru9toi5fth8ko@group.calendar.google.com',
+				className: '기념일',
+				color: '#FFBB00'
+			}
 		]
 	});
 	calendar.render();
