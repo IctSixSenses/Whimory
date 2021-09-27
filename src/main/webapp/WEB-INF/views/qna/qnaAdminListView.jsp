@@ -36,7 +36,7 @@ table tr td a { text-decoration:none }
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-
+<br><br><br><br><br><br><br>
 <h2 align="center">QNA 답변내역</h2>
 
 <br>
@@ -72,7 +72,6 @@ table tr td a { text-decoration:none }
 			</td>
 		
 		<td align="center">${  q.qq_yn }</td>
-		
 		
 		</tr>
 	</c:forEach>

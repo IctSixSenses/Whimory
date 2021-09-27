@@ -25,16 +25,25 @@ table tr td a { text-decoration:none }
 </head>
 <body>
 <c:import url="../common/menubar.jsp" />
-<hr>
 
-<br>
+
+<br><br><br><br><br><br><br>
 
 <table class="table" style="table-layout:fixed; width:850px;" align="center">
 	<tr>
 		<td colspan="10"><h2 align="center">${ news.news_title }</h2></td>
 	</tr>
 	<tr>
-		<td colspan="10" align="right" style="font-size:15pt;">${ news.news_date }</td>
+		<tr>
+		<td colspan="10" align="right" style="font-size:15pt;">
+			<c:if test="${ empty news.news_modify }">
+				<fmt:formatDate value="${ news.news_date}" pattern="yyyy.MM.dd" />
+			</c:if>
+			<c:if test="${ !empty news.news_modify }">
+				<fmt:formatDate value="${ news.news_modify }" pattern="yyyy.MM.dd" />
+			</c:if>
+		</td>
+	</tr>
 	</tr>
 	
 	<c:if test="${ news.news_org_file != null }">
@@ -52,22 +61,12 @@ table tr td a { text-decoration:none }
 		<td colspan="10" align="left">보도일 &nbsp; ${ news.news_at_date }</td>
 	</tr>
 	<tr>
-		<td colspan="10" align="left">원본 출처 :  <a href="${ news.news_link }">${ news.news_link }</a></td>
+		<td colspan="10" align="left" style="font-size:10pt;">원본 출처 :  <a href="${ news.news_link }">${ news.news_link }</a></td>
 	</tr>
 		
 	
 	<tr><th colspan="10">
 		<div width="850" align="center">
-
-			<%-- 수정페이지로 이동 버튼 --%>
-			<c:url var="wupdate" value="/wupview.do">
-	   			<c:param name="news_no" value="${ news.news_no }" />
-			</c:url>
-			<button onclick="javascript:location.href='${ wupdate }';" class="btn btn-outline-info">수정하기</button> &nbsp; 
-	
-			<%-- 이전페이지로 이동 --%>
-			<button onclick="javascript:history.go(-1);" class="btn btn-info">목록보기</button> &nbsp; 
-			
 
 			<%-- 삭제하기 버튼 --%>
 			<c:url var="wdelete" value="/wdelete.do">
@@ -76,8 +75,7 @@ table tr td a { text-decoration:none }
 			      <c:param name="rfile" value="${ news.news_re_file }" />
 			   </c:if>
 			</c:url>
-
-			<button onclick="javascript:location.href='${ wdelete }';" class="btn btn-outline-danger">삭제하기</button>  &nbsp;
+			<button onclick="javascript:location.href='${ wdelete }';" class="btn btn-outline-danger">삭제하기</button> &nbsp; 
 	
 			<%-- 이전페이지로 이동 --%>
 			<button onclick="javascript:history.go(-1);" class="btn btn-info">목록보기</button> &nbsp; 
@@ -86,10 +84,7 @@ table tr td a { text-decoration:none }
 			<c:url var="wupdate" value="/wupview.do">
 	   			<c:param name="news_no" value="${ news.news_no }" />
 			</c:url>
-			<button onclick="javascript:location.href='${ wupdate }';" class="btn btn-outline-info">수정하기</button>
-
-			<button onclick="javascript:location.href='${ wdelete }';" class="btn btn-outline-danger">삭제하기</button> 
-
+			<button onclick="javascript:location.href='${ wupdate }';" class="btn btn-outline-info">수정하기</button> 
 			
 			</th></tr>
 		</div>

@@ -83,7 +83,7 @@ function resetList(){
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<br><br>
+<br><br><br><br><br><br><br>
 
 <h2 align="center">공지사항</h2>
 <br>

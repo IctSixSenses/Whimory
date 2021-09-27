@@ -40,7 +40,7 @@ html body{
 
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<br><br>
+<br><br><br><br><br><br><br>
 
 <%-- 게시글 상세보기 --%>
 <table class="table" style="width:1000px;"  align="center">
