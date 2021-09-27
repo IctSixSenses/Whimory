@@ -353,6 +353,7 @@ public class NewsController {
 			JSONObject job = new JSONObject();
 
 			job.put("news_no", news.getNews_no());
+			job.put("news_re_file", news.getNews_re_file());
 			job.put("news_title", URLEncoder.encode(news.getNews_title(), "utf-8"));
 
 			// job 를 jarr 에 저장

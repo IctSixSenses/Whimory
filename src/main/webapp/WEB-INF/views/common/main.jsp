@@ -65,10 +65,22 @@ html body{
 .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
 .info .link {color: #5085BB;}
 
-
 .btn-get-started{
 	text-decoration: none;
 	font-family: Nanum Gothic;
+}
+.tbimg{
+	width:150px;
+	height:95px;
+}
+.tba{
+	text-decoration:none;
+	color: black;
+	font-size:13pt;
+}
+.tbtd{
+	color: black;
+	font-size:13pt;
 }
 </style>
 
@@ -175,19 +187,48 @@ $(function(){
 	   });
 	}); //정보게시판 ajax 종료
 
+$(function() {
+     $.ajax({
+        url : "new3.do",
+        type : "post",
+        dataType : "json",
+        success : function(data) {
+           console.log("success : " + data);
+
+           //object --> string
+           var str = JSON.stringify(data);
+           //string --> json 
+           var json = JSON.parse(str);
+
+           values = "";
+           for ( var i in json.list) {
+              values += "<tr align='center' height='110px'><td align='center' width='50px' class='tbtd'>" + json.list[i].news_no + "</td>"
+                    + "<td align='center' width='200px'><a href='wdetail.do?news_no="+ json.list[i].news_no + "'><img src='${ pageContext.request.contextPath }/resources/news_upfiles/" + json.list[i].news_re_file + "' class='tbimg'></a></td>" 
+                    + "<td align='left' width='350px'><a href='wdetail.do?news_no=" + json.list[i].news_no + "' class='tba'>" 
+                    + decodeURIComponent(json.list[i].news_title).replace(/\+/gi, " ") + "</a></td></tr>";
+           }
+
+           $('#News3').html($('#News3').html() + values);
+        },
+        error : function(jqXHR, textstatus, errorthrown) {
+           console.log("error : " + jqXHR + ", " + textstatus + ", "
+                 + errorthrown);
+        }
+     });
+  });	// newsTop5 종료
 </script>
 </head>
 <body>
 	<header> 
 	<c:import url="/WEB-INF/views/common/menubar.jsp" />
-	
+	<br><br><br>
 	
 	</header>
 
   <!-- ======= 정보게시판 top10 시작 =======  -->
 	<div align="center">
-		<section id="hero" style="width:850px; height:520px">
-			<div class="hero-container" style="width:850px; height:520px">
+		<section id="hero" style="width:1100px;" height="700px">
+			<div class="hero-container" style="width:100%;">
 				<div id="heroCarousel" data-bs-interval="3500" class="carousel slide carousel-fade" data-bs-ride="carousel">
 					
 					<ol class="carousel-indicators" id="hero-carousel-indicators">
@@ -223,76 +264,17 @@ $(function(){
   <!-- ======= 정보게시판 top10 종료 =======  -->
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-    <!-- ======= 언론보도 newTop5 시작 =======  -->
-	<div class="page-head-blog">
+  <!-- ======= 언론보도 newTop5 시작 =======  -->
+	 <section>
+	      <!-- 최근 등록된 언론보도 3개 출력 : ajax -->
 	
-              <div class="single-blog-page">
-                <!-- recent start -->
-                <div class="left-blog">
-                  <h4>recent post</h4>
-                  <div class="recent-post">
-                    <!-- start single post -->
-                    <div class="recent-single-post">
-                      <div class="post-img">
-                        <a href="#">
-                          <img src="assets/img/blog/1.jpg" alt="">
-                        </a>
-                      </div>
-                      <div class="pst-content">
-                        <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
-                      </div>
-                    </div>
-                    <!-- End single post -->
-                    <!-- start single post -->
-                    <div class="recent-single-post">
-                      <div class="post-img">
-                        <a href="#">
-                          <img src="assets/img/blog/2.jpg" alt="">
-                        </a>
-                      </div>
-                      <div class="pst-content">
-                        <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
-                      </div>
-                    </div>
-                    <!-- End single post -->
-                    <!-- start single post -->
-                    <div class="recent-single-post">
-                      <div class="post-img">
-                        <a href="#">
-                          <img src="assets/img/blog/3.jpg" alt="">
-                        </a>
-                      </div>
-                      <div class="pst-content">
-                        <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
-                      </div>
-                    </div>
-                    <!-- End single post -->
-                    <!-- start single post -->
-                    <div class="recent-single-post">
-                      <div class="post-img">
-                        <a href="#">
-                          <img src="assets/img/blog/4.jpg" alt="">
-                        </a>
-                      </div>
-                      <div class="pst-content">
-                        <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
-                      </div>
-                    </div>
-                    <!-- End single post -->
-                  </div>
-                </div>
-                <!-- recent end -->
-              </div>
-              
-            </div>
+	         <table id="News3" style="width:610px;" class="tbtb" align="center">
+	         	<tr align="center" bgcolor="whitesmoke" height="50px"><th colspan="3" align="center"><font size="4.5">언론보도 최신글</font></th></tr>
+				
+				<!-- ajax 추가 부분 -->
+	         
+	         </table>
+	 </section>
   <!-- ======= 언론보도 newTop5 종료 =======  -->
   
   
@@ -301,19 +283,6 @@ $(function(){
   
   
   
-  
-  
-  
-  
-  
-  
-  
-	
-
-	<!-- 은별: 언론보도 newTop3 부분 -->
-	<section>
-		<c:import url="/WEB-INF/views/news/news3.jsp" />
-	</section>
 
 
 <br><br><br><br><br><br><br><br><br><br><br><br>
