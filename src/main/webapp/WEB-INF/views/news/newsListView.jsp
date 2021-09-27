@@ -58,7 +58,7 @@ function showDiv(item){
 <h2 align="center">언론 보도</h2>
 <table align="center" width="1150px">
    <tr>
-   	<td colspan="3"><h5>   </h5></td>
+   	<td colspan="3"><h5 style="font-size:15pt;">언론보도 전체 목록</h5></td>
       <td colspan="7" align="right">
       	<div style="float: left; width: 50%;">
          <select class="form-control" onchange="showDiv(this)" style="width:80px; display:inline-block">
