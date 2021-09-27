@@ -49,7 +49,7 @@ function cancleCheck(){
 
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<br>
+<br><br><br><br><br><br><br>
 
 <c:import url="/WEB-INF/views/ko/koSubMenubar.jsp" />
 
