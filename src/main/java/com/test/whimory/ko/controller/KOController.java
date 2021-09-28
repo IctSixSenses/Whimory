@@ -32,8 +32,16 @@ import com.google.cloud.texttospeech.v1.SynthesizeSpeechResponse;
 import com.google.cloud.texttospeech.v1.TextToSpeechClient;
 import com.google.cloud.texttospeech.v1.VoiceSelectionParams;
 import com.google.protobuf.ByteString;
+import com.test.whimory.common.Paging;
+import com.test.whimory.common.SearchDate;
 import com.test.whimory.ko.model.service.KOService;
 import com.test.whimory.ko.model.vo.KO;
+import com.test.whimory.news.model.service.NewsService;
+import com.test.whimory.news.model.vo.News;
+import com.test.whimory.notice.model.service.NoticeService;
+import com.test.whimory.notice.model.vo.Notice;
+import com.test.whimory.report.model.service.ReportService;
+import com.test.whimory.report.model.vo.Report;
 
 @Controller
 public class KOController {
@@ -388,7 +396,6 @@ public class KOController {
 		return "redirect:kdetail.do?ko_no=" + ko_no;
 		
 	} // synthesizeText
-	
 	
 	
 }
