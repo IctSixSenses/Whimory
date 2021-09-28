@@ -20,8 +20,7 @@ html body{
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr>
-
+<br><br><br><br><br><br><br>
 <h3 align="center">게시글 등록 페이지</h3><br>
 
 <!-- form에서 입력값들과 파일을 함께 전송하려면 반드시 속성을 추가해야 함: enctype="multipart/form-data" -->
@@ -50,7 +49,6 @@ html body{
 </table>
 </form>
 
-<hr>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
