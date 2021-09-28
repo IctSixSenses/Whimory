@@ -21,8 +21,7 @@ html body{
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr>
-
+<br><br><br><br><br><br><br>
 <h3 align="center">${ report.report_no }번 제보글 수정 페이지</h3><br>
 
 <form action="rpupdate.do" method="post" enctype="multipart/form-data">
@@ -65,7 +64,6 @@ html body{
 
 </form>
 
-<hr>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

@@ -50,10 +50,11 @@ function showDiv(item){
 }
 
 </script>
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr>
+<br><br><br><br><br><br><br>
 <h2 align="center">역사왜곡 제보 게시판</h2>
 <br>
 <!-- 로그인 여부에 따라 로그인페이지/게시글 작성 페이지로 이동, 관리자는 작성 x -->
@@ -97,6 +98,7 @@ function showDiv(item){
 				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
 			</div>
+			<button class="btn btn-outline-primary" onclick="javascript:location.href='rplist.do?page=1';">전체보기</button><br>
 		</td>
 	</tr>
 </table>
@@ -111,7 +113,7 @@ function showDiv(item){
 			<th>등록날짜</th>
 			<th>첨부파일</th>
 			<th>조회수</th>
-			<th></th>
+			<th>답변</th>
 		</tr>
 	</thead>
 <c:forEach items="${ list }" var="r">
@@ -130,7 +132,7 @@ function showDiv(item){
 	<td>${ r.report_readcount }</td>
 	<td>
 		<c:if test="${ r.admin_comment != null }">
-			※
+			<i class="far fa-comment-dots"></i>
 		</c:if>
 	</td>
 </tr>
@@ -140,7 +142,6 @@ function showDiv(item){
 
 <%-- 페이징 처리 --%>
 <div style="text-align:center;">
-<button class="btn btn-outline-primary" onclick="javascript:location.href='rplist.do?page=1';">전체 목록 보기</button><br>
 	<c:if test="${ currentPage <= 1 }">
 		[맨처음] &nbsp;
 	</c:if>
@@ -165,7 +166,7 @@ function showDiv(item){
 	<%-- 현재 페이지 숫자 출력 --%>
 	<c:forEach var="p" begin="${ startPage }" end="${ endPage }">
 		<c:if test="${ p == currentPage }">
-			<font color="red" size="4">[${ p }]</font>
+			<font color="red" size="4">${ p }</font>
 		</c:if>
 		<c:if test="${ p != currentPage }">
 			<c:url var="rplist" value="/rplist.do">
@@ -197,8 +198,7 @@ function showDiv(item){
 	</c:if>
 	
 </div>
-
-<hr>
+<br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

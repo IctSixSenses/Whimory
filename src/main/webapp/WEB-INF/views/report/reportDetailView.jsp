@@ -23,7 +23,7 @@ table#tbrp, #tbrpli, #tbrpins{
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr>
+<br><br><br><br><br><br><br>
 <h3 align="center">${ report.report_no }번 게시글 상세조회 페이지</h3><br>
 
 <!-- 수정/삭제 버튼 -->
@@ -139,7 +139,6 @@ table#tbrp, #tbrpli, #tbrpins{
 	</form>
 </c:if>
 
-<hr>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
