@@ -7,15 +7,21 @@
 <meta charset="UTF-8">
 <title>Whimory Login</title>
 
+<!-- Favicons -->
+<link href="${ pageContext.request.contextPath }/resources/images/tgmark.png" rel="icon">
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
-	<!-- 카카오 로그인 -->
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<!-- 폰트 적용 -->
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">	
 
+<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
+
+<!-- 카카오 로그인 -->
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript">
 function kakaoLoginPro(response){
 	var data = {id:response.id,email:response.kakao_account.email}
@@ -48,38 +54,40 @@ function kakaoLoginPro(response){
 <script type="text/javascript"
 	src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 	
-	<script type="text/javascript">
-	//로그인 페이지로 이동
-	function movePage() {
-		location.href = "loginPage.do";
-	}
-	
-	//회원 가입 페이지로 이동
-	function movePage2() {
-		location.href = "enroll.do";
-	}
-	
-	//아이디 비밀번호 찾기
-	function movePage3(){
-		location.href = "findaccount.do";
-	}
-	
-	function movePage4(){
-		location.href = "kakao.do";
-	}
-	</script>
+<script type="text/javascript">
+//로그인 페이지로 이동
+function movePage() {
+	location.href = "loginPage.do";
+}
+
+//회원 가입 페이지로 이동
+function movePage2() {
+	location.href = "enroll.do";
+}
+
+//아이디 비밀번호 찾기
+function movePage3(){
+	location.href = "findaccount.do";
+}
+
+function movePage4(){
+	location.href = "kakao.do";
+}
+</script>
 
 <style>
 .send-button{
-background: #01b1d7;
+font-family: Roboto, Nanum Gothic;
+background: skyblue;
 border: 1px solid #fff;
 border-radius: 5px;
 width:300px;
 font-weight: 600;
-color:#000;
+color:#fff;
 padding: 8px 25px;
 }
 .f-button{
+font-family: Roboto, Nanum Gothic;
 color: #000 !important;
 border: 1px solid #fff;
 border-radius: 5px;
@@ -94,9 +102,9 @@ margin-bottom: 10px;
 color: #000 !important;
 border: 1px solid #fff;
 border-radius: 5px;
-background: #87CEFA !important;
+background: #FFEFD5 !important;
 width:300px;
-font-weight: 600;
+font-weight: bolder;
 color:#fff;
 padding: 8px 25px;
 margin-bottom: 10px;
@@ -111,15 +119,17 @@ transition: border .1s linear;
 .header-title{
 margin: 5rem 0;
 }
-h1{
-font-size: 31px;
+div h2{
+font-family: Roboto, Nanum Gothic;
+font-size: 30px;
 line-height: 40px;
-font-weight: 600;
-color:#4c5357;
+font-weight: bold;
+color:#404f52;
 }
-h2{
+div h3{
+font-family: Roboto, Nanum Gothic;
 color: #5e8396;
-font-size: 21px;
+font-size: 20px;
 line-height: 32px;
 font-weight: 400;
 }
@@ -146,47 +156,17 @@ height: 1px;
 margin-top: 0px !important;
 margin-bottom: 0px !important;
 }
-@media screen and (max-width:480px){
-h1{
-font-size: 26px;
-}
-h2{
-font-size: 20px;
-}
-}
+
 </style>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <br><br><br><br><br><br><br>
-<!-- 로그인 창 -->
-<!-- <div id="login" align="center">
-<form action="login.do" method="post">
-<label>아이디 : <input type="text" name="user_id"></label><br><br>
-<label>비밀번호 : <input type="password" name="user_pwd"></label><br><br>
-<input class="btn btn-outline-primary" type= "submit" value = "로그인">
-</form>
-<br>
-회원가입 버튼
-		<button class="btn btn-outline-success" onclick="movePage2();">회원가입</button>
-<br>
-	카카오 로그인 버튼
-	<hr>
-	<form class="d-flex" style="align:center">
-		<button class="btn btn-outline-success" onclick="movePage4()">카카오로그인</button>
-	</form>
-	
-</div> -->
-
 <div class="container">
       <div class="col-md-6 mx-auto text-center">
-         <div class="header-title">
-            <h1 class="wv-heading--title">
-               휘모리(Whimory) 로그인
-            </h1>
-            <h2 class="wv-heading--subtitle">
-               
-            </h2>
+         <div>
+            <h2>휘모리(Whimory)</h2>
+            <h3>로그인 페이지</h3><br>
          </div>
       </div>
       <div class="row">
@@ -195,13 +175,21 @@ font-size: 20px;
             <!-- 로그인 창 -->
                <form action="login.do" method="post">
                   <div class="form-group">
-                     <input type="text" name="user_id" class="form-control my-input" id="userid" placeholder="ID" />
+                     <input type="text" name="user_id" class="form-control my-input" id="userid" placeholder="아이디" />
                   </div>
                   <div class="form-group">
-                     <input type="password" name="user_pwd" class="form-control my-input" id="userpwd" placeholder="Password" />
+                     <input type="password" name="user_pwd" class="form-control my-input" id="userpwd" placeholder="비밀번호" />
                   </div>
+
+                  <!-- 아이디&비밀번호찾기/회원가입 버튼 -->
+                  <div class="form-group text-center">
+					 <a class="btn f-button" href="findaccount.do">아이디 찾기 | 비밀번호 찾기</a>                  	 
+                  </div>
+                  
                   <div class="text-center">
                      <button type="submit" class="send-button">로그인</button>
+                     <div style="height:10px;"></div>
+                     <a class="btn e-button" href="enrollPage.do">회원가입</a>
                   </div>
                   <div class="col-md-12 ">
                      <div class="login-or">
@@ -209,21 +197,19 @@ font-size: 20px;
                         <span class="span-or">or</span>
                      </div>
                   </div>
+                  <!-- 카카오톡 로그인 버튼 -->
                   <div class="form-group text-center">
-                  <!-- 회원가입 & 카카오톡 로그인 버튼 -->
-                  	 <a class="btn f-button" href="findaccount.do">아이디 & 비밀번호 찾기</a>
-                  	 <a class="btn e-button" href="enrollPage.do">회원가입</a>
                      <a href="kakao.do"><img src='${ pageContext.servletContext.contextPath }/resources/images/kakao_login_medium_wide.png'></a>
                   </div>
-                  <p class="small mt-3">By signing up, you are indicating that you have read and agree to the <a href="#" class="ps-hero__content__link">Terms of Use</a> and <a href="#">Privacy Policy</a>.
-                  </p>
+                  <p class="small mt-3">서비스 가입 시, 휘모리(Whimory) <a href="#" class="ps-hero__content__link">이용약관</a> 및<br><a href="#">개인정보 처리방침</a>
+                     내용을 인정하는 것으로 간주됩니다.</p>
                </form>
             </div>
          </div>
       </div>
    </div>
 
-
+<br><br>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

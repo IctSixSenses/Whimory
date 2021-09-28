@@ -54,6 +54,16 @@ html body{
 	color: #404f52;
 	background-color: white;
 }
+div#loginform a{
+	text-decoration: none;
+	color: #01b1d7;
+	font-weight: bold;
+	font-size: 13pt;
+}
+div#loginform a:hover{
+	color: #01b1d7;
+	font-size: 14.5pt;
+}
 </style>
 
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
@@ -95,31 +105,31 @@ html body{
 	<div id="loginform" align="right">
 			<!-- 아무도 로그인이 되지 않은 경우 -->
 			<c:if test="${ empty loginUser }">
-				<button class="btn btn-outline-primary" onclick="javascript:location.href='loginPage.do';">로그인</button> &nbsp; &nbsp;
-				<button class="btn btn-outline-primary" onclick="javascript:location.href='enrollPage.do';">회원가입</button> &nbsp; &nbsp;
-				<button class="btn btn-outline-primary" onclick="javascript:location.href='findaccount.do';">아이디/비밀번호 찾기</button> &nbsp; &nbsp;
+				<a href="${ pageContext.servletContext.contextPath }/loginPage.do">로그인</a> &nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="${ pageContext.servletContext.contextPath }/enrollPage.do">회원가입</a> &nbsp;&nbsp;
 			</c:if>
 
 			<!-- 관리자로 로그인이 된 상태인 경우 (마이페이지 및 메뉴 항목 수정 예정)//이름 출력 -->
 			<c:if test="${ !empty sessionScope.loginUser and loginUser.admin_yn eq 'Y' }">
-				${ sessionScope.loginUser.user_name } 님, 어서오세요! &nbsp; &nbsp;
-					<button class="btn btn-outline-primary" onclick="javascript:location.href='logout.do';">로그아웃</button>  &nbsp; &nbsp;
-					<button class="btn btn-outline-primary" onclick="javascript:location.href='ulist.do';">마스터페이지</button>
+				<b>${ sessionScope.loginUser.user_name }</b> 님, 어서오세요! &nbsp; &nbsp;
+					<a href="${ pageContext.servletContext.contextPath }/logout.do">로그아웃</a> &nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="${ pageContext.servletContext.contextPath }/ulist.do">마스터페이지</a> &nbsp;&nbsp;
+					
 			</c:if>
 			<!-- 일반 회원이 로그인 된 경우 (마이페이지 및 메뉴 항목 수정 예정) // 이름 출력 -->
 			<c:if test="${ !empty sessionScope.loginUser and loginUser.admin_yn eq 'N' }">
 				<c:url var= "callMyinfo" value="/myinfo.do">
 					<c:param name="user_id" value="${loginUser.user_id}" />
 				</c:url>
-				${ sessionScope.loginUser.user_name } 회원님, 어서오세요! &nbsp; 
+				<b>${ sessionScope.loginUser.user_name }</b> 회원님, 어서오세요! &nbsp; 
 				<a href="${ callMyinfo }"><img src="${ pageContext.servletContext.contextPath }/resources/images/loginimg.png" title="마이페이지" width="40" height="40"></a>&nbsp;&nbsp;
-				<button class="btn btn-outline-secondary" onclick="javascript:location.href='logout.do';">로그아웃</button> &nbsp; &nbsp; 
+				<a href="${ pageContext.servletContext.contextPath }/logout.do">로그아웃</a> &nbsp;&nbsp;
 			</c:if>
 		</div>
 	
     </div>
-  </header><!-- End Header -->
-  <br><br><br><br><br>
+  </header>
+  <!-- End Header -->
 
 
 </body>

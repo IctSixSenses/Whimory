@@ -20,7 +20,10 @@ html head{
 html body{
 	font-family: Roboto, Nanum Gothic;
 } 
-table tr td a { text-decoration:none } 
+table tr td a, div a { 
+	text-decoration:none;
+	color: black; 
+} 
 </style> 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
@@ -67,6 +70,7 @@ function showDiv(item){
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
+<br><br><br><br><br><br><br>
 
 <h2 align="center">자유 토론 공간</h2>
 <br>
@@ -180,13 +184,13 @@ function showDiv(item){
 <!-- 페이징 처리 -->
 <div style="text-align:center;">
    <c:if test="${ currentPage <= 1 }">
-      [맨처음]
+      &lt;&lt; &nbsp;
    </c:if>
    <c:if test="${ currentPage > 1 }">
       <c:url var="ubl" value="/flist.do">
          <c:param name="page" value="1" />
       </c:url>
-      <a href="${ ubl }">[맨처음]</a>
+      <a href="${ ubl }">&lt;&lt;</a>
    </c:if>
    
 <!-- 이전 그룹으로 이동 처리 -->
@@ -194,10 +198,10 @@ function showDiv(item){
    <c:url var="ubl2" value="/flist.do">
       <c:param name="page" value="${ startPage - 10 }"/>
    </c:url>
-   <a href="${ ubl2 }">이전그룹</a>
+   <a href="${ ubl2 }">&lt;</a> &nbsp;
 </c:if>
 <c:if test="${ !((currentPage - 10) < startPage and (currentPage - 10) > 1) }">
-   &nbsp;&nbsp;이전그룹&nbsp;&nbsp;
+   &nbsp;&nbsp; &lt; &nbsp;&nbsp;
 </c:if>
 
 <!-- 현재 페이지가 속한 페이지그룹의 숫자 출력 처리 -->
@@ -218,21 +222,21 @@ function showDiv(item){
    <c:url var="ubl4" value="/flist.do">
       <c:param name="page" value="${ endPage + 10 }"/>
    </c:url>
-   <a href="${ ubl4 }">다음그룹</a>
+   <a href="${ ubl4 }">&gt;</a> &nbsp;
 </c:if>
 <c:if test="${ !((currentPage + 10) > endPage && (currentPage + 10) < maxPage) }">
-   &nbsp;&nbsp;다음그룹&nbsp;&nbsp;
+   &nbsp;&nbsp; &gt; &nbsp;&nbsp;
 </c:if>
 
 <!-- 맨끝 페이지로 이동 처리 -->
 <c:if test="${ currentPage >= maxPage }">
-   [맨끝]
+   &nbsp; &gt;&gt;
 </c:if>   
 <c:if test="${ currentPage < maxPage }">
    <c:url var="ubl5" value="/flist.do">
       <c:param name="page" value="${ maxPage }"/>
    </c:url>
-   <a href="${ ubl5 }">[맨끝]</a>
+   &nbsp; <a href="${ ubl5 }">&gt;&gt;</a>
 </c:if>
 </div>
 
