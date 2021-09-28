@@ -211,8 +211,8 @@ font-size: 20px;
                   </div>
                   <div class="form-group text-center">
                   <!-- 회원가입 & 카카오톡 로그인 버튼 -->
-                  	 <button class="f-button" href="findaccount.do">아이디 & 비밀번호 찾기</button>
-                  	 <button class="e-button" href="enrollPage.do">회원가입</button>
+                  	 <a class="btn f-button" href="findaccount.do">아이디 & 비밀번호 찾기</a>
+                  	 <a class="btn e-button" href="enrollPage.do">회원가입</a>
                      <a href="kakao.do"><img src='${ pageContext.servletContext.contextPath }/resources/images/kakao_login_medium_wide.png'></a>
                   </div>
                   <p class="small mt-3">By signing up, you are indicating that you have read and agree to the <a href="#" class="ps-hero__content__link">Terms of Use</a> and <a href="#">Privacy Policy</a>.

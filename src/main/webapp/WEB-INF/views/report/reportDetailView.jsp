@@ -102,22 +102,32 @@ table#tbrp, #tbrpli, #tbrpins{
 
 <br>
 <c:if test="${ !empty report.admin_comment }">
-	<table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3" id="tbrpli">
+	<table style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3" id="tbrpli">
 	<tr>
 		<th align="center">${ report.admin_id }</th>
-		<td colspan="6">${ report.admin_comment }</td>
 		<td>${ report.comment_date }</td>
+		<td colspan="6">${ report.admin_comment }</td>
+		
 	<c:if test="${ loginUser.admin_yn eq 'Y' }">
+		<c:url var="cmdelete" value="cmdelete.do">
+		<c:param name="report_no" value="${ report.report_no }" />
+		<c:param name="page" value="${ currentPage }" />
+		</c:url>
 		<td>
-			<c:url var="cmdelete" value="cmdelete.do">
-			<c:param name="report_no" value="${ report.report_no }" />
-			<c:param name="page" value="${ currentPage }" />
-			</c:url>
 			<button class="btn btn-outline-danger" onclick="javascript:location.href='${ cmdelete }';">삭제하기</button>
 		</td>
 	</c:if>
 	</tr>
 	</table>
+</c:if>
+<c:if test="${ empty report.admin_comment && loginUser.admin_yn eq 'N' }">
+	<form action="cmupdate.do" method="post">
+	<table style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3" id="tbrpli">
+	<tr>
+		<td><input type="text" value="관리자 답변이 아직 없습니다." readonly style="width:1000px"></td>
+	</tr>
+	</table>
+	</form>
 </c:if>
 <c:if test="${ empty report.admin_comment && loginUser.admin_yn eq 'Y' }">
 	<script>
@@ -125,20 +135,21 @@ table#tbrp, #tbrpli, #tbrpins{
 	</script>
 	
 	<form action="cmupdate.do" method="post">
-	<table align="center">
+	<table style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3" id="tbrpli">
 	<tr>
 		<input type="hidden" name="page" value="${ currentPage }">
 		<input type="hidden" name="report_no" value="${ report.report_no }">
 		<input type="hidden" name="admin_id" value="${ loginUser.user_id }">
-		<td><textarea rows="5" cols="50" name="admin_comment"></textarea></td>
+		<th></th>
+		<td colspan="8"><input type="text" name="admin_comment" size="80"></td>
 		<td colspan="2">
-		&nbsp;<input type="submit" value="답변하기" class="btn btn-outline-primary">
+		&nbsp;<button type="submit" class="btn btn-outline-primary">답변하기</button>
 		</td>
 	</tr>
 	</table>
 	</form>
 </c:if>
-
+<br><br><br><br>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

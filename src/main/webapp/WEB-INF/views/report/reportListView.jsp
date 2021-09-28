@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Whimory</title>
+<!-- Favicons -->
+<link href="${ pageContext.request.contextPath }/resources/images/tgmark.png" rel="icon">
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
 <style type="text/css">
 html head{
@@ -98,7 +100,8 @@ function showDiv(item){
 				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
 			</div>
-			<button class="btn btn-outline-primary" onclick="javascript:location.href='rplist.do?page=1';">전체보기</button><br>
+			<button class="btn btn-outline-primary" onclick="javascript:location.href='rplist.do?page=1';">전체보기</button>
+			<br>
 		</td>
 	</tr>
 </table>
@@ -107,13 +110,13 @@ function showDiv(item){
 <table class="table table-lightgray table-hover" style="table-layout: fixed; width:1200px" align="center" cellspacing="0" cellpadding="3">
 	<thead>
 		<tr align="center" class="thead-light">
-			<th>번호</th>
-			<th>제목</th>
-			<th>작성자</th>
-			<th>등록날짜</th>
-			<th>첨부파일</th>
-			<th>조회수</th>
-			<th>답변</th>
+			<th width="50px">번호</th>
+			<th width="300px">제목</th>
+			<th width="120px">작성자</th>
+			<th width="150px">등록날짜</th>
+			<th width="100px">첨부파일</th>
+			<th width="100px">조회수</th>
+			<th width="100px">답변</th>
 		</tr>
 	</thead>
 <c:forEach items="${ list }" var="r">
@@ -128,7 +131,14 @@ function showDiv(item){
 	</td>
 	<td>${ r.user_id }</td>
 	<td>${ r.report_date }</td>
-	<td>${ r.report_org_file }</td>
+	<td>
+		<c:if test="${ !empty r.report_re_file }">
+			<i class="fas fa-file-download"></i>
+		</c:if>
+		<c:if test="${ empty r.report_re_file }">
+			&nbsp;
+		</c:if>
+	</td>
 	<td>${ r.report_readcount }</td>
 	<td>
 		<c:if test="${ r.admin_comment != null }">

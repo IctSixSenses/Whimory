@@ -412,11 +412,13 @@ public class ReportController {
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
 		}
+		
+		ArrayList<Report> list = reportService.selectSearchWriter(keyword);
 
 		// 페이징 처리
 		int limit = 10; // 한 페이지에 출력할 목록 갯수
 		// 페이지 계산을 위해 총 목록갯수 조회
-		int listCount = reportService.selectSearchWriter(keyword).size();
+		int listCount = list.size();
 		// 페이지 수 계산
 		// 목록이 11개이면 총 2페이지가 나오게 계산식 작성
 		int maxPage = (int) ((double) listCount / limit + 0.9);
@@ -435,8 +437,6 @@ public class ReportController {
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
 		Paging paging = new Paging(startRow, endRow);
-
-		ArrayList<Report> list = reportService.selectSearchWriter(keyword);
 
 		if (list != null && list.size() > 0) {
 			mv.addObject("list", list);
