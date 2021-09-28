@@ -30,4 +30,5 @@ public interface FreeService {
 	int insertAddBadCount(FreeBad fbad);		//신고수 등록
 	int updateAddLikeCount(int free_no);	//추천수 증가
 	int updateAddBadCount(int free_no);	 //신고수 증가
+	ArrayList<Free> selectFreeTop5();	//인기게시글 조회
 }

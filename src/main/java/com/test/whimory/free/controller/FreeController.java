@@ -3,11 +3,16 @@ package com.test.whimory.free.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,6 +31,7 @@ import com.test.whimory.free.model.vo.Free;
 import com.test.whimory.free.model.vo.FreeBad;
 import com.test.whimory.free.model.vo.FreeLike;
 import com.test.whimory.free.model.vo.FreeReply;
+import com.test.whimory.news.model.vo.News;
 
 @Controller
 public class FreeController {
@@ -563,6 +570,37 @@ public class FreeController {
 		}
 		return "redirect:fdetail.do?free_no=" + fbad.getFree_no() + "&page=" + page;
 
+	}
+	
+	// 조회수 높은 순 게시글 5개 조회
+	@RequestMapping(value = "freeTop5.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String freeTop5Method(HttpServletResponse response) throws UnsupportedEncodingException {
+		// 인기게시글 5개 조회
+		ArrayList<Free> list = freeService.selectFreeTop5();
+
+		// 전송용 json 객체 준비
+		JSONObject sendJson = new JSONObject();
+		// list 옮길 json 배열 준비
+		JSONArray jarr = new JSONArray();
+
+		// list 를 jarr 로 옮기기(복사)
+		for (Free free : list) {
+			// news 필드값 저장할 json 객체 생성
+			JSONObject job = new JSONObject();
+
+			job.put("free_no", free.getFree_no());
+			job.put("free_title", URLEncoder.encode(free.getFree_title(), "utf-8"));
+			job.put("free_readcount", free.getFree_readcount());
+
+			// job 를 jarr 에 저장
+			jarr.add(job);
+		}
+
+		// 전송용 json 객체에 jarr 담음
+		sendJson.put("list", jarr);
+
+		return sendJson.toJSONString(); // jsonView 가 리턴됨
 	}
 	
 }

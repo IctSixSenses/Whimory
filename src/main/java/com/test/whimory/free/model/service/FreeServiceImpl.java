@@ -122,5 +122,10 @@ public class FreeServiceImpl implements FreeService {
 	public int updateAddBadCount(int free_no) {
 		return freeDao.updateAddBadCount(free_no);
 	}
+
+	@Override
+	public ArrayList<Free> selectFreeTop5() {
+		return freeDao.selectFreeTop5();
+	}
 	
 }
