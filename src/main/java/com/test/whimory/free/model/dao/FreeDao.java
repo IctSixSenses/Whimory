@@ -128,6 +128,12 @@ public class FreeDao {
 	public int insertAddBadCount(FreeBad fbad) {
 		return sqlSession.insert("freeMapper.insertAddBadCount", fbad);
 	}
+	
+	// 인기게시글 5개 조회
+	public ArrayList<Free> selectFreeTop5() {
+		List<Free> list = sqlSession.selectList("freeMapper.selectFreeTop5");
+		return (ArrayList<Free>)list;
+	}
 
 	
 }

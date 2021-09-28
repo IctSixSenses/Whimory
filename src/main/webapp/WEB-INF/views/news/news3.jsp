@@ -15,56 +15,62 @@ html head{
 html body{
 	font-family: Roboto, Nanum Gothic;
 } 
-table tr td a { text-decoration:none } 
+.tbimg{
+	width:150px;
+	height:95px;
+}
+.tba{
+	text-decoration:none;
+	color: black;
+	font-size:13pt;
+}
+.tbtd{
+	color: black;
+	font-size:13pt;
+}
 </style> 
+
 <script type="text/javascript">
-   
-   $(function() {
-      //최근 등록된 언론보도 3개 전송받아서 출력되게 함
-      $.ajax({
-         url : "new3.do",
-         type : "post",
-         dataType : "json",
-         success : function(data) {
-            console.log("success : " + data);
+$(function() {
+    $.ajax({
+       url : "new3.do",
+       type : "post",
+       dataType : "json",
+       success : function(data) {
+          console.log("success : " + data);
 
-            //object --> string
-            var str = JSON.stringify(data);
-            //string --> json 
-            var json = JSON.parse(str);
+          //object --> string
+          var str = JSON.stringify(data);
+          //string --> json 
+          var json = JSON.parse(str);
 
-            values = "";
-            for ( var i in json.list) {
-               values += "<tr><td>"
-                     + json.list[i].news_no
-                     + "</td><td><a href='wdetail.do?news_no="
-                     + json.list[i].news_no
-                     + "'>"
-                     + decodeURIComponent(json.list[i].news_title).replace(/\+/gi, " ") + "</a></td>";
-            }
+          values = "";
+          for ( var i in json.list) {
+             values += "<tr align='center' height='110px'><td align='center' width='50px' class='tbtd'>" + json.list[i].news_no + "</td>"
+                   + "<td align='center' width='200px'><a href='wdetail.do?news_no="+ json.list[i].news_no + "'><img src='${ pageContext.request.contextPath }/resources/news_upfiles/" + json.list[i].news_re_file + "' class='tbimg'></a></td>" 
+                   + "<td align='left' width='350px'><a href='wdetail.do?news_no=" + json.list[i].news_no + "' class='tba'>" 
+                   + decodeURIComponent(json.list[i].news_title).replace(/\+/gi, " ") + "</a></td></tr>";
+          }
 
-            $('#News3').html($('#News3').html() + values);
-         },
-         error : function(jqXHR, textstatus, errorthrown) {
-            console.log("error : " + jqXHR + ", " + textstatus + ", "
-                  + errorthrown);
-         }
-      });
-   });
+          $('#News3').html($('#News3').html() + values);
+       },
+       error : function(jqXHR, textstatus, errorthrown) {
+          console.log("error : " + jqXHR + ", " + textstatus + ", "
+                + errorthrown);
+       }
+    });
+ });
 </script>
 </head>
 <body>
- <section>
-      <!-- 최근 등록된 언론보도 3개 출력 : ajax -->
-      <div style="float:right;">
-         <h5>언론보도 New Top3</h5>
-         <table id="News3" border="1" solid="black" width="500" border-collapse="collapse">
-            <tr align="center" bgcolor="lightgrey">
-               <th>No.</th>
-               <th>Name</th>
-      
-            </tr>
-         </table>
-      </section>
+
+<!-- 최근 등록된 언론보도 3개 출력 : ajax -->
+<div style="align:center; float:left; width:620px;">
+	<table id="News3" style="width:620px; align:center;">
+		<tr align="center" bgcolor="whitesmoke" height="50px"><th colspan="3" align="center"><font size="4.5">언론보도 최신글 Top3</font></th></tr>
+		<!-- ajax 추가 부분 -->
+	</table>
+</div>
+
 </body>
 </html>

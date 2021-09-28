@@ -41,10 +41,6 @@ html head{
 html body{
 	font-family: Roboto, Nanum Gothic;
 }
-.hero-container{
-    width: 750px;
-    align: center;
-  }
 .icn1, .icn2, .icn3{
 	color: #01b1d7;
 	width: 25px;
@@ -69,226 +65,46 @@ html body{
 	text-decoration: none;
 	font-family: Nanum Gothic;
 }
-.tbimg{
-	width:150px;
-	height:95px;
-}
-.tba{
-	text-decoration:none;
-	color: black;
-	font-size:13pt;
-}
-.tbtd{
-	color: black;
-	font-size:13pt;
+.fndiv{
+	width:1280px;
+	height:450px;
+	position: relative; 
+	left:130px;
 }
 </style>
-
-
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
-<script>
-$(function(){
-	   $.ajax({
-	      url: "ktop10.do",
-	      type: "post",
-	      dataType: "json",
-	      success: function(data){
-	         console.log("success: " + data);
-	         
-	         // object --> string
-	         var str = JSON.stringify(data);
-	         
-	         // string --> json
-	         var json = JSON.parse(str);
-	         
-	         values = "";
-	         for(var i in json.list){
-	            
-	            if(i == 0){
-	               values += "<div class='carousel-item active'"
-	                  + "style='background-image: url(${ pageContext.request.contextPath }/resources/ko_upfiles/" + json.list[i].ko_re_file + ");'>"
-	                  + "<div class='carousel-container'><div class='carousel-content'>"
-	                    + "<h2 class='animate__animated animate__fadeInDown'>"
-	                    + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
-	                    + "</h2><p class='animate__animated animate__fadeInUp'>"
-	                    + decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ")
-	                    + "</p><a href='kdetail.do?ko_no=" + json.list[i].ko_no 
-	                    + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
-	            } else if(i == 1) {
-	               values += "<div class='carousel-item'"
-	                  + "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_14.jpg);'>" 
-	                  + "<div class='carousel-container'><div class='carousel-content'>"
-	                    + "<h2 class='animate__animated animate__fadeInDown'>"
-	                    + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
-	                    + "</h2><p class='animate__animated animate__fadeInUp'>"
-	                    + decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ") 
-	                    + "</p><a href='kdetail.do?ko_no=" + json.list[i].ko_no
-	                    + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
-	            } else if(i == 2) {
-	               values += "<div class='carousel-item'"
-	                  + "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_02.jpg);'>" 
-	                  + "<div class='carousel-container'><div class='carousel-content'>"
-	                    + "<h2 class='animate__animated animate__fadeInDown'>"
-	                    + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
-	                    + "</h2><p class='animate__animated animate__fadeInUp'>"
-	                    + decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ")
-	                    + "</p><a href='kdetail.do?ko_no=" + json.list[i].ko_no
-	                    + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
-	            } else if(i == 3) {
-	               values += "<div class='carousel-item'"
-	                  + "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_07.jpeg);'>" 
-	                  + "<div class='carousel-container'><div class='carousel-content'>"
-	                    + "<h2 class='animate__animated animate__fadeInDown'>"
-	                    + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
-	                    + "</h2><p class='animate__animated animate__fadeInUp'>"
-	                    + decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ")
-	                    + "</p><a href='kdetail.do?ko_no=" + json.list[i].ko_no
-	                    + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
-	            } else if(i == 4) {
-	               values += "<div class='carousel-item'"
-	                  + "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_09.jpg);'>" 
-	                  + "<div class='carousel-container'><div class='carousel-content'>"
-	                    + "<h2 class='animate__animated animate__fadeInDown'>"
-	                    + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
-	                    + "</h2><p class='animate__animated animate__fadeInUp'>"
-	                    + decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ") 
-	                    + "</p><a href='kdetail.do?ko_no=" + json.list[i].ko_no
-	                    + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
-	            } else if(i == 7) {
-	               values += "<div class='carousel-item'"
-	                  + "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_05.jpg);'>" 
-	                  + "<div class='carousel-container'><div class='carousel-content'>"
-	                    + "<h2 class='animate__animated animate__fadeInDown'>"
-	                    + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
-	                    + "</h2><p class='animate__animated animate__fadeInUp'>"
-	                    + decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ") 
-	                    + "</p><a href='kdetail.do?ko_no=" + json.list[i].ko_no
-	                    + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
-	            } else {
-	               values += "<div class='carousel-item'" 
-	                  + "style='background-image: url(${ pageContext.request.contextPath }/resources/ko_upfiles/" + json.list[i].ko_re_file + ");'>"
-	                  + "<div class='carousel-container'><div class='carousel-content'>"
-	                    + "<h2 class='animate__animated animate__fadeInDown'>"
-	                    + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
-	                    + "</h2><p class='animate__animated animate__fadeInUp'>"
-	                    + decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ")
-	                    + "</p><a href='kdetail.do?ko_no=" + json.list[i].ko_no 
-	                    + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
-	            }
-	            
-	         }
-	         
-	         $(".carousel-inner").html($(".carousel-inner").html() + values);
-	         
-	      },
-	      error: function(jqXHR, textstatus, errorthrown){
-	         console.log("error: " + jqXHR + ", " + textstatus + ", " + errorthrown);
-	      }
-	   });
-	}); //정보게시판 ajax 종료
-</script>
-
-<script>
-$(function() {
-     $.ajax({
-        url : "new3.do",
-        type : "post",
-        dataType : "json",
-        success : function(data) {
-           console.log("success : " + data);
-
-           //object --> string
-           var str = JSON.stringify(data);
-           //string --> json 
-           var json = JSON.parse(str);
-
-           values = "";
-           for ( var i in json.list) {
-              values += "<tr align='center' height='110px'><td align='center' width='50px' class='tbtd'>" + json.list[i].news_no + "</td>"
-                    + "<td align='center' width='200px'><a href='wdetail.do?news_no="+ json.list[i].news_no + "'><img src='${ pageContext.request.contextPath }/resources/news_upfiles/" + json.list[i].news_re_file + "' class='tbimg'></a></td>" 
-                    + "<td align='left' width='350px'><a href='wdetail.do?news_no=" + json.list[i].news_no + "' class='tba'>" 
-                    + decodeURIComponent(json.list[i].news_title).replace(/\+/gi, " ") + "</a></td></tr>";
-           }
-
-           $('#News3').html($('#News3').html() + values);
-        },
-        error : function(jqXHR, textstatus, errorthrown) {
-           console.log("error : " + jqXHR + ", " + textstatus + ", "
-                 + errorthrown);
-        }
-     });
-  });	// newsTop5 종료
-</script>
 </head>
 <body>
 	<header> 
 	<c:import url="/WEB-INF/views/common/menubar.jsp" />
-	<br><br><br>
+	<br>
 	
 	</header>
 
-  <!-- ======= 정보게시판 top10 시작 =======  -->
-	<div align="center">
-		<section id="hero" style="width:1100px;" height="700px">
-			<div class="hero-container" style="width:100%;">
-				<div id="heroCarousel" data-bs-interval="3500" class="carousel slide carousel-fade" data-bs-ride="carousel">
-					
-					<ol class="carousel-indicators" id="hero-carousel-indicators">
-						<li data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true"></li>
-						<li data-bs-target="#heroCarousel" data-bs-slide-to="1"></li>
-						<li data-bs-target="#heroCarousel" data-bs-slide-to="2"></li>
-						<li data-bs-target="#heroCarousel" data-bs-slide-to="3"></li>
-						<li data-bs-target="#heroCarousel" data-bs-slide-to="4"></li>
-						<li data-bs-target="#heroCarousel" data-bs-slide-to="5"></li>
-						<li data-bs-target="#heroCarousel" data-bs-slide-to="6"></li>
-						<li data-bs-target="#heroCarousel" data-bs-slide-to="7"></li>
-						<li data-bs-target="#heroCarousel" data-bs-slide-to="8"></li>
-						<li data-bs-target="#heroCarousel" data-bs-slide-to="9"></li>
-						
-					</ol>
-					
-					<div class="carousel-inner" role="listbox">
-						<!-- ajax 내용이 추가되는 곳 -->
-					</div>
-					
-					<a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
-						<span class="carousel-control-prev-icon ri-arrow-left-line" aria-hidden="true"></span>
-					</a>
-					
-					<a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
-						<span class="carousel-control-next-icon ri-arrow-right-line" aria-hidden="true"></span>
-					</a>
-		
-				</div>
-			</div>
-		</section>
+  <!-- ======= 정보게시판 top10 =======  -->
+ 	<c:import url="/WEB-INF/views/ko/koTop10.jsp" />
+ 
+
+  <!-- ======= 언론보도 최신게시글 Top3 & 자유토론공간 Top5 =======  -->
+  	
+	<section>
+	<div class="fndiv">
+ 		<c:import url="/WEB-INF/views/news/news3.jsp" />
+ 		<div style="float:left; width:60px; height:400px" ></div>
+ 		<c:import url="/WEB-INF/views/free/freeTop5.jsp" />  
 	</div>
-  <!-- ======= 정보게시판 top10 종료 =======  -->
-  
-  
-  <!-- ======= 언론보도 newTop5 시작 =======  -->
-	 <section>
-	      <!-- 최근 등록된 언론보도 3개 출력 : ajax -->
-	
-	         <table id="News3" style="width:610px;" class="tbtb" align="center">
-	         	<tr align="center" bgcolor="whitesmoke" height="50px"><th colspan="3" align="center"><font size="4.5">언론보도 최신글</font></th></tr>
-				
-				<!-- ajax 추가 부분 -->
-	         
-	         </table>
-	 </section>
-  <!-- ======= 언론보도 newTop5 종료 =======  -->
-  
+	</section>
+
+
   <!-- ======= 역사달력 ======= -->
  	<c:import url="/WEB-INF/views/common/calendar.jsp" />
   
   
   
   
-  
 
 
-<br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 
 <!-- 명언카드 -->
@@ -328,7 +144,7 @@ $(function() {
                 <h4>Team Crew</h4>
                 <p>
                   <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세.
+                  짧은 기간이지만 식스센스로 프로젝트를 진행할 수 있어서 너무 즐거웠습니다!
                   <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
               </div>
