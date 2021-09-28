@@ -40,7 +40,7 @@ table tr td a { text-decoration:none }
 <h2 align="center">QNA 답변내역</h2>
 
 <br>
-<table class="table table-lightgray table-hover" style="table-layout: fixed; width:1320px" align="center" cellspacing="0" cellpadding="3" >
+<table class="table table-lightgray table-hover" style="table-layout: fixed; width:1200px" align="center" cellspacing="0" cellpadding="3" >
 	<thead>
 		<tr align="center" class="thead-light">
 			<th width="100px">작성자</th>
@@ -48,7 +48,6 @@ table tr td a { text-decoration:none }
 			<th width="700px">제목</th>
 			<th width="120px">작성일</th>
 			<th width="80px">답변여부</th>
-			<th width="120px">답변일</th>
 		</tr>
 	</thead>
 	
