@@ -24,6 +24,7 @@ html body{
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
+<br><br><br><br><br><br><br>
 
 <h3 align="center">자유 토론 게시글 등록 페이지</h3>
 <br>

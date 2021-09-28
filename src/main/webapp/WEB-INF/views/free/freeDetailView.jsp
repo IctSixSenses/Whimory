@@ -16,7 +16,7 @@
 <!-- Favicons -->
 <link href="${ pageContext.request.contextPath }/resources/images/tgmark.png" rel="icon">
 
-<!-- Bootstrap CSS -->
+<!-- Bootstrap CSS 및 폰트 적용 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
@@ -37,6 +37,7 @@ table#tbrp, #tbrpli, #tbrpins{
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp"/>
+<br><br><br><br><br><br><br>
 
 <h3 align="center">${ requestScope.free.free_no }번 게시글 상세보기</h3>
 <br>
