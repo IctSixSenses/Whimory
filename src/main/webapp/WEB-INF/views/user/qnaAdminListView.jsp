@@ -91,27 +91,28 @@ function showDiv(item){
             <option value="date">작성날짜</option>
          </select>
          <div id="writerDiv" style="display:inline-block">
-         <form action="qsearchWriter.do" method="post">
+         <form action="qsearchWritera.do" method="post">
             <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
-            <button type="submit">검색</button>
+            <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
          </div>
          <div id="titleDiv" style="display:none">
-         <form action="qsearchTitle.do" method="post">
+         <form action="qsearchTitlea.do" method="post">
             <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
-            <button type="submit">검색</button>
+            <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
          </div>
          <div id="categoryDiv" style="display:none">
-         <form action="qsearchCategory.do" method="post">
+         <form action="qsearchCategorya.do" method="post">
             <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 200px">
-            <button type="submit">검색</button>
+            <button type="submit" class="btn btn-outline-primary">검색</button>
+    
          </form>
          </div>
          <div id="dateDiv" style="display:none">
-         <form action="qsearchDate.do" method="post">
+         <form action="qsearchDatea.do" method="post">
             <input type="date" name="begin"> ~ <input type="date" name="end">
-            <button type="submit">검색</button>
+            <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
          </div>
          

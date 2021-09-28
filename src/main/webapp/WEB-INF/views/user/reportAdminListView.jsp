@@ -82,19 +82,19 @@ function showDiv(item){
 			</select>
 			</div>
 			<div id="titleDiv" style="display:inline-block; float: left; width: 40%;">
-			<form action="rptitle.do" method="post">
+			<form action="rptitlea.do" method="post">
 				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
 			</div>
 			<div id="writerDiv" style="display:none; float: left; width: 40%;">
-			<form action="rpwriter.do" method="post">
+			<form action="rpwritera.do" method="post">
 				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
 			</div>
 			<div id="dateDiv" style="display:none; float: left; width: 40%;">
-			<form action="rpdate.do" method="post">
+			<form action="rpdatea.do" method="post">
 				<input type="date" name="begin"> ~ <input type="date" name="end">
 				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
