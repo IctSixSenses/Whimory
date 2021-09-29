@@ -28,8 +28,8 @@ $(function(){
 </script>
 </head>
 <body>
-	<c:import url="/WEB-INF/views/common/menubar.jsp" />
-	<hr>
+<c:import url="/WEB-INF/views/common/menubar.jsp" />
+<br><br><br><br><br><br><br>
 
 	<!-- 
 	<fieldset id="ss">
@@ -70,7 +70,7 @@ $(function(){
 			<br>
 		</form>
 	</div>
-	<hr>
-	<c:import url="/WEB-INF/views/common/footer.jsp" />
+<br><br><br><br>
+<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

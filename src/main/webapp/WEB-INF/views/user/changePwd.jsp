@@ -32,7 +32,8 @@ function validate(){
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr>
+<br><br><br><br><br><br><br>
+
 <h3 align="center">
 ${user.user_name} 님 어서오세요.
 </h3>
@@ -49,7 +50,7 @@ ${user.user_name} 님 어서오세요.
 </form>
 </div>
 
-<hr>
+<br><br><br><br>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 
 </body>
