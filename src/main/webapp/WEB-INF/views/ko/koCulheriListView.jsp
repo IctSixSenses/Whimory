@@ -74,7 +74,7 @@ function resetList(){
 <%-- 게시글 목록 --%>
 <section class="k-list">
 
-<h2 align="center">Korea Origin</h2><br><br>
+<h2 align="center" style="font-family: Nanum Gothic; font-weight:630; color: #333333">Korea Origin</h2><br><br>
 
 <div id="klist-row">
 	<c:set var="i" value="0" />

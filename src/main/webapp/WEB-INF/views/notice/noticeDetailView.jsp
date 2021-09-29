@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,9 +45,9 @@ html body{
 
 <%-- 게시글 상세보기 --%>
 <table class="table" style="width:1000px;"  align="center">
-	<tr><td colspan="10" align="center" style="font-size: 17pt; background: WhiteSmoke">
-		<font size="5">${ notice.notice_title }</font>
-	</td></tr>
+	<tr>
+		<td colspan="10" align="center" style="font-size: 17pt; background: WhiteSmoke" >${ notice.notice_title }</td>
+	</tr>
 	<tr>
 		<td colspan="3" align="left"><b>작성자</b> &nbsp; ${ notice.user_id }</td>
 		<td colspan="7" align="right">
@@ -75,7 +76,9 @@ html body{
 		</td>
 	</tr>
 	<tr height="200px"><td colspan="10">
-		<c:if test="${ !empty notice.notice_org_file }">
+		<c:set var="rfile" value='${ notice.notice_re_file }' />
+		<c:set var="length" value='${ fn:length(rfile) }' />
+		<c:if test="${ fn:substring(rfile, length -3, length) == 'jpg' or fn:substring(rfile, length -3, length) == 'png' or fn:substring(rfile, length -3, length) == 'epg' }">
 			<img class="notice_image" alt="이미지 파일" src="${ pageContext.servletContext.contextPath }/resources/notice_upfiles/${ notice.notice_re_file }">
 			<br><br>
 		</c:if>
