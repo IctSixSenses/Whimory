@@ -63,8 +63,8 @@ $(function(){
 	            
 	            if(i == 0){
 	               values += "<div class='carousel-item active'"
-	                  + "style='background-image: url(${ pageContext.request.contextPath }/resources/ko_upfiles/" + json.list[i].ko_re_file + ");'>"
-	                  + "<div class='carousel-container'><div class='carousel-content'>"
+	                 	+ "style='background-image: url(${ pageContext.request.contextPath }/resources/ko_upfiles/" + json.list[i].ko_re_file + ");'>"
+	                 	+ "<div class='carousel-container'><div class='carousel-content'>"
 	                    + "<h2 class='animate__animated animate__fadeInDown'>"
 	                    + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
 	                    + "</h2><p class='animate__animated animate__fadeInUp'>"
@@ -73,8 +73,8 @@ $(function(){
 	                    + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
 	            } else if(i == 1) {
 	               values += "<div class='carousel-item'"
-	                  + "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_14.jpg);'>" 
-	                  + "<div class='carousel-container'><div class='carousel-content'>"
+	                 	+ "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_14.jpg);'>" 
+	                 	+ "<div class='carousel-container'><div class='carousel-content'>"
 	                    + "<h2 class='animate__animated animate__fadeInDown'>"
 	                    + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
 	                    + "</h2><p class='animate__animated animate__fadeInUp'>"
@@ -83,8 +83,8 @@ $(function(){
 	                    + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
 	            } else if(i == 2) {
 	               values += "<div class='carousel-item'"
-	                  + "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_02.jpg);'>" 
-	                  + "<div class='carousel-container'><div class='carousel-content'>"
+	                 	+ "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_02.jpg);'>" 
+	                  	+ "<div class='carousel-container'><div class='carousel-content'>"
 	                    + "<h2 class='animate__animated animate__fadeInDown'>"
 	                    + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
 	                    + "</h2><p class='animate__animated animate__fadeInUp'>"
@@ -93,8 +93,8 @@ $(function(){
 	                    + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
 	            } else if(i == 3) {
 	               values += "<div class='carousel-item'"
-	                  + "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_07.jpeg);'>" 
-	                  + "<div class='carousel-container'><div class='carousel-content'>"
+	                 	+ "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_07.jpeg);'>" 
+	                  	+ "<div class='carousel-container'><div class='carousel-content'>"
 	                    + "<h2 class='animate__animated animate__fadeInDown'>"
 	                    + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
 	                    + "</h2><p class='animate__animated animate__fadeInUp'>"
@@ -103,18 +103,28 @@ $(function(){
 	                    + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
 	            } else if(i == 4) {
 	               values += "<div class='carousel-item'"
-	                  + "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_09.jpg);'>" 
-	                  + "<div class='carousel-container'><div class='carousel-content'>"
+	                 	+ "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_09.jpg);'>" 
+	                  	+ "<div class='carousel-container'><div class='carousel-content'>"
 	                    + "<h2 class='animate__animated animate__fadeInDown'>"
 	                    + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
 	                    + "</h2><p class='animate__animated animate__fadeInUp'>"
 	                    + decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ") 
 	                    + "</p><a href='kdetail.do?ko_no=" + json.list[i].ko_no
 	                    + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
-	            } else if(i == 7) {
+	            } else if(i == 5) {
 	               values += "<div class='carousel-item'"
-	                  + "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_05.jpg);'>" 
-	                  + "<div class='carousel-container'><div class='carousel-content'>"
+	                	+ "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_17.jpg);'>" 
+	                	+ "<div class='carousel-container'><div class='carousel-content'>"
+	                    + "<h2 class='animate__animated animate__fadeInDown'>"
+	                    + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
+	                    + "</h2><p class='animate__animated animate__fadeInUp'>"
+	                    + decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ") 
+	                    + "</p><a href='kdetail.do?ko_no=" + json.list[i].ko_no
+	                    + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
+	            }else if(i == 7) {
+		           values += "<div class='carousel-item'"
+			            + "style='background-image: url(${ pageContext.request.contextPath }/resources/main_images/koimage_05.jpg);'>" 
+	                 	+ "<div class='carousel-container'><div class='carousel-content'>"
 	                    + "<h2 class='animate__animated animate__fadeInDown'>"
 	                    + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
 	                    + "</h2><p class='animate__animated animate__fadeInUp'>"
@@ -123,26 +133,25 @@ $(function(){
 	                    + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
 	            } else {
 	               values += "<div class='carousel-item'" 
-	                  + "style='background-image: url(${ pageContext.request.contextPath }/resources/ko_upfiles/" + json.list[i].ko_re_file + ");'>"
-	                  + "<div class='carousel-container'><div class='carousel-content'>"
-	                    + "<h2 class='animate__animated animate__fadeInDown'>"
-	                    + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
-	                    + "</h2><p class='animate__animated animate__fadeInUp'>"
-	                    + decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ")
-	                    + "</p><a href='kdetail.do?ko_no=" + json.list[i].ko_no 
-	                    + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
-	            }
-	            
-	         }
-	         
-	         $(".carousel-inner").html($(".carousel-inner").html() + values);
-	         
-	      },
-	      error: function(jqXHR, textstatus, errorthrown){
-	         console.log("error: " + jqXHR + ", " + textstatus + ", " + errorthrown);
-	      }
-	   });
-	});
+		                + "style='background-image: url(${ pageContext.request.contextPath }/resources/ko_upfiles/" + json.list[i].ko_re_file + ");'>"
+		                + "<div class='carousel-container'><div class='carousel-content'>"
+		                + "<h2 class='animate__animated animate__fadeInDown'>"
+		                + decodeURIComponent(json.list[i].ko_title).replace(/\+/gi, " ")
+		                + "</h2><p class='animate__animated animate__fadeInUp'>"
+		                + decodeURIComponent(json.list[i].ko_summary).replace(/\+/gi, " ")
+		                + "</p><a href='kdetail.do?ko_no=" + json.list[i].ko_no 
+		                + "' class='btn-get-started scrollto animate__animated animate__fadeInUp'>더 알아보기</a></div></div></div>"
+	           }
+         }
+         
+         $(".carousel-inner").html($(".carousel-inner").html() + values);
+         
+      },
+      error: function(jqXHR, textstatus, errorthrown){
+         console.log("error: " + jqXHR + ", " + textstatus + ", " + errorthrown);
+      }
+   });
+});
 </script>
 </head>
 <body>
