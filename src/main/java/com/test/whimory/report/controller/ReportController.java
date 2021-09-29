@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.test.whimory.common.Paging;
 import com.test.whimory.common.SearchDate;
+import com.test.whimory.notice.model.vo.Notice;
 import com.test.whimory.report.model.service.ReportService;
 import com.test.whimory.report.model.vo.Report;
 import com.test.whimory.report.model.vo.ReportLike;
@@ -113,7 +114,7 @@ public class ReportController {
 		ReportLike rplike = new ReportLike();
 		rplike.setReport_no(report_no);
 		rplike.setUser_id(user_id);
-		
+
 		if (reportService.selectReportLike(rplike) == 0) {
 			int result1 = reportService.insertAddLikeCount(rplike);
 			int result2 = reportService.updateAddLikeCount(report_no);
@@ -354,23 +355,24 @@ public class ReportController {
 		}
 	}
 
-	@RequestMapping(value = "rptitle.do", method = RequestMethod.POST)
-	public ModelAndView reportSearchTitleMethod(@RequestParam("keyword") String keyword, ModelAndView mv,
-			@RequestParam(name = "page", required = false) String page) {
+	// 검색 목록 출력 처리용
+	@RequestMapping("rptitle.do")
+	public String reportSearchTitleMethod(@RequestParam(name = "page", required = false) String page, Paging paging,
+			Model model) {
+
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
 		}
 
 		// 페이징 처리
-		int limit = 10; // 한 페이지에 출력할 목록 갯수
-		// 페이지 계산을 위해 총 목록갯수 조회
-		int listCount = reportService.selectSearchTitle(keyword).size();
+		int limit = 10;
+		// 페이지 계산을 위해 총 목록 개수 조회
+		int listCount = reportService.selectSearchTitleCount(paging.getKeyword());
 		// 페이지 수 계산
-		// 목록이 11개이면 총 2페이지가 나오게 계산식 작성
 		int maxPage = (int) ((double) listCount / limit + 0.9);
-		// 현재 페이지가 포함된 페이지 그룹의 시작값
-		// 뷰 페이지에 페이지 숫자를 10개씩 보여지게 한다면
+		// 현재 페이지가 포함된 페이지 그룹의 시작값 지정
+		// 뷰페이지에 페이지 숫자를 10개씩 출력
 		int startPage = (int) ((double) currentPage / 10 + 0.9);
 		// 현재 페이지가 포함된 페이지 그룹의 끝값
 		// 페이지 수가 10개이면
@@ -383,47 +385,49 @@ public class ReportController {
 		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
-		Paging paging = new Paging(startRow, endRow);
+		paging.setStartRow(startRow);
+		paging.setEndRow(endRow);
 
-		ArrayList<Report> list = reportService.selectSearchTitle(keyword);
+		ArrayList<Report> list = reportService.selectSearchTitle(paging);
 
-		if (list != null && list.size() > 0) {
-			mv.addObject("list", list);
-			mv.addObject("listCount", listCount);
-			mv.addObject("maxPage", maxPage);
-			mv.addObject("currentPage", currentPage);
-			mv.addObject("startPage", startPage);
-			mv.addObject("endPage", endPage);
-			mv.addObject("limit", limit);
+		if (list != null & list.size() > 0) {
+			model.addAttribute("list", list);
+			model.addAttribute("listCount", listCount);
+			model.addAttribute("maxPage", maxPage);
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("limit", limit);
+			model.addAttribute("keyword", paging.getKeyword());
 
-			mv.setViewName("report/reportListView");
+			return "report/reportSearchTitleListView";
 		} else {
-			mv.addObject("message", keyword + "로 검색된 정보가 없습니다.");
-			mv.setViewName("common/error");
+			model.addAttribute("listCount", 0);
+			model.addAttribute("currentPage", 1);
+			model.addAttribute("maxPage", 1);
+
+			return "report/reportSearchTitleListView";
 		}
 
-		return mv;
 	}
 
-	@RequestMapping(value = "rpwriter.do", method = RequestMethod.POST)
-	public ModelAndView reportSearchWriterMethod(@RequestParam("keyword") String keyword, ModelAndView mv,
-			@RequestParam(name = "page", required = false) String page) {
+	@RequestMapping("rpwriter.do")
+	public String reportSearchWriterMethod(@RequestParam(name = "page", required = false) String page, Paging paging,
+			Model model) {
+
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
 		}
-		
-		ArrayList<Report> list = reportService.selectSearchWriter(keyword);
 
 		// 페이징 처리
-		int limit = 10; // 한 페이지에 출력할 목록 갯수
-		// 페이지 계산을 위해 총 목록갯수 조회
-		int listCount = list.size();
+		int limit = 10;
+		// 페이지 계산을 위해 총 목록 개수 조회
+		int listCount = reportService.selectSearchWriterCount(paging.getKeyword());
 		// 페이지 수 계산
-		// 목록이 11개이면 총 2페이지가 나오게 계산식 작성
 		int maxPage = (int) ((double) listCount / limit + 0.9);
-		// 현재 페이지가 포함된 페이지 그룹의 시작값
-		// 뷰 페이지에 페이지 숫자를 10개씩 보여지게 한다면
+		// 현재 페이지가 포함된 페이지 그룹의 시작값 지정
+		// 뷰페이지에 페이지 숫자를 10개씩 출력
 		int startPage = (int) ((double) currentPage / 10 + 0.9);
 		// 현재 페이지가 포함된 페이지 그룹의 끝값
 		// 페이지 수가 10개이면
@@ -436,43 +440,49 @@ public class ReportController {
 		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
-		Paging paging = new Paging(startRow, endRow);
+		paging.setStartRow(startRow);
+		paging.setEndRow(endRow);
 
-		if (list != null && list.size() > 0) {
-			mv.addObject("list", list);
-			mv.addObject("listCount", listCount);
-			mv.addObject("maxPage", maxPage);
-			mv.addObject("currentPage", currentPage);
-			mv.addObject("startPage", startPage);
-			mv.addObject("endPage", endPage);
-			mv.addObject("limit", limit);
+		ArrayList<Report> list = reportService.selectSearchWriter(paging);
 
-			mv.setViewName("report/reportListView");
+		if (list != null & list.size() > 0) {
+			model.addAttribute("list", list);
+			model.addAttribute("listCount", listCount);
+			model.addAttribute("maxPage", maxPage);
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("limit", limit);
+			model.addAttribute("keyword", paging.getKeyword());
+
+			return "report/reportSearchWriterListView";
 		} else {
-			mv.addObject("message", keyword + "로 검색된 정보가 없습니다.");
-			mv.setViewName("common/error");
+			model.addAttribute("listCount", 0);
+			model.addAttribute("currentPage", 1);
+			model.addAttribute("maxPage", 1);
+
+			return "report/reportSearchWriterListView";
 		}
 
-		return mv;
 	}
 
-	@RequestMapping(value = "rpdate.do", method = RequestMethod.POST)
-	public ModelAndView reportSearchDateMethod(SearchDate dates, ModelAndView mv,
-			@RequestParam(name = "page", required = false) String page) {
+	@RequestMapping("rpdate.do")
+	public String reportSearchDateMethod(@RequestParam(name = "page", required = false) String page, Paging paging,
+			Model model) {
+
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
 		}
 
 		// 페이징 처리
-		int limit = 10; // 한 페이지에 출력할 목록 갯수
-		// 페이지 계산을 위해 총 목록갯수 조회
-		int listCount = reportService.selectSearchDate(dates).size();
+		int limit = 10;
+		// 페이지 계산을 위해 총 목록 개수 조회
+		int listCount = reportService.selectSearchDateCount(paging);
 		// 페이지 수 계산
-		// 목록이 11개이면 총 2페이지가 나오게 계산식 작성
 		int maxPage = (int) ((double) listCount / limit + 0.9);
-		// 현재 페이지가 포함된 페이지 그룹의 시작값
-		// 뷰 페이지에 페이지 숫자를 10개씩 보여지게 한다면
+		// 현재 페이지가 포함된 페이지 그룹의 시작값 지정
+		// 뷰페이지에 페이지 숫자를 10개씩 출력
 		int startPage = (int) ((double) currentPage / 10 + 0.9);
 		// 현재 페이지가 포함된 페이지 그룹의 끝값
 		// 페이지 수가 10개이면
@@ -485,32 +495,37 @@ public class ReportController {
 		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
-		Paging paging = new Paging(startRow, endRow);
+		paging.setStartRow(startRow);
+		paging.setEndRow(endRow);
 
-		ArrayList<Report> list = reportService.selectSearchDate(dates);
+		ArrayList<Report> list = reportService.selectSearchDate(paging);
 
-		if (list != null && list.size() > 0) {
-			mv.addObject("list", list);
-			mv.addObject("listCount", listCount);
-			mv.addObject("maxPage", maxPage);
-			mv.addObject("currentPage", currentPage);
-			mv.addObject("startPage", startPage);
-			mv.addObject("endPage", endPage);
-			mv.addObject("limit", limit);
+		if (list != null & list.size() > 0) {
+			model.addAttribute("list", list);
+			model.addAttribute("listCount", listCount);
+			model.addAttribute("maxPage", maxPage);
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("limit", limit);
+			model.addAttribute("begin", paging.getBegin());
+			model.addAttribute("end", paging.getEnd());
 
-			mv.setViewName("report/reportListView");
+			return "report/reportSearchDateListView";
 		} else {
-			mv.addObject("message", "해당 날짜로 검색된 정보가 없습니다.");
-			mv.setViewName("common/error");
+			model.addAttribute("listCount", 0);
+			model.addAttribute("currentPage", 1);
+			model.addAttribute("maxPage", 1);
+
+			return "report/reportSearchDateListView";
 		}
 
-		return mv;
 	}
-	
-	//현주 추가 : 회원 제보 내역 확인을 위한 부분 (내가 제보한 내역들 확인하기)
+
+	// 현주 추가 : 회원 제보 내역 확인을 위한 부분 (내가 제보한 내역들 확인하기)
 	@RequestMapping("rplistu.do")
-	public ModelAndView reportListUMethod(ModelAndView mv, @RequestParam(name = "page", required = false) String page, HttpSession session,
-			HttpServletRequest request, SessionStatus status, Model model) {
+	public ModelAndView reportListUMethod(ModelAndView mv, @RequestParam(name = "page", required = false) String page,
+			HttpSession session, HttpServletRequest request, SessionStatus status, Model model) {
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
@@ -538,7 +553,7 @@ public class ReportController {
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
 		User loginUser = (User) session.getAttribute("loginUser");
-		String keyword = loginUser.getUser_id(); //로그인된 정보를 가져와서 넣어줌
+		String keyword = loginUser.getUser_id(); // 로그인된 정보를 가져와서 넣어줌
 		System.out.println(keyword);
 		Paging paging = new Paging(startRow, endRow, keyword);
 
@@ -561,11 +576,11 @@ public class ReportController {
 
 		return mv;
 	}
-	
+
 	// 현주 추가 : 관리자 제보 반영 내역 리스트
 	@RequestMapping("rplista.do")
-	public ModelAndView reportListAMethod(ModelAndView mv, @RequestParam(name = "page", required = false) String page, HttpSession session,
-			HttpServletRequest request, SessionStatus status, Model model) {
+	public ModelAndView reportListAMethod(ModelAndView mv, @RequestParam(name = "page", required = false) String page,
+			HttpSession session, HttpServletRequest request, SessionStatus status, Model model) {
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
@@ -593,7 +608,7 @@ public class ReportController {
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
 		User loginUser = (User) session.getAttribute("loginUser");
-		//String user_id = loginUser.getUser_id(); //로그인된 정보를 가져와서 넣어줌
+		// String user_id = loginUser.getUser_id(); //로그인된 정보를 가져와서 넣어줌
 		Paging paging = new Paging(startRow, endRow);
 
 		ArrayList<Report> list = reportService.selectList(paging);
@@ -615,25 +630,24 @@ public class ReportController {
 
 		return mv;
 	}
-	
-	//현주 추가 부분 : 반환 부분 다르게
-	@RequestMapping(value = "rptitlea.do", method = RequestMethod.POST)
-	public ModelAndView reportSearchTitleAdminMethod(@RequestParam("keyword") String keyword, ModelAndView mv,
-			@RequestParam(name = "page", required = false) String page) {
+
+	// 현주 추가 부분 : 반환 부분 다르게
+	@RequestMapping("rptitlea.do")
+	public String reportSearchTitleAdminMethod(@RequestParam(name = "page", required = false) String page,
+			Paging paging, Model model) {
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
 		}
 
 		// 페이징 처리
-		int limit = 10; // 한 페이지에 출력할 목록 갯수
-		// 페이지 계산을 위해 총 목록갯수 조회
-		int listCount = reportService.selectSearchTitle(keyword).size();
+		int limit = 10;
+		// 페이지 계산을 위해 총 목록 개수 조회
+		int listCount = reportService.selectSearchTitleCount(paging.getKeyword());
 		// 페이지 수 계산
-		// 목록이 11개이면 총 2페이지가 나오게 계산식 작성
 		int maxPage = (int) ((double) listCount / limit + 0.9);
-		// 현재 페이지가 포함된 페이지 그룹의 시작값
-		// 뷰 페이지에 페이지 숫자를 10개씩 보여지게 한다면
+		// 현재 페이지가 포함된 페이지 그룹의 시작값 지정
+		// 뷰페이지에 페이지 숫자를 10개씩 출력
 		int startPage = (int) ((double) currentPage / 10 + 0.9);
 		// 현재 페이지가 포함된 페이지 그룹의 끝값
 		// 페이지 수가 10개이면
@@ -646,45 +660,48 @@ public class ReportController {
 		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
-		Paging paging = new Paging(startRow, endRow);
+		paging.setStartRow(startRow);
+		paging.setEndRow(endRow);
 
-		ArrayList<Report> list = reportService.selectSearchTitle(keyword);
+		ArrayList<Report> list = reportService.selectSearchTitle(paging);
 
-		if (list != null && list.size() > 0) {
-			mv.addObject("list", list);
-			mv.addObject("listCount", listCount);
-			mv.addObject("maxPage", maxPage);
-			mv.addObject("currentPage", currentPage);
-			mv.addObject("startPage", startPage);
-			mv.addObject("endPage", endPage);
-			mv.addObject("limit", limit);
+		if (list != null & list.size() > 0) {
+			model.addAttribute("list", list);
+			model.addAttribute("listCount", listCount);
+			model.addAttribute("maxPage", maxPage);
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("limit", limit);
+			model.addAttribute("keyword", paging.getKeyword());
 
-			mv.setViewName("user/reportAdminListView");
+			return "user/reportAdminTitleListView";
 		} else {
-			mv.addObject("message", keyword + "로 검색된 정보가 없습니다.");
-			mv.setViewName("common/error");
+			model.addAttribute("listCount", 0);
+			model.addAttribute("currentPage", 1);
+			model.addAttribute("maxPage", 1);
+
+			return "user/reportAdminTitleListView";
 		}
 
-		return mv;
 	}
 
-	@RequestMapping(value = "rpwritera.do", method = RequestMethod.POST)
-	public ModelAndView reportSearchWriterAdminMethod(@RequestParam("keyword") String keyword, ModelAndView mv,
-			@RequestParam(name = "page", required = false) String page) {
+	@RequestMapping("rpwritera.do")
+	public String reportSearchWriterAdminMethod(@RequestParam(name = "page", required = false) String page,
+			Paging paging, Model model) {
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
 		}
 
 		// 페이징 처리
-		int limit = 10; // 한 페이지에 출력할 목록 갯수
-		// 페이지 계산을 위해 총 목록갯수 조회
-		int listCount = reportService.selectSearchWriter(keyword).size();
+		int limit = 10;
+		// 페이지 계산을 위해 총 목록 개수 조회
+		int listCount = reportService.selectSearchWriterCount(paging.getKeyword());
 		// 페이지 수 계산
-		// 목록이 11개이면 총 2페이지가 나오게 계산식 작성
 		int maxPage = (int) ((double) listCount / limit + 0.9);
-		// 현재 페이지가 포함된 페이지 그룹의 시작값
-		// 뷰 페이지에 페이지 숫자를 10개씩 보여지게 한다면
+		// 현재 페이지가 포함된 페이지 그룹의 시작값 지정
+		// 뷰페이지에 페이지 숫자를 10개씩 출력
 		int startPage = (int) ((double) currentPage / 10 + 0.9);
 		// 현재 페이지가 포함된 페이지 그룹의 끝값
 		// 페이지 수가 10개이면
@@ -697,45 +714,49 @@ public class ReportController {
 		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
-		Paging paging = new Paging(startRow, endRow);
+		paging.setStartRow(startRow);
+		paging.setEndRow(endRow);
 
-		ArrayList<Report> list = reportService.selectSearchWriter(keyword);
+		ArrayList<Report> list = reportService.selectSearchWriter(paging);
 
-		if (list != null && list.size() > 0) {
-			mv.addObject("list", list);
-			mv.addObject("listCount", listCount);
-			mv.addObject("maxPage", maxPage);
-			mv.addObject("currentPage", currentPage);
-			mv.addObject("startPage", startPage);
-			mv.addObject("endPage", endPage);
-			mv.addObject("limit", limit);
+		if (list != null & list.size() > 0) {
+			model.addAttribute("list", list);
+			model.addAttribute("listCount", listCount);
+			model.addAttribute("maxPage", maxPage);
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("limit", limit);
+			model.addAttribute("keyword", paging.getKeyword());
 
-			mv.setViewName("user/reportAdminListView");
+			return "user/reportAdminWriterListView";
 		} else {
-			mv.addObject("message", keyword + "로 검색된 정보가 없습니다.");
-			mv.setViewName("common/error");
+			model.addAttribute("listCount", 0);
+			model.addAttribute("currentPage", 1);
+			model.addAttribute("maxPage", 1);
+
+			return "user/reportAdminWriterListView";
 		}
 
-		return mv;
 	}
 
-	@RequestMapping(value = "rpdatea.do", method = RequestMethod.POST)
-	public ModelAndView reportSearchDateAdminMethod(SearchDate dates, ModelAndView mv,
-			@RequestParam(name = "page", required = false) String page) {
+	@RequestMapping("rpdatea.do")
+	public String reportSearchDateAdminMethod(@RequestParam(name = "page", required = false) String page, Paging paging,
+			Model model) {
+
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
 		}
 
 		// 페이징 처리
-		int limit = 10; // 한 페이지에 출력할 목록 갯수
-		// 페이지 계산을 위해 총 목록갯수 조회
-		int listCount = reportService.selectSearchDate(dates).size();
+		int limit = 10;
+		// 페이지 계산을 위해 총 목록 개수 조회
+		int listCount = reportService.selectSearchDateCount(paging);
 		// 페이지 수 계산
-		// 목록이 11개이면 총 2페이지가 나오게 계산식 작성
 		int maxPage = (int) ((double) listCount / limit + 0.9);
-		// 현재 페이지가 포함된 페이지 그룹의 시작값
-		// 뷰 페이지에 페이지 숫자를 10개씩 보여지게 한다면
+		// 현재 페이지가 포함된 페이지 그룹의 시작값 지정
+		// 뷰페이지에 페이지 숫자를 10개씩 출력
 		int startPage = (int) ((double) currentPage / 10 + 0.9);
 		// 현재 페이지가 포함된 페이지 그룹의 끝값
 		// 페이지 수가 10개이면
@@ -748,25 +769,30 @@ public class ReportController {
 		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
-		Paging paging = new Paging(startRow, endRow);
+		paging.setStartRow(startRow);
+		paging.setEndRow(endRow);
 
-		ArrayList<Report> list = reportService.selectSearchDate(dates);
+		ArrayList<Report> list = reportService.selectSearchDate(paging);
 
-		if (list != null && list.size() > 0) {
-			mv.addObject("list", list);
-			mv.addObject("listCount", listCount);
-			mv.addObject("maxPage", maxPage);
-			mv.addObject("currentPage", currentPage);
-			mv.addObject("startPage", startPage);
-			mv.addObject("endPage", endPage);
-			mv.addObject("limit", limit);
+		if (list != null & list.size() > 0) {
+			model.addAttribute("list", list);
+			model.addAttribute("listCount", listCount);
+			model.addAttribute("maxPage", maxPage);
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("limit", limit);
+			model.addAttribute("begin", paging.getBegin());
+			model.addAttribute("end", paging.getEnd());
 
-			mv.setViewName("user/reportAdminListView");
+			return "user/reportAdminDateListView";
 		} else {
-			mv.addObject("message", "해당 날짜로 검색된 정보가 없습니다.");
-			mv.setViewName("common/error");
+			model.addAttribute("listCount", 0);
+			model.addAttribute("currentPage", 1);
+			model.addAttribute("maxPage", 1);
+
+			return "user/reportAdminDateListView";
 		}
 
-		return mv;
 	}
 }

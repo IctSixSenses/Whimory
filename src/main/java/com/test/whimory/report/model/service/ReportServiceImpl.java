@@ -34,18 +34,18 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public ArrayList<Report> selectSearchTitle(String keyword) {
-		return reportDao.selectSearchTitle(keyword);
+	public ArrayList<Report> selectSearchTitle(Paging paging) {
+		return reportDao.selectSearchTitle(paging);
 	}
 
 	@Override
-	public ArrayList<Report> selectSearchWriter(String keyword) {
-		return reportDao.selectSearchWriter(keyword);
+	public ArrayList<Report> selectSearchWriter(Paging paging) {
+		return reportDao.selectSearchWriter(paging);
 	}
 
 	@Override
-	public ArrayList<Report> selectSearchDate(SearchDate dates) {
-		return reportDao.selectSearchDate(dates);
+	public ArrayList<Report> selectSearchDate(Paging paging) {
+		return reportDao.selectSearchDate(paging);
 	}
 
 	@Override
@@ -104,4 +104,23 @@ public class ReportServiceImpl implements ReportService {
 	public ArrayList<Report> selectListA(Paging page){
 		return reportDao.selectListU(page);
 	}
+
+
+	@Override
+	public int selectSearchTitleCount(String keyword) {
+		return reportDao.selectSearchTitleCount(keyword);
+	}
+
+
+	@Override
+	public int selectSearchWriterCount(String keyword) {
+		return reportDao.selectSearchWriterCount(keyword);
+	}
+
+
+	@Override
+	public int selectSearchDateCount(Paging paging) {
+		return reportDao.selectSearchDateCount(paging);
+	}
+	
 }
