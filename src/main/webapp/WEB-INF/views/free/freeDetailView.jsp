@@ -39,7 +39,7 @@ table#tbrp, #tbrpli, #tbrpins{
 <c:import url="/WEB-INF/views/common/menubar.jsp"/>
 <br><br><br><br><br><br><br>
 
-<h3 align="center">${ requestScope.free.free_no }번 게시글 상세보기</h3>
+<h3 align="center" style="font-family:Nanum Gothic; font-weight:530; color:#333333;">${ requestScope.free.free_no }번 게시글 상세보기</h3>
 <br>
 
 <!-- 수정/삭제 버튼 -->
@@ -72,24 +72,29 @@ table#tbrp, #tbrpli, #tbrpins{
 		<td colspan="10" align="center" style="font-size: 17pt; background: WhiteSmoke" >${ free.free_title }</td>
 	</tr>
 	<tr>
-		<th align="right">작성자</th>
-		<td colspan="9">${ free.user_id }</td></tr>
-	<tr>
-		<th align="right">등록일</th>
-		<td colspan="9"><fmt:formatDate value="${ free.free_date }" type="date" pattern="yyyy/MM/dd" /></td>
+		<td colspan="6"><b>작성자</b> &nbsp; ${ free.user_id }</td>
+		<td colspan="4" align="right"> 
+			<c:if test="${ free.free_modify eq null }">
+				<b>등록일</b> &nbsp;<fmt:formatDate value="${ free.free_date }" pattern="yyyy-MM-dd" />
+				 &nbsp;&nbsp;&nbsp;&nbsp; <b>조회수</b>&nbsp;&nbsp;${ free.free_readcount }&nbsp;&nbsp;
+			</c:if>
+			<c:if test="${ free.free_modify ne null }">
+				<b>수정일</b> &nbsp;<fmt:formatDate value="${ free.free_modify }" pattern="yyyy-MM-dd" />
+				 &nbsp;&nbsp;&nbsp;&nbsp; <b>조회수</b>&nbsp;&nbsp;${ free.free_readcount }&nbsp;&nbsp;
+			</c:if>
+		</td>	
 	</tr>
 	<tr>
-		<th align="right">첨부파일</th>
-		<td colspan="9">
+		<td colspan="10">
 			<c:if test="${ !empty free.free_org_file }">
 				<c:url var="ubf" value="/ffdown.do">
 					<c:param name="ofile" value="${ free.free_org_file }"/>
 					<c:param name="rfile" value="${ free.free_re_file }"/>
 				</c:url>		
-				<a href="${ ubf }">${ free.free_org_file }</a>
+				<b>첨부파일</b> &nbsp;&nbsp; <a href="${ ubf }">${ free.free_org_file }</a>
 			</c:if>
 			<c:if test="${ empty free.free_org_file }">
-			&nbsp;
+			<b>첨부파일</b> &nbsp;&nbsp;&nbsp;&nbsp;- 
 			</c:if>
 		</td>
 	</tr>
