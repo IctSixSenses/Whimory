@@ -154,7 +154,14 @@ function showDiv(item){
             <a href="${ fdetail }">&nbsp;&nbsp;${ li.free_title }</a>
          </td>
          <td>${ li.user_id }</td>
-         <td>${ li.free_date }</td>
+         <td>
+         	<c:if test="${ empty li.free_modify }">
+				<fmt:formatDate value="${ li.free_date }" pattern="yyyy-MM-dd" />
+			</c:if>
+			<c:if test="${ !empty li.free_modify }">
+				<fmt:formatDate value="${ li.free_modify }" pattern="yyyy-MM-dd" />
+			</c:if>
+         </td>
          <td>
             <c:if test="${ !empty li.free_re_file }">
                <i class="fas fa-file-download"></i>
