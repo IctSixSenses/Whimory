@@ -62,7 +62,7 @@ function cancleCheck(){
 	
 	<table class="table" style="table-layout: fixed; width:800px" align="center" cellspacing="0" cellpadding="3">
 	<tr style="height:40px; border-bottom: 2px solid gray"><td colspan="9">
-		<h5>Korea Origin ${ ko.ko_no }번 게시글 수정 페이지</h5>
+		<h5 style="font-family: Nanum Gothic; font-weight:630; color: #333333">Korea Origin ${ ko.ko_no }번 게시글 수정 페이지</h5>
 	</td></tr>
 	<tr height="50px">
 		<td width="100px">

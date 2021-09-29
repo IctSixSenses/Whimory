@@ -14,10 +14,10 @@
 <style type="text/css">
 
 /* 폰트 적용 */
-html head{
+html head {
 	font-family: Roboto, Nanum Gothic;
 }
-html body{
+html body {
 	font-family: Roboto, Nanum Gothic;
 }
 
@@ -34,6 +34,12 @@ html body{
 	left: 230px;
 }
 
+.kfont {
+	font-size:20pt;
+	font-weight:630;
+	color:#333333;
+}
+
 .ko_image {
 	width: 400px;
 	height: 300px;
@@ -45,6 +51,17 @@ html body{
 	height: 170px;
 	align: center;
 }
+
+table tr td a {
+	color: black;
+	text-decoration: none;
+}
+
+table tr td a:hover {
+	color: black;
+	text-decoration: underline;
+}
+
 </style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" 
 	rel="stylesheet" 
@@ -193,21 +210,21 @@ function deleteCheck(){
 		</td>
 	</tr>
 	<tr style="border-top: 0.5px solid Gainsboro; height:10px;"><td>&nbsp;</td></tr>
-	<tr height="40px">
-		<td colspan="4"><font size="6">${ ko.ko_title }</font> &nbsp;
+	<tr height="30px">
+		<td colspan="3">
+			<font class="kfont">${ ko.ko_title }</font> &nbsp;
 			<c:if test="${ loginUser.admin_yn eq 'Y' }">
 				<c:url var="ktts" value="ktts.do">
 					<c:param name="ko_no" value="${ ko.ko_no }" />
 				</c:url>
 				<a href="javascript:location.href='${ktts}'">
-					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" 
-						class="bi bi-headphones" viewBox="0 0 16 16">
-					<path d="M8 3a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V8a6 6 0 1 1 12 0v5a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1V8a5 5 0 0 0-5-5z"/>
+					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-headphones" viewBox="0 0 16 16">
+					  <path d="M8 3a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V8a6 6 0 1 1 12 0v5a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1V8a5 5 0 0 0-5-5z"/>
 					</svg>
 				</a>
 			</c:if>
 		</td>
-		<td colspan="2" align="right">
+		<td colspan="3" align="right">
 			<c:if test="${ ko.ko_modify eq null }">
 				<b>등록일</b> &nbsp;<fmt:formatDate value="${ ko.ko_date }" pattern="yyyy-MM-dd" />
 				 &nbsp; <b>조회수</b> ${ ko.ko_readcount } &nbsp;&nbsp;
@@ -218,18 +235,16 @@ function deleteCheck(){
 			</c:if>
 		</td>
 	</tr>
-	<tr style="border-top: 0.5px solid Gainsboro; height:50px"><td>&nbsp;</td></tr>
-	<tr><td colspan="4" align="center">
+	<tr style="border-top: 0.5px solid Gainsboro; height:400px">
+	<td colspan="4" align="center">
 		<img class="ko_image"src="${ pageContext.servletContext.contextPath }/resources/ko_upfiles/${ ko.ko_re_file }">
 	</td>
 	<td colspan="2">
 		<audio controls>
 			<source src="${ pageContext.servletContext.contextPath }/resources/ko_mp3/${ ko.ko_no }.mp3" type="audio/mp3">
 		</audio>
-		
 	</td>
 	</tr>
-	<tr height="30px"><td>&nbsp;</td></tr>
 	<tr><td colspan="6">${ ko.ko_content }</td></tr>
 	<tr height="50px"><td>&nbsp;</td></tr>
 	<tr style="height: 30px; background: WhiteSmoke;">

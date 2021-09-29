@@ -58,7 +58,7 @@ function cancleCheck(){
 	<input type="hidden" name="user_id" value="${ loginUser.user_id }">
 	<table class="table" style="table-layout: fixed; width:800px" align="center" cellspacing="0" cellpadding="3">
 	<tr style="height:40px; border-bottom: 2px solid gray"><td colspan="9">
-		<h5>Korea Origin 글쓰기</h5>
+		<h5 style="font-family: Nanum Gothic; font-weight:630; color: #333333">Korea Origin 글쓰기</h5>
 	</td></tr>
 	<tr style="height:50px; padding-top:10px;">
 		<td width="100px">
