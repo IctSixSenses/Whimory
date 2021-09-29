@@ -36,6 +36,7 @@ html body{
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
+<br><br><br><br><br><br>
 
 <table align="center">
 	<tr>
@@ -63,10 +64,8 @@ html body{
 		</td>
 	</tr>
 </table>
-<br>
-<br>
-<br>
 
+<br><br><br><br>
 <c:import url="footer.jsp" />
 </body>
 </html>
