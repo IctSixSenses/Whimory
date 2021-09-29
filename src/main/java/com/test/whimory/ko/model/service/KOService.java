@@ -12,7 +12,7 @@ public interface KOService {
 	int selectListCount();
 	KO selectKO(int ko_no);
 	int updateAddReadCount(int ko_no);
-	ArrayList<KO> selectSearchKeyword(KO ko);
+	ArrayList<KO> selectSearchKeyword(String keyword);
 	String selectContent(int ko_no);
 	
 	int insertKO(KO ko);
