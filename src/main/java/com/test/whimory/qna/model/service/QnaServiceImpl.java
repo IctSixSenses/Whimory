@@ -1,6 +1,7 @@
 package com.test.whimory.qna.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,23 +59,47 @@ public class QnaServiceImpl implements QnaService {
 	}
 	
 	@Override
-	public ArrayList<QnaQuestion> selectSearchWriter(String keyword){
-		return qnaDao.selectSearchWriter(keyword);
+	public ArrayList<QnaQuestion> selectSearchWriter(Paging paging){
+		List<QnaQuestion> list = qnaDao.selectSearchWriter(paging);
+		return (ArrayList<QnaQuestion>)list;
 	}
 	
 	@Override
-	public ArrayList<QnaQuestion> selectSearchTitle(String keyword){
-		return qnaDao.selectSearchTitle(keyword);
+	public ArrayList<QnaQuestion> selectSearchTitle(Paging paging){
+		List<QnaQuestion> list = qnaDao.selectSearchTitle(paging);
+		return (ArrayList<QnaQuestion>)list;
 	}
 	
 	@Override
-	public ArrayList<QnaQuestion> selectSearchCategory(String keyword){
-		return qnaDao.selectSearchCategory(keyword);
+	public ArrayList<QnaQuestion> selectSearchCategory(Paging paging){
+		List<QnaQuestion> list = qnaDao.selectSearchCategory(paging);
+		return (ArrayList<QnaQuestion>)list;
 	}
 	
 	@Override
-	public ArrayList<QnaQuestion> selectSearchDate(SearchDate sdate){
-		return qnaDao.selectSearchDate(sdate);
+	public ArrayList<QnaQuestion> selectSearchDate(Paging paging){
+		List<QnaQuestion> list = qnaDao.selectSearchDate(paging);
+		return (ArrayList<QnaQuestion>)list;
+	}
+	
+	@Override
+	public int selectSearchWriterCount(String keyword) {
+		return qnaDao.selectSearchWriterCount(keyword);
+	}
+	
+	@Override
+	public int selectSearchTitleCount(String keyword) {
+		return qnaDao.selectSearchTitleCount(keyword);
+	}
+	
+	@Override
+	public int selectSearchCategoryCount(String keyword) {
+		return qnaDao.selectSearchCategoryCount(keyword);
+	}
+	
+	@Override
+	public int selectSearchDateCount(Paging paging) {
+		return qnaDao.selectSearchDateCount(paging);
 	}
 	
 	@Override

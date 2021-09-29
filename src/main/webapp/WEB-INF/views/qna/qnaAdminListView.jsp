@@ -25,82 +25,91 @@
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
 <style type="text/css">
 html head{
-	font-family: Roboto, Nanum Gothic;
+   font-family: Roboto, Nanum Gothic;
 }
 html body{
-	font-family: Roboto, Nanum Gothic;
+   font-family: Roboto, Nanum Gothic;
 } 
-table tr td a { text-decoration:none } 
+
+table tr td a, div a {
+   text-decoration: none;
+   color: black;
+}
+
+table tr td a:hover, div a:hover {
+   color: black;
+   text-decoration: underline;
+}
 </style> 
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <br><br><br><br><br><br><br>
-<h2 align="center">QNA 답변내역</h2>
+<h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">QNA 답변내역</h2>
 
 <br>
 <table class="table table-lightgray table-hover" style="table-layout: fixed; width:1200px" align="center" cellspacing="0" cellpadding="3" >
-	<thead>
-		<tr align="center" class="thead-light">
-			<th width="100px">작성자</th>
-			<th width="200px">질문 분류</th>
-			<th width="700px">제목</th>
-			<th width="120px">작성일</th>
-			<th width="80px">답변여부</th>
-		</tr>
-	</thead>
-	
-	<c:forEach items="${ requestScope.list }" var="q">
-		<tr align="center">
-			<td>${ q.user_id }</td>
-			<td>${  q.qq_category }</td>	
-			<c:url value="/qdetail.do" var="qdetail">
-		      <c:param name="qq_no" value="${ q.qq_no }" />
-		      <c:param name="page" value="${ currentPage }" />
-		   </c:url>
-		   <td align="left"><a href="${ qdetail }">${ q.qq_title }</a></td>
-		   
-		<td align="center">
-				<c:if test="${ empty q.qq_modify }">
-					<fmt:formatDate value="${ q.qq_date}" pattern="yyyy-MM-dd" />
-				</c:if>
-				<c:if test="${ !empty q.qq_modify }">
-					<fmt:formatDate value="${ q.qq_modify }" pattern="yyyy-MM-dd" />
-				</c:if>
-			</td>
-		
-		<td align="center">${  q.qq_yn }</td>
-		
-		</tr>
-	</c:forEach>
+   <thead>
+      <tr align="center" class="thead-light">
+         <th width="100px">작성자</th>
+         <th width="200px">질문 분류</th>
+         <th width="700px">제목</th>
+         <th width="120px">작성일</th>
+         <th width="80px">답변여부</th>
+      </tr>
+   </thead>
+   
+   <c:forEach items="${ requestScope.list }" var="q">
+      <tr align="center">
+         <td>${ q.user_id }</td>
+         <td>${  q.qq_category }</td>   
+         <c:url value="/qdetail.do" var="qdetail">
+            <c:param name="qq_no" value="${ q.qq_no }" />
+            <c:param name="page" value="${ currentPage }" />
+         </c:url>
+         <td align="left"><a href="${ qdetail }">${ q.qq_title }</a></td>
+         
+      <td align="center">
+            <c:if test="${ empty q.qq_modify }">
+               <fmt:formatDate value="${ q.qq_date}" pattern="yyyy-MM-dd" />
+            </c:if>
+            <c:if test="${ !empty q.qq_modify }">
+               <fmt:formatDate value="${ q.qq_modify }" pattern="yyyy-MM-dd" />
+            </c:if>
+         </td>
+      
+      <td align="center">${  q.qq_yn }</td>
+      
+      </tr>
+   </c:forEach>
 </table>
 <br>
 <!-- 페이징 처리 -->
-<div style="text-align:center;">
+<div align="center" style="text-align:center; width:1200px; position:absolute; left:50px;">
 <c:if test="${ currentPage <= 1 }">
-   [맨처음]&nbsp;
+   &lt;&lt; &nbsp;
 </c:if>
 <c:if test="${ currentPage > 1 }">
    <c:url var="ubl" value="/qlist.do">
       <c:param name="page" value="1" />
    </c:url>
-   <a href="${ ubl }">[맨처음]</a>
+   <a href="${ ubl }">&lt;&lt;</a> &nbsp;
 </c:if>
 <!-- 이전 그룹으로 이동 처리 -->
 <c:if test="${ (currentPage - 10) < startPage and (currentPage - 10) > 1 }">
    <c:url var="ubl2" value="/qlist.do">
       <c:param name="page" value="${ startPage - 10 }"/>
    </c:url>
-   <a href="${ ubl2 }">[이전그룹]</a>
+   <a href="${ ubl2 }">&lt;</a> &nbsp;
 </c:if>
 <c:if test="${ !((currentPage - 10) < startPage and (currentPage - 10) > 1) }">
-   [이전그룹]&nbsp;
+   &nbsp;&nbsp; &lt; &nbsp;&nbsp;
 </c:if>
 <!-- 현재 페이지가 속한 페이지그룹의 숫자 출력 처리 -->
-<c:forEach var="p" begin="${ startPage }" end="${ endPage }" step="1">
+<c:forEach var="p" begin="${ startPage }" end="${ endPage }">
    <c:if test="${ p eq currentPage }">   
-      <font color="red" size="4"><b>[${ p }]</b></font>
+      <font weight="bolder" size="4"><b>${ p }</b></font>
    </c:if>
    <c:if test="${ p ne currentPage }">
       <c:url var="ubl3" value="/qlist.do">
@@ -114,30 +123,29 @@ table tr td a { text-decoration:none }
    <c:url var="ubl4" value="/qlist.do">
       <c:param name="page" value="${ endPage + 10 }"/>
    </c:url>
-   <a href="${ ubl4 }">[다음그룹]</a>
+   <a href="${ ubl4 }">&gt;</a> &nbsp;
 </c:if>
 <c:if test="${ !((currentPage + 10) > endPage && (currentPage + 10) < maxPage) }">
-   [다음그룹]&nbsp;
+   &nbsp;&nbsp; &gt; &nbsp;&nbsp;
 </c:if>
 <!-- 맨끝 페이지로 이동 처리 -->
 <c:if test="${ currentPage >= maxPage }">
-   [맨끝]&nbsp;
+   &nbsp; &gt;&gt;
 </c:if>   
 <c:if test="${ currentPage < maxPage }">
    <c:url var="ubl5" value="/qlist.do">
       <c:param name="page" value="${ maxPage }"/>
    </c:url>
-   <a href="${ ubl5 }">[맨끝]</a>
+   <a href="${ ubl5 }">&gt;&gt;</a>
 </c:if>
 </div>
-<hr>
+<br><br><br><br>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
 
 
     
-
 
 
 
