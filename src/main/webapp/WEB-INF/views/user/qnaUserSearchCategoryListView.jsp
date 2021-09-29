@@ -75,7 +75,7 @@ function showDiv(item){
    }
 }
 function resetList(){
-	location.href="${ pageContext.servletContext.contextPath }/qsearchCategorya.do";
+	location.href="${ pageContext.servletContext.contextPath }/qsearchCategoryu.do";
 }
 </script>
 </head>
@@ -188,14 +188,14 @@ function resetList(){
    &lt;&lt; &nbsp;
 </c:if>
 <c:if test="${ currentPage > 1 }">
-   <c:url var="ubl" value="/qsearchCategorya.do">
+   <c:url var="ubl" value="/qsearchCategoryu.do">
       <c:param name="page" value="1" />
    </c:url>
    <a href="${ ubl }">&lt;&lt;</a> &nbsp;
 </c:if>
 <!-- 이전 그룹으로 이동 처리 -->
 <c:if test="${ (currentPage - 10) < startPage and (currentPage - 10) > 1 }">
-   <c:url var="ubl2" value="/qsearchCategorya.do">
+   <c:url var="ubl2" value="/qsearchCategoryu.do">
       <c:param name="page" value="${ startPage - 10 }"/>
    </c:url>
    <a href="${ ubl2 }">&lt;</a> &nbsp;
@@ -209,7 +209,7 @@ function resetList(){
       <font weight="bolder" size="4"><b>${ p }</b></font>
    </c:if>
    <c:if test="${ p ne currentPage }">
-      <c:url var="ubl3" value="/qsearchCategorya.do">
+      <c:url var="ubl3" value="/qsearchCategoryu.do">
          <c:param name="page" value="${ p }"/>
       </c:url>
       <a href="${ ubl3 }">${ p }</a>
@@ -217,7 +217,7 @@ function resetList(){
 </c:forEach>
 <!-- 다음 그룹으로 이동 처리 -->
 <c:if test="${ (currentPage + 10) > endPage && (currentPage + 10) < maxPage }">
-   <c:url var="ubl4" value="/qsearchCategorya.do">
+   <c:url var="ubl4" value="/qsearchCategoryu.do">
       <c:param name="page" value="${ endPage + 10 }"/>
    </c:url>
    <a href="${ ubl4 }">&gt;</a> &nbsp;
@@ -230,7 +230,7 @@ function resetList(){
    &nbsp; &gt;&gt;
 </c:if>   
 <c:if test="${ currentPage < maxPage }">
-   <c:url var="ubl5" value="/qsearchCategorya.do">
+   <c:url var="ubl5" value="/qsearchCategoryu.do">
       <c:param name="page" value="${ maxPage }"/>
    </c:url>
    <a href="${ ubl5 }">&gt;&gt;</a>

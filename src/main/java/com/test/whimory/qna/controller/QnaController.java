@@ -939,4 +939,225 @@ public class QnaController {
 						return "user/qnaAdminSearchDateListView";
 					}
 				}
+				
+				@RequestMapping(value = "qsearchWriteru.do", method = RequestMethod.GET)
+				public String qnaSearchWriterUserMethod(@RequestParam(name="page", required=false) String page, 
+						Paging paging, Model model) {
+					int currentPage = 1;
+					if (page != null) {
+						currentPage = Integer.parseInt(page);
+					}
+
+					// 페이징 처리
+					int limit = 10; // 한 페이지에 출력할 목록 갯수
+					// 페이지 계산을 위해 총 목록갯수 조회
+					int listCount = qnaService.selectSearchWriterCount(paging.getKeyword());
+					// 페이지 수 계산
+					// 목록이 11개이면 총 2페이지가 나오게 계산식 작성
+					int maxPage = (int) ((double) listCount / limit + 0.9);
+					// 현재 페이지가 포함된 페이지 그룹의 시작값
+					// 뷰 페이지에 페이지 숫자를 10개씩 보여지게 한다면
+					int startPage = (int) ((double) currentPage / 10 + 0.9);
+					// 현재 페이지가 포함된 페이지 그룹의 끝값
+					// 페이지 수가 10개이면
+					int endPage = startPage + 10 - 1;
+
+					if (maxPage < endPage) {
+						endPage = maxPage;
+					}
+
+					// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
+					int startRow = (currentPage - 1) * limit + 1;
+					int endRow = startRow + limit - 1;
+					paging.setStartRow(startRow);
+					paging.setEndRow(endRow);
+
+					ArrayList<QnaQuestion> list = qnaService.selectSearchWriter(paging);
+
+					if (list != null && list.size() > 0) {
+						model.addAttribute("list", list);
+						model.addAttribute("listCount", listCount);
+						model.addAttribute("maxPage", maxPage);
+						model.addAttribute("currentPage", currentPage);
+						model.addAttribute("startPage", startPage);
+						model.addAttribute("endPage", endPage);
+						model.addAttribute("limit", limit);
+						model.addAttribute("keyword", paging.getKeyword());
+
+						return "user/qnaUserSearchWriterListView";
+					} else {
+						model.addAttribute("listCount", 0);
+						model.addAttribute("currentPage", 1);
+						model.addAttribute("maxPage", 1);
+						
+						return "user/qnaUserSearchWriterListView";
+					}
+				}
+				
+
+				
+				@RequestMapping(value = "qsearchTitleu.do", method = RequestMethod.GET)
+				public String qnaSearchTitleUserMethod(@RequestParam(name="page", required=false) String page, 
+						Paging paging, Model model) {
+					int currentPage = 1;
+					if (page != null) {
+						currentPage = Integer.parseInt(page);
+					}
+
+					// 페이징 처리
+					int limit = 10; // 한 페이지에 출력할 목록 갯수
+					// 페이지 계산을 위해 총 목록갯수 조회
+					int listCount = qnaService.selectSearchTitleCount(paging.getKeyword());
+					// 페이지 수 계산
+					// 목록이 11개이면 총 2페이지가 나오게 계산식 작성
+					int maxPage = (int) ((double) listCount / limit + 0.9);
+					// 현재 페이지가 포함된 페이지 그룹의 시작값
+					// 뷰 페이지에 페이지 숫자를 10개씩 보여지게 한다면
+					int startPage = (int) ((double) currentPage / 10 + 0.9);
+					// 현재 페이지가 포함된 페이지 그룹의 끝값
+					// 페이지 수가 10개이면
+					int endPage = startPage + 10 - 1;
+
+					if (maxPage < endPage) {
+						endPage = maxPage;
+					}
+
+					// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
+					int startRow = (currentPage - 1) * limit + 1;
+					int endRow = startRow + limit - 1;
+					paging.setStartRow(startRow);
+					paging.setEndRow(endRow);
+
+					ArrayList<QnaQuestion> list = qnaService.selectSearchTitle(paging);
+
+					if (list != null && list.size() > 0) {
+						model.addAttribute("list", list);
+						model.addAttribute("listCount", listCount);
+						model.addAttribute("maxPage", maxPage);
+						model.addAttribute("currentPage", currentPage);
+						model.addAttribute("startPage", startPage);
+						model.addAttribute("endPage", endPage);
+						model.addAttribute("limit", limit);
+						model.addAttribute("keyword", paging.getKeyword());
+
+						return "user/qnaUserSearchTitleListView";
+					} else {
+						model.addAttribute("listCount", 0);
+						model.addAttribute("currentPage", 1);
+						model.addAttribute("maxPage", 1);
+						
+						return "user/qnaUserSearchTitleListView";
+					}
+				}
+
+				
+				@RequestMapping(value = "qsearchCategoryu.do", method = RequestMethod.GET)
+				public String qnaSearchCategoryUserMethod(@RequestParam(name="page", required=false) String page, 
+						Paging paging, Model model) {
+					int currentPage = 1;
+					if (page != null) {
+						currentPage = Integer.parseInt(page);
+					}
+
+					// 페이징 처리
+					int limit = 10; // 한 페이지에 출력할 목록 갯수
+					// 페이지 계산을 위해 총 목록갯수 조회
+					int listCount = qnaService.selectSearchCategoryCount(paging.getKeyword());
+					// 페이지 수 계산
+					// 목록이 11개이면 총 2페이지가 나오게 계산식 작성
+					int maxPage = (int) ((double) listCount / limit + 0.9);
+					// 현재 페이지가 포함된 페이지 그룹의 시작값
+					// 뷰 페이지에 페이지 숫자를 10개씩 보여지게 한다면
+					int startPage = (int) ((double) currentPage / 10 + 0.9);
+					// 현재 페이지가 포함된 페이지 그룹의 끝값
+					// 페이지 수가 10개이면
+					int endPage = startPage + 10 - 1;
+
+					if (maxPage < endPage) {
+						endPage = maxPage;
+					}
+
+					// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
+					int startRow = (currentPage - 1) * limit + 1;
+					int endRow = startRow + limit - 1;
+					paging.setStartRow(startRow);
+					paging.setEndRow(endRow);
+
+					ArrayList<QnaQuestion> list = qnaService.selectSearchCategory(paging);
+
+					if (list != null && list.size() > 0) {
+						model.addAttribute("list", list);
+						model.addAttribute("listCount", listCount);
+						model.addAttribute("maxPage", maxPage);
+						model.addAttribute("currentPage", currentPage);
+						model.addAttribute("startPage", startPage);
+						model.addAttribute("endPage", endPage);
+						model.addAttribute("limit", limit);
+						model.addAttribute("keyword", paging.getKeyword());
+
+						return "user/qnaUserSearchCategoryListView";
+					} else {
+						model.addAttribute("listCount", 0);
+						model.addAttribute("currentPage", 1);
+						model.addAttribute("maxPage", 1);
+						
+						return "user/qnaUserSearchCategoryListView";
+					}
+				}
+
+		
+				@RequestMapping(value = "qsearchDateu.do", method = RequestMethod.GET)
+				public String qnaSearchDateUserMethod(Paging paging, Model model,
+						@RequestParam(name="page", required=false) String page) {
+					int currentPage = 1;
+					if (page != null) {
+						currentPage = Integer.parseInt(page);
+					}
+
+					// 페이징 처리
+					int limit = 10; // 한 페이지에 출력할 목록 갯수
+					// 페이지 계산을 위해 총 목록갯수 조회
+					int listCount = qnaService.selectSearchDateCount(paging);
+					// 페이지 수 계산
+					// 목록이 11개이면 총 2페이지가 나오게 계산식 작성
+					int maxPage = (int) ((double) listCount / limit + 0.9);
+					// 현재 페이지가 포함된 페이지 그룹의 시작값
+					// 뷰 페이지에 페이지 숫자를 10개씩 보여지게 한다면
+					int startPage = (int) ((double) currentPage / 10 + 0.9);
+					// 현재 페이지가 포함된 페이지 그룹의 끝값
+					// 페이지 수가 10개이면
+					int endPage = startPage + 10 - 1;
+
+					if (maxPage < endPage) {
+						endPage = maxPage;
+					}
+
+					// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
+					int startRow = (currentPage - 1) * limit + 1;
+					int endRow = startRow + limit - 1;
+					paging.setStartRow(startRow);
+					paging.setEndRow(endRow);
+
+					ArrayList<QnaQuestion> list = qnaService.selectSearchDate(paging);
+
+					if (list != null && list.size() > 0) {
+						model.addAttribute("list", list);
+						model.addAttribute("listCount", listCount);
+						model.addAttribute("maxPage", maxPage);
+						model.addAttribute("currentPage", currentPage);
+						model.addAttribute("startPage", startPage);
+						model.addAttribute("endPage", endPage);
+						model.addAttribute("limit", limit);
+						model.addAttribute("begin", paging.getBegin());
+						model.addAttribute("end", paging.getEnd());
+
+						return "user/qnaUserSearchDateListView";
+					} else {
+						model.addAttribute("listCount", 0);
+						model.addAttribute("currentPage", 1);
+						model.addAttribute("maxPage", 1);
+						
+						return "user/qnaUserSearchDateListView";
+					}
+				}
 }

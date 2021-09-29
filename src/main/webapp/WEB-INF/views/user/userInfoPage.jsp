@@ -24,50 +24,54 @@
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <br><br><br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/menubarA.jsp"/>
-<h1 align="center">회원 정보 보기</h1>
-<br>
-
+<h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">회원 정보 보기</h2>
+<br><br>
+<div align="center">
 <table id="outer" align="center" width="500" cellspacing="5" cellpadding="0">
 
 <tr height = "60">
-	<th width="120">이 름</th>
-	<td><input type="text" name="user_name" 
-	value="${ requestScope.user.user_name }" readonly></td>
+	<th width="120" align="right">이 름</th>
+	<td align="center">
+	${ requestScope.user.user_name }</td>
 </tr>
 <tr height = "60">
-	<th>아이디</th>
-	<td><input type="text" name="user_id" 
-	value="${ requestScope.user.user_id }" readonly></td>
+	<th width="120" align="right">아이디</th>
+	<td align="center">${ requestScope.user.user_id }</td>
 </tr>
 <tr height = "60">
-	<th>성 별</th>
-	<td>
+	<th align="right">성 별</th>
+	<td align="center">
 	<c:if test="${ user.gender eq 'M' }">	
-		<input type="radio" name="gender" value="M" checked readonly> 남자 &nbsp; 
-	    <input type="radio" name="gender" value="F" readonly> 여자
+		 남자
 	</c:if>
-	<c:if test="${ user.gender eq 'F' }">	  
-		<input type="radio" name="gender" value="M" readonly> 남자 &nbsp; 
-	    <input type="radio" name="gender" value="F" checked readonly> 여자
+	<c:if test="${ user.gender eq 'F' }">	   
+	  여자
 	</c:if>
 	</td>
 </tr>
 <tr height = "60">
-	<th>생 일</th>
-	<td><input type="date" name="birth"
-	value="${ requestScope.user.birth }" readonly></td>
+	<th align="right">생 일</th>
+	<td align="center">
+	${ requestScope.user.birth }</td>
 </tr>
 <tr height = "60">
-	<th>전화번호</th>
-	<td><input type="tel" name="phone" 
-	value="${ requestScope.user.phone }" readonly></td>
+	<th align="right">전화번호</th>
+	<td align="center">
+	${ requestScope.user.phone }</td>
 </tr>
 <tr height = "60">
-	<th>이메일</th>
-	<td><input type="email" name="email" 
-	value="${ requestScope.user.email }" readonly></td>
+	<th align="right">이메일</th>
+	<td align="center">${ requestScope.user.email }</td>
 </tr>
 <tr>
+<th>&nbsp;</th>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<th>&nbsp;</th>
+<td>&nbsp;</td>
+</tr>
+<tr align="center">
 	<th colspan="2"> 	
 		<button class="btn btn-outline-primary"
 					onclick="javascript:history.go(-1);">회원 목록</button>
@@ -76,6 +80,7 @@
 
 
 </table>
+</div>
 <hr>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>

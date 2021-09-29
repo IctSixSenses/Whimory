@@ -57,7 +57,7 @@ function showDiv(item){
 <br><br><br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/menubarA.jsp" />
 
-<h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;"">역사왜곡 제보 게시판</h2>
+<h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">역사왜곡 제보 게시판</h2>
 <br>
 <!-- 로그인 여부에 따라 로그인페이지/게시글 작성 페이지로 이동, 관리자는 작성 x -->
 <c:if test="${ empty loginUser }">
@@ -70,7 +70,6 @@ function showDiv(item){
 		<button class="btn btn-outline-primary" onclick="javascript:location.href='rpwf.do';">게시글 작성</button>
 	</div>
 </c:if>
-
 <table align="center" width="1150px">
 	<tr>
 		<td colspan="3"><h5>총 게시글 갯수 : ${ listCount }</h5></td>
@@ -157,16 +156,18 @@ function showDiv(item){
 		&lt;&lt;&nbsp;
 	</c:if>
 	<c:if test="${ currentPage > 1 }">
-      <c:url var="ubl" value="/rplista.do">
+      <c:url var="ubl" value="/rptitleu.do">
          <c:param name="page" value="1" />
+         <c:param name="keyword" value="${ keyword }" />
       </c:url>
       <a href="${ ubl }">&lt;&lt;</a>
    </c:if>
 	
 	<%-- 이전 페이지 그룹으로 이동 --%>
 	<c:if test="${ (currentPage - 10) < startPage and (currentPage - 10) > 1 }">
-	<c:url var="ubl2" value="/rplista.do">
+	<c:url var="ubl2" value="/rptitleu.do">
 		<c:param name="page" value="${ startPage - 10 }"/>
+		<c:param name="keyword" value="${ keyword }" />
 	</c:url>
 	<a href="${ ubl2 }">&lt;</a>
 	</c:if>
@@ -177,11 +178,12 @@ function showDiv(item){
 	<%-- 현재 페이지 숫자 출력 --%>
 	<c:forEach var="p" begin="${ startPage }" end="${ endPage }">
 		<c:if test="${ p == currentPage }">
-			<font weight="bolder" size="4">${ p }</font>
+			<font color="red" size="4">${ p }</font>
 		</c:if>
 		<c:if test="${ p != currentPage }">
-			<c:url var="rplist" value="/rplista.do">
+			<c:url var="rplist" value="/rptitleu.do">
 				<c:param name="page" value="${ p }" />
+				<c:param name="keyword" value="${ keyword }" />
 			</c:url>
 			<a href="${ rplist }">${ p }</a>
 		</c:if>
@@ -189,21 +191,23 @@ function showDiv(item){
 	
 	<%-- 다음 페이지 그룹으로 이동 --%>
 	<c:if test="${ (currentPage + 10) > endPage && (currentPage + 10) < maxPage }">
-	<c:url var="ubl4" value="/rplista.do">
+	<c:url var="ubl4" value="/rptitleu.do">
       <c:param name="page" value="${ endPage + 10 }"/>
+      <c:param name="keyword" value="${ keyword }" />
 	</c:url>
 	<a href="${ ubl4 }">&gt;</a>
 	</c:if>
 	<c:if test="${ !((currentPage + 10) > endPage && (currentPage + 10) < maxPage) }">
-		&nbsp;&nbsp;&gt&nbsp;&nbsp;
+		&nbsp;&nbsp; &gt; &nbsp;&nbsp;
 	</c:if>
 	
 	<c:if test="${ currentPage >= maxPage }">
 		&gt;&gt;&nbsp;
 	</c:if>
 	<c:if test="${ currentPage < maxPage }">
-		<c:url var="rplist" value="/rplista.do">
+		<c:url var="rplist" value="/rptitleu.do">
 			<c:param name="page" value="${ maxPage }" />
+			<c:param name="keyword" value="${ keyword }" />
 		</c:url>
 		<a href="${ rplist }">&gt;&gt;</a> &nbsp;
 	</c:if>

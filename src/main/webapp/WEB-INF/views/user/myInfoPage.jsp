@@ -19,14 +19,26 @@
 		}		
 	}
 </script>
+<style>
+html head{
+	font-family: Roboto, Nanum Gothic;
+}
+html body{
+	font-family: Roboto, Nanum Gothic;
+} 
+table tr td a, div a { 
+	text-decoration:none;
+	color: black; 
+} 
+</style>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <br><br><br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/menubarA.jsp"/>
 
-<h1 align="center">내 정보 수정</h1>
-
+<h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">내 정보 수정</h2>
+<br><br>
 <form method="post" action="uupdate.do">
 <input type="hidden" name="origin_userpwd" value="${ requestScope.user.user_pwd }">
 <table id="outer" align="center" width="500" cellspacing="5" cellpadding="0">
@@ -77,13 +89,21 @@
 	value="${ requestScope.user.email }" ></td>
 </tr>
 <tr>
+<th>&nbsp;</th>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<th>&nbsp;</th>
+<td>&nbsp;</td>
+</tr>
+<tr>
 	<th colspan="2">
-		<a href="javascript:history.go(-1);">이전 페이지로 이동</a> &nbsp;  	
+		<a href="javascript:history.go(-1);" style="weight:bolder; color:black; text-decoration:none;">이전 페이지</a> &nbsp;  	
 		<button class="btn btn-danger"
-					onclick="reset">수정취소</button>
+					onclick="reset">수정취소</button> &nbsp;
 		<button class="btn btn-primary"
-					onclick="submit">수정하기</button> 	
-		<a href="main.do">시작 페이지로</a> &nbsp;
+					onclick="submit">수정하기</button>  &nbsp;	
+		<a href="main.do" style="weight : bolder; color:black; text-decoration:none;">메인 페이지</a>
 		
 		
 		<c:url var="mdelete" value="mdel.do">
@@ -122,21 +142,28 @@
 <tr height = "60">
 	<th>생 일</th>
 	<td><input type="date" name="birth"
-	value="${ requestScope.user.birth }" readonly></td>
+	value="${ requestScope.user.birth }" ></td>
 </tr>
 <tr height = "60">
 	<th>전화번호</th>
 	<td><input type="tel" name="phone" 
-	value="${ requestScope.user.phone }" readonly></td>
+	value="${ requestScope.user.phone }" ></td>
 </tr>
 <tr height = "60">
 	<th>이메일</th>
-	<td><input type="email" name="email" 
-	value="${ requestScope.user.email }" readonly></td>
+	<td>${ requestScope.user.email }</td>
+</tr>
+<tr>
+<th>&nbsp;</th>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<th>&nbsp;</th>
+<td>&nbsp;</td>
 </tr>
 <tr>
 	<th colspan="2">
-		<a href="javascript:history.go(-1);">이전 페이지로 이동</a> &nbsp;  	
+		<a href="javascript:history.go(-1);" style="weight : bolder;color:black; text-decoration:none;">이전 페이지</a> &nbsp;  	
 	</th>	
 </tr>
 </c:if>
@@ -147,6 +174,7 @@
 
 </table>
 </form>
+<br><br><br><br>
 <hr>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
