@@ -1,6 +1,7 @@
 package com.test.whimory.free.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import com.test.whimory.free.model.vo.Free;
 import com.test.whimory.free.model.vo.FreeBad;
 import com.test.whimory.free.model.vo.FreeLike;
 import com.test.whimory.free.model.vo.FreeReply;
+import com.test.whimory.notice.model.vo.Notice;
 
 @Service("FreeService")
 public class FreeServiceImpl implements FreeService {
@@ -34,18 +36,21 @@ public class FreeServiceImpl implements FreeService {
 	}
 
 	@Override
-	public ArrayList<Free> selectSearchTitle(String keyword) {
-		return freeDao.selectSearchTitle(keyword);
+	public ArrayList<Free> selectSearchTitle(Paging paging) {
+		List<Free> list = freeDao.selectSearchTitle(paging);
+		return (ArrayList<Free>)list;
 	}
 
 	@Override
-	public ArrayList<Free> selectSearchWriter(String keyword) {
-		return freeDao.selectSearchWriter(keyword);
+	public ArrayList<Free> selectSearchWriter(Paging paging) {
+		List<Free> list = freeDao.selectSearchWriter(paging);
+		return (ArrayList<Free>)list;
 	}
 
 	@Override
-	public ArrayList<Free> selectSearchContent(String keyword) {
-		return freeDao.selectSearchContent(keyword);
+	public ArrayList<Free> selectSearchContent(Paging paging) {
+		List<Free> list = freeDao.selectSearchContent(paging);
+		return (ArrayList<Free>)list;
 	}
 
 	@Override
@@ -126,6 +131,21 @@ public class FreeServiceImpl implements FreeService {
 	@Override
 	public ArrayList<Free> selectFreeTop5() {
 		return freeDao.selectFreeTop5();
+	}
+
+	@Override
+	public int selectSearchTitleCount(String keyword) {
+		return freeDao.selectSearchTitleCount(keyword);
+	}
+
+	@Override
+	public int selectSearchWriterCount(String keyword) {
+		return freeDao.selectSearchWriterCount(keyword);
+	}
+
+	@Override
+	public int selectSearchContentCount(String keyword) {
+		return freeDao.selectSearchContentCount(keyword);
 	}
 	
 }
