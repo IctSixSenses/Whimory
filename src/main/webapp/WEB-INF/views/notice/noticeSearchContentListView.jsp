@@ -85,51 +85,49 @@ function resetList(){
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <br><br><br><br><br><br><br>
 
-<h2 align="center">공지사항</h2>
+<h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">공지사항</h2>
 <br>
-
+<div style="align:center;text-align:center;">
+	<c:if test="${ loginUser.admin_yn eq 'Y' }">
+		<c:url var="nwm" value="nwmove.do" />
+		<button class="btn btn-outline-primary" onclick="javascript:location.href='${ nwm }'">글쓰기</button>
+	</c:if>
+</div>>
 <table align="center" style="width:1150px;">
 	<tr>
 		<td colspan="3">
-			<font size="4">총 게시글 개수: ${ listCount }개</font> &nbsp;&nbsp;
+			<h5 style="font-family:Nanum Gothic; font-weight:550; color:#333333;">총 게시글 개수: ${ listCount }개</h5>
 		</td>
-		<td colspan="7">
-			<div style="float: left; width: 250px;">
-			<select onchange="showDiv(this);" class="form-control" style="width:100px; float: right; display:inline-block">
+		<td colspan="7" align="right">
+			<div style="float: left; width: 50%;">
+			<select onchange="showDiv(this);" class="form-control" style="width:80px; display:inline-block">
 				<option value="title">제목</option>
 				<option selected value="content">내용</option>
 				<option value="date">날짜</option>
 			</select>
 			</div>
 			
-			<div id="titleDiv" style="display:inline-block; float: left; width: 500px;">
+			<div id="titleDiv" style="display:inline-block; float: left; width: 40%;">
 				<form action="nsearchTitle.do" method="get">
-					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 300px; float: left;" class="form-control">
-					<input type="submit" class="btn btn-outline-primary" value="검색">
+					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+					<input type="submit" class="btn btn-outline-primary"  value="검색">
 					<input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
 				</form>
 			</div>
-			<div id="contentDiv" style="display:none; float: left; width: 500px;">
+			<div id="contentDiv" style="display:none; float: left; width: 40%;">
 				<form action="nsearchContent.do" method="get">
-					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 300px; float: left;" class="form-control">
+					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 					<input type="submit" class="btn btn-outline-primary" value="검색">
 					<input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
 				</form>
 			</div>
-			<div id="dateDiv" style="display:none; float: left; width: 500px;">
+			<div id="dateDiv" style="display:none; float: left; width: 40%;">
 				<form action="nsearchDate.do" method="get">
-					<input class="date" type="date" name="begin"> ~ <input class="date" type="date" name="end">
+					<input type="date" name="begin"> ~ <input type="date" name="end">
 					<input type="submit" class="btn btn-outline-primary" value="검색">
 					<input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
 				</form>
 			</div>
-		</td>
-		
-		<td width="80px">
-			<c:if test="${ loginUser.admin_yn eq 'Y' }">
-				<c:url var="nwm" value="nwmove.do" />
-				<button class="btn btn-primary" onclick="javascript:location.href='${ nwm }'">글쓰기</button>
-			</c:if>
 		</td>
 	</tr>
 </table>

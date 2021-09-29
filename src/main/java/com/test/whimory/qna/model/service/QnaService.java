@@ -16,10 +16,14 @@ public interface QnaService {
 	int insertAnswer(QnaAnswer answer);
 	int deleteAnswer(int qa_no);
 	int selectListCount();
-	ArrayList<QnaQuestion> selectSearchWriter(String keyword);
-	ArrayList<QnaQuestion> selectSearchTitle(String keyword);
-	ArrayList<QnaQuestion> selectSearchCategory(String keyword);
-	ArrayList<QnaQuestion> selectSearchDate(SearchDate sdate);
+	ArrayList<QnaQuestion> selectSearchWriter(Paging paging);
+	ArrayList<QnaQuestion> selectSearchTitle(Paging paging);
+	ArrayList<QnaQuestion> selectSearchCategory(Paging paging);
+	ArrayList<QnaQuestion> selectSearchDate(Paging paging);
+	int selectSearchWriterCount(String keyword);
+	int selectSearchTitleCount(String keyword);
+	int selectSearchCategoryCount(String keyword);
+	int selectSearchDateCount(Paging paging);
 	ArrayList<QnaAnswer> selectAnswerList(int qq_no);
 	int updateQqyn(int qq_no);	// 답변여부 y로 바꾸기
 	int updateQQYN(int qq_no);	// 답변여부 n

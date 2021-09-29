@@ -25,12 +25,22 @@
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
 <style type="text/css">
 html head{
-	font-family: Roboto, Nanum Gothic;
+   font-family: Roboto, Nanum Gothic;
 }
 html body{
-	font-family: Roboto, Nanum Gothic;
+   font-family: Roboto, Nanum Gothic;
 } 
-table tr td a { text-decoration:none } 
+
+table tr td a, div a {
+   text-decoration: none;
+   color: black;
+}
+
+table tr td a:hover, div a:hover {
+   color: black;
+   text-decoration: underline;
+}
+
 </style>
 <script type="text/javascript">
 function showWriteForm(){
@@ -38,8 +48,8 @@ function showWriteForm(){
 }
 
 function goLogin(){
-	alert("로그인 후 이용 가능한 서비스입니다.\n로그인 페이지로 이동합니다.");   
-	   location.href = "${ pageContext.servletContext.contextPath }/loginPage.do";
+   alert("로그인 후 이용 가능한 서비스입니다.\n로그인 페이지로 이동합니다.");   
+      location.href = "${ pageContext.servletContext.contextPath }/loginPage.do";
    }
    
 function showDiv(item){
@@ -78,7 +88,7 @@ function showDiv(item){
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <br><br><br><br><br><br><br>
-<h2 align="center">무엇이든 물어보세요</h2>
+<h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">무엇이든 물어보세요</h2>
 <br>
 <!-- 게시글 쓰기(등록)은 로그인한 회원만 가능함 -->
 <c:if test="${ empty sessionScope.loginUser }">
@@ -94,9 +104,9 @@ function showDiv(item){
 </c:if>
 <table align="center" width="1150px">
    <tr>
-   	<td colspan="3"><h5>총 질문 개수 : ${ listCount }</h5></td>
+      <td colspan="3"><h5 style="font-family:Nanum Gothic; font-weight:550; color:#333333;">총 질문 개수 : ${ listCount }</h5></td>
       <td colspan="7" align="right">
-      	<div style="float: left; width: 50%;">
+         <div style="float: left; width: 50%;">
          <select class="form-control" onchange="showDiv(this)" style="width:80px; display:inline-block">
             <option value="writer">작성자</option>
             <option value="title">제목</option>
@@ -105,25 +115,25 @@ function showDiv(item){
          </select>
         </div>
          <div id="writerDiv" style="display:inline-block; float: left; width: 40%;">
-         <form action="qsearchWriter.do" method="post">
+         <form action="qsearchWriter.do" method="get">
             <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
             <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
          </div>
          <div id="titleDiv" style="display:none; float: left; width: 40%;">
-         <form action="qsearchTitle.do" method="post">
+         <form action="qsearchTitle.do" method="get">
             <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
             <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
          </div>
          <div id="categoryDiv" style="display:none; float: left; width: 40%;">
-         <form action="qsearchCategory.do" method="post">
+         <form action="qsearchCategory.do" method="get">
             <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
             <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
          </div>
          <div id="dateDiv" style="display:none; float: left; width: 40%;">
-         <form action="qsearchDate.do" method="post">
+         <form action="qsearchDate.do" method="get">
             <input type="date" name="begin"> ~ <input type="date" name="end">
             <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
@@ -135,46 +145,46 @@ function showDiv(item){
 
 <br>
 <table class="table table-lightgray table-hover" style="table-layout: fixed; width:1200px" align="center" cellspacing="0" cellpadding="3" >
-	<thead>
-		<tr align="center" class="thead-light">
-			<th width="100px">작성자</th>
-			<th width="200px">질문 분류</th>
-			<th width="700px">제목</th>
-			<th width="120px">작성일</th>
-			<th width="80px">답변여부</th>
-		</tr>
-	</thead>
-	
-	<c:forEach items="${ requestScope.list }" var="q">
-		<tr align="center">
-			<td>${ q.user_id }</td>
-			<td>${  q.qq_category }</td>	
-		   <!-- 글 쓴 회원과 로그인 회원이 일치해야 상세보기할 수 있게 함 -->
-			<c:if test="${ !empty sessionScope.loginUser and sessionScope.loginUser.user_id eq q.user_id }">
-		   		<c:url var="qdetail" value="qdetail.do">
-		      		<c:param name="qq_no" value="${ q.qq_no }"/>
-		      		<c:param name="page" value="${ currentPage }" />
-		   		</c:url>
-		   		<td align="left"><a href="${ qdetail }">${ q.qq_title }</a></td>
-			</c:if>
-			<c:if test="${ empty sessionScope.loginUser or sessionScope.loginUser.user_id ne q.user_id }">
-	 			<td align="left">${ q.qq_title }</td>
-			</c:if>
-		   
-			<td align="center">
-				<c:if test="${ empty q.qq_modify }">
-					<fmt:formatDate value="${ q.qq_date}" pattern="yyyy.MM.dd" />
-				</c:if>
-				<c:if test="${ !empty q.qq_modify }">
-					<fmt:formatDate value="${ q.qq_modify }" pattern="yyyy.MM.dd" />
-				</c:if>
-			</td>
-		
-			<td align="center">${  q.qq_yn }</td>
-		
-		
-		</tr>
-	</c:forEach>
+   <thead>
+      <tr align="center" class="thead-light">
+         <th width="100px">작성자</th>
+         <th width="200px">질문 분류</th>
+         <th width="700px">제목</th>
+         <th width="120px">작성일</th>
+         <th width="80px">답변여부</th>
+      </tr>
+   </thead>
+   
+   <c:forEach items="${ requestScope.list }" var="q">
+      <tr align="center">
+         <td>${ q.user_id }</td>
+         <td>${  q.qq_category }</td>   
+         <!-- 글 쓴 회원과 로그인 회원이 일치해야 상세보기할 수 있게 함 -->
+         <c:if test="${ !empty sessionScope.loginUser and sessionScope.loginUser.user_id eq q.user_id }">
+               <c:url var="qdetail" value="qdetail.do">
+                  <c:param name="qq_no" value="${ q.qq_no }"/>
+                  <c:param name="page" value="${ currentPage }" />
+               </c:url>
+               <td align="left"><a href="${ qdetail }">${ q.qq_title }</a></td>
+         </c:if>
+         <c:if test="${ empty sessionScope.loginUser or sessionScope.loginUser.user_id ne q.user_id }">
+             <td align="left">${ q.qq_title }</td>
+         </c:if>
+         
+         <td align="center">
+            <c:if test="${ empty q.qq_modify }">
+               <fmt:formatDate value="${ q.qq_date}" pattern="yyyy.MM.dd" />
+            </c:if>
+            <c:if test="${ !empty q.qq_modify }">
+               <fmt:formatDate value="${ q.qq_modify }" pattern="yyyy.MM.dd" />
+            </c:if>
+         </td>
+      
+         <td align="center">${  q.qq_yn }</td>
+      
+      
+      </tr>
+   </c:forEach>
 </table>
 
 <%-- </td>
@@ -188,30 +198,30 @@ function showDiv(item){
 
 <br>
 <!-- 페이징 처리 -->
-<div style="text-align:center;">
+<div align="center" style="text-align:center; width:1200px; position:absolute; left:50px;">
 <c:if test="${ currentPage <= 1 }">
-   [맨처음]&nbsp;
+   &lt;&lt; &nbsp;
 </c:if>
 <c:if test="${ currentPage > 1 }">
    <c:url var="ubl" value="/qlist.do">
       <c:param name="page" value="1" />
    </c:url>
-   <a href="${ ubl }">[맨처음]</a>
+   <a href="${ ubl }">&lt;&lt;</a> &nbsp;
 </c:if>
 <!-- 이전 그룹으로 이동 처리 -->
 <c:if test="${ (currentPage - 10) < startPage and (currentPage - 10) > 1 }">
    <c:url var="ubl2" value="/qlist.do">
       <c:param name="page" value="${ startPage - 10 }"/>
    </c:url>
-   <a href="${ ubl2 }">[이전그룹]</a>
+   <a href="${ ubl2 }">&lt;</a> &nbsp;
 </c:if>
 <c:if test="${ !((currentPage - 10) < startPage and (currentPage - 10) > 1) }">
-   [이전그룹]&nbsp;
+   &nbsp;&nbsp; &lt; &nbsp;&nbsp;
 </c:if>
 <!-- 현재 페이지가 속한 페이지그룹의 숫자 출력 처리 -->
-<c:forEach var="p" begin="${ startPage }" end="${ endPage }" step="1">
+<c:forEach var="p" begin="${ startPage }" end="${ endPage }">
    <c:if test="${ p eq currentPage }">   
-      <font color="red" size="4"><b>[${ p }]</b></font>
+      <font weight="bolder" size="4"><b>${ p }</b></font>
    </c:if>
    <c:if test="${ p ne currentPage }">
       <c:url var="ubl3" value="/qlist.do">
@@ -225,30 +235,29 @@ function showDiv(item){
    <c:url var="ubl4" value="/qlist.do">
       <c:param name="page" value="${ endPage + 10 }"/>
    </c:url>
-   <a href="${ ubl4 }">[다음그룹]</a>
+   <a href="${ ubl4 }">&gt;</a> &nbsp;
 </c:if>
 <c:if test="${ !((currentPage + 10) > endPage && (currentPage + 10) < maxPage) }">
-   [다음그룹]&nbsp;
+   &nbsp;&nbsp; &gt; &nbsp;&nbsp;
 </c:if>
 <!-- 맨끝 페이지로 이동 처리 -->
 <c:if test="${ currentPage >= maxPage }">
-   [맨끝]&nbsp;
+   &nbsp; &gt;&gt;
 </c:if>   
 <c:if test="${ currentPage < maxPage }">
    <c:url var="ubl5" value="/qlist.do">
       <c:param name="page" value="${ maxPage }"/>
    </c:url>
-   <a href="${ ubl5 }">[맨끝]</a>
+   <a href="${ ubl5 }">&gt;&gt;</a>
 </c:if>
 </div>
-<hr>
+<br><br><br><br>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
 
 
     
-
 
 
 

@@ -58,27 +58,43 @@ public class QnaDao {
 	}
 	
 	// 작성자로 질문 검색
-	public ArrayList<QnaQuestion> selectSearchWriter(String keyword){
-		List<QnaQuestion> list = sqlSession.selectList("qnaMapper.selectSearchWriter", keyword);
+	public ArrayList<QnaQuestion> selectSearchWriter(Paging paging){
+		List<QnaQuestion> list = sqlSession.selectList("qnaMapper.selectSearchWriter", paging);
 		return (ArrayList<QnaQuestion>) list;
 	}
 	
 	// 제목으로 질문 검색
-	public ArrayList<QnaQuestion> selectSearchTitle(String keyword){
-		List<QnaQuestion> list = sqlSession.selectList("qnaMapper.selectSearchTitle", keyword);
+	public ArrayList<QnaQuestion> selectSearchTitle(Paging paging){
+		List<QnaQuestion> list = sqlSession.selectList("qnaMapper.selectSearchTitle", paging);
 		return (ArrayList<QnaQuestion>) list;
 	}
 	
 	// 질문 분류로 질문 검색
-	public ArrayList<QnaQuestion> selectSearchCategory(String keyword){
-		List<QnaQuestion> list = sqlSession.selectList("qnaMapper.selectSearchCategory", keyword);
+	public ArrayList<QnaQuestion> selectSearchCategory(Paging paging){
+		List<QnaQuestion> list = sqlSession.selectList("qnaMapper.selectSearchCategory", paging);
 		return (ArrayList<QnaQuestion>) list;
 	}
 	
 	// 질문 등록 날짜로 질문 검색
-	public ArrayList<QnaQuestion> selectSearchDate(SearchDate sdate){
-		List<QnaQuestion> list = sqlSession.selectList("qnaMapper.selectSearchDate", sdate);
+	public ArrayList<QnaQuestion> selectSearchDate(Paging paging){
+		List<QnaQuestion> list = sqlSession.selectList("qnaMapper.selectSearchDate", paging);
 		return (ArrayList<QnaQuestion>) list;
+	}
+	
+	public int selectSearchWriterCount(String keyword) {
+		return sqlSession.selectOne("qnaMapper.selectSearchWriterCount", keyword);
+	}
+	
+	public int selectSearchTitleCount(String keyword) {
+		return sqlSession.selectOne("qnaMapper.selectSearchTitleCount", keyword);
+	}
+	
+	public int selectSearchCategoryCount(String keyword) {
+		return sqlSession.selectOne("qnaMapper.selectSearchCategoryCount", keyword);
+	}
+	
+	public int selectSearchDateCount(Paging paging) {
+		return sqlSession.selectOne("qnaMapper.selectSearchDateCount", paging);
 	}
 	
 	// 답변 조회
