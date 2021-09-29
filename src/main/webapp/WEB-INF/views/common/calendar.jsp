@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </head>
 <body>
 
-	<div id="calendar" style="width:1000px; float:none;" >
+	<div id="calendar" style="width:1000px;" >
   		<!-- script 실행 부분 -->
   	</div>
 

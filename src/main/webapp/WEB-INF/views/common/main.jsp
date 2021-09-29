@@ -77,50 +77,43 @@ html body{
 <body>
 	<header> 
 	<c:import url="/WEB-INF/views/common/menubar.jsp" />
-	<br>
-	
+	<br><br>
 	</header>
 
-  <!-- ======= 정보게시판 top10 =======  -->
+  	<!-- ======= 정보게시판 top10 =======  -->
  	<c:import url="/WEB-INF/views/ko/koTop10.jsp" />
  
 
-  <!-- ======= 언론보도 최신게시글 Top3 & 자유토론공간 Top5 =======  -->
+  	<!-- ======= 언론보도 최신게시글 Top3 & 자유토론공간 Top5 =======  -->
   	
-	<br><br><br>
+	<br><br><br><br>
 	<div class="fndiv">
  		<c:import url="/WEB-INF/views/news/news3.jsp" />
  		<div style="float:left; width:60px; height:400px" ></div>
  		<c:import url="/WEB-INF/views/free/freeTop5.jsp" />  
 	</div>
+	
+	
 
+	<!-- ======= 명언카드 ======= -->
+    <c:import url="/WEB-INF/views/common/card.jsp" />
+	<br><br><br><br><br>
 
-  <!-- ======= 역사달력 ======= -->
-  	<table align="center" width="1000px" >	
+	<table align="center" width="1000px" >	
   		<tr><td>
   			<h2 align="center" style="font-family:Nanum Gothic; font-weight:530; color:#01b1d7;;">역사를 잊은 민족에게 미래는 없다. - 단재 신채호</h2>
   			<div style="width:1000px; height:20px"></div>
   			<h3 align="center" style="font-family:Nanum Gothic; font-weight:530; color:#333333;">여러분, 대한민국의 역사를 함께 기억해주세요.</h3>
   		</td></tr>
-  	</table>
-	
-	
+  	</table><br>
+
+  <!-- ======= 역사달력 ======= -->
  	<c:import url="/WEB-INF/views/common/calendar.jsp" />
-  
-  
-  
-  
-
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-
-<!-- 명언카드 -->
+	<br><br><br><br>
 
 
 
- <main id="main"><!-- Start #main -->
-
+<main id="main"><!-- Start #main -->
 
 <!-- ======= 팀원 소감 및 한마디 Section ======= -->
     <section id="testimonials" class="testimonials">
@@ -131,12 +124,12 @@ html body{
 
             <div class="swiper-slide">
               <div class="testimonial-item">
-                <img src="${ pageContext.request.contextPath }/resources/plugins/assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                <h3>Seoyoen Na</h3>
+                <img src="${ pageContext.request.contextPath }/resources/main_images/SY.jpg" class="testimonial-img" alt="">
+                <h3>나서연 (Seoyoen Na)</h3>
                 <h4>Team Leader</h4>
                 <p>
                   <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+                  다들 잘 따라와주셔서 정말 감사합니다: ) 다함께 성장한 것 같아서 신나네요!! 유후! 
                   <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
               </div>
@@ -144,8 +137,8 @@ html body{
 
             <div class="swiper-slide">
               <div class="testimonial-item">
-                <img src="${ pageContext.request.contextPath }/resources/plugins/assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                <h3>Daseul Kim</h3>
+                <img src="${ pageContext.request.contextPath }/resources/main_images/DS.jpg" class="testimonial-img" alt="">
+                <h3>김다슬 (Daseul Kim)</h3>
                 <h4>Team Crew</h4>
                 <p>
                   <i class="bx bxs-quote-alt-left quote-icon-left"></i>
@@ -157,12 +150,12 @@ html body{
 
             <div class="swiper-slide">
               <div class="testimonial-item">
-                <img src="${ pageContext.request.contextPath }/resources/plugins/assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                <h3>Eunbyeol Kim</h3>
+                <img src="${ pageContext.request.contextPath }/resources/main_images/EB.jpg" class="testimonial-img" alt="">
+                <h3>김은별 (Eunbyeol Kim)</h3>
                 <h4>Team Crew</h4>
                 <p>
                   <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  은별이가 랩을 한다 홍홍홍. 형돈이도 랩을 한다 홍홍홍
+                  피할 수 없으면 즐겨라, 코딩을 즐겨라!
                   <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
               </div>
@@ -170,8 +163,8 @@ html body{
 
             <div class="swiper-slide">
               <div class="testimonial-item">
-                <img src="${ pageContext.request.contextPath }/resources/plugins/assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                <h3>Hyunju Park</h3>
+                <img src="${ pageContext.request.contextPath }/resources/main_images/HJ.jpg" class="testimonial-img" alt="">
+                <h3>박현주 (Hyunju Park)</h3>
                 <h4>Team Crew</h4>
                 <p>
                   <i class="bx bxs-quote-alt-left quote-icon-left"></i>
@@ -183,8 +176,8 @@ html body{
 
             <div class="swiper-slide">
               <div class="testimonial-item">
-                <img src="${ pageContext.request.contextPath }/resources/plugins/assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                <h3>Seongin Choi</h3>
+                <img src="${ pageContext.request.contextPath }/resources/main_images/SI.jpg" class="testimonial-img" alt="">
+                <h3>최성인 (Seongin Choi)</h3>
                 <h4>Team Crew</h4>
                 <p>
                   <i class="bx bxs-quote-alt-left quote-icon-left"></i>
