@@ -87,16 +87,24 @@ html body{
 
   <!-- ======= 언론보도 최신게시글 Top3 & 자유토론공간 Top5 =======  -->
   	
-	<section>
+	<br><br><br>
 	<div class="fndiv">
  		<c:import url="/WEB-INF/views/news/news3.jsp" />
  		<div style="float:left; width:60px; height:400px" ></div>
  		<c:import url="/WEB-INF/views/free/freeTop5.jsp" />  
 	</div>
-	</section>
 
 
   <!-- ======= 역사달력 ======= -->
+  	<table align="center" width="1000px" >	
+  		<tr><td>
+  			<h2 align="center" style="font-family:Nanum Gothic; font-weight:530; color:#01b1d7;;">역사를 잊은 민족에게 미래는 없다. - 단재 신채호</h2>
+  			<div style="width:1000px; height:20px"></div>
+  			<h3 align="center" style="font-family:Nanum Gothic; font-weight:530; color:#333333;">여러분, 대한민국의 역사를 함께 기억해주세요.</h3>
+  		</td></tr>
+  	</table>
+	
+	
  	<c:import url="/WEB-INF/views/common/calendar.jsp" />
   
   
@@ -109,9 +117,6 @@ html body{
 
 <!-- 명언카드 -->
 
-
-
-<!-- 영화추천 작업 -->
 
 
  <main id="main"><!-- Start #main -->
