@@ -156,16 +156,18 @@ function showDiv(item){
 		&lt;&lt;&nbsp;
 	</c:if>
 	<c:if test="${ currentPage > 1 }">
-      <c:url var="ubl" value="/rplista.do">
+      <c:url var="ubl" value="/rptitlea.do">
          <c:param name="page" value="1" />
+         <c:param name="keyword" value="${ keyword }" />
       </c:url>
       <a href="${ ubl }">&lt;&lt;</a>
    </c:if>
 	
 	<%-- 이전 페이지 그룹으로 이동 --%>
 	<c:if test="${ (currentPage - 10) < startPage and (currentPage - 10) > 1 }">
-	<c:url var="ubl2" value="/rplista.do">
+	<c:url var="ubl2" value="/rptitlea.do">
 		<c:param name="page" value="${ startPage - 10 }"/>
+		<c:param name="keyword" value="${ keyword }" />
 	</c:url>
 	<a href="${ ubl2 }">&lt;</a>
 	</c:if>
@@ -179,8 +181,9 @@ function showDiv(item){
 			<font color="red" size="4">${ p }</font>
 		</c:if>
 		<c:if test="${ p != currentPage }">
-			<c:url var="rplist" value="/rplista.do">
+			<c:url var="rplist" value="/rptitlea.do">
 				<c:param name="page" value="${ p }" />
+				<c:param name="keyword" value="${ keyword }" />
 			</c:url>
 			<a href="${ rplist }">${ p }</a>
 		</c:if>
@@ -188,8 +191,9 @@ function showDiv(item){
 	
 	<%-- 다음 페이지 그룹으로 이동 --%>
 	<c:if test="${ (currentPage + 10) > endPage && (currentPage + 10) < maxPage }">
-	<c:url var="ubl4" value="/rplista.do">
+	<c:url var="ubl4" value="/rptitlea.do">
       <c:param name="page" value="${ endPage + 10 }"/>
+      <c:param name="keyword" value="${ keyword }" />
 	</c:url>
 	<a href="${ ubl4 }">&gt;</a>
 	</c:if>
@@ -201,8 +205,9 @@ function showDiv(item){
 		&gt;&gt;&nbsp;
 	</c:if>
 	<c:if test="${ currentPage < maxPage }">
-		<c:url var="rplist" value="/rplista.do">
+		<c:url var="rplist" value="/rptitlea.do">
 			<c:param name="page" value="${ maxPage }" />
+			<c:param name="keyword" value="${ keyword }" />
 		</c:url>
 		<a href="${ rplist }">&gt;&gt;</a> &nbsp;
 	</c:if>

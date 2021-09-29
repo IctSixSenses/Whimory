@@ -15,6 +15,7 @@ html head{
 html body{
 	font-family: Roboto, Nanum Gothic;
 } 
+
 table#tbrp, #tbrpli, #tbrpins{
 	border-top: 1px solid white;
 	border-bottom: 1px solid white;
@@ -50,84 +51,90 @@ table#tbrp, #tbrpli, #tbrpins{
 	</tr>
 </table>
 
-<table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3">
-<tr>
-	<td colspan="10" align="center" style="font-size: 17pt; background: WhiteSmoke">${ report.report_title }</td>
-</tr>
-<tr>
-	<th>작성자</th><td colspan="9">${ report.user_id }</td>
-</tr>
-<tr>
-	<th>등록날짜</th><td colspan="9"><fmt:formatDate value="${ report.report_date }" type="date" dateStyle="medium" /></td>
-</tr>
-<tr><th>첨부파일</th><td colspan="9">
-	<c:if test="${ !empty report.report_org_file }">
-		<c:url var="uf" value="fdown.do">
-			<c:param name="ofile" value="${ report.report_org_file }" />
-			<c:param name="rfile" value="${ report.report_re_file }" />
-		</c:url>
-		<a href="${ uf }">${ report.report_org_file }</a>
-	</c:if>
-	<c:if test="${ empty report.report_org_file }">
-		&nbsp;
-	</c:if>
-</td></tr>
-<tr>
-	<th>내   용</th><td colspan="9" align="left" height="280px">${ report.report_content }</td>
-</tr>
-<tr>
-	<td colspan="10" align="right">
-		<c:if test="${ !empty loginUser and loginUser.user_id != report.user_id }">
+<!-- 게시글 상세보기 -->
+<table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3" >
+	<tr>
+		<td colspan="10" align="center" style="font-size: 17pt; background: WhiteSmoke" >${ report.report_title }</td>
+	</tr>
+	<tr>
+		<td colspan="6"><b>작성자</b> &nbsp; ${ report.user_id }</td>
+		<td colspan="4" align="right"> 
+			<c:if test="${ report.report_modify eq null }">
+				<b>등록일</b> &nbsp;<fmt:formatDate value="${ report.report_date }" pattern="yyyy-MM-dd" />
+				 &nbsp;&nbsp;&nbsp;&nbsp; <b>조회수</b>&nbsp;&nbsp;${ report.report_readcount }&nbsp;&nbsp;
+			</c:if>
+			<c:if test="${ report.report_modify ne null }">
+				<b>수정일</b> &nbsp;<fmt:formatDate value="${ report.report_modify }" pattern="yyyy-MM-dd" />
+				 &nbsp;&nbsp;&nbsp;&nbsp; <b>조회수</b>&nbsp;&nbsp;${ report.report_readcount }&nbsp;&nbsp;
+			</c:if>
+		</td>	
+	</tr>
+	<tr>
+		<td colspan="10">
+			<c:if test="${ !empty report.report_org_file }">
+				<c:url var="ubf" value="/fdown.do">
+					<c:param name="ofile" value="${ report.report_org_file }"/>
+					<c:param name="rfile" value="${ report.report_re_file }"/>
+				</c:url>		
+				<b>첨부파일</b> &nbsp;&nbsp; <a href="${ ubf }">${ report.report_org_file }</a>
+			</c:if>
+			<c:if test="${ empty report.report_org_file }">
+			<b>첨부파일</b> &nbsp;&nbsp;&nbsp;&nbsp;- 
+			</c:if>
+		</td>
+	</tr>
+	<tr>
+		<th>내용</th>
+		<td colspan="9" align="left" height="280px">${ report.report_content }</td>
+	</tr>
+	<!-- 공감 기능 부분 -->
+	<tr>
+		<td colspan="10" align="right">
+			<c:if test="${ !empty loginUser and loginUser.user_id != report.user_id }">
 			<c:url var="rplike" value="rplike.do">
 				<c:param name="report_no" value="${ report.report_no }" />
 				<c:param name="user_id" value="${ loginUser.user_id }" />
 				<c:param name="page" value="${ currentPage }" />
 			</c:url>
-			<button class="btn btn-outline-primary" onclick="javascript:location.href='${ rplike }';">공감 ${ report.report_like }</button>
-		</c:if>
-		<c:if test="${ empty loginUser or loginUser.user_id eq report.user_id }">
-			<button class="btn btn-outline-primary">공감 ${ report.report_like }</button>
-		</c:if>
-	</td>
-</tr> 
+				<img src="${ pageContext.request.contextPath }/resources/free_upfiles/like.PNG" onclick="javascript:location.href='${ rplike }';" width="28" height="28"> 공감 &nbsp;${ report.report_like }&nbsp;&nbsp;
+			</c:if>
+			<c:if test="${ empty loginUser or loginUser.user_id eq report.user_id }">
+				<img src="${ pageContext.request.contextPath }/resources/free_upfiles/like.PNG"  width="28" height="28"> 공감 &nbsp;${ report.report_like }&nbsp;&nbsp;
+			</c:if>
+		</td>
+	</tr> 
 </table>
 
 <table align="center" width="1000px" height="110px" style="font-size:20px;" id="tbrp" >
 	<tr rowspan="2">
 		<td colspan="10" align="center">
-			<button class="btn btn-outline-primary" onclick="javascript:location.href='rplist.do?page=${ currentPage }';">목록으로</button>
+			<button class="btn btn-primary" onclick="javascript:location.href='rplist.do?page=${ currentPage }';">목록으로</button>
 		</td> 
 	</tr>
 </table>
 
 <br>
 <c:if test="${ !empty report.admin_comment }">
-	<table style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3" id="tbrpli">
+	<table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3" id="tbrpli">
 	<tr>
-		<th align="center">${ report.admin_id }</th>
-		<td>${ report.comment_date }</td>
-		<td colspan="6">${ report.admin_comment }</td>
-		
+		<th align="center">&nbsp;&nbsp;&nbsp;${ report.user_id }</th>
+		<td colspan="8">${ report.admin_comment }</td>
 	<c:if test="${ loginUser.admin_yn eq 'Y' }">
 		<c:url var="cmdelete" value="cmdelete.do">
 		<c:param name="report_no" value="${ report.report_no }" />
 		<c:param name="page" value="${ currentPage }" />
 		</c:url>
 		<td>
-			<button class="btn btn-outline-danger" onclick="javascript:location.href='${ cmdelete }';">삭제하기</button>
+			<button onclick="javascript:location.href='${ cmdelete }'" class="btn btn-outline-danger">삭제</button>&nbsp;
 		</td>
 	</c:if>
 	</tr>
 	</table>
 </c:if>
 <c:if test="${ empty report.admin_comment && loginUser.admin_yn eq 'N' }">
-	<form action="cmupdate.do" method="post">
-	<table style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3" id="tbrpli">
-	<tr>
-		<td><input type="text" value="관리자 답변이 아직 없습니다." readonly style="width:1000px"></td>
-	</tr>
+	<table align="center" width="1000px" height="110px" style="font-size:20px;" id="tbrp" >
+	<tr><td align="center">등록된 답변이 없습니다.</td></tr>
 	</table>
-	</form>
 </c:if>
 <c:if test="${ empty report.admin_comment && loginUser.admin_yn eq 'Y' }">
 	<script>
@@ -135,17 +142,15 @@ table#tbrp, #tbrpli, #tbrpins{
 	</script>
 	
 	<form action="cmupdate.do" method="post">
-	<table style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3" id="tbrpli">
-	<tr>
-		<input type="hidden" name="page" value="${ currentPage }">
-		<input type="hidden" name="report_no" value="${ report.report_no }">
-		<input type="hidden" name="admin_id" value="${ loginUser.user_id }">
-		<th></th>
-		<td colspan="8"><input type="text" name="admin_comment" size="80"></td>
-		<td colspan="2">
-		&nbsp;<button type="submit" class="btn btn-outline-primary">답변하기</button>
-		</td>
-	</tr>
+	<input type="hidden" name="page" value="${ currentPage }">
+	<input type="hidden" name="report_no" value="${ report.report_no }">
+	<input type="hidden" name="admin_id" value="${ loginUser.user_id }">
+	<table class="table" style="table-layout: fixed; width:1000px; border-collapse:collapse;" align="center" cellspacing="0" cellpadding="3" id="tbrpins">
+		<tr>
+			<td align="center">${ loginUser.user_id }</td>
+			<td colspan="8"><textarea rows="3" cols="96" name="admin_comment" placeholder="답변을 입력하세요."></textarea></td>	
+			<td><input type="submit" value="등록" class="btn btn-outline-primary"></td>
+		</tr>
 	</table>
 	</form>
 </c:if>

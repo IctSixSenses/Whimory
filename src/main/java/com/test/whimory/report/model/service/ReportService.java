@@ -12,9 +12,9 @@ public interface ReportService {
 	ArrayList<Report> selectListU(Paging page);//현주 추가 부분 - 나의 제보 내역 보기
 	int selectListCount();
 	Report selectOne(int report_no);
-	ArrayList<Report> selectSearchTitle(String keyword);
-	ArrayList<Report> selectSearchWriter(String keyword);
-	ArrayList<Report> selectSearchDate(SearchDate dates);
+	ArrayList<Report> selectSearchTitle(Paging paging);
+	ArrayList<Report> selectSearchWriter(Paging paging);
+	ArrayList<Report> selectSearchDate(Paging paging);
 	int insertReport(Report report);
 	int updateComment(Report report);
 	int updateReport(Report report);
@@ -25,4 +25,7 @@ public interface ReportService {
 	int updateAddLikeCount(int report_no);
 	int selectReportLike(ReportLike rplike);
 	ArrayList<Report> selectListA(Paging paging); //현주 추가 - 관리자 반영 내역 확인용
+	int selectSearchTitleCount(String keyword);
+	int selectSearchWriterCount(String keyword);
+	int selectSearchDateCount(Paging paging);
 }

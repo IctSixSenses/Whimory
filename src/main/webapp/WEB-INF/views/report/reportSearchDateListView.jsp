@@ -6,7 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>나의 제보 내역</title>
+<title>Whimory</title>
+<!-- Favicons -->
+<link href="${ pageContext.request.contextPath }/resources/images/tgmark.png" rel="icon">
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
 <style type="text/css">
 html head{
@@ -51,12 +53,11 @@ function showDiv(item){
 }
 
 </script>
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <br><br><br><br><br><br><br>
-<c:import url="/WEB-INF/views/common/menubarA.jsp" />
-
 <h2 align="center">역사왜곡 제보 게시판</h2>
 <br>
 <!-- 로그인 여부에 따라 로그인페이지/게시글 작성 페이지로 이동, 관리자는 작성 x -->
@@ -83,19 +84,19 @@ function showDiv(item){
 			</select>
 			</div>
 			<div id="titleDiv" style="display:inline-block; float: left; width: 40%;">
-			<form action="rptitlea.do">
+			<form action="rptitle.do" method="post">
 				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
 			</div>
 			<div id="writerDiv" style="display:none; float: left; width: 40%;">
-			<form action="rpwritera.do">
+			<form action="rpwriter.do" method="post">
 				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
 			</div>
 			<div id="dateDiv" style="display:none; float: left; width: 40%;">
-			<form action="rpdatea.do">
+			<form action="rpdate.do" method="post">
 				<input type="date" name="begin"> ~ <input type="date" name="end">
 				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
@@ -156,16 +157,20 @@ function showDiv(item){
 		&lt;&lt;&nbsp;
 	</c:if>
 	<c:if test="${ currentPage > 1 }">
-      <c:url var="ubl" value="/rplista.do">
-         <c:param name="page" value="1" />
+      <c:url var="ubl" value="/rpdate.do">
+		<c:param name="page" value="${ maxPage }"/>
+		<c:param name="begin" value="${ begin }" />
+		<c:param name="end" value="${ end }" />
       </c:url>
       <a href="${ ubl }">&lt;&lt;</a>
    </c:if>
 	
 	<%-- 이전 페이지 그룹으로 이동 --%>
 	<c:if test="${ (currentPage - 10) < startPage and (currentPage - 10) > 1 }">
-	<c:url var="ubl2" value="/rplista.do">
-		<c:param name="page" value="${ startPage - 10 }"/>
+	<c:url var="ubl2" value="/rpdate.do">
+		<c:param name="page" value="${ maxPage }"/>
+		<c:param name="begin" value="${ begin }" />
+		<c:param name="end" value="${ end }" />
 	</c:url>
 	<a href="${ ubl2 }">&lt;</a>
 	</c:if>
@@ -179,8 +184,10 @@ function showDiv(item){
 			<font color="red" size="4">${ p }</font>
 		</c:if>
 		<c:if test="${ p != currentPage }">
-			<c:url var="rplist" value="/rplista.do">
-				<c:param name="page" value="${ p }" />
+			<c:url var="rplist" value="/rpdate.do">
+				<c:param name="page" value="${ maxPage }"/>
+				<c:param name="begin" value="${ begin }" />
+				<c:param name="end" value="${ end }" />
 			</c:url>
 			<a href="${ rplist }">${ p }</a>
 		</c:if>
@@ -188,8 +195,10 @@ function showDiv(item){
 	
 	<%-- 다음 페이지 그룹으로 이동 --%>
 	<c:if test="${ (currentPage + 10) > endPage && (currentPage + 10) < maxPage }">
-	<c:url var="ubl4" value="/rplista.do">
-      <c:param name="page" value="${ endPage + 10 }"/>
+	<c:url var="ubl4" value="/rpdate.do">
+		<c:param name="page" value="${ maxPage }"/>
+		<c:param name="begin" value="${ begin }" />
+		<c:param name="end" value="${ end }" />
 	</c:url>
 	<a href="${ ubl4 }">&gt;</a>
 	</c:if>
@@ -201,8 +210,10 @@ function showDiv(item){
 		&gt;&gt;&nbsp;
 	</c:if>
 	<c:if test="${ currentPage < maxPage }">
-		<c:url var="rplist" value="/rplista.do">
-			<c:param name="page" value="${ maxPage }" />
+		<c:url var="rplist" value="/rpdate.do">
+			<c:param name="page" value="${ maxPage }"/>
+        	<c:param name="begin" value="${ begin }" />
+         	<c:param name="end" value="${ end }" />
 		</c:url>
 		<a href="${ rplist }">&gt;&gt;</a> &nbsp;
 	</c:if>
