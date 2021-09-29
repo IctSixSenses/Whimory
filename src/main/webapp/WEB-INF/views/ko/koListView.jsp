@@ -95,8 +95,7 @@ function resetList(){
 		<td colspan="7" align="right">
 			<div style="width: 430px;">
 				<form action="ksearchword.do" method="post" align="right">
-					<input type="hidden" name="ko_category" value="${ category }">
-					<input type="search" name="ko_title" size="30" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+					<input type="search" name="keyword" size="30" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 					<input type="submit" onclick="showDiv();" class="btn btn-outline-primary" style="float: left;" value="검색">
 					<c:if test="${ listCount != list.size() or size == 0 }">
 						<div id="searchReset">

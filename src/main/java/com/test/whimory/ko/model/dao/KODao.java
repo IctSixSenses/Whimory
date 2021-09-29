@@ -42,15 +42,8 @@ public class KODao {
 		return sqlSession.update("koMapper.updateAddReadCount", ko_no);
 	}
 
-	public ArrayList<KO> selectSearchKeyword(KO ko) {
-		List<KO> list;
-		
-		if(ko.getKo_category().equals(" ")) {
-			list = sqlSession.selectList("koMapper.selectSearchCateKeyword", ko);
-		} else {
-			list = sqlSession.selectList("koMapper.selectSearchKeyword", ko);
-		}
-		
+	public ArrayList<KO> selectSearchKeyword(String keyword) {
+		List<KO> list = sqlSession.selectList("koMapper.selectSearchKeyword", keyword);
 		return (ArrayList<KO>) list;
 	}
 	

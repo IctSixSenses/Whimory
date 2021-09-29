@@ -124,9 +124,9 @@ public class KOController {
 	} // koSearchCategory
 	
 	@RequestMapping("ksearchword.do")
-	public String koSearchKeyword(KO ko, Model model) {
+	public String koSearchKeyword(@RequestParam("keyword") String keyword, Model model) {
 		
-		ArrayList<KO> list = koService.selectSearchKeyword(ko);
+		ArrayList<KO> list = koService.selectSearchKeyword(keyword);
 		int listCount = koService.selectListCount();
 		
 		

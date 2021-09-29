@@ -49,8 +49,8 @@ public class KOServiceImpl implements KOService {
 	}
 
 	@Override
-	public ArrayList<KO> selectSearchKeyword(KO ko) {
-		List<KO> list = koDao.selectSearchKeyword(ko);
+	public ArrayList<KO> selectSearchKeyword(String keyword) {
+		List<KO> list = koDao.selectSearchKeyword(keyword);
 		return (ArrayList<KO>) list;
 	}
 
