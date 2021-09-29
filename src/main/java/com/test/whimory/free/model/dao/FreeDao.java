@@ -51,20 +51,20 @@ public class FreeDao {
 	}
 	
 	// 전체 목록에서 '제목'으로 검색
-	public ArrayList<Free> selectSearchTitle(String keyword) {
-		List<Free> list = sqlSession.selectList("freeMapper.selectSearchTitle", keyword);
+	public ArrayList<Free> selectSearchTitle(Paging paging) {
+		List<Free> list = sqlSession.selectList("freeMapper.selectSearchTitle", paging);
 		return (ArrayList<Free>) list;
 	}
 	
 	// 전체 목록에서 '작성자'로 검색
-	public ArrayList<Free> selectSearchWriter(String keyword) {
-		List<Free> list = sqlSession.selectList("freeMapper.selectSearchWriter", keyword);
+	public ArrayList<Free> selectSearchWriter(Paging paging) {
+		List<Free> list = sqlSession.selectList("freeMapper.selectSearchWriter", paging);
 		return (ArrayList<Free>) list;
 	}
 
 	// 전체 목록에서 '내용'으로 검색
-	public ArrayList<Free> selectSearchContent(String keyword) {
-		List<Free> list = sqlSession.selectList("freeMapper.selectSearchContent", keyword);
+	public ArrayList<Free> selectSearchContent(Paging paging) {
+		List<Free> list = sqlSession.selectList("freeMapper.selectSearchContent", paging);
 		return (ArrayList<Free>) list;
 	}
 	
@@ -135,5 +135,19 @@ public class FreeDao {
 		return (ArrayList<Free>)list;
 	}
 
+	// '제목'검색 후 페이징 처리
+	public int selectSearchTitleCount(String keyword) {
+		return sqlSession.selectOne("freeMapper.selectSearchTitleCount", keyword);
+	}
+
+	// '작성자'검색 후 페이징 처리
+	public int selectSearchWriterCount(String keyword) {
+		return sqlSession.selectOne("freeMapper.selectSearchWriterCount", keyword);
+	}
+	
+	// '내용'검색 후 페이징 처리
+	public int selectSearchContentCount(String keyword) {
+		return sqlSession.selectOne("freeMapper.selectSearchContentCount", keyword);
+	}
 	
 }

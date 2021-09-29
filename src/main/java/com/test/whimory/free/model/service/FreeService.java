@@ -12,9 +12,9 @@ public interface FreeService {
 	ArrayList<Free> selectList(Paging page);	//전체 목록 조회
 	int selectListCount();				//게시글 count
 	Free selectOne(int free_no);		//게시글 상세보기
-	ArrayList<Free> selectSearchTitle(String keyword);		//글 제목 검색
-	ArrayList<Free> selectSearchWriter(String keyword);		//작성자 검색
-	ArrayList<Free> selectSearchContent(String keyword);	//글 내용 검색
+	ArrayList<Free> selectSearchTitle(Paging paging);		//글 제목 검색
+	ArrayList<Free> selectSearchWriter(Paging paging);		//작성자 검색
+	ArrayList<Free> selectSearchContent(Paging paging);	//글 내용 검색
 	ArrayList<FreeReply> selectReplyList(int free_no);		//댓글 목록(원글의 상세보기 page)
 	int insertOrigin(Free free);	//원글 등록
 	int insertReply(FreeReply freply);		//댓글 등록
@@ -31,4 +31,7 @@ public interface FreeService {
 	int updateAddLikeCount(int free_no);	//추천수 증가
 	int updateAddBadCount(int free_no);	 //신고수 증가
 	ArrayList<Free> selectFreeTop5();	//인기게시글 조회
+	int selectSearchTitleCount(String keyword);	 //'제목' 검색 페이징 처리
+	int selectSearchWriterCount(String keyword);	//'작성자' 검색 페이징 처리
+	int selectSearchContentCount(String keyword);	// '내용' 검색 페이징 처리
 }

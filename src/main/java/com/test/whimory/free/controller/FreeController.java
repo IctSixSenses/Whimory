@@ -341,9 +341,9 @@ public class FreeController {
 	}
 	
 	// 게시글 전체 목록에서 '제목'으로 검색 
-	@RequestMapping(value = "fstitle.do", method = RequestMethod.POST)
-	public ModelAndView freeSearchTitleMethod(@RequestParam("keyword") String keyword, ModelAndView mav, 
-							@RequestParam(name = "page", required = false) String page) {
+	@RequestMapping(value = "fstitle.do", method = RequestMethod.GET)
+	public ModelAndView freeSearchTitleMethod(@RequestParam(name = "page", required = false) String page,
+											Paging paging, ModelAndView mav) {
 		
 		int currentPage = 1;
 		if (page != null) {
@@ -353,7 +353,7 @@ public class FreeController {
 		// 페이징 처리
 		int limit = 10; // 한 페이지에 출력할 목록 갯수
 		// 페이지 계산을 위해 총 목록갯수 조회
-		int listCount = freeService.selectSearchTitle(keyword).size();
+		int listCount = freeService.selectSearchTitleCount(paging.getKeyword());
 		// 페이지 수 계산
 		// 목록이 11개이면 총 2 페이지가 나오게 계산식 작성 ↓
 		int maxPage = (int) ((double) listCount / limit + 0.9);
@@ -371,9 +371,10 @@ public class FreeController {
 		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
-		Paging paging = new Paging(startRow, endRow); // 객체로 준비함
+		paging.setStartRow(startRow);
+		paging.setEndRow(endRow);
 		
-		ArrayList<Free> list = freeService.selectSearchTitle(keyword);
+		ArrayList<Free> list = freeService.selectSearchTitle(paging);
 
 		if (list != null && list.size() > 0) {
 			mav.addObject("list", list);
@@ -383,20 +384,26 @@ public class FreeController {
 			mav.addObject("startPage", startPage);
 			mav.addObject("endPage", endPage);
 			mav.addObject("limit", limit);
+			mav.addObject("keyword", paging.getKeyword());
 			
-			mav.setViewName("free/freeListView");
+			mav.setViewName("free/freeSearchTitleListView");
+			
+			return mav;
 		} else {
-			mav.addObject("message", "'" + keyword + "'(으)로 검색된 게시글 정보가 없습니다.");
-			mav.setViewName("common/error");
+			mav.addObject("listCount", 0);
+			mav.addObject("currentPage", 1);
+			mav.addObject("maxPage", 1);
+			
+			mav.setViewName("free/freeSearchTitleListView");
+			
+			return mav;
 		}
-		
-		return mav;
 	}
 	
 	// 게시글 전체 목록에서 '작성자'로 검색
-	@RequestMapping(value = "fswriter.do", method = RequestMethod.POST)
-	public ModelAndView freeSearchWriterMethod(@RequestParam("keyword") String keyword, ModelAndView mav, 
-							@RequestParam(name = "page", required = false) String page) {
+	@RequestMapping(value = "fswriter.do", method = RequestMethod.GET)
+	public String freeSearchWriterMethod(@RequestParam(name="page", required=false) String page, 
+											Paging paging, Model model) {
 
 		int currentPage = 1;
 		if (page != null) {
@@ -406,7 +413,7 @@ public class FreeController {
 		// 페이징 처리
 		int limit = 10; // 한 페이지에 출력할 목록 갯수
 		// 페이지 계산을 위해 총 목록갯수 조회
-		int listCount = freeService.selectSearchWriter(keyword).size();
+		int listCount = freeService.selectSearchWriterCount(paging.getKeyword());
 		// 페이지 수 계산
 		// 목록이 11개이면 총 2 페이지가 나오게 계산식 작성 ↓
 		int maxPage = (int) ((double) listCount / limit + 0.9);
@@ -424,32 +431,35 @@ public class FreeController {
 		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
-		Paging paging = new Paging(startRow, endRow); // 객체로 준비함
-
-		ArrayList<Free> list = freeService.selectSearchWriter(keyword);
+		paging.setStartRow(startRow);
+		paging.setEndRow(endRow);
+		
+		ArrayList<Free> list = freeService.selectSearchWriter(paging);
 
 		if (list != null && list.size() > 0) {
-			mav.addObject("list", list);
-			mav.addObject("listCount", listCount);
-			mav.addObject("maxPage", maxPage);
-			mav.addObject("currentPage", currentPage);
-			mav.addObject("startPage", startPage);
-			mav.addObject("endPage", endPage);
-			mav.addObject("limit", limit);
+			model.addAttribute("list", list);
+			model.addAttribute("listCount", listCount);
+			model.addAttribute("maxPage", maxPage);
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("limit", limit);
+			model.addAttribute("keyword", paging.getKeyword());
 			
-			mav.setViewName("free/freeListView");
+			return "free/freeSearchWriterListView";
 		} else {
-			mav.addObject("message", "검색된 게시글 정보가 없습니다.");
-			mav.setViewName("common/error");
+			model.addAttribute("listCount", 0);
+			model.addAttribute("currentPage", 1);
+			model.addAttribute("maxPage", 1);
+			
+			return "free/freeSearchWriterListView";
 		}
-
-		return mav;
 	}
 
 	// 게시글 전체 목록에서 '내용'으로 검색
-	@RequestMapping(value = "fscontent.do", method = RequestMethod.POST)
-	public ModelAndView freeSearchContentMethod(@RequestParam("keyword") String keyword, ModelAndView mav, 
-							@RequestParam(name = "page", required = false) String page) {
+	@RequestMapping(value = "fscontent.do", method = RequestMethod.GET)
+	public ModelAndView freeSearchContentMethod(@RequestParam(name="page", required=false) String page,
+										Paging paging, ModelAndView mav) {
 		
 		int currentPage = 1;
 		if (page != null) {
@@ -459,7 +469,7 @@ public class FreeController {
 		// 페이징 처리
 		int limit = 10; // 한 페이지에 출력할 목록 갯수
 		// 페이지 계산을 위해 총 목록갯수 조회
-		int listCount = freeService.selectSearchContent(keyword).size();
+		int listCount = freeService.selectSearchContentCount(paging.getKeyword());
 		// 페이지 수 계산
 		// 목록이 11개이면 총 2 페이지가 나오게 계산식 작성 ↓
 		int maxPage = (int) ((double) listCount / limit + 0.9);
@@ -477,9 +487,10 @@ public class FreeController {
 		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
-		Paging paging = new Paging(startRow, endRow); // 객체로 준비함
+		paging.setStartRow(startRow);
+		paging.setEndRow(endRow);
 		
-		ArrayList<Free> list = freeService.selectSearchContent(keyword);
+		ArrayList<Free> list = freeService.selectSearchContent(paging);
 
 		if (list != null && list.size() > 0) {
 			mav.addObject("list", list);
@@ -489,14 +500,20 @@ public class FreeController {
 			mav.addObject("startPage", startPage);
 			mav.addObject("endPage", endPage);
 			mav.addObject("limit", limit);
+			mav.addObject("keyword", paging.getKeyword());
 			
-			mav.setViewName("free/freeListView");
+			mav.setViewName("free/freeSearchContentListView");
+			
+			return mav;
 		} else {
-			mav.addObject("message", "검색된 게시글 정보가 없습니다.");
-			mav.setViewName("common/error");
+			mav.addObject("listCount", 0);
+			mav.addObject("currentPage", 1);
+			mav.addObject("maxPage", 1);
+			
+			mav.setViewName("free/freeSearchContentListView");
+			
+			return mav;
 		}
-		
-		return mav;
 	}
 	
 	// 댓글 등록

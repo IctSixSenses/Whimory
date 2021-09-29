@@ -66,6 +66,9 @@ function showDiv(item){
 		$("#contentDiv").css("display", "inline-block");
 	}
 }
+function resetList(){
+	location.href="${ pageContext.servletContext.contextPath }/flist.do";
+}
 </script>
 </head>
 <body>
@@ -103,18 +106,21 @@ function showDiv(item){
 				<form action="fstitle.do" method="get">
 					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 					<button type="submit" class="btn btn-outline-primary">검색</button>
+					<input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
 				</form>
 			</div>
 			<div id="writerDiv" style="display:none; float: left; width: 40%;">
 				<form action="fswriter.do" method="get">
 					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control" >
 					<button type="submit" class="btn btn-outline-primary">검색</button>
+					<input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
 				</form>
 			</div>
 			<div id="contentDiv" style="display:none; float: left; width: 40%;">
 				<form action="fscontent.do" method="get">
 					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control" >
 					<button type="submit" class="btn btn-outline-primary">검색</button>
+					<input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
 				</form>
 			</div>
 		</td>
@@ -194,16 +200,18 @@ function showDiv(item){
       &lt;&lt; &nbsp;
    </c:if>
    <c:if test="${ currentPage > 1 }">
-      <c:url var="ubl" value="/flist.do">
+      <c:url var="ubl" value="/fswriter.do">
          <c:param name="page" value="1" />
+         <c:param name="keyword" value="${ keyword }" />
       </c:url>
       <a href="${ ubl }">&lt;&lt;</a>
    </c:if>
    
 <!-- 이전 그룹으로 이동 처리 -->
 <c:if test="${ (currentPage - 10) < startPage and (currentPage - 10) > 1 }">
-   <c:url var="ubl2" value="/flist.do">
+   <c:url var="ubl2" value="/fswriter.do">
       <c:param name="page" value="${ startPage - 10 }"/>
+      <c:param name="keyword" value="${ keyword }" />
    </c:url>
    <a href="${ ubl2 }">&lt;</a> &nbsp;
 </c:if>
@@ -217,8 +225,9 @@ function showDiv(item){
       <font weight="bolder" size="4"><b>${ p }</b></font>
    </c:if>
    <c:if test="${ p ne currentPage }">
-      <c:url var="ubl3" value="/flist.do">
+      <c:url var="ubl3" value="/fswriter.do">
          <c:param name="page" value="${ p }"/>
+         <c:param name="keyword" value="${ keyword }" />
       </c:url>
       <a href="${ ubl3 }">${ p }</a>
    </c:if>
@@ -226,8 +235,9 @@ function showDiv(item){
 
 <!-- 다음 그룹으로 이동 처리 -->
 <c:if test="${ (currentPage + 10) > endPage && (currentPage + 10) < maxPage }">
-   <c:url var="ubl4" value="/flist.do">
+   <c:url var="ubl4" value="/fswriter.do">
       <c:param name="page" value="${ endPage + 10 }"/>
+      <c:param name="keyword" value="${ keyword }" />
    </c:url>
    <a href="${ ubl4 }">&gt;</a> &nbsp;
 </c:if>
@@ -240,8 +250,9 @@ function showDiv(item){
    &nbsp; &gt;&gt;
 </c:if>   
 <c:if test="${ currentPage < maxPage }">
-   <c:url var="ubl5" value="/flist.do">
+   <c:url var="ubl5" value="/fswriter.do">
       <c:param name="page" value="${ maxPage }"/>
+      <c:param name="keyword" value="${ keyword }" />
    </c:url>
    &nbsp; <a href="${ ubl5 }">&gt;&gt;</a>
 </c:if>
