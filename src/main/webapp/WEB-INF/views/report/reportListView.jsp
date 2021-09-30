@@ -58,7 +58,7 @@ function showDiv(item){
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <br><br><br><br><br><br><br>
-<h2 align="center">역사왜곡 제보 게시판</h2>
+<h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">역사왜곡 제보 게시판</h2>
 <br>
 <!-- 로그인 여부에 따라 로그인페이지/게시글 작성 페이지로 이동, 관리자는 작성 x -->
 <c:if test="${ empty loginUser }">
@@ -73,7 +73,7 @@ function showDiv(item){
 </c:if>
 <table align="center" width="1150px">
 	<tr>
-		<td colspan="3"><h5>총 게시글 갯수 : ${ listCount }</h5></td>
+		<td colspan="3"><h5 style="font-family:Nanum Gothic; font-weight:550; color:#333333;">총 게시글 갯수 : ${ listCount }</h5></td>
     	<!-- 게시판 내 검색기능 -->
 		<td colspan="7" align="right">
 			<div style="float: left; width: 50%;">
@@ -86,22 +86,21 @@ function showDiv(item){
 			<div id="titleDiv" style="display:inline-block; float: left; width: 40%;">
 			<form action="rptitle.do">
 				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
-				<button type="submit" class="btn btn-outline-primary">검색</button>
+				<input type="submit" class="btn btn-outline-primary"  value="검색">
 			</form>
 			</div>
 			<div id="writerDiv" style="display:none; float: left; width: 40%;">
 			<form action="rpwriter.do">
 				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
-				<button type="submit" class="btn btn-outline-primary">검색</button>
+				<input type="submit" class="btn btn-outline-primary"  value="검색">
 			</form>
 			</div>
 			<div id="dateDiv" style="display:none; float: left; width: 40%;">
 			<form action="rpdate.do">
 				<input type="date" name="begin"> ~ <input type="date" name="end">
-				<button type="submit" class="btn btn-outline-primary">검색</button>
+				<input type="submit" class="btn btn-outline-primary"  value="검색">
 			</form>
 			</div>
-			<!-- <button class="btn btn-outline-primary" onclick="javascript:location.href='rplist.do?page=1';">전체보기</button> -->
 			<br>
 		</td>
 	</tr>
