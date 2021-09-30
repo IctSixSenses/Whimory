@@ -163,22 +163,29 @@ table#tbrp, #tbrpli, #tbrpins{
 
 <!-- 댓글 목록 -->
 <table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3" id="tbrpli">
-   <c:forEach items="${ frlist }" var="frli">
-		<tr>
-			<th align="center">&nbsp;&nbsp;&nbsp;${ frli.user_id }</th>
-			<td colspan="8">${ frli.free_reply_content }</td>	
-			<c:if test="${ loginUser.user_id eq frli.user_id or loginUser.admin_yn eq 'Y'}"> 
-				<td>
-					<c:url var="frdel" value="/frdelete.do">
-						<c:param name="page" value="${ currentPage } "/>
-				    	<c:param name="free_no" value="${ frli.free_no }"/>
-				    	<c:param name="free_reply_no" value="${ frli.free_reply_no }"/>
-				    </c:url>
-				    <button onclick="javascript:location.href='${ frdel }'" class="btn btn-outline-danger">삭제</button>&nbsp; 
-				</td>
-			</c:if>
-		</tr>
-	</c:forEach>
+	<c:if test="${ frlist.size() > 0 }">
+	   <c:forEach items="${ frlist }" var="frli">
+			<tr>
+				<th align="center">&nbsp;&nbsp;&nbsp;${ frli.user_id }</th>
+				<td colspan="8">${ frli.free_reply_content }</td>	
+				<c:if test="${ loginUser.user_id eq frli.user_id or loginUser.admin_yn eq 'Y'}"> 
+					<td>
+						<c:url var="frdel" value="/frdelete.do">
+							<c:param name="page" value="${ currentPage } "/>
+					    	<c:param name="free_no" value="${ frli.free_no }"/>
+					    	<c:param name="free_reply_no" value="${ frli.free_reply_no }"/>
+					    </c:url>
+					    <button onclick="javascript:location.href='${ frdel }'" class="btn btn-outline-danger">삭제</button>&nbsp; 
+					</td>
+				</c:if>
+			</tr>
+		</c:forEach>
+	</c:if>
+	<c:if test="${ frlist.size() == 0 }">
+	      <tr>
+	         <td align="center"><font size="4"><b>등록된 댓글이 없습니다. 댓글을 등록해주세요:D</b></font></td>
+	      </tr>
+	</c:if>
 </table>
 
 
