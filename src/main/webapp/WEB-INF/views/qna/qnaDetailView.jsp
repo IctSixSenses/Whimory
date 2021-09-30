@@ -103,7 +103,7 @@ table tr td a { text-decoration:none }
    
    <c:if test="${ alist.size() == 0 }">
       <tr>
-         <td>답변이 아직 등록되어 있지 않습니다. 조금만 기다려주시면 감사하겠습니다. :D</td>
+         <td align="center"><font size="4"><b>답변이 아직 등록되어 있지 않습니다. 조금만 기다려주시면 감사하겠습니다. :D</b></font></td>
       </tr>
    </c:if>
  

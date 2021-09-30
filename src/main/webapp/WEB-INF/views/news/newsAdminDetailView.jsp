@@ -78,13 +78,13 @@ table tr td a { text-decoration:none }
 			<button onclick="javascript:location.href='${ wdelete }';" class="btn btn-outline-danger">삭제하기</button> &nbsp; 
 	
 			<%-- 이전페이지로 이동 --%>
-			<button onclick="javascript:history.go(-1);" class="btn btn-info">목록보기</button> &nbsp; 
+			<button onclick="javascript:history.go(-1);" class="btn btn-primary">목록보기</button> &nbsp; 
 			
 			<%-- 수정페이지로 이동 버튼 --%>
 			<c:url var="wupdate" value="/wupview.do">
 	   			<c:param name="news_no" value="${ news.news_no }" />
 			</c:url>
-			<button onclick="javascript:location.href='${ wupdate }';" class="btn btn-outline-info">수정하기</button> 
+			<button onclick="javascript:location.href='${ wupdate }';" class="btn btn-outline-primary">수정하기</button> 
 			
 			</th></tr>
 		</div>
