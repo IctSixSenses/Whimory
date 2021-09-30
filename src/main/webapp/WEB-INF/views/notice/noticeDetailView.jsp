@@ -71,7 +71,7 @@ html body{
 				<b>첨부파일</b> &nbsp;&nbsp; <a href="${ nfd }">${ notice.notice_org_file }</a>
 			</c:if>
 			<c:if test="${ empty notice.notice_org_file }">
-				<b>첨부파일</b>
+				<b>첨부파일</b> &nbsp; -
 			</c:if>
 		</td>
 	</tr>
