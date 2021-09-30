@@ -59,7 +59,7 @@ function resetList(){
 <br><br><br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/menubarA.jsp" />
 
-<h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">역사왜곡 제보 게시판</h2>
+<h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">역사 왜곡 제보 내역 확인</h2>
 <br>
 <!-- 로그인 여부에 따라 로그인페이지/게시글 작성 페이지로 이동, 관리자는 작성 x -->
 <c:if test="${ empty loginUser }">
@@ -72,7 +72,7 @@ function resetList(){
 		<button class="btn btn-outline-primary" onclick="javascript:location.href='rpwf.do';">게시글 작성</button>
 	</div>
 </c:if>
-<table align="center" width="1150px">
+<table align="center" width="1200px">
 	<tr>
 		<td colspan="3"><h5 style="font-family:Nanum Gothic; font-weight:550; color:#333333;">총 게시글 갯수 : ${ listCount }</h5></td>
     	<!-- 게시판 내 검색기능 -->
@@ -84,27 +84,25 @@ function resetList(){
 				<option value="date">작성날짜</option>
 			</select>
 			</div>
-			<div id="titleDiv" style="display:inline-block; float: left; width: 40%;">
+			<div id="titleDiv" style="display:inline-block; float: left;">
 			<form action="rptitlea.do">
 				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
-				<input type="submit" class="btn btn-outline-primary"  value="검색">
-				<input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
+				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
 			</div>
-			<div id="writerDiv" style="display:none; float: left; width: 40%;">
+			<div id="writerDiv" style="display:none; float: left;">
 			<form action="rpwritera.do">
 				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
-				<input type="submit" class="btn btn-outline-primary"  value="검색">
-				<input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
+				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
 			</div>
-			<div id="dateDiv" style="display:none; float: left; width: 40%;">
+			<div id="dateDiv" style="display:none; float: left;">
 			<form action="rpdatea.do">
 				<input type="date" name="begin"> ~ <input type="date" name="end">
-				<input type="submit" class="btn btn-outline-primary" value="검색">
-				<input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
+				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
 			</div>
+			<!-- <button class="btn btn-outline-primary" onclick="javascript:location.href='rplist.do?page=1';">전체보기</button> -->
 			<br>
 		</td>
 	</tr>

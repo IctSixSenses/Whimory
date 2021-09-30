@@ -105,4 +105,9 @@ public class ReportDao {
 	public int selectSearchDateCount(Paging paging) {
 		return sqlSession.selectOne("reportMapper.selectSearchDateCount", paging);
 	}
+
+	//받아오기
+	public int selectListCountU(String user_id) {
+		return sqlSession.selectOne("reportMapper.selectListCountU", user_id);
+	}
 }

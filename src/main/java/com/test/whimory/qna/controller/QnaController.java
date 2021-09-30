@@ -601,11 +601,13 @@ public class QnaController {
 			if (page != null) {
 				currentPage = Integer.parseInt(page);
 			}
+			User loginUser = (User) session.getAttribute("loginUser");
 
 			// 페이징 처리
 			int limit = 10; // 한 페이지에 출력할 목록 개수
 			// 페이지 계산을 위해 총 목록개수
-			int listCount = qnaService.selectListCount();
+			int listCount = qnaService.selectListCountU(loginUser.getUser_id());
+			System.out.println("리스트 count" + listCount);
 			// 페이지 수 계산
 			// 목록이 11개이면 총 2페이지가 나오게 처리하는 계산식
 			int maxPage = (int) ((double) listCount / limit + 0.9);
@@ -615,6 +617,8 @@ public class QnaController {
 			// 현재 페이지가 포함된 페이지 그룹의 끝 값
 			// 페이지 수가 10개이면
 			int endPage = startPage + 10 - 1;
+			
+			
 
 			if (maxPage < endPage) {
 				endPage = maxPage;
@@ -623,9 +627,11 @@ public class QnaController {
 			// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
 			int startRow = (currentPage - 1) * limit + 1;
 			int endRow = startRow + limit - 1;
-			User loginUser = (User) session.getAttribute("loginUser");
+			//User loginUser = (User) session.getAttribute("loginUser");
 			String keyword = loginUser.getUser_id(); //회원 정보를 가져와서 넣어줌
 			Paging paging = new Paging(startRow, endRow, keyword);
+			System.out.println("시작 번호"+startRow);
+			System.out.println("끝 번호"+endRow);
 
 			ArrayList<QnaQuestion> list = qnaService.selectListU(paging);
 

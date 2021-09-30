@@ -138,7 +138,7 @@ function checkform(){
 <tr>
 	<th colspan="2">
 		<a href="javascript:history.go(-1);" style="weight:bolder; color:black; text-decoration:none;">이전 페이지</a> &nbsp;  	
-		<button class="btn btn-danger"
+		<button class="btn btn-outline-danger"
 					onclick="reset">수정취소</button> &nbsp;
 		<button class="btn btn-primary"
 					onclick="checkform();">수정하기</button>  &nbsp;	

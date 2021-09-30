@@ -118,4 +118,8 @@ public class QnaDao {
 		List<QnaQuestion> list = sqlSession.selectList("qnaMapper.selectListU", page);
 		return (ArrayList<QnaQuestion>) list;
 	}
+
+	public int selectListCountU(String user_id) {
+		return sqlSession.selectOne("qnaMapper.selectListCountU", user_id);
+	}
 }

@@ -56,22 +56,22 @@ table tr td a, div a {
 <br>
 
 <!-- 회원 정보 출력 테이블 -->
-<table class="table table-lightgray table-hover" style="table-layout: fixed; width:1650px" align="center" cellspacing="0" cellpadding="3">
+<table class="table table-lightgray table-hover" style="table-layout: fixed; width:1400px" align="center" cellspacing="0" cellpadding="3">
 <thead>
 <tr align="center" class="thead-light">
-<th>아이디</th><th>이름</th><th>성별</th><th>생일</th><th>전화번호</th>
-<th>이메일</th><th>가입날짜</th><th>마지막 로그인 날짜</th>
+<th>이름</th><th>아이디</th><!-- <th>성별</th><th>생일</th><th>전화번호</th> -->
+<th width="250">이메일</th><th>가입날짜</th><th>마지막 로그인 날짜</th>
 <th>관리자 여부</th>
 <th>로그인 가능 여부</th>
 </tr>
 </thead>
 <c:forEach items="${ requestScope.list }" var="m">
 <tr align="center">
-<td><a href="${ pageContext.servletContext.contextPath }/uinfo.do?user_id=${m.user_id}">${ m.user_id }</a></td>
 <td>${ m.user_name }</td>
-<td>${  (m.gender eq "M")? "남자" : "여자" }</td>
+<td><a href="${ pageContext.servletContext.contextPath }/uinfo.do?user_id=${m.user_id}">${ m.user_id }</a></td>
+<!-- <td>${  (m.gender eq "M")? "남자" : "여자" }</td>
 <td>${ m.birth }</td>
-<td>${ m.phone }</td>
+<td>${ m.phone }</td> -->
 <td>${ m.email }</td>
 <td><fmt:formatDate value="${ m.join_date }" type="date" 
 dateStyle="medium" /> </td>
