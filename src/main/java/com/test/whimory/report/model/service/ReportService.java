@@ -28,4 +28,5 @@ public interface ReportService {
 	int selectSearchTitleCount(String keyword);
 	int selectSearchWriterCount(String keyword);
 	int selectSearchDateCount(Paging paging);
+	int selectListCountU(String user_id); //현주 추가 - 선택된 회원 페이지 리스트
 }

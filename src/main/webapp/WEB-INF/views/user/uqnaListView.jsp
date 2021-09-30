@@ -97,7 +97,7 @@ function showDiv(item){
    </div>
 </c:if>
 <br>
-<table align="center" width="1150px">
+<table align="center" width="1050px">
    <tr>
       <td colspan="3"><h5 style="font-family:Nanum Gothic; font-weight:550; color:#333333;">　　　　　　　　　　</h5></td>
       <td colspan="7" align="right">
@@ -109,7 +109,7 @@ function showDiv(item){
             <option value="date">작성날짜</option>
          </select>
         </div>
-         <div id="writerDiv" style="display:inline-block; float: left; width: 40%;">
+         <div id="writerDiv" style="display:inline-block; float: left;">
          <form action="qsearchWriteru.do" method="get">
             <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
             <button type="submit" class="btn btn-outline-primary">검색</button>
@@ -139,12 +139,12 @@ function showDiv(item){
 </table>
 
 <br>
-<table class="table table-lightgray table-hover" style="table-layout: fixed; width:1200px" align="center" cellspacing="0" cellpadding="3" >
+<table class="table table-lightgray table-hover" style="table-layout: fixed; width:1050px" align="center" cellspacing="0" cellpadding="3" >
 	<thead>
 		<tr align="center" class="thead-light">
 			<th width="100px">작성자</th>
 			<th width="200px">질문 분류</th>
-			<th width="700px">제목</th>
+			<th width="550px">제목</th>
 			<th width="120px">작성일</th>
 			<th width="80px">답변여부</th>
 		</tr>
@@ -160,10 +160,10 @@ function showDiv(item){
 		      		<c:param name="qq_no" value="${ q.qq_no }"/>
 		      		<c:param name="page" value="${ currentPage }" />
 		   		</c:url>
-		   		<td align="center"><a href="${ qdetail }">${ q.qq_title }</a></td>
+		   		<td align="left"><a href="${ qdetail }">${ q.qq_title }</a></td>
 			</c:if>
 			<c:if test="${ empty sessionScope.loginUser or sessionScope.loginUser.user_id ne q.user_id }">
-	 			<td align="center">${ q.qq_title }</td>
+	 			<td align="left">${ q.qq_title }</td>
 			</c:if>
 		   
 			<td align="center">

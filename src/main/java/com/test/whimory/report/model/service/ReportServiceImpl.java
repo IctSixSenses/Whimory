@@ -123,4 +123,9 @@ public class ReportServiceImpl implements ReportService {
 		return reportDao.selectSearchDateCount(paging);
 	}
 	
+	@Override
+	public int selectListCountU(String user_id) {
+		return reportDao.selectListCountU(user_id);
+	}
+	
 }

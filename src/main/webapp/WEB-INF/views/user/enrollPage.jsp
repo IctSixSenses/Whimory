@@ -151,7 +151,7 @@ function validate(){
 	<td>
 	<input type="text" name="user_id" id="user_id" placeholder = "8~15자로 입력해주세요.">
 	
-	<button class="btn btn-outline-success"
+	<button class="btn btn-outline-primary"
 					onclick="dupIdCheck();">중복확인</button></td>
 </tr>
 <tr height = "60">
@@ -196,7 +196,7 @@ function validate(){
 <tr height = "60">
 	<th colspan="2">
 		<a href="javascript:history.go(-1);" style="weight:bolder; color:black; text-decoration:none;">이전 페이지</a> &nbsp;
-		<button class="btn btn-danger"
+		<button class="btn btn-outline-danger"
 					onclick="reset">취소하기</button> &nbsp;
 		<button class="btn btn-primary"
 					onclick="checkform();">회원가입</button>  	&nbsp;

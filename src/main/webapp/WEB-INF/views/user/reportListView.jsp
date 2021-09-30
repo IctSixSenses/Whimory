@@ -71,7 +71,7 @@ function showDiv(item){
 	</div>
 </c:if>
 <br>
-<table align="center" width="1150px">
+<table align="center" width="1050px">
 	<tr>
 		<td colspan="3"><h5>　　　　　　　　　　</h5></td>
     	<!-- 게시판 내 검색기능 -->
@@ -83,19 +83,19 @@ function showDiv(item){
 				<option value="date">작성날짜</option>
 			</select>
 			</div>
-			<div id="titleDiv" style="display:inline-block; float: left; width: 40%;">
+			<div id="titleDiv" style="display:inline-block; float: left;">
 			<form action="rptitleu.do">
 				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
 			</div>
-			<div id="writerDiv" style="display:none; float: left; width: 40%;">
+			<div id="writerDiv" style="display:none; float: left;">
 			<form action="rpwriteru.do">
 				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
 			</div>
-			<div id="dateDiv" style="display:none; float: left; width: 40%;">
+			<div id="dateDiv" style="display:none; float: left;">
 			<form action="rpdateu.do">
 				<input type="date" name="begin"> ~ <input type="date" name="end">
 				<button type="submit" class="btn btn-outline-primary">검색</button>
@@ -111,13 +111,13 @@ function showDiv(item){
 <table class="table table-lightgray table-hover" style="table-layout: fixed; width:1200px" align="center" cellspacing="0" cellpadding="3">
 	<thead>
 		<tr align="center" class="thead-light">
-			<th>번호</th>
-			<th>제목</th>
-			<th>작성자</th>
-			<th>등록날짜</th>
-			<th>첨부파일</th>
-			<th>조회수</th>
-			<th></th>
+			<th width="50px">번호</th>
+			<th width="300px">제목</th>
+			<th width="120px">작성자</th>
+			<th width="150px">등록일</th>
+			<th width="100px">첨부파일</th>
+			<th width="100px">조회수</th>
+			<th width="100px">답변</th>
 		</tr>
 	</thead>
 <c:forEach items="${ list }" var="r">

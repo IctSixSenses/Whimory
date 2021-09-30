@@ -122,4 +122,11 @@ public class QnaServiceImpl implements QnaService {
 	public ArrayList<QnaQuestion> selectListU(Paging page){
 		return qnaDao.selectListU(page);
 	}
+	
+	@Override
+	public int selectListCountU(String user_id) {
+		return qnaDao.selectListCountU(user_id);
+	}
+	
+	
 }

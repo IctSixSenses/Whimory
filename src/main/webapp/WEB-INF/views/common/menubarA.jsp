@@ -119,14 +119,7 @@ html body{
           <!-- <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/qlist.do?page=1">검색 키워드 관리</a></li> -->
 		</ul>
 			</c:if>
-  
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<br><br>
 
 
 
