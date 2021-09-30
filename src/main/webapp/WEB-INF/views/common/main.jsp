@@ -72,7 +72,63 @@ html body{
 	left:130px;
 }
 </style>
+
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d8120677b0a538dacf6e008c5b150910"></script>
+<script>
+	var mapContainer = document.getElementById('map'), // 지도의 중심좌표(지도를 담을 영역의 DOM 레퍼런스)
+    mapOption = { //지도를 생성할 때 필요한 기본 옵션
+        center: new kakao.maps.LatLng(37.55501701165485, 126.92054269768846), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨(확대, 축소 정도)
+    }; 
+
+	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성 및 객체 리턴
+
+	// 지도에 마커 표시
+	var marker = new kakao.maps.Marker({
+	    map: map, 
+	    position: new kakao.maps.LatLng(37.55501701165485, 126.92054269768846)
+	});
+
+	// 커스텀 오버레이에 표시할 컨텐츠 
+	var content = '<div class="wrap">' + 
+	            '    <div class="info">' + 
+	            '        <div class="title">' + 
+	            '            휘모리(Whimory)' + 
+	            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+	            '        </div>' + 
+	            '        <div class="body">' + 
+	            '            <div class="img">' +
+	            '                <img src="${ pageContext.request.contextPath }/resources/images/logo03.png" width="73" height="70">' +
+	            '           </div>' + 
+	            '            <div class="desc">' + 
+	            '                <div class="ellipsis">서울시 마포구 양화로 127, </div>' + 
+	            '                <div class="ellipsis">첨단빌딩 7층</div>' + 
+	            '                <div class="jibun ellipsis"> Tel.+82 02 1234 5678 </div>' +  
+	            '            </div>' + 
+	            '        </div>' + 
+	            '    </div>' +    
+	            '</div>';
+
+	// 마커 위에 커스텀오버레이 표시 => 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용하여 위치 설정 
+	var overlay = new kakao.maps.CustomOverlay({
+	    content: content,
+	    map: map,
+	    position: marker.getPosition()       
+	});
+
+	// 마커를 클릭했을 때 커스텀 오버레이 표시
+	kakao.maps.event.addListener(marker, 'click', function() {
+	    overlay.setMap(map);
+	});
+	    
+	// 맵을 클릭했을 때 커스텀 오버레이 닫기
+	kakao.maps.event.addListener(map, 'click', function() {
+	    overlay.setMap(null);
+	});
+	
+</script>
+            
 </head>
 <body>
 	<header> 
@@ -129,7 +185,7 @@ html body{
                 <h4>Team Leader</h4>
                 <p>
                   <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  다들 잘 따라와주셔서 정말 감사합니다: ) 다함께 성장한 것 같아서 신나네요!! 유후! 
+                  다들 잘 따라와주셔서 정말 감사합니다:) 다함께 성장한 것 같아서 신나요! 코딩뿌셔!! 
                   <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
               </div>
@@ -164,11 +220,11 @@ html body{
             <div class="swiper-slide">
               <div class="testimonial-item">
                 <img src="${ pageContext.request.contextPath }/resources/main_images/HJ.jpg" class="testimonial-img" alt="">
-                <h3>박현주 (Hyunju Park)</h3>
+                <h3>박현주 (HyunJoo Park)</h3>
                 <h4>Team Crew</h4>
                 <p>
                   <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  아리랑 아리랑 아라리요 아리랑 고개로~홍 넘~어간다.
+                  코드와 함께 하는 아름다운 밤★
                   <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
               </div>
@@ -176,12 +232,12 @@ html body{
 
             <div class="swiper-slide">
               <div class="testimonial-item">
-                <img src="${ pageContext.request.contextPath }/resources/main_images/SI.jpg" class="testimonial-img" alt="">
+                <img src="${ pageContext.request.contextPath }/resources/main_images/SI2.jpg" class="testimonial-img" alt="">
                 <h3>최성인 (Seongin Choi)</h3>
                 <h4>Team Crew</h4>
                 <p>
                   <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  눼....
+                  포브스 선정 "가장 보람찬 6개월"
                   <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
               </div>
@@ -253,67 +309,13 @@ html body{
               </div>
             </div>
           </div>
+          
           <div class="row">
-
-            <!-- Start Kakao Map -->
+ <!-- Start 카카오맵 api -->
             <div class="col-md-6">
             	<div id="map" style="width:100%;height:380px; margin:auto; margin-top:10px;"></div>
-    			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d8120677b0a538dacf6e008c5b150910"></script>
-            	<script>
-					var mapContainer = document.getElementById('map'), // 지도의 중심좌표(지도를 담을 영역의 DOM 레퍼런스)
-				    mapOption = { //지도를 생성할 때 필요한 기본 옵션
-				        center: new kakao.maps.LatLng(37.55501701165485, 126.92054269768846), // 지도의 중심좌표
-				        level: 3 // 지도의 확대 레벨(확대, 축소 정도)
-				    }; 
-
-					var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성 및 객체 리턴
-	
-					// 지도에 마커 표시
-					var marker = new kakao.maps.Marker({
-					    map: map, 
-					    position: new kakao.maps.LatLng(37.55501701165485, 126.92054269768846)
-					});
-	
-					// 커스텀 오버레이에 표시할 컨텐츠 
-					var content = '<div class="wrap">' + 
-					            '    <div class="info">' + 
-					            '        <div class="title">' + 
-					            '            휘모리(Whimory)' + 
-					            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
-					            '        </div>' + 
-					            '        <div class="body">' + 
-					            '            <div class="img">' +
-					            '                <img src="${ pageContext.request.contextPath }/resources/images/logo03.png" width="73" height="70">' +
-					            '           </div>' + 
-					            '            <div class="desc">' + 
-					            '                <div class="ellipsis">서울시 마포구 양화로 127, </div>' + 
-					            '                <div class="ellipsis">첨단빌딩 7층</div>' + 
-					            '                <div class="jibun ellipsis"> Tel.+82 02 1234 5678 </div>' +  
-					            '            </div>' + 
-					            '        </div>' + 
-					            '    </div>' +    
-					            '</div>';
-	
-					// 마커 위에 커스텀오버레이 표시 => 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용하여 위치 설정 
-					var overlay = new kakao.maps.CustomOverlay({
-					    content: content,
-					    map: map,
-					    position: marker.getPosition()       
-					});
-	
-					// 마커를 클릭했을 때 커스텀 오버레이 표시
-					kakao.maps.event.addListener(marker, 'click', function() {
-					    overlay.setMap(map);
-					});
-					    
-					// 맵을 클릭했을 때 커스텀 오버레이 닫기
-					kakao.maps.event.addListener(map, 'click', function() {
-					    overlay.setMap(null);
-					});
-				
-				</script>
-            </div>
-            <!-- End Kakao Map -->
+    		</div>	
+ <!-- End 카카오앱 api -->
 
             <!-- Start  contact -->
             <div class="col-md-6">

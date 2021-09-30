@@ -36,18 +36,18 @@ html body{
      <div class="section-title">
        <span>역사에서 배우는 삶의 지혜</span>
        <h2>역사에서 배우는 삶의 지혜</h2>
-       <p>때로는 명언을 통해 고난과 역경을 헤쳐나가기도 한답디다:)</p>
+       <p>때로는 명언을 통해 고난과 역경을 헤쳐나가기도 한답니다:)</p>
      </div>
 
      <div class="row">
      	<div class='col-lg-4'>
      		<div class='member d-flex align-items-start'>
      			<div class='pic'>
-     				<img src='${ pageContext.servletContext.contextPath }/resources/card_images/image01.jpg' class='img-fluid' alt='다산 정약용'>
+     				<img src='${ pageContext.servletContext.contextPath }/resources/card_images/image06.jpg' class='img-fluid' alt='도산 안창호'>
      			</div>
      			<div class='member-info'>
-     				<h4>다산 정약용</h4>
-     				<p>겸손은 사람을 머물게 하고, 칭찬은 <br>사람을 가깝게 하고,넓음은 사람을 <br>따르게 하고, 깊음은 사람을 <br>감동케 한다.</p>
+     				<h4>도산 안창호</h4>
+     				<p><font size="3.8">큰일이건 작은 일이건 네가 하는 일을 정성껏 하여라.</font></p>
      				<div class='social'></div>
      			</div>
      		</div>
@@ -56,16 +56,16 @@ html body{
      	<div class='col-lg-4'>
      		<div class='member d-flex align-items-start'>
      			<div class='pic'>
-     				<img src='${ pageContext.servletContext.contextPath }/resources/card_images/image02.jpg' class='img-fluid' alt='도산 안창호'>
+     				<img src='${ pageContext.servletContext.contextPath }/resources/card_images/image05.jpg' class='img-fluid' alt='신사임당'>
      			</div>
      			<div class='member-info'>
-     				<h4>도산 안창호</h4>
-     				<p>큰일이건 작은 일이건 네가 하는 일을 정성껏 하여라.</p>
+     				<h4>신사임당</h4>
+     				<p><font size="3.8">기품을 지키되 사치하지 말고, 지성을 갖추되 자랑하지 말라.</font></p>
      				<div class='social'></div>
      			</div>
      		</div>
      	</div>
-     	
+
      	<div class='col-lg-4'>
      		<div class='member d-flex align-items-start'>
      			<div class='pic'>
@@ -73,7 +73,7 @@ html body{
      			</div>
      			<div class='member-info'>
      				<h4>안중근 의사</h4>
-     				<p>세월을 헛되이 보내지 마라, 청춘은 다시 돌아오지 않는다.</p>
+     				<p><font size="3.8">세월을 헛되이 보내지 마라, 청춘은 다시 돌아오지 않는다.</font></p>
      				<div class='social'></div>
      			</div>
      		</div>
