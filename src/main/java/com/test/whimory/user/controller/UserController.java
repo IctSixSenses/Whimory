@@ -296,7 +296,7 @@ public class UserController {
 		// userService.updatePwd
 		if (userService.updatePwd(user) > 0) {
 			// 로그인 화면으로 감
-			return "redirect:main.do";
+			return "user/loginPage";
 		} else {
 			model.addAttribute("message", user.getUser_id() + " 비밀번호 변경 실패!");
 			return "common/error";
@@ -341,7 +341,7 @@ public class UserController {
 		user.setUser_pwd(bcryptPasswordEncoder.encode(user.getUser_pwd()));
 		// 회원 가입 기능
 		if (userService.insertUser(user) > 0) {
-			return "common/main";
+			return "user/loginPage"; //로그인 페이지로 이동
 		} else {
 			model.addAttribute("message", "회원 가입 실패!");
 			return "common/error";

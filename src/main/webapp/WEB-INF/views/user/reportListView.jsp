@@ -169,7 +169,7 @@ function showDiv(item){
 	<%-- 현재 페이지 숫자 출력 --%>
 	<c:forEach var="p" begin="${ startPage }" end="${ endPage }">
 		<c:if test="${ p == currentPage }">
-			<font weight="bolder" size="4">${ p }</font>
+			<font weight="bolder" size="4"><b>${ p }</b></font>
 		</c:if>
 		<c:if test="${ p != currentPage }">
 			<c:url var="rplist" value="/rplistu.do">
@@ -201,8 +201,8 @@ function showDiv(item){
 	</c:if>
 	
 </div>
-<br><br>
-<hr>
+<br><br><br><br>
+
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

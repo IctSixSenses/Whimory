@@ -31,6 +31,40 @@ table tr td a, div a {
 	color: black; 
 } 
 </style>
+<script type="text/javascript">
+function checkform(){
+	
+	if(document.update.user_pwd.value==""){
+		alert('비밀번호를 입력하세요.');
+		document.join.user_pwd.focus();
+	}
+	else if(document.update.userpwd2.value==""){
+		alert('비밀번호 확인을 입력하세요.');
+		document.join.userpwd2.focus();
+	}
+	else if(document.update.gender.value==""){
+		alert('성별을 입력하세요.');
+		document.join.gender.focus();
+	}
+	else if(document.update.birth.value==""){
+		alert('생년월일을 입력하세요.');
+		document.join.birth.focus();
+	}
+	else if(document.update.phone.value==""){
+		alert('전화번호를 입력하세요.');
+		document.join.phone.focus();
+	}
+	else if(document.update.email.value==""){
+		alert('이메일을 입력하세요.');
+		document.join.email.focus();
+	}
+	
+	else{
+		alert('회원 정보 수정이 완료되었습니다.');
+		document.update.submit();	
+	}
+}
+</script>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
@@ -39,18 +73,22 @@ table tr td a, div a {
 
 <h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">내 정보 수정</h2>
 <br><br>
-<form method="post" action="uupdate.do">
+<form method="post" name="update" action="uupdate.do">
 <input type="hidden" name="origin_userpwd" value="${ requestScope.user.user_pwd }">
-<table id="outer" align="center" width="500" cellspacing="5" cellpadding="0">
+<table id="outer" align="center" cellspacing="5" cellpadding="0">
 <tr height = "60">
 	<th width="120">이 름</th>
-	<td><input type="text" name="user_name" 
-	value="${ requestScope.user.user_name }" readonly></td>
+	<td>${ requestScope.user.user_name }
+	<input type="hidden" name="user_name"
+	value="${ requestScope.user.user_name }">
+	</td>
 </tr>
 <tr height = "60">
 	<th>아이디</th>
-	<td><input type="text" name="user_id" 
-	value="${ requestScope.user.user_id }" readonly></td>
+	<td>${ requestScope.user.user_id }
+	<input type="hidden" name="user_id"
+	value="${ requestScope.user.user_id }">
+	</td>
 </tr>
 <tr height = "60">
 	<th>비밀번호</th>
@@ -61,15 +99,16 @@ table tr td a, div a {
 	<td><input type="password" id="userpwd2" onblur="validate();" required></td>
 </tr>
 <tr height = "60">
+
 	<th>성 별</th>
 	<td>
 	<c:if test="${ user.gender eq 'M' }">	
-		<input type="radio" name="gender" value="M" checked> 남자 &nbsp; 
-	    <input type="radio" name="gender" value="F"> 여자
+		<input type="radio" name="gender" value="M" checked readonly> 남자 &nbsp; 
+	    <input type="radio" name="gender" value="F" readonly> 여자
 	</c:if>
 	<c:if test="${ user.gender eq 'F' }">	  
-		<input type="radio" name="gender" value="M"> 남자 &nbsp; 
-	    <input type="radio" name="gender" value="F" checked> 여자
+		<input type="radio" name="gender" value="M" readonly> 남자 &nbsp; 
+	    <input type="radio" name="gender" value="F" checked readonly> 여자
 	</c:if>
 	</td>
 </tr>
@@ -102,13 +141,9 @@ table tr td a, div a {
 		<button class="btn btn-danger"
 					onclick="reset">수정취소</button> &nbsp;
 		<button class="btn btn-primary"
-					onclick="submit">수정하기</button>  &nbsp;	
+					onclick="checkform();">수정하기</button>  &nbsp;	
 		<a href="main.do" style="weight : bolder; color:black; text-decoration:none;">메인 페이지</a>
-		
-		
-		<c:url var="mdelete" value="mdel.do">
-			<c:param name="userid" value="${ user.user_id }" />
-		</c:url>
+
 	</th>	
 </tr>
 
@@ -118,13 +153,12 @@ table tr td a, div a {
 
 <tr height = "60">
 	<th width="120">이 름</th>
-	<td><input type="text" name="user_name" 
-	value="${ requestScope.user.user_name }" readonly></td>
+	<td>
+	${ requestScope.user.user_name }</td>
 </tr>
 <tr height = "60">
 	<th>아이디</th>
-	<td><input type="text" name="user_id" 
-	value="${ requestScope.user.user_id }" readonly></td>
+	<td>${ requestScope.user.user_id }</td>
 </tr>
 <tr height = "60">
 	<th>성 별</th>
@@ -175,7 +209,7 @@ table tr td a, div a {
 </table>
 </form>
 <br><br><br><br>
-<hr>
+
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

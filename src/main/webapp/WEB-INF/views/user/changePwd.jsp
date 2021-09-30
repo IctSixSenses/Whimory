@@ -49,24 +49,42 @@ function validate(){
 
 	return true;
 }
+
+function checkform(){
+	
+	if(document.change.user_pwd.value==""){
+		alert('비밀번호를 입력하세요.');
+		document.change.user_pwd.focus();
+	}
+	else if(document.change.userpwd2.value==""){
+		alert('비밀번호 확인을 입력하세요.');
+		document.change.userpwd2.focus();
+	}
+	else{
+		alert('비밀번호 수정이 완료되었습니다.\n로그인 페이지로 이동합니다.');
+		document.change.submit();	
+	}
+}
 </script>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<br><br><br><br><br><br><br>
-
-<h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">
+<br><br><br><br><br><br><br><br><br>
+<h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">휘모리(Whimory) 회원 비밀번호 변경 </h2><br><br>
+<h3 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">
 ${user.user_name} 님 어서오세요.
-</h2>
+</h3>
 <div id="changpwd" align = "center">
-<br>
-<h3 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">새로운 비밀번호를 설정해주세요.</h3>
-<form action="changePwd.do" method="post">
+<br><br>
+<h5 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">새로운 비밀번호를 설정해주세요.</h5>
+<br><br>
+<form action="changePwd.do"  name="change" method="post">
 <input type= "hidden" name="user_id" value = "${user.user_id}"> <!-- 아이디 값을 넘겨줌 -->
 <input type="hidden" name="origin_userpwd" value="${ requestScope.user.user_pwd }">
-<label>비밀번호 : <input type="password" name="user_pwd"></label><br><br>
+<label>비밀번호 : <input type="password" name="user_pwd" placeholder = "8~15자로 입력해주세요."></label><br><br>
 <label>비밀번호 확인 : <input type="password" id="userpwd2"></label><br><br>
-<input class="btn btn-outline-primary" type= "submit" value = "비밀번호 변경">
+<br>
+<input class="btn btn-outline-primary" type= "button" onclick = "javascript:checkform();" value = "비밀번호 변경">
 <br><br>
 </form>
 </div>

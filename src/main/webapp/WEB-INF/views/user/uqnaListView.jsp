@@ -240,8 +240,8 @@ function showDiv(item){
    <a href="${ ubl5 }">&gt;&gt;</a>
 </c:if>
 </div>
-<br><br>
-<hr>
+<br><br><br><br>
+
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

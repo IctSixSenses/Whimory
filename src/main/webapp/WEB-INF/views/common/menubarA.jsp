@@ -98,6 +98,9 @@ html body{
           <li class="nav-item" ><a class="nav-link scrollto" aria-current="page" href="${ pageContext.servletContext.contextPath }/udlist.do">탈퇴 회원 관리</a></li>
           <li><button type="button" id="uid_${ sessionScope.loginUser.user_id }" class="btn btn-light" onclick="checkAlert(this)" >
                        회원 탈퇴</button></li>
+                       <li class="nav-item" ><a class="nav-link scrollto" aria-current="page" href="#">　　</a></li>
+                       <li class="nav-item" ><a class="nav-link scrollto" aria-current="page" href="#">　　</a></li>
+                       <li class="nav-item" ><a class="nav-link scrollto" aria-current="page" href="#">　　</a></li>
           <!-- <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/qlist.do?page=1">검색 키워드 관리</a></li> -->
 		</ul>
 			</c:if>
@@ -109,6 +112,9 @@ html body{
           <li class="nav-item" ><a class="nav-link scrollto" aria-current="page" href="${ pageContext.servletContext.contextPath }/qlistu.do?page=1">1:1 문의 내역</a></li>
           <li class="nav-item" ><button type="button" id="uid_${ sessionScope.loginUser.user_id }" class="btn btn-light" onclick="checkAlert(this)" >
                        회원 탈퇴</button></li>
+                       <li class="nav-item" ><a class="nav-link scrollto" aria-current="page" href="#">　　</a></li>
+           <li class="nav-item" ><a class="nav-link scrollto" aria-current="page" href="#">　　</a></li>
+           <li class="nav-item" ><a class="nav-link scrollto" aria-current="page" href="#">　　</a></li>
           <!-- <a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/udelete.do?user_id=${sessionScope.loginUser.user_id}">탈퇴 하기</a> -->
           <!-- <li><a class="nav-link scrollto" href="${ pageContext.servletContext.contextPath }/qlist.do?page=1">검색 키워드 관리</a></li> -->
 		</ul>
