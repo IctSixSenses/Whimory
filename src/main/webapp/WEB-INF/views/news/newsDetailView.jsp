@@ -67,7 +67,7 @@ table tr td a { text-decoration:none }
 		<div width="850" align="center">
 			
 			<%-- 이전페이지로 이동 --%>
-			<button onclick="javascript:history.go(-1);" class="btn btn-info">목록보기</button> &nbsp; 
+			<button onclick="javascript:history.go(-1);" class="btn btn-primary">목록보기</button> &nbsp; 
 			
 		</div>
 	

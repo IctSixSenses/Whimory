@@ -73,7 +73,7 @@ table tr td a { text-decoration:none }
 		 </c:url>
 		<button onclick="javascript:location.href='${ qdelete }';" class="btn btn-outline-danger">삭제하기</button> &nbsp; 
 		<%-- 이전페이지로 이동 --%>
-		<button onclick="javascript:history.go(-1);" class="btn btn-outline-primary">목록보기</button></td></tr>
+		<button onclick="javascript:history.go(-1);" class="btn btn-primary">목록보기</button></td></tr>
 </table>
 <hr>
 
@@ -100,7 +100,7 @@ table tr td a { text-decoration:none }
    
    <c:if test="${ alist.size() == 0 }">
       <tr>
-         <td>답변 미등록 질문입니다. 답변을 작성해 주세요.</td>
+         <td align="center"><font size="4"><b>답변 미등록 질문입니다. 답변을 작성해 주세요.</b></font></td>
       </tr>
    </c:if>
 </table>

@@ -108,10 +108,10 @@ function showDiv(item){
          </c:url>
          
          <c:if test="${ news.news_org_file != null }">
-               <td colspan="3" align="center"><a href="${ wdetail }"><img src="${ pageContext.servletContext.contextPath }/resources/news_upfiles/${ news.news_re_file }" style="width:200px;height:200px"></a></td>
+               <td colspan="3" align="center"><a href="${ wdetail }"><img src="${ pageContext.servletContext.contextPath }/resources/news_upfiles/${ news.news_re_file }" style="width:250px;height:180px"></a></td>
          </c:if>
          <c:if test="${ news.news_org_file == null }">
-               <td colspan="3" align="center"><a href="${ wdetail }"><img src="${ pageContext.servletContext.contextPath }/resources/images/logo02.png" style="width:200px;height:200px"></a></td>
+               <td colspan="3" align="center"><a href="${ wdetail }"><img src="${ pageContext.servletContext.contextPath }/resources/images/logo02.png" style="width:250px;height:180px"></a></td>
          </c:if>
    
    
