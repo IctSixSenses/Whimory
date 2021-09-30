@@ -122,7 +122,7 @@ function validate(){
 		}
 		
 		else{
-			alert('회원가입에 성공했습니다.');
+			alert('회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.');
 			document.join.submit();	
 		}
 	}
@@ -141,7 +141,7 @@ function validate(){
 
 <form method="post" name = "join" action="uinsert.do">
 <input type="hidden" name="origin_userpwd" value="${ requestScope.user.user_pwd }">
-<table id="outer" align="center" width="500" cellspacing="5" cellpadding="0">
+<table id="outer" align="center" cellspacing="5" cellpadding="0">
 <tr height = "60">
 	<th width="120">이 름</th>
 	<td><input type="text" name="user_name" id="user_name" required></td>
@@ -206,7 +206,7 @@ function validate(){
 </table>
 </form>
 <br><br><br><br>
-<hr>
+
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

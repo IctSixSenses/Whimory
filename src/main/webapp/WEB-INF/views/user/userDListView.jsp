@@ -91,7 +91,7 @@ dateStyle="medium" />
 					onclick="location.href='main.do';">메인 페이지로 가기</button>
 					</div>
 <br><br>
-<hr>
+
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 
 </body>
