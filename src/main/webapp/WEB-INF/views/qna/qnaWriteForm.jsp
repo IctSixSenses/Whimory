@@ -25,7 +25,7 @@ table tr td a { text-decoration:none }
 <c:import url="../common/menubar.jsp" />
 
 <br><br><br><br><br><br><br>
-<h1 align="center">질문할게요!</h1><br>
+<h3 align="center" style="font-family:Nanum Gothic; font-weight:530; color:#333333;">질문할게요!</h3>
 
 <!-- form에서 입력값들과 파일을 함께 전송하려면 반드시 속성을 추가해야 함: enctype="multipart/form-data" -->
 <form action="qinsert.do" method="post" enctype="multipart/form-data">
@@ -74,9 +74,7 @@ table tr td a { text-decoration:none }
 </table>
 
 </form>
-<br><br><br>
-
-<hr>
+<br><br><br><br>
 <c:import url="../common/footer.jsp" />
 </body>
 </html>

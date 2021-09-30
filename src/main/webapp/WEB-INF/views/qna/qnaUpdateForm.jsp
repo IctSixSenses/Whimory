@@ -24,7 +24,7 @@ table tr td a { text-decoration:none }
 <body>
 <c:import url="../common/menubar.jsp" />
 <br><br><br><br><br><br><br>
-<h1 align="center">질문 수정할게요!</h1>
+<h3 align="center" style="font-family:Nanum Gothic; font-weight:530; color:#333333;">질문 수정할게요!</h3>
 <br>
 <!-- form 에서 입력값들과 파일을 함께 전송하려면
 반드시 속성을 추가해야 함 : enctype="multipart/form-data" -->
@@ -92,8 +92,7 @@ table tr td a { text-decoration:none }
 	</tr>
 </table>
 </form>
-<br>
-<hr>
+<br><br><br><br>
 <c:import url="../common/footer.jsp" />
 </body>
 </html>

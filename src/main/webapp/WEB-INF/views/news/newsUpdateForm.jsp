@@ -23,7 +23,7 @@ table tr td a { text-decoration:none }
 <body>
 <c:import url="../common/menubar.jsp" />
 <br><br><br><br><br><br><br>
-<h1 align="center">언론보도 수정</h1>
+<h3 align="center" style="font-family:Nanum Gothic; font-weight:530; color:#333333;">언론보도 수정</h3>
 <br>
 <!-- form 에서 입력값들과 파일을 함께 전송하려면
 반드시 속성을 추가해야 함 : enctype="multipart/form-data" -->
@@ -36,7 +36,7 @@ table tr td a { text-decoration:none }
 
 	<table class="table" style="table-layout: fixed; width:800px" align="center" cellspacing="0" cellpadding="3">
 	<tr>
-		<th>관리자ID</th>
+		<th width="100px">관리자ID</th>
 			<input type="hidden" name="user_id" id="user_id" value="${ loginUser.user_id }">
 			<td colspan="7">${ loginUser.user_id }</td>
 		</tr>
@@ -80,8 +80,7 @@ table tr td a { text-decoration:none }
 	</th></tr>
 	</table>
 </form>
-<br>
-<hr>
+<br><br><br><br><br>
 <c:import url="../common/footer.jsp" />
 </body>
 </html>

@@ -60,7 +60,9 @@ function showDiv(item){
          $("#dateDiv").css("display", "inline-block");
       }
 }
-
+function resetList(){
+	location.href="${ pageContext.servletContext.contextPath }/wlist.do";
+}
 </script>
 </head>
 <body>
@@ -71,12 +73,12 @@ function showDiv(item){
 <div style="align:center;text-align:center;">
       <button onclick="showWriteForm();" class="btn btn-outline-primary">글쓰기</button>
 </div>
-<table align="center" width="1150px">
+<table align="center" width="1000px">
    <tr>
-      <td colspan="3" align="center"><h5 style="font-size:15pt; font-family:Nanum Gothic; font-weight:550; color:#333333;">언론보도 전체 목록</h5></td>
+      <td colspan="3" align="left"><h5 style="font-size:15pt; font-family:Nanum Gothic; font-weight:550; color:#333333;">언론보도 전체 목록</h5></td>
       <td colspan="7" align="right">
          <div style="float: left; width: 50%;">
-         <select class="form-control" onchange="showDiv(this)" style="width:80px; display:inline-block">
+         <select class="form-control" onchange="showDiv(this)" style="width:90px; display:inline-block">
             <option value="title">제목</option>
             <option value="content">내용</option>
             <option value="date">작성날짜</option>
@@ -84,20 +86,23 @@ function showDiv(item){
         </div>
          <div id="titleDiv" style="display:inline-block; float: left; width: 40%;">
          <form action="wsearchTitle.do" method="post">
-            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 230px; float: left;" class="form-control">
             <button type="submit" class="btn btn-outline-primary">검색</button>
+            <input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
          </form>
          </div>
          <div id="contentDiv" style="display:none; float: left; width: 40%;">
          <form action="wsearchContent.do" method="post">
-            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 230px; float: left;" class="form-control">
             <button type="submit" class="btn btn-outline-primary">검색</button>
+            <input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
          </form>
          </div>
          <div id="dateDiv" style="display:none; float: left; width: 40%;">
          <form action="wsearchDate.do" method="post">
             <input type="date" name="begin"> ~ <input type="date" name="end">
             <button type="submit" class="btn btn-outline-primary">검색</button>
+            <input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
          </form>
          </div>
       </td>
@@ -131,9 +136,7 @@ function showDiv(item){
    </c:forEach>
 </table>
 
-<br>
-
-<hr>
+<br><br><br><br>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
