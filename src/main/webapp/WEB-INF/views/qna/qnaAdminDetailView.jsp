@@ -78,15 +78,15 @@ table tr td a { text-decoration:none }
 <hr>
 
 <!-- 댓글 목록 -->
-<table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3" id="tbrpli">
+<table class="table" style="table-layout: fixed; width:1100px" align="center" cellspacing="0" cellpadding="3" id="tbrpli">
    <c:if test="${ alist.size() > 0 }">
    <c:forEach items="${ alist }" var="ali">
       <tr>
          <th colspan="2" align="center">&nbsp;&nbsp;&nbsp;${ ali.user_id }</th>
-            <td colspan="12">${ ali.qa_content }</td>   
-            <td colspan="2">${ ali.qa_date }</td> 
+            <td colspan="8">${ ali.qa_content }</td>   
+            <td colspan="3"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${ ali.qa_date }" /></td> 
             
-            <td colspan="2">
+            <td colspan="1">
 					<c:url var="adelete" value="/adelete.do">
 						<c:param name="page" value="${ currentPage }"/>
 						<c:param name="qq_no" value="${ ali.qq_no }"/>
