@@ -8,6 +8,21 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 회원 관리 페이지</title>
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
+<style type="text/css">
+html head{
+	font-family: Roboto, Nanum Gothic;
+}
+html body{
+	font-family: Roboto, Nanum Gothic;
+} 
+table tr td a, div a { 
+	text-decoration:none;
+	color: black; 
+} 
+</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 
 </head>
@@ -15,7 +30,7 @@
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <br><br><br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/menubarA.jsp" />
-<h1 align="center">탈퇴회원 정보 보기</h1>
+<h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">탈퇴회원 정보 보기</h2>
 <br><br>
 
 <!-- 검색 창 -->
@@ -26,7 +41,7 @@
 		<td colspan="3"></td>
     	<!-- 게시판 내 검색기능 -->
 		<td colspan="4" align="right">
-			<div id="usearch" style="display:inline-block; float: left; width: 40%;">
+			<div id="usearch" style="display:inline-block; float: right;">
 			<form action="usearchD.do" method="post">
 			<input type="hidden" name="action" value="id">
 				<input type="search" name="keyword" placeholder="회원 아이디를 입력하세요" style="width: 250px; float: left;" class="form-control">
@@ -42,14 +57,16 @@
 
 <br><br>
 <!-- 회원 정보 출력 테이블 -->
-<table class="table table-hover" style="table-layout: fixed; width:1650px" align="center" cellspacing="0" cellpadding="3">
-<tr>
+<table class="table table-lightgray table-hover" style="table-layout: fixed; width:1650px" align="center" cellspacing="0" cellpadding="3">
+<thead>
+<tr align="center" class="thead-light">
 <th>아이디</th><th>이름</th><th>성별</th><th>생일</th><th>전화번호</th>
 <th>이메일</th><th>가입날짜</th><th>마지막 로그인 날짜</th>
 <th>완전 삭제 예정일</th>
 </tr>
+</thead>
 <c:forEach items="${ requestScope.list }" var="m">
-<tr>
+<tr align="center">
 <td>${ m.user_id }</td>
 <td>${ m.d_user_name }</td>
 <td>${  (m.d_gender eq "M")? "남자" : "여자" }</td>
@@ -71,8 +88,9 @@ dateStyle="medium" />
 
 <div align="center">
 <button class="btn btn-outline-primary"
-					onclick="javascript:history.go(-1);">뒤로 가기</button>
+					onclick="location.href='main.do';">메인 페이지로 가기</button>
 					</div>
+<br><br>
 <hr>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 

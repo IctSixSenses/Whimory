@@ -21,14 +21,16 @@ request.setCharacterEncoding("UTF-8");
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/menubar.jsp" />
+	<br><br><br><br><br><br><br>
 	<hr>
 	<div align="center">
-		<h3>${ user.user_name }님의 아이디는 <br> 
-		&nbsp; &nbsp; ${ user.user_id } 입니다.</h3>
+		<h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">${ user.user_name }님의 아이디는 <br><br> 
+		&nbsp; &nbsp; ${ user.user_id } 입니다.</h2>
 		<button class="btn btn-outline-primary"
 			onclick="javascript:location.href='findaccount.do';">비밀번호 찾기</button>
 		&nbsp; &nbsp;
 	</div>
+	<br><br><br><br>
 	<hr>
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>

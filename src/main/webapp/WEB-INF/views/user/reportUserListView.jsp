@@ -70,7 +70,6 @@ function showDiv(item){
 		<button class="btn btn-outline-primary" onclick="javascript:location.href='rpwf.do';">게시글 작성</button>
 	</div>
 </c:if>
-
 <table align="center" width="1150px">
 	<tr>
 		<td colspan="3"><h5>총 게시글 갯수 : ${ listCount }</h5></td>
@@ -157,7 +156,7 @@ function showDiv(item){
 		&lt;&lt;&nbsp;
 	</c:if>
 	<c:if test="${ currentPage > 1 }">
-      <c:url var="ubl" value="/rplista.do">
+      <c:url var="ubl" value="/rplistu.do">
          <c:param name="page" value="1" />
       </c:url>
       <a href="${ ubl }">&lt;&lt;</a>
@@ -165,7 +164,7 @@ function showDiv(item){
 	
 	<%-- 이전 페이지 그룹으로 이동 --%>
 	<c:if test="${ (currentPage - 10) < startPage and (currentPage - 10) > 1 }">
-	<c:url var="ubl2" value="/rplista.do">
+	<c:url var="ubl2" value="/rplistu.do">
 		<c:param name="page" value="${ startPage - 10 }"/>
 	</c:url>
 	<a href="${ ubl2 }">&lt;</a>
@@ -177,10 +176,10 @@ function showDiv(item){
 	<%-- 현재 페이지 숫자 출력 --%>
 	<c:forEach var="p" begin="${ startPage }" end="${ endPage }">
 		<c:if test="${ p == currentPage }">
-			<font weight="bolder" size="4">${ p }</font>
+			<font color="red" size="4">${ p }</font>
 		</c:if>
 		<c:if test="${ p != currentPage }">
-			<c:url var="rplist" value="/rplista.do">
+			<c:url var="rplist" value="/rplistu.do">
 				<c:param name="page" value="${ p }" />
 			</c:url>
 			<a href="${ rplist }">${ p }</a>
@@ -189,7 +188,7 @@ function showDiv(item){
 	
 	<%-- 다음 페이지 그룹으로 이동 --%>
 	<c:if test="${ (currentPage + 10) > endPage && (currentPage + 10) < maxPage }">
-	<c:url var="ubl4" value="/rplista.do">
+	<c:url var="ubl4" value="/rplistu.do">
       <c:param name="page" value="${ endPage + 10 }"/>
 	</c:url>
 	<a href="${ ubl4 }">&gt;</a>
@@ -202,7 +201,7 @@ function showDiv(item){
 		&gt;&gt;&nbsp;
 	</c:if>
 	<c:if test="${ currentPage < maxPage }">
-		<c:url var="rplist" value="/rplista.do">
+		<c:url var="rplist" value="/rplistu.do">
 			<c:param name="page" value="${ maxPage }" />
 		</c:url>
 		<a href="${ rplist }">&gt;&gt;</a> &nbsp;
