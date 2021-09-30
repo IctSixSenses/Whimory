@@ -46,29 +46,24 @@ table tr td a:hover, div a:hover {
 <script type="text/javascript">
 function showDiv(item){
    
-   if($(item).val() == "writer"){
-      $("#writerDiv").css("display", "inline-block");
-      $("#titleDiv").css("display", "none");
-      $("#categoryDiv").css("display", "none");
-      $("#dateDiv").css("display", "none");
-   }
+
    
    if($(item).val() == "title"){
-      $("#writerDiv").css("display", "none");
+    
       $("#titleDiv").css("display", "inline-block");
       $("#categoryDiv").css("display", "none");
       $("#dateDiv").css("display", "none");
    }
       
    if($(item).val() == "category"){
-      $("#writerDiv").css("display", "none");
+ 
       $("#titleDiv").css("display", "none");
       $("#categoryDiv").css("display", "inline-block");
       $("#dateDiv").css("display", "none");
    }
       
    if($(item).val() == "date"){
-      $("#writerDiv").css("display", "none");
+
       $("#titleDiv").css("display", "none");
       $("#categoryDiv").css("display", "none");
       $("#dateDiv").css("display", "inline-block");
@@ -84,44 +79,40 @@ function resetList(){
 <br><br><br><br><br><br><br>
 <h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">문의 내역 확인</h2>
 <br>
-<table align="center" width="1150px">
+<table align="center" width="1200px">
    <tr>
-      <td colspan="3"><h5 style="font-family:Nanum Gothic; font-weight:550; color:#333333;">총 질문 개수 : ${ listCount }</h5></td>
+      <td colspan="3"><h5 style="font-family:Nanum Gothic; font-weight:550; color:#333333;">　　　　　　　　　　</h5></td>
       <td colspan="7" align="right">
          <div style="float: left; width: 50%;">
          <select class="form-control" onchange="showDiv(this)" style="width:80px; display:inline-block">
-            <option value="writer">작성자</option>
-            <option value="title">제목</option>
-            <option selected value="category">질문분류</option>
+      <!--       <option value="writer">작성자</option> -->
+            <option selected value="title">제목</option>
+            <option value="category">질문분류</option>
             <option value="date">작성날짜</option>
          </select>
         </div>
-         <div id="writerDiv" style="display:inline-block; float: left; width: 40%;">
-         <form action="qsearchWritera.do" method="get">
+        <!--  <div id="writerDiv" style="display:inline-block; float: left;">
+          <form action="qsearchWriteru.do" method="get">
             <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
-            <input type="submit" class="btn btn-outline-primary"  value="검색">
-            <input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
+            <button type="submit" class="btn btn-outline-primary">검색</button>
+         </form> 
+         </div>-->
+         <div id="titleDiv" style="display:inline-block; float: left;">
+         <form action="qsearchTitleu.do" method="get">
+            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+            <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
          </div>
-         <div id="titleDiv" style="display:none; float: left; width: 40%;">
-         <form action="qsearchTitlea.do" method="get">
+         <div id="categoryDiv" style="display:none; float: left;">
+         <form action="qsearchCategoryu.do" method="get">
             <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
-            <input type="submit" class="btn btn-outline-primary"  value="검색">
-            <input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
+            <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
          </div>
-         <div id="categoryDiv" style="display:none; float: left; width: 40%;">
-         <form action="qsearchCategorya.do" method="get">
-            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
-            <input type="submit" class="btn btn-outline-primary"  value="검색">
-            <input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
-         </form>
-         </div>
-         <div id="dateDiv" style="display:none; float: left; width: 40%;">
-         <form action="qsearchDatea.do" method="get">
+         <div id="dateDiv" style="display:none; float: left;">
+         <form action="qsearchDateu.do" method="get">
             <input type="date" name="begin"> ~ <input type="date" name="end">
-            <input type="submit" class="btn btn-outline-primary"  value="검색">
-            <input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
+            <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
          </div>
          

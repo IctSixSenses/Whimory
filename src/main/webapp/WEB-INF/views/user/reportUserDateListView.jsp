@@ -37,11 +37,6 @@ function showDiv(item){
 		$("#dateDiv").css("display", "none");
 	}
 	   
-	if($(item).val() == "writer"){
-		$("#titleDiv").css("display", "none");
-		$("#writerDiv").css("display", "inline-block");
-		$("#dateDiv").css("display", "none");
-	}
 	   
 	if($(item).val() == "date"){
 		$("#titleDiv").css("display", "none");
@@ -78,18 +73,11 @@ function showDiv(item){
 			<div style="float: left; width: 50%;">
 			<select class="form-control" onchange="showDiv(this)" style="width:90px; display:inline-block">
 				<option value="title">제목</option>
-				<option value="writer">작성자</option>
 				<option value="date">작성날짜</option>
 			</select>
 			</div>
 			<div id="titleDiv" style="display:inline-block; float: left; width: 40%;">
 			<form action="rptitlea.do">
-				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
-				<button type="submit" class="btn btn-outline-primary">검색</button>
-			</form>
-			</div>
-			<div id="writerDiv" style="display:none; float: left; width: 40%;">
-			<form action="rpwritera.do">
 				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>

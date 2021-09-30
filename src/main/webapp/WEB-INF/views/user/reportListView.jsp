@@ -33,19 +33,11 @@ function moveLoginPage(){
 function showDiv(item){
 	if($(item).val() == "title"){
 		$("#titleDiv").css("display", "inline-block");
-		$("#writerDiv").css("display", "none");
-		$("#dateDiv").css("display", "none");
-	}
-	   
-	if($(item).val() == "writer"){
-		$("#titleDiv").css("display", "none");
-		$("#writerDiv").css("display", "inline-block");
 		$("#dateDiv").css("display", "none");
 	}
 	   
 	if($(item).val() == "date"){
 		$("#titleDiv").css("display", "none");
-		$("#writerDiv").css("display", "none");
 		$("#dateDiv").css("display", "inline-block");
 	}
 }
@@ -71,7 +63,7 @@ function showDiv(item){
 	</div>
 </c:if>
 <br>
-<table align="center" width="1050px">
+<table align="center" width="1200px">
 	<tr>
 		<td colspan="3"><h5>　　　　　　　　　　</h5></td>
     	<!-- 게시판 내 검색기능 -->
@@ -79,18 +71,11 @@ function showDiv(item){
 			<div style="float: left; width: 50%;">
 			<select class="form-control" onchange="showDiv(this)" style="width:90px; display:inline-block">
 				<option value="title">제목</option>
-				<option value="writer">작성자</option>
 				<option value="date">작성날짜</option>
 			</select>
 			</div>
 			<div id="titleDiv" style="display:inline-block; float: left;">
 			<form action="rptitleu.do">
-				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
-				<button type="submit" class="btn btn-outline-primary">검색</button>
-			</form>
-			</div>
-			<div id="writerDiv" style="display:none; float: left;">
-			<form action="rpwriteru.do">
 				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
@@ -124,7 +109,7 @@ function showDiv(item){
 <tr align="center">
 	<td>${ r.report_no }</td>
 	<td align="left">
-		<c:url var="rpdetail" value="rpdetail.do">
+		<c:url var="rpdetail" value="rpdetailu.do">
 			<c:param name="report_no" value="${ r.report_no }" />
 			<c:param name="page" value="${ currentPage }" />
 		</c:url>

@@ -36,12 +36,7 @@ function showDiv(item){
 		$("#writerDiv").css("display", "none");
 		$("#dateDiv").css("display", "none");
 	}
-	   
-	if($(item).val() == "writer"){
-		$("#titleDiv").css("display", "none");
-		$("#writerDiv").css("display", "inline-block");
-		$("#dateDiv").css("display", "none");
-	}
+
 	   
 	if($(item).val() == "date"){
 		$("#titleDiv").css("display", "none");
@@ -70,7 +65,7 @@ function showDiv(item){
 		<button class="btn btn-outline-primary" onclick="javascript:location.href='rpwf.do';">게시글 작성</button>
 	</div>
 </c:if>
-<table align="center" width="1150px">
+<table align="center" width="1200px">
 	<tr>
 		<td colspan="3"><h5>총 게시글 갯수 : ${ listCount }</h5></td>
     	<!-- 게시판 내 검색기능 -->
@@ -78,7 +73,6 @@ function showDiv(item){
 			<div style="float: left; width: 50%;">
 			<select class="form-control" onchange="showDiv(this)" style="width:90px; display:inline-block">
 				<option value="title">제목</option>
-				<option value="writer">작성자</option>
 				<option value="date">작성날짜</option>
 			</select>
 			</div>
@@ -88,13 +82,7 @@ function showDiv(item){
 				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
 			</div>
-			<div id="writerDiv" style="display:none; float: left; width: 40%;">
-			<form action="rpwritera.do">
-				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
-				<button type="submit" class="btn btn-outline-primary">검색</button>
-			</form>
-			</div>
-			<div id="dateDiv" style="display:none; float: left; width: 40%;">
+			<div id="dateDiv" style="display:none; float: left; ">
 			<form action="rpdatea.do">
 				<input type="date" name="begin"> ~ <input type="date" name="end">
 				<button type="submit" class="btn btn-outline-primary">검색</button>
