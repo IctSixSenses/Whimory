@@ -73,9 +73,9 @@ table tr td a, div a {
 <td>${ m.birth }</td>
 <td>${ m.phone }</td> -->
 <td>${ m.email }</td>
-<td><fmt:formatDate value="${ m.join_date }" type="date" 
+<td><fmt:formatDate value="${ m.join_date }" type="date" pattern="yyyy-MM-dd"
 dateStyle="medium" /> </td>
-<td><fmt:formatDate value="${ m.last_login_date }" type="date" 
+<td><fmt:formatDate value="${ m.last_login_date }" type="date" pattern="yyyy-MM-dd"
 dateStyle="medium" /></td>
 <td>
 <c:if test="${ m.admin_yn eq 'Y' }">

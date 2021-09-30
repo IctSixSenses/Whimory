@@ -74,12 +74,12 @@ table tr td a, div a {
 <td>${ m.d_phone }</td> -->
 <td>${ m.d_email }</td>
 <td><fmt:formatDate value="${ m.d_join_date }" type="date" 
-dateStyle="medium" /> </td>
+dateStyle="medium"  pattern="yyyy-MM-dd"/> </td>
 <td><fmt:formatDate value="${ m.d_last_login_date }" type="date" 
-dateStyle="medium" /></td>
+dateStyle="medium" pattern="yyyy-MM-dd" /></td>
 <td>
 <fmt:formatDate value="${ m.drop_date }" type="date" 
-dateStyle="medium" />
+dateStyle="medium" pattern="yyyy-MM-dd"/>
 </td>
 </tr>
 </c:forEach>
