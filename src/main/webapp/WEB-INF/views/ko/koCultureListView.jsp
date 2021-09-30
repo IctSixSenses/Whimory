@@ -66,7 +66,7 @@ function resetList(){
 
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<br><br><br><br><br><br><br>
+<div style="height:230px;"></div>
 
 <%-- 서브 메뉴바 --%>
 <c:import url="/WEB-INF/views/ko/koSubMenubar.jsp" />
@@ -91,8 +91,7 @@ function resetList(){
 		<td colspan="7" align="right">
 			<div style="width: 430px;">
 				<form action="ksearchword.do" method="post" align="right">
-					<input type="hidden" name="ko_category" value="${ category }">
-					<input type="search" name="ko_title" size="30" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+					<input type="search" name="keyword" size="30" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 					<input type="submit" class="btn btn-outline-primary" style="float: left;" value="검색">
 					<c:if test="${ listCount != list.size() }">
 						<div id="searchReset">
