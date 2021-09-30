@@ -67,7 +67,7 @@ function resetList(){
 
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<div style="height:300px;"></div>
+<div style="height:230px;"></div>
 
 <%-- 서브 메뉴바 --%>
 <c:import url="/WEB-INF/views/ko/koSubMenubar.jsp" />
