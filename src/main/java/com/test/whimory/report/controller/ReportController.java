@@ -795,11 +795,11 @@ public class ReportController {
 		}
 
 	}
-	
+
 	// 현주 추가 부분 : 반환 부분 다르게
 	@RequestMapping("rptitleu.do")
-	public String reportSearchTitleUserMethod(@RequestParam(name = "page", required = false) String page,
-			Paging paging, Model model) {
+	public String reportSearchTitleUserMethod(@RequestParam(name = "page", required = false) String page, Paging paging,
+			Model model) {
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
@@ -960,4 +960,23 @@ public class ReportController {
 		}
 
 	}
+
+	// 첨부파일 다운로드 요청 처리용
+	@RequestMapping("rpfdown.do")
+	public ModelAndView fileDownMethod(ModelAndView mv, HttpServletRequest request,
+			@RequestParam("ofile") String originFileName, @RequestParam("rfile") String renameFileName) {
+		String savePath = request.getSession().getServletContext().getRealPath("resources/report_upfiles");
+
+		// 저장 폴더에서 파일 읽기 위한 경로 포함
+		File renameFile = new File(savePath + "\\" + renameFileName);
+		// response에 다운 파일명 등록을 위한 파일 (경로 제외)
+		File originalFile = new File(originFileName);
+
+		// 파일 다운용 뷰클래스 지정 및 보낼 객체명 저장
+		mv.setViewName("filedown");
+		mv.addObject("renameFile", renameFile);
+		mv.addObject("originalFile", originalFile);
+
+		return mv;
+	} // fileDownMethod
 }

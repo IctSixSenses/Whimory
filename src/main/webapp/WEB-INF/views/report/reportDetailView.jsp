@@ -72,7 +72,7 @@ table#tbrp, #tbrpli, #tbrpins{
 	<tr>
 		<td colspan="10">
 			<c:if test="${ !empty report.report_org_file }">
-				<c:url var="ubf" value="/fdown.do">
+				<c:url var="ubf" value="/rpfdown.do">
 					<c:param name="ofile" value="${ report.report_org_file }"/>
 					<c:param name="rfile" value="${ report.report_re_file }"/>
 				</c:url>		
