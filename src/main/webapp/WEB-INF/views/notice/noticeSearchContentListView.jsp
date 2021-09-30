@@ -107,21 +107,21 @@ function resetList(){
 			</select>
 			</div>
 			
-			<div id="titleDiv" style="display:inline-block; float: left; width: 40%;">
+			<div id="titleDiv" style="display:inline-block; float: left; width: 50%;">
 				<form action="nsearchTitle.do" method="get">
 					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 					<input type="submit" class="btn btn-outline-primary"  value="검색">
 					<input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
 				</form>
 			</div>
-			<div id="contentDiv" style="display:none; float: left; width: 40%;">
+			<div id="contentDiv" style="display:none; float: left; width: 50%;">
 				<form action="nsearchContent.do" method="get">
 					<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 					<input type="submit" class="btn btn-outline-primary" value="검색">
 					<input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
 				</form>
 			</div>
-			<div id="dateDiv" style="display:none; float: left; width: 40%;">
+			<div id="dateDiv" style="display:none; float: left; width: 60%;">
 				<form action="nsearchDate.do" method="get">
 					<input type="date" name="begin"> ~ <input type="date" name="end">
 					<input type="submit" class="btn btn-outline-primary" value="검색">
