@@ -24,8 +24,8 @@ table#tbrp, #tbrpli, #tbrpins{
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<br><br><br><br><br><br><br>
-<h3 align="center">${ report.report_no }번 게시글 상세조회 페이지</h3><br>
+<br><br><br><br><br><br><br><br>
+<h3 align="center" style="font-family:Nanum Gothic; font-weight:530; color:#333333;">${ report.report_no }번 게시글 상세조회 페이지</h3><br>
 
 <!-- 수정/삭제 버튼 -->
 <table width="1000px" align="center">
@@ -102,11 +102,8 @@ table#tbrp, #tbrpli, #tbrpins{
 				<img src="${ pageContext.request.contextPath }/resources/free_upfiles/like.PNG"  width="28" height="28"> 공감 &nbsp;${ report.report_like }&nbsp;&nbsp;
 			</c:if>
 		</td>
-	</tr> 
-</table>
-
-<table align="center" width="1000px" height="110px" style="font-size:20px;" id="tbrp" >
-	<tr rowspan="2">
+	</tr>
+	<tr rowspan="10">
 		<td colspan="10" align="center">
 			<button class="btn btn-primary" onclick="javascript:location.href='rplist.do?page=${ currentPage }';">목록으로</button>
 		</td> 
@@ -118,7 +115,8 @@ table#tbrp, #tbrpli, #tbrpins{
 	<table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3" id="tbrpli">
 	<tr>
 		<th align="center">&nbsp;&nbsp;&nbsp;${ report.user_id }</th>
-		<td colspan="8">${ report.admin_comment }</td>
+		<td colspan="6">${ report.admin_comment }</td>
+		<td colspan="2"><fmt:formatDate value="${ report.comment_date }" pattern="yyyy-MM-dd hh:mm:ss" /></td>
 	<c:if test="${ loginUser.admin_yn eq 'Y' }">
 		<c:url var="cmdelete" value="cmdelete.do">
 		<c:param name="report_no" value="${ report.report_no }" />
@@ -132,7 +130,7 @@ table#tbrp, #tbrpli, #tbrpins{
 	</table>
 </c:if>
 <c:if test="${ empty report.admin_comment }">
-	<table align="center" width="1000px" height="110px" style="font-size:20px;" id="tbrp" >
+	<table align="center" width="1000px" height="110px" style="font-size:20px;" id="tbrpli" >
 	<tr><td align="center"><font size="4"><b>등록된 답변이 없습니다.</b></font></td></tr>
 	</table>
 </c:if>
@@ -145,7 +143,7 @@ table#tbrp, #tbrpli, #tbrpins{
 	<input type="hidden" name="page" value="${ currentPage }">
 	<input type="hidden" name="report_no" value="${ report.report_no }">
 	<input type="hidden" name="admin_id" value="${ loginUser.user_id }">
-	<table class="table" style="table-layout: fixed; width:1000px; border-collapse:collapse;" align="center" cellspacing="0" cellpadding="3" id="tbrpins">
+	<table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3" id="tbrpli">
 		<tr>
 			<td align="center">${ loginUser.user_id }</td>
 			<td colspan="8"><textarea rows="3" cols="96" name="admin_comment" placeholder="답변을 입력하세요."></textarea></td>	

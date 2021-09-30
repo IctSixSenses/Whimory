@@ -21,8 +21,8 @@ html body{
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<br><br><br><br><br><br><br>
-<h3 align="center">${ report.report_no }번 제보글 수정 페이지</h3><br>
+<br><br><br><br><br><br><br><br>
+<h3 align="center" style="font-family:Nanum Gothic; font-weight:530; color:#333333;">${ report.report_no }번 제보글 수정 페이지</h3><br>
 
 <form action="rpupdate.do" method="post" enctype="multipart/form-data">
 <input type="hidden" name="report_no" value="${ report.report_no }">
@@ -55,15 +55,15 @@ html body{
 </tr>
 <tr><th colspan="10">
 	<div align="center" width="800px">
+		<input type="reset" value="다시수정" class="btn btn-outline-primary"> &nbsp;
 		<input type="submit" value="수정하기" class="btn btn-primary"> &nbsp;
-		<input type="reset" value="다시쓰기" class="btn btn-outline-primary"> &nbsp;
-		<input type="button" value="이전으로" class="btn btn-outline-danger" onclick="javascript:history.go(-1); return false;"> &nbsp;
+		<input type="button" value="수정취소" class="btn btn-outline-danger" onclick="javascript:history.go(-1); return false;"> &nbsp;
 	</div>
 </th></tr>
 </table>
 
 </form>
-
+<br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
