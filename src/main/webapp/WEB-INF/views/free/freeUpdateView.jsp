@@ -28,7 +28,7 @@ html body{
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <br><br><br><br><br><br><br>
 
-<h3 align="center">${ requestScope.free.free_no }번 게시글 수정 페이지</h3>
+<h3 align="center" style="font-family:Nanum Gothic; font-weight:530; color:#333333;">${ requestScope.free.free_no }번 게시글 수정 페이지</h3>
 <br>
 
 <!-- 원글 수정 폼 -->

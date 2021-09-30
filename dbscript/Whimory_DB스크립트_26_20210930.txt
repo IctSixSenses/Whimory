@@ -1,0 +1,1974 @@
+SET DEFINE OFF;
+
+/* 회원정보 */
+DROP TABLE TB_USER 
+	CASCADE CONSTRAINTS;
+
+/* 탈퇴정보 */
+DROP TABLE TB_USER_DROP 
+	CASCADE CONSTRAINTS;
+
+/* 비회원정보 */
+DROP TABLE TB_USER_NOT 
+	CASCADE CONSTRAINTS;
+
+/* 검색 키워드 */
+DROP TABLE TB_KEYWORD 
+	CASCADE CONSTRAINTS;
+
+/* 공지사항 */
+DROP TABLE TB_NOTICE 
+	CASCADE CONSTRAINTS;
+
+/* 역사왜곡 제보게시판 */
+DROP TABLE TB_REPORT 
+	CASCADE CONSTRAINTS;
+
+/* 역사왜곡 제보게시판 공감*/
+DROP TABLE TB_REPORT_LIKE 
+	CASCADE CONSTRAINTS;
+
+/* 명언카드 */
+DROP TABLE TB_CARD 
+	CASCADE CONSTRAINTS;
+
+/* 자유토론 게시판 */
+DROP TABLE TB_FREE 
+	CASCADE CONSTRAINTS;
+
+/* 자유토론 게시판 댓글 */
+DROP TABLE TB_FREE_REPLY 
+	CASCADE CONSTRAINTS;
+
+/* 자유토론 게시판 추천 */
+DROP TABLE TB_FREE_LIKE 
+	CASCADE CONSTRAINTS;
+
+/* 자유토론 게시판 신고 */
+DROP TABLE TB_FREE_BAD 
+	CASCADE CONSTRAINTS;
+
+/* 영화추천 */
+DROP TABLE TB_MOVIE 
+	CASCADE CONSTRAINTS;
+
+/* 언론보도 */
+DROP TABLE TB_NEWS 
+	CASCADE CONSTRAINTS;
+
+/* QNA 질문 */
+DROP TABLE TB_QNA_QUESTION 
+	CASCADE CONSTRAINTS;
+
+/* QNA 답변 */
+DROP TABLE TB_QNA_ANSWER 
+	CASCADE CONSTRAINTS;
+
+/* 정보 게시판 */
+DROP TABLE TB_KO 
+	CASCADE CONSTRAINTS;
+
+/* 회원정보 */
+CREATE TABLE TB_USER (
+	USER_ID VARCHAR2(30) NOT NULL, /* 회원 아이디 */
+	USER_PWD VARCHAR2(100) NOT NULL, /* 비밀번호 */
+	USER_NAME VARCHAR2(20) NOT NULL, /* 회원 이름 */
+	GENDER CHAR(1) NOT NULL, /* 성별 */
+	BIRTH DATE NOT NULL, /* 생년월일 */
+	PHONE VARCHAR2(20) NOT NULL, /* 전화번호 */
+	EMAIL VARCHAR2(50) NOT NULL, /* 이메일 */
+	AUTH_STATUS CHAR(1) DEFAULT 'N', /* 인증여부 */
+	JOIN_DATE DATE DEFAULT SYSDATE, /* 가입일 */
+	LAST_LOGIN_DATE DATE DEFAULT SYSDATE, /* 마지막 접속일 */
+	ADMIN_YN CHAR(1) DEFAULT 'N', /* 관리자 여부 */
+	LOGIN_ACCESS_YN CHAR(1) DEFAULT 'Y', /* 로그인 가능 여부 */
+	PENALTY_COUNT NUMBER DEFAULT 0); /* 경고 횟수 */
+
+COMMENT ON TABLE TB_USER IS '회원정보';
+
+COMMENT ON COLUMN TB_USER.USER_ID IS '회원 아이디';
+
+COMMENT ON COLUMN TB_USER.USER_PWD IS '비밀번호';
+
+COMMENT ON COLUMN TB_USER.USER_NAME IS '회원 이름';
+
+COMMENT ON COLUMN TB_USER.GENDER IS '성별';
+
+COMMENT ON COLUMN TB_USER.BIRTH IS '생년월일';
+
+COMMENT ON COLUMN TB_USER.PHONE IS '전화번호';
+
+COMMENT ON COLUMN TB_USER.EMAIL IS '이메일';
+
+COMMENT ON COLUMN TB_USER.AUTH_STATUS IS '인증여부';
+
+COMMENT ON COLUMN TB_USER.JOIN_DATE IS '가입일';
+
+COMMENT ON COLUMN TB_USER.LAST_LOGIN_DATE IS '마지막 접속일';
+
+COMMENT ON COLUMN TB_USER.ADMIN_YN IS '관리자 여부';
+
+COMMENT ON COLUMN TB_USER.LOGIN_ACCESS_YN IS '로그인 가능 여부';
+
+COMMENT ON COLUMN TB_USER.PENALTY_COUNT IS '경고 횟수';
+
+CREATE UNIQUE INDEX PK_TB_USER
+	ON TB_USER (
+		USER_ID ASC
+	);
+
+ALTER TABLE TB_USER
+	ADD
+		CONSTRAINT PK_TB_USER
+		PRIMARY KEY (
+			USER_ID
+		);
+
+/* 탈퇴정보 */
+CREATE TABLE TB_USER_DROP (
+	USER_ID VARCHAR2(30) NOT NULL, /* 회원 아이디 */
+	D_USER_NAME VARCHAR2(20) NOT NULL, /* 회원이름 */
+	D_GENDER CHAR(1) NOT NULL, /* 성별 */
+	D_BIRTH DATE NOT NULL, /* 생년월일 */
+	D_PHONE VARCHAR2(20) NOT NULL, /* 전화번호 */
+	D_EMAIL VARCHAR2(50) NOT NULL, /* 이메일 */
+	D_JOIN_DATE DATE DEFAULT SYSDATE, /* 가입일 */
+	D_LAST_LOGIN_DATE DATE DEFAULT SYSDATE, /* 마지막 접속일 */
+	DROP_DATE DATE DEFAULT (SYSDATE+365)); /* 삭제 예정일 */
+
+
+COMMENT ON TABLE TB_USER_DROP IS '탈퇴정보';
+
+COMMENT ON COLUMN TB_USER_DROP.USER_ID IS '회원 아이디';
+
+COMMENT ON COLUMN TB_USER_DROP.D_USER_NAME IS '회원이름';
+
+COMMENT ON COLUMN TB_USER_DROP.D_GENDER IS '성별';
+
+COMMENT ON COLUMN TB_USER_DROP.D_BIRTH IS '생년월일';
+
+COMMENT ON COLUMN TB_USER_DROP.D_PHONE IS '전화번호';
+
+COMMENT ON COLUMN TB_USER_DROP.D_EMAIL IS '이메일';
+
+COMMENT ON COLUMN TB_USER_DROP.D_JOIN_DATE IS '가입일';
+
+COMMENT ON COLUMN TB_USER_DROP.D_LAST_LOGIN_DATE IS '마지막 접속일';
+
+COMMENT ON COLUMN TB_USER_DROP.DROP_DATE IS '삭제 예정일';
+
+CREATE UNIQUE INDEX PK_TB_USER_DROP
+	ON TB_USER_DROP (
+		USER_ID ASC
+	);
+
+ALTER TABLE TB_USER_DROP
+	ADD
+		CONSTRAINT PK_TB_USER_DROP
+		PRIMARY KEY (
+			USER_ID
+		);
+
+/* 비회원정보 */
+CREATE TABLE TB_USER_NOT (
+	N_USER_ID VARCHAR2(30) NOT NULL, /* 비회원 아이디 */
+	N_USER_NAME VARCHAR2(20) NOT NULL, /* 비회원 이름 */
+	N_GENDER CHAR(1) NOT NULL, /* 성별 */
+	N_BIRTH DATE NOT NULL, /* 생년월일 */
+	N_PHONE VARCHAR2(20) NOT NULL, /* 전화번호 */
+	N_EMAIL VARCHAR2(50) NOT NULL, /* 이메일 */
+	N_FIRST_LOGIN_DATE DATE DEFAULT SYSDATE, /* 최초 접속일 */
+	N_LAST_LOGIN_DATE DATE DEFAULT SYSDATE, /* 마지막 접속일 */
+	AUTH_STATUS CHAR(1) DEFAULT 'N'); /* 인증여부 */
+
+
+COMMENT ON TABLE TB_USER_NOT IS '비회원정보';
+
+COMMENT ON COLUMN TB_USER_NOT.N_USER_ID IS '비회원 아이디';
+
+COMMENT ON COLUMN TB_USER_NOT.N_USER_NAME IS '비회원 이름';
+
+COMMENT ON COLUMN TB_USER_NOT.N_GENDER IS '성별';
+
+COMMENT ON COLUMN TB_USER_NOT.N_BIRTH IS '생년월일';
+
+COMMENT ON COLUMN TB_USER_NOT.N_PHONE IS '전화번호';
+
+COMMENT ON COLUMN TB_USER_NOT.N_EMAIL IS '이메일';
+
+COMMENT ON COLUMN TB_USER_NOT.N_FIRST_LOGIN_DATE IS '최초 접속일';
+
+COMMENT ON COLUMN TB_USER_NOT.N_LAST_LOGIN_DATE IS '마지막 접속일';
+
+COMMENT ON COLUMN TB_USER_NOT.AUTH_STATUS IS '인증여부';
+
+CREATE UNIQUE INDEX PK_TB_USER_NOT
+	ON TB_USER_NOT (
+		N_USER_ID ASC
+	);
+
+ALTER TABLE TB_USER_NOT
+	ADD
+		CONSTRAINT PK_TB_USER_NOT
+		PRIMARY KEY (
+			N_USER_ID
+		);
+
+/* 검색 키워드 */
+CREATE TABLE TB_KEYWORD (
+	KEYWORD VARCHAR2(50) NOT NULL, /* 검색 키워드 */
+	KEY_GENDER CHAR(1) NOT NULL, /* 검색자 성별 */
+	KEY_AGE NUMBER NOT NULL, /* 검색자 나이 */
+	SEARCH_DATE DATE DEFAULT SYSDATE); /* 검색 */
+
+
+COMMENT ON TABLE TB_KEYWORD IS '검색 키워드';
+
+COMMENT ON COLUMN TB_KEYWORD.KEYWORD IS '검색 키워드';
+
+COMMENT ON COLUMN TB_KEYWORD.KEY_GENDER IS '검색자 성별';
+
+COMMENT ON COLUMN TB_KEYWORD.KEY_AGE IS '검색자 나이';
+
+COMMENT ON COLUMN TB_KEYWORD.SEARCH_DATE IS '검색';
+
+CREATE UNIQUE INDEX PK_TB_KEYWORD
+	ON TB_KEYWORD (
+		KEYWORD ASC
+	);
+
+ALTER TABLE TB_KEYWORD
+	ADD
+		CONSTRAINT PK_TB_KEYWORD
+		PRIMARY KEY (
+			KEYWORD
+		);
+
+/* 공지사항 */
+CREATE TABLE TB_NOTICE (
+	NOTICE_NO NUMBER NOT NULL, /* 글 번호 */
+	USER_ID VARCHAR2(30) NOT NULL, /* 작성자 */
+	NOTICE_TITLE VARCHAR2(80) NOT NULL, /* 글 제목 */
+	NOTICE_CONTENT VARCHAR2(4000) NOT NULL, /* 글 내용 */
+	NOTICE_ORG_FILE VARCHAR2(150), /* 기존 첨부파일 */
+	NOTICE_RE_FILE VARCHAR2(150), /* 변경 첨부파일 */
+	NOTICE_DATE DATE DEFAULT SYSDATE, /* 작성일 */
+	NOTICE_MODIFY DATE DEFAULT SYSDATE, /* 수정일 */
+	NOTICE_READCOUNT NUMBER DEFAULT 0); /* 조회수 */
+
+
+COMMENT ON TABLE TB_NOTICE IS '공지사항';
+
+COMMENT ON COLUMN TB_NOTICE.NOTICE_NO IS '글 번호';
+
+COMMENT ON COLUMN TB_NOTICE.USER_ID IS '작성자';
+
+COMMENT ON COLUMN TB_NOTICE.NOTICE_TITLE IS '글 제목';
+
+COMMENT ON COLUMN TB_NOTICE.NOTICE_CONTENT IS '글 내용';
+
+COMMENT ON COLUMN TB_NOTICE.NOTICE_ORG_FILE IS '기존 첨부파일';
+
+COMMENT ON COLUMN TB_NOTICE.NOTICE_RE_FILE IS '변경 첨부파일';
+
+COMMENT ON COLUMN TB_NOTICE.NOTICE_DATE IS '작성일';
+
+COMMENT ON COLUMN TB_NOTICE.NOTICE_MODIFY IS '수정일';
+
+COMMENT ON COLUMN TB_NOTICE.NOTICE_READCOUNT IS '조회수';
+
+CREATE UNIQUE INDEX PK_TB_NOTICE
+	ON TB_NOTICE (
+		NOTICE_NO ASC
+	);
+
+ALTER TABLE TB_NOTICE
+	ADD
+		CONSTRAINT PK_TB_NOTICE
+		PRIMARY KEY (
+			NOTICE_NO
+		);
+
+/* 역사왜곡 제보게시판 */
+CREATE TABLE TB_REPORT (
+	REPORT_NO NUMBER NOT NULL, /* 제보 번호 */
+	REPORT_TITLE VARCHAR2(80) NOT NULL, /* 제보 제목 */
+	USER_ID VARCHAR2(30) NOT NULL, /* 작성자 */
+	REPORT_CONTENT VARCHAR2(4000) NOT NULL, /* 제보 내용 */
+	REPORT_ORG_FILE VARCHAR2(150), /* 기존 첨부파일 */
+	REPORT_RE_FILE VARCHAR2(150), /* 변경 첨부파일 */
+	REPORT_DATE DATE DEFAULT SYSDATE, /* 작성일 */
+	REPORT_MODIFY DATE, /* 수정일 */
+	REPORT_READCOUNT NUMBER DEFAULT 0, /* 조회수 */
+	REPORT_LIKE NUMBER DEFAULT 0, /* 공감수 */
+	ADMIN_ID VARCHAR2(30), /* 답변 작성자 */
+	COMMENT_DATE DATE, /* 답변 작성일 */
+	ADMIN_COMMENT VARCHAR2(2000)); /* 답변 내용 */
+
+
+COMMENT ON TABLE TB_REPORT IS '역사왜곡 제보게시판';
+
+COMMENT ON COLUMN TB_REPORT.REPORT_NO IS '제보 번호';
+
+COMMENT ON COLUMN TB_REPORT.REPORT_TITLE IS '제보 제목';
+
+COMMENT ON COLUMN TB_REPORT.USER_ID IS '작성자';
+
+COMMENT ON COLUMN TB_REPORT.REPORT_CONTENT IS '제보 내용';
+
+COMMENT ON COLUMN TB_REPORT.REPORT_ORG_FILE IS '기존 첨부파일';
+
+COMMENT ON COLUMN TB_REPORT.REPORT_RE_FILE IS '변경 첨부파일';
+
+COMMENT ON COLUMN TB_REPORT.REPORT_DATE IS '작성일';
+
+COMMENT ON COLUMN TB_REPORT.REPORT_MODIFY IS '수정일';
+
+COMMENT ON COLUMN TB_REPORT.REPORT_READCOUNT IS '조회수';
+
+COMMENT ON COLUMN TB_REPORT.REPORT_LIKE IS '공감수';
+
+COMMENT ON COLUMN TB_REPORT.ADMIN_ID IS '답변 작성자';
+
+COMMENT ON COLUMN TB_REPORT.COMMENT_DATE IS '답변 작성일';
+
+COMMENT ON COLUMN TB_REPORT.ADMIN_COMMENT IS '답변 내용';
+
+CREATE UNIQUE INDEX PK_TB_REPORT
+	ON TB_REPORT (
+		REPORT_NO ASC
+	);
+
+ALTER TABLE TB_REPORT
+	ADD
+		CONSTRAINT PK_TB_REPORT
+		PRIMARY KEY (
+			REPORT_NO
+		);
+        
+/* 역사왜곡 제보게시판 공감 */
+CREATE TABLE TB_REPORT_LIKE (
+	REPORT_NO NUMBER NOT NULL, /* 게시글 번호 */
+	USER_ID VARCHAR2(30) NOT NULL); /* 회원 아이디 */
+
+COMMENT ON TABLE TB_REPORT_LIKE IS '역사왜곡 제보게시판 공감';
+
+COMMENT ON COLUMN TB_REPORT_LIKE.REPORT_NO IS '게시글 번호';
+
+COMMENT ON COLUMN TB_REPORT_LIKE.USER_ID IS '회원 아이디';
+
+/* 명언카드 */
+CREATE TABLE TB_CARD (
+	CARD_NO NUMBER NOT NULL, /* 명언 번호 */
+	CARD_IMAGE VARCHAR2(100) NOT NULL, /* 명언 이미지 */
+	CARD_TITLE VARCHAR2(80), /* 명언 제목 */
+	CARD_CONTENT VARCHAR2(500)); /* 명언 내용 */
+
+
+COMMENT ON TABLE TB_CARD IS '명언카드';
+
+COMMENT ON COLUMN TB_CARD.CARD_NO IS '명언 번호';
+
+COMMENT ON COLUMN TB_CARD.CARD_IMAGE IS '명언 이미지';
+
+COMMENT ON COLUMN TB_CARD.CARD_TITLE IS '명언 제목';
+
+COMMENT ON COLUMN TB_CARD.CARD_CONTENT IS '명언 내용';
+
+CREATE UNIQUE INDEX PK_TB_CARD
+	ON TB_CARD (
+		CARD_NO ASC
+	);
+
+ALTER TABLE TB_CARD
+	ADD
+		CONSTRAINT PK_TB_CARD
+		PRIMARY KEY (
+			CARD_NO
+		);
+
+/* 자유토론 게시판 */
+CREATE TABLE TB_FREE (
+	FREE_NO NUMBER NOT NULL, /* 게시글 번호 */
+	USER_ID VARCHAR2(30), /* 작성자 */
+	FREE_TITLE VARCHAR2(80) NOT NULL, /* 글 제목 */
+	FREE_CONTENT VARCHAR2(4000) NOT NULL, /* 글 내용 */
+	FREE_ORG_FILE VARCHAR2(150), /* 기존 첨부파일 */
+	FREE_RE_FILE VARCHAR2(150), /* 변경 첨부파일 */
+	FREE_DATE DATE DEFAULT SYSDATE, /* 작성일 */
+	FREE_MODIFY DATE DEFAULT SYSDATE, /* 수정일 */
+	FREE_READCOUNT NUMBER DEFAULT 0, /* 조회수 */
+	FREE_LIKE NUMBER DEFAULT 0, /* 추천수 */
+	FREE_BAD NUMBER DEFAULT 0); /* 신고수 */
+
+
+COMMENT ON TABLE TB_FREE IS '자유토론 게시판';
+
+COMMENT ON COLUMN TB_FREE.FREE_NO IS '게시글 번호';
+
+COMMENT ON COLUMN TB_FREE.USER_ID IS '작성자';
+
+COMMENT ON COLUMN TB_FREE.FREE_TITLE IS '글 제목';
+
+COMMENT ON COLUMN TB_FREE.FREE_CONTENT IS '글 내용';
+
+COMMENT ON COLUMN TB_FREE.FREE_ORG_FILE IS '기존 첨부파일';
+
+COMMENT ON COLUMN TB_FREE.FREE_RE_FILE IS '변경 첨부파일';
+
+COMMENT ON COLUMN TB_FREE.FREE_DATE IS '작성일';
+
+COMMENT ON COLUMN TB_FREE.FREE_MODIFY IS '수정일';
+
+COMMENT ON COLUMN TB_FREE.FREE_READCOUNT IS '조회수';
+
+COMMENT ON COLUMN TB_FREE.FREE_LIKE IS '추천수';
+
+COMMENT ON COLUMN TB_FREE.FREE_BAD IS '신고수';
+
+CREATE UNIQUE INDEX PK_TB_FREE
+	ON TB_FREE (
+		FREE_NO ASC
+	);
+
+ALTER TABLE TB_FREE
+	ADD
+		CONSTRAINT PK_TB_FREE
+		PRIMARY KEY (
+			FREE_NO
+		);
+
+
+/* 자유토론 게시판 댓글 */
+CREATE TABLE TB_FREE_REPLY (
+	FREE_REPLY_NO NUMBER NOT NULL, /* 댓글 번호 */
+	FREE_NO NUMBER NOT NULL, /* 게시글 번호 */
+	USER_ID VARCHAR2(30) NOT NULL, /* 댓글 작성자 */
+	FREE_REPLY_CONTENT VARCHAR2(2000) NOT NULL, /* 댓글 내용 */
+	FREE_REPLY_DATE DATE DEFAULT SYSDATE NOT NULL); /* 댓글 작성일 */
+
+COMMENT ON TABLE TB_FREE_REPLY IS '자유토론 게시판 댓글';
+
+COMMENT ON COLUMN TB_FREE_REPLY.FREE_REPLY_NO IS '댓글 번호';
+
+COMMENT ON COLUMN TB_FREE_REPLY.FREE_NO IS '게시글 번호';
+
+COMMENT ON COLUMN TB_FREE_REPLY.USER_ID IS '댓글 작성자';
+
+COMMENT ON COLUMN TB_FREE_REPLY.FREE_REPLY_CONTENT IS '댓글 내용';
+
+COMMENT ON COLUMN TB_FREE_REPLY.FREE_REPLY_DATE IS '댓글 작성일';
+
+CREATE UNIQUE INDEX PK_TB_FREE_REPLY
+	ON TB_FREE_REPLY (
+		FREE_REPLY_NO ASC
+	);
+
+ALTER TABLE TB_FREE_REPLY
+	ADD
+		CONSTRAINT PK_TB_FREE_REPLY
+		PRIMARY KEY (
+			FREE_REPLY_NO
+		);
+
+/* 자유토론 게시판 추천 */
+CREATE TABLE TB_FREE_LIKE (
+	FREE_NO NUMBER NOT NULL, /* 게시글 번호 */
+	USER_ID VARCHAR2(30) NOT NULL); /* 회원 아이디 */
+
+COMMENT ON TABLE TB_FREE_LIKE IS '자유토론 게시판 추천';
+
+COMMENT ON COLUMN TB_FREE_LIKE.FREE_NO IS '게시글 번호';
+
+COMMENT ON COLUMN TB_FREE_LIKE.USER_ID IS '회원 아이디';
+
+/* 자유토론 게시판 신고 */
+CREATE TABLE TB_FREE_BAD (
+	FREE_NO NUMBER NOT NULL, /* 게시글 번호 */
+	USER_ID VARCHAR2(30) NOT NULL); /* 회원 아이디 */
+
+
+COMMENT ON TABLE TB_FREE_BAD IS '자유토론 게시판 신고';
+
+COMMENT ON COLUMN TB_FREE_BAD.FREE_NO IS '게시글 번호';
+
+COMMENT ON COLUMN TB_FREE_BAD.USER_ID IS '회원 아이디';
+
+/* 영화추천 */
+CREATE TABLE TB_MOVIE (
+	MOVIE_NO NUMBER NOT NULL, /* 영화 번호 */
+	MOVIE_TITLE VARCHAR2(80) NOT NULL, /* 영화 제목 */
+	MOVIE_LINK VARCHAR2(300) NOT NULL, /* 영화 링크 */
+	MOVIE_ORG_IMAGE VARCHAR2(150) NOT NULL, /* 기존 이미지 */
+	MOVIE_RE_IMAGE VARCHAR2(150)); /* 변경 이미지 */
+
+
+COMMENT ON TABLE TB_MOVIE IS '영화추천';
+
+COMMENT ON COLUMN TB_MOVIE.MOVIE_NO IS '영화 번호';
+
+COMMENT ON COLUMN TB_MOVIE.MOVIE_TITLE IS '영화 제목';
+
+COMMENT ON COLUMN TB_MOVIE.MOVIE_LINK IS '영화 링크';
+
+COMMENT ON COLUMN TB_MOVIE.MOVIE_ORG_IMAGE IS '기존 이미지';
+
+COMMENT ON COLUMN TB_MOVIE.MOVIE_RE_IMAGE IS '변경 이미지';
+
+CREATE UNIQUE INDEX PK_TB_MOVIE
+	ON TB_MOVIE (
+		MOVIE_NO ASC
+	);
+
+ALTER TABLE TB_MOVIE
+	ADD
+		CONSTRAINT PK_TB_MOVIE
+		PRIMARY KEY (
+			MOVIE_NO
+		);
+
+/* 언론보도 */
+CREATE TABLE TB_NEWS (
+	NEWS_NO NUMBER NOT NULL, /* 글 번호 */
+	USER_ID VARCHAR2(30) NOT NULL, /* 작성자 */
+	NEWS_TITLE VARCHAR2(80) NOT NULL, /* 글 제목 */
+	NEWS_CONTENT VARCHAR2(4000) NOT NULL, /* 글 내용 */
+	NEWS_DATE DATE DEFAULT SYSDATE, /* 작성일 */
+	NEWS_MODIFY DATE DEFAULT SYSDATE, /* 수정일 */
+	NEWS_ORG_FILE VARCHAR2(150), /* 기존 첨부파일 */
+	NEWS_RE_FILE VARCHAR2(150), /* 변경 첨부파일 */
+	NEWS_AT_DATE DATE NOT NULL, /* 뉴스기사 보도일 */
+	NEWS_LINK VARCHAR2(300) NOT NULL); /* 출처링크 */
+
+
+COMMENT ON TABLE TB_NEWS IS '언론보도';
+
+COMMENT ON COLUMN TB_NEWS.NEWS_NO IS '글 번호';
+
+COMMENT ON COLUMN TB_NEWS.USER_ID IS '작성자';
+
+COMMENT ON COLUMN TB_NEWS.NEWS_TITLE IS '글 제목';
+
+COMMENT ON COLUMN TB_NEWS.NEWS_CONTENT IS '글 내용';
+
+COMMENT ON COLUMN TB_NEWS.NEWS_DATE IS '작성일';
+
+COMMENT ON COLUMN TB_NEWS.NEWS_MODIFY IS '수정일';
+
+COMMENT ON COLUMN TB_NEWS.NEWS_ORG_FILE IS '기존 첨부파일';
+
+COMMENT ON COLUMN TB_NEWS.NEWS_RE_FILE IS '변경 첨부파일';
+
+COMMENT ON COLUMN TB_NEWS.NEWS_AT_DATE IS '뉴스기사 보도일';
+
+COMMENT ON COLUMN TB_NEWS.NEWS_LINK IS '출처링크';
+
+CREATE UNIQUE INDEX PK_TB_NEWS
+	ON TB_NEWS (
+		NEWS_NO ASC
+	);
+
+ALTER TABLE TB_NEWS
+	ADD
+		CONSTRAINT PK_TB_NEWS
+		PRIMARY KEY (
+			NEWS_NO
+		);
+
+/* QNA 질문 */
+CREATE TABLE TB_QNA_QUESTION (
+	QQ_NO NUMBER NOT NULL, /* 질문 번호 */
+	USER_ID VARCHAR2(30) NOT NULL, /* 작성자 */
+	QQ_CATEGORY VARCHAR2(30) NOT NULL, /* 질문 분류 */
+	QQ_TITLE VARCHAR2(80) NOT NULL, /* 질문 제목 */
+	QQ_CONTENT VARCHAR2(4000) NOT NULL, /* 질문 내용 */
+	QQ_DATE DATE DEFAULT SYSDATE, /* 질문 작성일 */
+	QQ_MODIFY DATE DEFAULT SYSDATE, /* 질문 수정일 */
+	QQ_ORG_FILE VARCHAR2(150), /* 기존 첨부파일 */
+	QQ_RE_FILE VARCHAR2(150), /* 변경 첨부파일 */
+	QQ_YN CHAR(1) DEFAULT 'N'); /* 답변 여부 */
+
+COMMENT ON TABLE TB_QNA_QUESTION IS 'QNA 질문';
+
+COMMENT ON COLUMN TB_QNA_QUESTION.QQ_NO IS '질문 번호';
+
+COMMENT ON COLUMN TB_QNA_QUESTION.USER_ID IS '작성자';
+
+COMMENT ON COLUMN TB_QNA_QUESTION.QQ_CATEGORY IS '질문 분류';
+
+COMMENT ON COLUMN TB_QNA_QUESTION.QQ_TITLE IS '질문 제목';
+
+COMMENT ON COLUMN TB_QNA_QUESTION.QQ_CONTENT IS '질문 내용';
+
+COMMENT ON COLUMN TB_QNA_QUESTION.QQ_DATE IS '질문 작성일';
+
+COMMENT ON COLUMN TB_QNA_QUESTION.QQ_MODIFY IS '질문 수정일';
+
+COMMENT ON COLUMN TB_QNA_QUESTION.QQ_ORG_FILE IS '기존 첨부파일';
+
+COMMENT ON COLUMN TB_QNA_QUESTION.QQ_RE_FILE IS '변경 첨부파일';
+
+COMMENT ON COLUMN TB_QNA_QUESTION.QQ_YN IS '답변 여부';
+
+CREATE UNIQUE INDEX PK_TB_QNA_QUESTION
+	ON TB_QNA_QUESTION (
+		QQ_NO ASC
+	);
+
+ALTER TABLE TB_QNA_QUESTION
+	ADD
+		CONSTRAINT PK_TB_QNA_QUESTION
+		PRIMARY KEY (
+			QQ_NO
+		);
+
+/* QNA 답변 */
+CREATE TABLE TB_QNA_ANSWER (
+	QA_NO NUMBER NOT NULL, /* 답변 번호 */
+	QQ_NO NUMBER NOT NULL, /* 질문 번호 */
+	USER_ID VARCHAR2(30) NOT NULL, /* 답변 작성자 */
+	QA_CONTENT VARCHAR2(4000) NOT NULL, /* 답변 내용 */
+	QA_DATE DATE DEFAULT SYSDATE); /* 답변 작성일 */
+
+
+COMMENT ON TABLE TB_QNA_ANSWER IS 'QNA 답변';
+
+COMMENT ON COLUMN TB_QNA_ANSWER.QA_NO IS '답변 번호';
+
+COMMENT ON COLUMN TB_QNA_ANSWER.QQ_NO IS '질문 번호';
+
+COMMENT ON COLUMN TB_QNA_ANSWER.USER_ID IS '답변 작성자';
+
+COMMENT ON COLUMN TB_QNA_ANSWER.QA_CONTENT IS '답변 내용';
+
+COMMENT ON COLUMN TB_QNA_ANSWER.QA_DATE IS '답변 작성일';
+
+CREATE UNIQUE INDEX PK_TB_QNA_ANSWER
+	ON TB_QNA_ANSWER (
+		QA_NO ASC
+	);
+
+ALTER TABLE TB_QNA_ANSWER
+	ADD
+		CONSTRAINT PK_TB_QNA_ANSWER
+		PRIMARY KEY (
+			QA_NO
+		);
+
+/* 정보 게시판 */
+CREATE TABLE TB_KO (
+	KO_NO NUMBER NOT NULL, /* 글 번호 */
+	KO_CATEGORY VARCHAR2(10) NOT NULL, /* 글 분류 */
+	USER_ID VARCHAR2(30) NOT NULL, /* 작성자 */
+	KO_EDITOR VARCHAR2(30), /* 수정자 */
+	KO_TITLE VARCHAR2(80) NOT NULL, /* 글 제목 */
+	KO_CONTENT VARCHAR2(4000) NOT NULL, /* 글 내용 */
+	KO_ORG_FILE VARCHAR2(150), /* 기존 첨부파일 */
+	KO_RE_FILE VARCHAR2(150), /* 변경 첨부파일 */
+	KO_DATE DATE DEFAULT SYSDATE, /* 작성일 */
+	KO_MODIFY DATE, /* 수정일 */
+	KO_READCOUNT NUMBER DEFAULT 0, /* 조회수 */
+	KO_HASHTAG VARCHAR2(1000), /* 해시태그 */
+	KO_LINK1 VARCHAR2(300), /* 영상 링크1 */
+	KO_LINK2 VARCHAR2(300), /* 영상 링크2 */
+	KO_LINK3 VARCHAR2(300), /* 영상 링크3 */
+	KO_SUMMARY VARCHAR2(3000)); /* 한줄 요약 */
+
+
+COMMENT ON TABLE TB_KO IS '정보 게시판';
+
+COMMENT ON COLUMN TB_KO.KO_NO IS '글 번호';
+
+COMMENT ON COLUMN TB_KO.KO_CATEGORY IS '글 분류';
+
+COMMENT ON COLUMN TB_KO.USER_ID IS '작성자';
+
+COMMENT ON COLUMN TB_KO.KO_EDITOR IS '수정자';
+
+COMMENT ON COLUMN TB_KO.KO_TITLE IS '글 제목';
+
+COMMENT ON COLUMN TB_KO.KO_CONTENT IS '글 내용';
+
+COMMENT ON COLUMN TB_KO.KO_ORG_FILE IS '기존 첨부파일';
+
+COMMENT ON COLUMN TB_KO.KO_RE_FILE IS '변경 첨부파일';
+
+COMMENT ON COLUMN TB_KO.KO_DATE IS '작성일';
+
+COMMENT ON COLUMN TB_KO.KO_MODIFY IS '수정일';
+
+COMMENT ON COLUMN TB_KO.KO_READCOUNT IS '조회수';
+
+COMMENT ON COLUMN TB_KO.KO_HASHTAG IS '해시태그';
+
+COMMENT ON COLUMN TB_KO.KO_LINK1 IS '영상 링크1';
+
+COMMENT ON COLUMN TB_KO.KO_LINK2 IS '영상 링크2';
+
+COMMENT ON COLUMN TB_KO.KO_LINK3 IS '영상 링크3';
+
+COMMENT ON COLUMN TB_KO.KO_SUMMARY IS '한줄 요약';
+
+CREATE UNIQUE INDEX PK_TB_KO
+	ON TB_KO (
+		KO_NO ASC
+	);
+
+ALTER TABLE TB_KO
+	ADD
+		CONSTRAINT PK_TB_KO
+		PRIMARY KEY (
+			KO_NO
+		);
+
+ALTER TABLE TB_USER_DROP
+	ADD
+		CONSTRAINT FK_TB_USER_TO_TB_USER_DROP
+		FOREIGN KEY (
+			USER_ID
+		)
+		REFERENCES TB_USER (
+			USER_ID
+		);
+
+ALTER TABLE TB_NOTICE
+	ADD
+		CONSTRAINT FK_TB_USER_TO_TB_NOTICE
+		FOREIGN KEY (
+			USER_ID
+		)
+		REFERENCES TB_USER (
+			USER_ID
+		);
+
+ALTER TABLE TB_REPORT
+	ADD
+		CONSTRAINT FK_TB_USER_TO_TB_REPORT
+		FOREIGN KEY (
+			USER_ID
+		)
+		REFERENCES TB_USER (
+			USER_ID
+		);
+
+ALTER TABLE TB_REPORT
+	ADD
+		CONSTRAINT FK_TB_USER_TO_TB_REPORT2
+		FOREIGN KEY (
+			ADMIN_ID
+		)
+		REFERENCES TB_USER (
+			USER_ID
+		);
+
+ALTER TABLE TB_REPORT_LIKE
+	ADD
+		CONSTRAINT FK_TB_USER_TO_TB_REPORT_LIKE
+		FOREIGN KEY (
+			USER_ID
+		)
+		REFERENCES TB_USER (
+			USER_ID
+		) ON DELETE CASCADE;
+
+ALTER TABLE TB_REPORT_LIKE
+	ADD
+		CONSTRAINT FK_TB_REPORT_TO_TB_REPORT_LIKE
+		FOREIGN KEY (
+			REPORT_NO
+		)
+		REFERENCES TB_REPORT (
+			REPORT_NO
+		) ON DELETE CASCADE;
+
+ALTER TABLE TB_REPORT_LIKE
+	ADD
+		CONSTRAINT UQ_TB_REPORT_TO_TB_REPORT_LIKE
+		UNIQUE (
+			REPORT_NO, USER_ID
+		);
+
+ALTER TABLE TB_FREE
+	ADD
+		CONSTRAINT FK_TB_USER_TO_TB_FREE
+		FOREIGN KEY (
+			USER_ID
+		)
+		REFERENCES TB_USER (
+			USER_ID
+		) ON DELETE CASCADE;
+
+ALTER TABLE TB_FREE_REPLY
+	ADD
+		CONSTRAINT FK_TB_FREE_TO_TB_FREE_REPLY
+		FOREIGN KEY (
+			FREE_NO
+		)
+		REFERENCES TB_FREE (
+			FREE_NO
+		) ON DELETE CASCADE;
+
+ALTER TABLE TB_FREE_REPLY
+	ADD
+		CONSTRAINT FK_TB_USER_TO_TB_FREE_REPLY
+		FOREIGN KEY (
+			USER_ID
+		)
+		REFERENCES TB_USER (
+			USER_ID
+		) ON DELETE CASCADE;
+
+ALTER TABLE TB_FREE_LIKE
+	ADD
+		CONSTRAINT FK_TB_USER_TO_TB_FREE_LIKE
+		FOREIGN KEY (
+			USER_ID
+		)
+		REFERENCES TB_USER (
+			USER_ID
+		) ON DELETE CASCADE;
+
+ALTER TABLE TB_FREE_LIKE
+	ADD
+		CONSTRAINT FK_TB_FREE_TO_TB_FREE_LIKE
+		FOREIGN KEY (
+			FREE_NO
+		)
+		REFERENCES TB_FREE (
+			FREE_NO
+		) ON DELETE CASCADE;
+
+ALTER TABLE TB_FREE_BAD
+	ADD
+		CONSTRAINT FK_TB_USER_TO_TB_FREE_BAD
+		FOREIGN KEY (
+			USER_ID
+		)
+		REFERENCES TB_USER (
+			USER_ID
+		) ON DELETE CASCADE;
+
+ALTER TABLE TB_FREE_BAD
+	ADD
+		CONSTRAINT FK_TB_FREE_TO_TB_FREE_BAD
+		FOREIGN KEY (
+			FREE_NO
+		)
+		REFERENCES TB_FREE (
+			FREE_NO
+		) ON DELETE CASCADE;
+
+ALTER TABLE TB_NEWS
+	ADD
+		CONSTRAINT FK_TB_USER_TO_TB_NEWS
+		FOREIGN KEY (
+			USER_ID
+		)
+		REFERENCES TB_USER (
+			USER_ID
+		);
+
+ALTER TABLE TB_QNA_QUESTION
+	ADD
+		CONSTRAINT FK_TB_USER_TO_TB_QNA_QUESTION
+		FOREIGN KEY (
+			USER_ID
+		)
+		REFERENCES TB_USER (
+			USER_ID
+		) ON DELETE CASCADE;
+
+ALTER TABLE TB_QNA_ANSWER
+	ADD
+		CONSTRAINT FK_TB_USER_TO_TB_QNA_ANSWER
+		FOREIGN KEY (
+			USER_ID
+		)
+		REFERENCES TB_USER (
+			USER_ID
+		) ON DELETE CASCADE;
+
+ALTER TABLE TB_QNA_ANSWER
+	ADD
+		CONSTRAINT FK_TB_QNA_QUESTION_TO_TB_QNA_ANSWER
+		FOREIGN KEY (
+			QQ_NO
+		)
+		REFERENCES TB_QNA_QUESTION (
+			QQ_NO
+		) ON DELETE CASCADE;
+
+ALTER TABLE TB_KO
+	ADD
+		CONSTRAINT FK_TB_USER_TO_TB_KO
+		FOREIGN KEY (
+			USER_ID
+		)
+		REFERENCES TB_USER (
+			USER_ID
+		);
+
+ALTER TABLE TB_KO
+	ADD
+		CONSTRAINT FK_TB_USER_TO_TB_KO2
+		FOREIGN KEY (
+			KO_EDITOR
+		)
+		REFERENCES TB_USER (
+			USER_ID
+		);
+
+
+COMMIT;
+
+-- 현주 INSERT_2021.08.29
+-- TB_USER 샘플 데이터
+INSERT INTO TB_USER
+VALUES('user01','pass01','김모리','F',TO_DATE('2000-04-08', 'YYYY-MM-DD'), '010-1234-1234', 'kmr@ict.org', 'Y', DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO TB_USER
+VALUES('user02','pass02','이장구','M',TO_DATE('1995-02-14', 'YYYY-MM-DD'), '010-1111-2222', 'ljg@ict.org', 'Y', DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO TB_USER
+VALUES('user03','pass03','박풍물','M',TO_DATE('1997-05-15', 'YYYY-MM-DD'), '010-3333-4444', 'pbm@ict.org', 'Y', DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO TB_USER
+VALUES('admin01','admin01','관리자','F',TO_DATE('1999-04-08', 'YYYY-MM-DD'), '010-8877-9988', 'admin@ict.org', 'Y', DEFAULT, DEFAULT, 'Y', DEFAULT, DEFAULT);
+
+-- TB_USER_DROP 샘플 데이터
+INSERT INTO TB_USER_DROP
+VALUES('user03', '박풍물', 'M', TO_DATE('1997-05-15', 'YYYY-MM-DD'), '010-3333-4444', 'pbm@ict.org', DEFAULT, DEFAULT, DEFAULT);
+
+-- TB_USER_NOT 샘플 데이터
+INSERT INTO TB_USER_NOT
+VALUES('not01', '비회원', 'M', TO_DATE('2004-12-12', 'YYYY-MM-DD'), '010-6666-5555', 'just@ict.org', DEFAULT, DEFAULT, 'Y');
+
+-- TB_KEYWORD 샘플 데이터
+INSERT INTO TB_KEYWORD
+VALUES('김치', 'F', '25', SYSDATE);
+INSERT INTO TB_KEYWORD
+VALUES('한복', 'F', '30', SYSDATE);
+INSERT INTO TB_KEYWORD
+VALUES('독도', 'M', '21', SYSDATE);
+
+
+-- 성인 INSERT_2021.08.29
+-- TB_CARD (명언카드) 샘플 데이터
+INSERT INTO TB_CARD (CARD_NO, CARD_IMAGE, CARD_TITLE, CARD_CONTENT)
+VALUES (1, 'image01.png', '다산 정약용', 
+	'겸손은 사람을 머물게 하고, 
+	칭찬은 사람을 가깝게 하고, 
+	넓음은 사람을 따르게 하고, 
+	깊음은 사람을 감동케 한다.');
+
+INSERT INTO TB_CARD (CARD_NO, CARD_IMAGE, CARD_TITLE, CARD_CONTENT)
+VALUES (2, 'image02.jpg', '도산 안창호', 
+	'큰일이건 작은 일이건 네가 하는 일을 정성껏 하여라.');
+
+INSERT INTO TB_CARD (CARD_NO, CARD_IMAGE, CARD_TITLE, CARD_CONTENT)
+VALUES (3, 'image03.png', '안중근 의사', 
+	'세월을 헛되이 보내지 마라, 청춘은 다시 돌아오지 않는다.');
+
+-- 서연 INSERT 2021.08.29
+-- TB_FREE 샘플 데이터
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT,  
+                     FREE_DATE, FREE_MODIFY, FREE_READCOUNT)
+VALUES (1, 'user01', '자유토론 게시글 1', '욱일기를 계속해서 사용하는게 맞다고 생각하시나요!?', 
+        '21/08/01', '21/08/27', 25);
+        
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, 
+                     FREE_DATE, FREE_MODIFY, FREE_READCOUNT)
+VALUES (2, 'user01', '자유토론 게시글 2', '자유토론 게시판 샘플 데이터 2 입니다.', 
+        '21/08/01', '21/08/27', 10);
+
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, 
+                     FREE_DATE, FREE_MODIFY, FREE_READCOUNT)
+VALUES (3, 'user01', '자유토론 게시글 3', '자유토론 게시판 샘플 데이터 3 입니다.', 
+        '21/08/01', '21/08/27', 32);
+        
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, 
+                     FREE_DATE, FREE_MODIFY, FREE_READCOUNT)
+VALUES (4, 'user02', '자유토론 게시글 4', '자유토론 게시판 샘플 데이터 4 입니다.', 
+        '21/08/01', '21/08/27', 5);
+        
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, 
+                     FREE_DATE, FREE_MODIFY, FREE_READCOUNT)
+VALUES (5, 'user02', '자유토론 게시글 5', '자유토론 게시판 샘플 데이터 5 입니다.', 
+        '21/08/01', '21/08/27', 10);
+
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, 
+                     FREE_DATE, FREE_MODIFY, FREE_READCOUNT)
+VALUES (6, 'user03', '자유토론 게시글 6', '자유토론 게시판 샘플 데이터 6 입니다.', 
+        '21/08/21', '21/08/27', 3);
+
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, 
+                     FREE_DATE, FREE_MODIFY, FREE_READCOUNT)
+VALUES (7, 'user01', '자유토론 게시글 7', '자유토론 게시판 샘플 데이터 7 입니다.', 
+        '21/08/21', '21/08/27', 32);
+        
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, 
+                     FREE_DATE, FREE_MODIFY, FREE_READCOUNT)
+VALUES (8, 'user01', '자유토론 게시글 8', '자유토론 게시판 샘플 데이터 8 입니다.', 
+        '21/08/11', '21/08/27', 32);
+        
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, 
+                     FREE_DATE, FREE_MODIFY, FREE_READCOUNT)
+VALUES (9, 'user02', '자유토론 게시글 9', '자유토론 게시판 샘플 데이터 9 입니다.', 
+        '21/07/01', '21/08/27', 32);
+
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, 
+                     FREE_DATE, FREE_MODIFY, FREE_READCOUNT)
+VALUES (10, 'user01', '자유토론 게시글 10', '자유토론 게시판 샘플 데이터 10 입니다.', 
+        '21/07/01', '21/08/27', 15);
+
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, 
+                     FREE_DATE, FREE_MODIFY, FREE_READCOUNT)
+VALUES (11, 'user03', '자유토론 게시글 11', '자유토론 게시판 샘플 데이터 11 입니다.', 
+        '21/08/01', '21/08/27', 10);
+
+-- 은별 INSERT 2021.08.29
+-- TB_NEWS 샘플 데이터
+INSERT INTO TB_NEWS 
+VALUES (1, 'admin01', '보물이 된 "수운잡방"', 
+'경북 안동 오천군자리 광산김씨 문중에서 전해오는 고조리서 "수운잡방"이 국가지정문화재 "보물제2134"호 로 지정됐다.<br><br>27일 문화재청과 안동시에 따르면 음식 조리서가 보물로 지정된 것으로 
+수운잡방이 첫 사례이며, (재)한국국학진흥원에서 보관 중이다.<br><br>"수운잡방"은 조선 전기 안동의 유학자 김유부터 그의 손자 김영에 이르기까지 3대가 저술한 한문 필사본 음식조리서이다.<br><br>
+즐겁게 먹을 음식을 만드는 여러가지 방법을 담고 있다.<br><br>제목의 "수운"은 주역의 "구름이 하늘로 오르는 것이 수이니 군자가 이로써 마시고 먹으며 잔치를 벌여 즐긴다" 에서 유래한 것으로 연회를 베풀어 즐긴다는 의미이다.<br><br>
+김유가 지은 앞부분 86항, 김영이 지은 뒷부분 36항 등 모두 122항으로 구성돼 있다.<br><br>총 114종의 음식 조리 및 관련 내용을 수록했다.<br><br>항목별로 보면 주류 57종, 식초류 6종, 채소절임/침채 14종, 장류 9종, 조과/당류 5종, 찬물류 6종, 탕류 6종, 두부 1종, 
+타락 1종, 면류 2종, 채소/과일 파종/저장법 7종이다.<br><br>중국이나 조선의 다른 요리서를 참조한 예도 있지만 "오천양법" 등 조선시대 안동지역 양반가에서 만든 음식법이 여럿 포함돼 있다.<br><br>조선시대 양반들이 
+제사를 받드는 문화인 "봉제사"와 손님을 모시는 문화인 "접빈객"도 잘 보여주는 자료이다.<br><br>우리나라 전통 조리법과 저장법의 기원과 역사, 조선 전기 음식 관련 용어 등도 살펴볼 수 있다.<br><br>
+저자가 직접 쓴 원고본이며, 전사본도 전하지 않는 유일본으로서 서지학적 가치도 크다.<br><br>특히 "수운잡방"은 조선 전기 요리로서 희소성이 크며, 당시 음식 문화에서 고유의 독창성이 돋보인다.<br><br>오늘날 우리의 
+음식문화 기원을 기록으로 확인할 수 있다는 점에서 역사/문화/민속/학술적으로 중요한 자료로 평가받고 있다.<br><br> 권영세 안동시장은 "안동의 우수한 전통 문화유산이 해마다 국가지정 및 도지정문화재로 지정되고 있다"며 
+"유네스코 세계유산의 도시 안동의 위상을 널리 알릴 수 있도록 노력하겠다"고 말했다.', SYSDATE, NULL, NULL, NULL, 
+TO_DATE('27-08-2021', 'DD-MM-YYYY'), 'http://news.heraldcorp.com/village/view.php?ud=202108271051432394940_10');
+
+INSERT INTO TB_NEWS 
+VALUES ((SELECT MAX(NEWS_NO) + 1 FROM TB_NEWS), 'admin01', '한국 남자 아이스하키, 베이징 동계올림픽 자력 진출 무산', 
+'한국 남자 아이스하키의 2022 베이징 동계올림픽 자력 진출이 무산됐다.<br><br>백지선 감독이 이끄는 대표팀은 28일(한국시간) 노르웨이 오슬로 요르달 암피 아레나에서 열린 베이징 올림픽 남자 아이스하키 최종예선 F조 2차전에서 덴마크에 1-11로 패했다.<br><br> 
+노르웨이전에 이어 2연패를 당한 한국은 남은 슬로베니아전 결과와 상관 없이 올림픽 본선행이 좌절됐다.<br><br>한국은 1피리어드 파워플레이 상황에서 김기성의 골로 선취점을 올렸다. 하지만 1피리어드 막바지 동점골을 허용했고, 2피리어드에는 무려 7골을 
+상대에게 내줬다.<br><br>한국은 마지막 3피리어드에서 유효 샷을 한 개도 기록하지 못하며 덴마크에 무릎을 꿇었다.<br><br>한편 한국은 29일 오후 
+같은 장소에서 슬로베니아와 최종전을 치른다.', SYSDATE, NULL, 
+'news01.PNG', 'news01.PNG', 
+TO_DATE('28-08-2021', 'DD-MM-YYYY'), 'https://www.news1.kr/articles/?4417238');
+
+-- QNA 질문 게시판 INSERT 2 항목 _ 은별
+INSERT INTO TB_QNA_QUESTION 
+VALUES (1, 'user01', '정보게시판', '질문 제목1', '질문 내용입니다.', SYSDATE, DEFAULT, NULL, NULL, 'Y');
+
+INSERT INTO TB_QNA_QUESTION 
+VALUES ((SELECT MAX(QQ_NO) + 1 FROM TB_QNA_QUESTION), 'user01', '기타', '질문 제목2', '질문 내용입니다.', SYSDATE, DEFAULT, NULL, NULL, 'Y');
+
+-- QNA 답변 게시판 INSERT 2 항목 _ 은별
+INSERT INTO TB_QNA_ANSWER 
+VALUES (1, 1, 'admin01', '답변 샘플 데이터입니다.', SYSDATE);
+
+INSERT INTO TB_QNA_ANSWER 
+VALUES ((SELECT MAX(QA_NO) + 1 FROM TB_QNA_ANSWER), 2, 'admin01', '답변 샘플 데이터입니다.', SYSDATE);
+
+-- 서연 INSERT 2021.08.30
+-- TB_MOVIE 샘플 데이터
+INSERT INTO TB_MOVIE(MOVIE_NO, MOVIE_TITLE, MOVIE_LINK, MOVIE_ORG_IMAGE, MOVIE_RE_IMAGE)
+VALUES (1, '명량', 'https://movie.naver.com/movie/bi/mi/basic.naver?code=93756', '명량.jpg', '명량.jpg');
+
+INSERT INTO TB_MOVIE(MOVIE_NO, MOVIE_TITLE, MOVIE_LINK, MOVIE_ORG_IMAGE, MOVIE_RE_IMAGE)
+VALUES (2, '덕혜옹주', 'https://movie.naver.com/movie/bi/mi/basic.naver?code=94767', '덕혜옹주.jpg', '덕혜옹주.jpg');
+
+INSERT INTO TB_MOVIE(MOVIE_NO, MOVIE_TITLE, MOVIE_LINK, MOVIE_ORG_IMAGE, MOVIE_RE_IMAGE)
+VALUES (3, '택시운전사', 'https://movie.naver.com/movie/bi/mi/basic.naver?code=146469', '택시운전사.jpg', '택시운전사.jpg');
+
+INSERT INTO TB_MOVIE(MOVIE_NO, MOVIE_TITLE, MOVIE_LINK, MOVIE_ORG_IMAGE, MOVIE_RE_IMAGE)
+VALUES (4, '인천상륙작전', 'https://movie.naver.com/movie/bi/mi/basic.naver?code=142822', '인천상륙작전.jpg', '택시운전사.jpg');
+
+INSERT INTO TB_MOVIE(MOVIE_NO, MOVIE_TITLE, MOVIE_LINK, MOVIE_ORG_IMAGE, MOVIE_RE_IMAGE)
+VALUES (5, '남한산성', 'https://movie.naver.com/movie/bi/mi/basic.naver?code=150637', '남한산성.jpg', '남한산성.jpg');
+
+INSERT INTO TB_MOVIE(MOVIE_NO, MOVIE_TITLE, MOVIE_LINK, MOVIE_ORG_IMAGE, MOVIE_RE_IMAGE)
+VALUES (6, '박열', 'https://movie.naver.com/movie/bi/mi/basic.naver?code=155716', '박열.jpg', '박열.jpg');
+
+INSERT INTO TB_MOVIE(MOVIE_NO, MOVIE_TITLE, MOVIE_LINK, MOVIE_ORG_IMAGE, MOVIE_RE_IMAGE)
+VALUES (7, '광해', 'https://movie.naver.com/movie/bi/mi/basic.naver?code=83893', '광해.jpg', '광해.jpg');
+
+INSERT INTO TB_MOVIE(MOVIE_NO, MOVIE_TITLE, MOVIE_LINK, MOVIE_ORG_IMAGE, MOVIE_RE_IMAGE)
+VALUES (8, '항거-유관순이야기', 'https://movie.naver.com/movie/bi/mi/basic.naver?code=182360', '항거.jpg', '항거.jpg');
+
+INSERT INTO TB_MOVIE(MOVIE_NO, MOVIE_TITLE, MOVIE_LINK, MOVIE_ORG_IMAGE, MOVIE_RE_IMAGE)
+VALUES (9, '1987', 'https://movie.naver.com/movie/bi/mi/basic.naver?code=158191', '1987.jpg', '1987.jpg');
+
+INSERT INTO TB_MOVIE(MOVIE_NO, MOVIE_TITLE, MOVIE_LINK, MOVIE_ORG_IMAGE, MOVIE_RE_IMAGE)
+VALUES (10, '연평해전', 'https://movie.naver.com/movie/bi/mi/basic.naver?code=102272', '연평해전.jpg', '연평해전.jpg');
+
+-- TB_NOTICE 샘플 데이터
+INSERT INTO TB_NOTICE (NOTICE_NO, USER_ID, NOTICE_TITLE, NOTICE_CONTENT,  
+                     NOTICE_ORG_FILE, NOTICE_RE_FILE, NOTICE_DATE, NOTICE_MODIFY, NOTICE_READCOUNT)
+VALUES (1, 'admin01', '공지사항 제목1', '라카이 코리아 독도 관련소송', '독도1.jpg', '독도1.jpg', '21/08/19', '21/08/30', 10);
+
+INSERT INTO TB_NOTICE (NOTICE_NO, USER_ID, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_DATE, NOTICE_MODIFY,NOTICE_READCOUNT)
+VALUES (2, 'admin01', '공지사항 제목2', '조선', '21/08/19', '21/08/30', 20);
+
+INSERT INTO TB_NOTICE (NOTICE_NO, USER_ID, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_DATE, NOTICE_MODIFY,NOTICE_READCOUNT)
+VALUES (3, 'admin01', '공지사항 제목3', '고려', '21/08/17', '21/08/30', 30);
+
+INSERT INTO TB_NOTICE (NOTICE_NO, USER_ID, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_DATE, NOTICE_MODIFY,NOTICE_READCOUNT)
+VALUES (4, 'admin01', '공지사항 제목4', '고구려', '21/08/16', '21/08/30', 40);
+
+INSERT INTO TB_NOTICE (NOTICE_NO, USER_ID, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_DATE, NOTICE_MODIFY,NOTICE_READCOUNT)
+VALUES (5, 'admin01', '공지사항 제목5', '일본', '21/08/15', '21/08/30', 50);
+
+INSERT INTO TB_NOTICE (NOTICE_NO, USER_ID, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_DATE, NOTICE_MODIFY,NOTICE_READCOUNT)
+VALUES (6, 'admin01', '공지사항 제목6', '중국', '21/08/14', '21/08/30', 60);
+
+INSERT INTO TB_NOTICE (NOTICE_NO, USER_ID, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_DATE, NOTICE_MODIFY,NOTICE_READCOUNT)
+VALUES (7, 'admin01', '공지사항 제목7', '동북공정', '21/08/13', '21/08/30', 70);
+
+INSERT INTO TB_NOTICE (NOTICE_NO, USER_ID, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_DATE, NOTICE_MODIFY,NOTICE_READCOUNT)
+VALUES (8, 'admin01', '공지사항 제목8', '대마도', '21/08/12', '21/08/30', 80);
+
+INSERT INTO TB_NOTICE (NOTICE_NO, USER_ID, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_DATE, NOTICE_MODIFY,NOTICE_READCOUNT)
+VALUES (9, 'admin01', '공지사항 제목9', '부산', '21/08/11', '21/08/30', 90);
+
+INSERT INTO TB_NOTICE (NOTICE_NO, USER_ID, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_DATE, NOTICE_MODIFY,NOTICE_READCOUNT)
+VALUES (10, 'admin01', '공지사항 제목10', '북한', '21/08/10', '21/08/30', 100);
+
+-- 성인 INSERT 2021.09.01
+-- TB_REPORT 샘플 데이터
+INSERT INTO TB_REPORT (REPORT_NO, REPORT_TITLE, USER_ID, REPORT_CONTENT, REPORT_DATE, REPORT_READCOUNT)
+VALUES (1, 'sample11', 'user02', 'sample11', DEFAULT, DEFAULT);
+
+INSERT INTO TB_REPORT (REPORT_NO, REPORT_TITLE, USER_ID, REPORT_CONTENT, REPORT_DATE, REPORT_READCOUNT)
+VALUES (2, 'sample02', 'user01', 'sample02', DEFAULT, DEFAULT);
+
+INSERT INTO TB_REPORT (REPORT_NO, REPORT_TITLE, USER_ID, REPORT_CONTENT, REPORT_DATE, REPORT_READCOUNT)
+VALUES (3, 'sample03', 'user01', 'sample03', DEFAULT, DEFAULT);
+
+INSERT INTO TB_REPORT (REPORT_NO, REPORT_TITLE, USER_ID, REPORT_CONTENT, REPORT_DATE, REPORT_READCOUNT)
+VALUES (4, 'sample04', 'user01', 'sample04', DEFAULT, DEFAULT);
+
+INSERT INTO TB_REPORT (REPORT_NO, REPORT_TITLE, USER_ID, REPORT_CONTENT, REPORT_DATE, REPORT_READCOUNT)
+VALUES (5, 'sample05', 'user01', 'sample05', DEFAULT, DEFAULT);
+
+INSERT INTO TB_REPORT (REPORT_NO, REPORT_TITLE, USER_ID, REPORT_CONTENT, REPORT_DATE, REPORT_READCOUNT)
+VALUES (6, 'sample06', 'user01', 'sample06', DEFAULT, DEFAULT);
+
+INSERT INTO TB_REPORT (REPORT_NO, REPORT_TITLE, USER_ID, REPORT_CONTENT, REPORT_DATE, REPORT_READCOUNT)
+VALUES (7, 'sample07', 'user01', 'sample07', DEFAULT, DEFAULT);
+
+INSERT INTO TB_REPORT (REPORT_NO, REPORT_TITLE, USER_ID, REPORT_CONTENT, REPORT_DATE, REPORT_READCOUNT)
+VALUES (8, 'sample08', 'user01', 'sample08', DEFAULT, DEFAULT);
+
+INSERT INTO TB_REPORT (REPORT_NO, REPORT_TITLE, USER_ID, REPORT_CONTENT, REPORT_DATE, REPORT_READCOUNT)
+VALUES (9, 'sample09', 'user02', 'sample09', DEFAULT, DEFAULT);
+
+INSERT INTO TB_REPORT (REPORT_NO, REPORT_TITLE, USER_ID, REPORT_CONTENT, REPORT_DATE, REPORT_READCOUNT)
+VALUES (10, 'sample10', 'user02', 'sample10', DEFAULT, DEFAULT);
+
+-- 성인 TB_REPORT 수정 : DEFAULT_2021.09.08
+
+-- 서연 TB_FREE_REPLY 수정 : 댓글내용 추가, 글레벨, 원글 참조번호 삭제_2021.09.09
+
+-- 은별 INSERT 수정 : 2021.09.13
+
+-- 서연 INSERT : 2021.09.14
+-- TB_FREE 샘플 데이터 추가
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, 
+                     FREE_DATE, FREE_MODIFY, FREE_READCOUNT)
+VALUES (12, 'user01', '나랑 애국가 부를사람~', '동해~물과 백두산이 마르고 닳도록~<br>하느님이 보우하사 우리 나라 만세~ 그다음 댓글로 불러줘!!!!! : )', '21/09/01', '21/09/27', 543);
+
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, 
+                     FREE_DATE, FREE_MODIFY, FREE_READCOUNT)
+VALUES (13, 'user01', '내가 이번에 한국사 시험을 봤는데..', '나 이번에 고급 합격한것 같아!! 축하해줘!!ㅋㅋㅋㅋㅋㅋㅋ', '21/09/02', '21/09/25', 51);
+        
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, 
+                     FREE_DATE, FREE_MODIFY, FREE_READCOUNT)
+VALUES (14, 'user02', '한복만들기 원데이 클래스', '한복만들기 원데이 클래스 이런거 없나? 나 해보고 싶어!<br> 알고 있으면 나 추천 좀 해주라!', '21/09/03', '21/09/23', 131);
+        
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, 
+                     FREE_DATE, FREE_MODIFY, FREE_READCOUNT)
+VALUES (15, 'user02', '국내 역사관련 여행지 추천합니다', '자녀 교육차 다녀왔는데 서대문 형무소 추천드려요!!', '21/09/04', '21/09/22', 77);
+
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, 
+                     FREE_DATE, FREE_MODIFY, FREE_READCOUNT)
+VALUES (16, 'user03', '김치 맛있게 담그는 법', '올해에는 김장김치는 300포기정도 담가볼까하는데! 맛있게 만드는 레시피 있으면 공유 좀 부탁드려요~', '21/09/11', '21/09/27', 123);
+
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, 
+                     FREE_DATE, FREE_MODIFY, FREE_READCOUNT)
+VALUES (17, 'user01', '고궁 투어하고 싶은데 함께 할 사람!', '제가 이번에 고궁 투어를 해볼까 하는데, 혹시 함께 다니며 역사에 대해 함께 이야기 하실분 계신가요~?<BR>경복궁부터 시작해보려고 해요!<BR>관심있으신 분들은 아래 댓글남겨주세요^^', '21/09/14', '21/09/15', 159);
+
+-- TB_FREE_REPLY 샘플 데이터 추가
+INSERT INTO TB_FREE_REPLY
+VALUES(1, 12, 'user03', '무궁화 삼~천리 화~려강~~산!', '21/09/14');
+
+INSERT INTO TB_FREE_REPLY
+VALUES(2, 12, 'user02', '대한사람 대한으로 길이 보전하세~♬', '21/09/14');
+
+INSERT INTO TB_FREE_REPLY
+VALUES(3, 13, 'user02', '축하해~~~', '21/09/14');
+
+INSERT INTO TB_FREE_REPLY
+VALUES(4, 17, 'user03', '저요저요!!! 저도 동행하고 싶습니다~ㅎㅎ', '21/09/14');
+
+INSERT INTO TB_FREE_REPLY
+VALUES(5, 12, 'user03', '2절은 누가 시작해!?!?ㅋㅋㅋㅋㅋ', '21/09/14');
+
+INSERT INTO TB_FREE_REPLY
+VALUES(6, 16, 'user02', '저는 비비고나 종갓집김치에서 사먹어요!! 대기업의 맛에 익숙해져버려서,,,,ㅎㅎ', '21/09/14');
+
+INSERT INTO TB_FREE_REPLY
+VALUES(7, 15, 'user01', '오! 저도 이번 주말에 조카들 데리고 방문해볼게요! 좋은 정보 감사합니다^^', '21/09/14');
+
+-- 서연 TB_FREE UPDATE : 2021.09.22
+UPDATE TB_FREE
+SET free_like = 2;
+
+UPDATE TB_FREE
+SET free_like = 0
+WHERE free_no in (2, 5, 7, 10, 11);
+
+UPDATE TB_FREE
+SET free_like = 12
+WHERE free_no in (12, 15, 16);
+
+UPDATE TB_FREE
+SET free_bad = 1
+WHERE free_no in (10, 11, 13);
+
+COMMIT;
+
+-- 다슬 TB_KO 수정 : 2021.09.22
+-- 1. 요약 컬럼 추가 / 2. 이미지 컬럼 삭제 / 3. 샘플 데이터 추가
+-- 다슬 TB_KO 수정 : 요약 컬럼 수정_2021.09.25.
+
+insert into tb_ko 
+values (1, 'history', 'admin01', null, '서대문형무소', '서대문형무소는 1907년 감옥 운영이 일제에 넘어가자, 1908년 조선 통감부가 반일세력을 탄압·수용할 목적으로 만든 감옥이다. 옥사는 붉은 벽돌을 이용하였고 수감자를 효과적으로 감시할 수 있는 원형 감옥 형태인 판옵티콘 구조로 지어졌다. 지어질 때 당시 수용인원은 500명이었는데 이후 증·개축을 반복하여 1938년 수용인원은 2,763명이 되었다.<br>
+ 서대문형무소가 만들어진 후 80년 간 35만여 명이 수감되었는데, 대부분은 민족지도자와 독립운동가들이었다. 표면적으로 재소자에게 정해진 작업, 정량의 식료품을 배급하고 교육과 운동을 시킨다는 교정 규정이 있었지만, 실제로 투옥된 독립운동가에게는 형기가 확정되기 전부터 온갖 취조와 고문이 자행되었다. 또한, 겨울철 난방이 되지 않아 수감자는 동상을 입는 경우가 많았고, 동사하는 일도 있었다. 여름철에는 각종 전염병이 돌아 병사자가 속출했다.<br><br>
+
+Q. 어떤 고문이 있었나요? 역사관으로 지정될 만큼 심각했나요?<br>
+A. 기록으로 추정되는 고문 중 하나가 식량 조절입니다. 수감자들의 범죄 혐의와 노역의 정도에 따라 등급을 매긴 뒤 밥그릇 아래 두께가 다른 밑판을 만들어 식사량을 조절했습니다. 당시 교도관의 증언에 따르면 특히 일제강점기 말기에는 급식으로 소금이 얹어진 삶은 좁쌀밥만 나와 영양실조로 사망하는 이들이 많았다고 합니다.<br><br>
+
+ 또한 국가기록원이 펴낸 여성독립운동사 자료총서에 1919년 3월 하순에 출옥한 서울 여학생들이 "처음 수감돼서는 무수하게 매를 맞고 그 후에는 발가벗겨져 알몸으로 손발이 묶인 채 마구간에 버려졌다", "왜놈들은 여학생 몇 명을 몰래 잡아가서 윤간하고는 새벽에 다시 끌고 왔다"라고 증언한 기록이 있으나, 구체적인 고문 방식이나 이를 증명할 근거 자료는 부족합니다.<br><br>
+
+ 그러나 유관순 열사의 경우 야마사끼 간수부장(교도관)에게 고문을 당하며, 복부를 밟혀 방광 파열로 사망했다는 점, 소설가 심훈이 어머니에게 보낸 편지에 ‘주황빛 벽돌담은 화로 속처럼 달고 방 속에는 똥통이 끓습니다.’라고 적혀있던 점등을 미루어 보아 목숨을 위협할 만큼의 고문이 있었다는 것을 알 수 있습니다.<br><br>
+
+Q. 수감됐던 독립운동가들은 누가 있었나요?<br><br>
+A. 1919년 3.1운동 이후 시위 관련자 1600명 포함 3000여 명이 수감되었습니다. 여기에는 한용운, 유관순이 포함되어 있었으며 이외에도 양한묵, 강우규, 안창호, 여운형 등이 수감되어 옥고를 치렀습니다.<br><br>
+
+Q. 1980년대까지 운영했는데 독립한 후에는 누가 수감되었나요?<br>
+A. 4.19 혁명 이후부터 1980년대까지는 다양한 범법자들이 수감되었습니다.<br><br>
+
+참고자료<br>
+서대문형무소 역사관<br>
+한국민족문화대백과사전(서대문형무소)', 
+'koimage_01.jpeg', 'koimage_01.jpeg', '2021-08-09', null, 3, '서대문형무소,감옥,고문', 
+'https://www.youtube.com/watch?v=ML3bJIZTsqA', 'https://www.youtube.com/watch?v=7rJEjANoS84', null, 
+'일제강점기 당시 일제가 반일세력을 탄압하는 목적으로 지은 감옥입니다. 강도 높은 고문이 자행되었고, 대표적으로 유관순 열사가 고문을 받다 순옥한 곳이기도 합니다. 서대문형무소는 어떤 곳이었고, 어떤 인물들이 수감되었을까요?');
+
+insert into tb_ko 
+values ((select max(ko_no) + 1 from tb_ko), 'history', 'admin01', null, '욱일기', 
+'  욱일기는 일본이 2차 세계대전 기간 중 사용한 전범기로 일본 군국주의를 상징하는 깃발이다. 한국에서는 욱일기를 사용하지 못하도록 금지 요청을 보내고 있으나 일본은 전통 문양이라며 문제가 없다는 입장으로 고수하는 중이다.<br><br>
+
+  과거 일본에서는 사무라이 가문의 문장으로 붉은 해에서 햇살이 확산되는 문양(욱광 혹은 일족문양이라고 부름)을 사용했다. 1870년 일본은 육군을 창설하면서 태양 주위로 햇살이 퍼지는 문양을 육군어국기로 지정하였고, 이 군기가 욱일기의 시초이다. 1870년 당시 일본은 결속력이 없던 영주의 군대를 묶어 하나의 ‘천황의 군대’를 만드는 데에 집중했고, 이를 위한 상징으로 욱일기를 사용하였다. 이후 1889년 해군에서도 욱일기를 군함기로 제정했다.<br>
+  욱일기는 단순히 사무라이 시대 때부터 사용된 문양이 아니라, 천황의 군대를 결속하기 위한 상징으로 사용되었으며, 타민족, 타국가에 대한 지배를 확장하고자 하는 의미로 사용되었기 때문에 전통 문양으로 치부할 수 없는 문제가 있다.<br><br>
+
+  따라서, 한국에서는 욱일기를 제국주의, 2차 세계대전 당시 일본 주변 국가에서 벌어진 전쟁 범죄의 상징성을 담고 있는 문양으로 인식할 뿐만 아니라, 세계대전이 일어나기 전 1900년 초 대한제국을 침탈했을 때부터 제국주의 이념을 주입하는 데에 사용했던 상징으로 인식하고 있어 국가 차원, 민간 차원에서 욱일기 사용에 대해 지속적으로 금지 요청을 보내고 있다.<br><br><br>
+
+
+<일본의 무분별한 욱일기 사용><br>
+- 2012 런던 올림픽 체조 국가대표 유니폼으로 욱일기를 변형한 디자인 사용했다.<br>
+- 2012년 FIFA U-20 여자 월드컵, 2013년 7월 동아시안컵 축구대회 한일전에서 욱일기를 응원기로 사용했다.<br>
+- 2020년 도쿄 올림픽 남성 클라이밍 결승전에서 욱일기를 형상화한 과제를 제시했다. 클라이밍은 시합이 시작한 뒤 과제가 공개되기 때문에 결승전이 시작하기 전까지 이 부분에 대해 문제를 제기할 수 없었다.<br>
+
+국제스포츠클라이밍연맹(IFSC)은 공식 홈페이지에서 “모든 선수가 35도 경사면에 회색 돌출부와 노란색 작은 홀드로 구성된 일본의 욱일기 모양 3번 과제에서 일정 구역까지 도달했으나 정상에 올라서진 못했다”고 언급했다. <br><br>
+
+참고자료<br>
+박미영(2017). “하켄크로이츠와 욱일기 상징에 나타난 문화 정체성의 메타언어 분석: 그레마스의 구조기호학을 중심으로.” 「한국디자인문화학회지」. 한국디자인문화학회. 387-398.<br>
+http://news.kmib.co.kr/article/view.asp?arcid=0016148443&code=61161611&cp=nv<br>
+https://www.bbc.com/korean/news-50979657', 
+'koimage_02.jpg', 'koimage_02.jpg', '2021-08-10', null, 24, '욱일기,제2차세계대전,전범기,하켄크로이츠', 
+'https://www.youtube.com/watch?v=cJFFLFMQ768', null, null, 
+'욱일기는 세계대전이 일어나기 전부터 제국주의 이념을 주입하는 데 사용한 상징물입니다. 그럼에도 일본에서는 욱일기 사용에 문제가 없다고 합니다. 세계 대회에서 계속 사용되는 욱일기. 이대로 괜찮을까요?');
+
+insert into tb_ko 
+values ((select max(ko_no) + 1 from tb_ko), 'history', 'admin01', null, '민족말살통치', 
+'  일제의 한국 침략은 중국과 태평양을 전쟁으로 장악하려는 거대 기회의 포석에 불과한 것이었다. 이러한 사실이 명백하게 드러난 것은 1930년대이다.<br>
+  일제는 전쟁을 효과적으로 수행하기 위해, 한국의 교육·사회 제도와 치안 법제 개정을 거듭했다. 법은 강자가 내리는 명령이며, 약자인 식민지 민중들은 명령을 따를 의무 외에 권리가 없다는 행태로 식민지 국가를 강압하였다.<br>
+  1930년대에 들어서, 대규모 전쟁을 치러온 일제는 한국인의 민족정신과 민족의식을 철저하게 말살시키는 제도와 정책을 통해 한국인을 전쟁 자원으로 쓰고자하는 목표를 노골적으로 드러내게 된다. 이러한 민족 말살 정치의 주요 내용으로는 다음과 같다.<br><br>
+
+  1. 총독부는 한국 민족의 독자성과 고유성을 부정하기 위해 한국 민족과 역사를 왜곡하는 작업으로 체계적으로 수행했다. 한국 민족은 열악한 민족성으로 인해 사대적이고, 역사를 스스로 운용할 능력이 없다는 것을 근거로 해 일본에 식민지화됨이 타당한 것임을 핵심 논지로 삼고 있다.<br><br>
+
+  2. 한국어 사용을 공식적으로 금지하고, 한국어 신문을 폐간시켰다. 특히 조선어학회가 오랫동안 편협한 민족 관념을 배양하면서 조선 독립을 위한 실력 신장에 전력을 다했다는 이유로 조선어학회의 기관지 한글을 폐간시키고 학회원들을 탄압하였다.<br><br>
+
+  3. 한국인으로서의 민족의식을 부정하고 황국신민으로 개조하기 위해 신사참배를 강제했다. 1931년 한국 학생들에게 신사참배를 강요한 후 1937년부터는 기업, 단체의 신사참배도 의무화했다. 이는 일제 천황의 신성에 복종하고 황국신민으로서 일제 천황을 위해 전쟁 체제에 동원되어 헌신하는 인간으로 개조하는 과정이었다.<br><br>
+
+  4. 호주와 호주에게 소속된 가족이 하나의 단위인 家(가)로 설정하는 호주제를 도입하였다. 이는 천황의 조상을 家(가)의 조상으로 상정하여 일본 국민 모두를 천황의 신민으로 구성하는 일제의 가족법을 한국에 주입한 것이었다.<br><br>
+
+  5. 조선민사령 개정을 통해 조선 이름을 일제식 이름으로 개편하도록 강요하였다. 이는 개인과 민족의 정체성을 상징하는 한국인 고유의 성관제도 소멸과 한국 민족의 독자성을 완전히 분쇄하는 결과를 초래했다.<br><br>
+
+참고자료<br>
+이종길(2010). “일제식민지배기 한국민족말살을 위한 주요 법제와 정책.” 「법제연구」 39. 한국법제연구원. 7-78.<br>
+http://www.incheonilbo.com/news/articleView.html?idxno=1108460', 
+'koimage_03.jpg', 'koimage_03.jpg', '2021-08-11', null, default, '민족말살통치,황국신민화,내선일체,일선동조론', 
+'https://www.youtube.com/watch?v=rj1lHJjeUZs', 'https://www.youtube.com/watch?v=eAwpvn7l4Ug', null, 
+'1930년대는 한국인의 민족정신과 민족의식이 말살되는 아픔을 겪은 시대입니다. 일본은 한국인을 전쟁 자원으로 쓰려는 목표를 노골적으로 드러냈는데요, 어떤 일이 있었는지 알아볼까요?');
+
+insert into tb_ko 
+values ((select max(ko_no) + 1 from tb_ko), 'culture', 'admin01', null, '한글', 
+'  훈민정음은 조선 전기 제4대 세종대왕이 창제하여 반포한 우리나라 고유 문자이다. 오늘날 사용되는 ‘한글’은 1908년 주시경을 중심으로 출범한 국어연구학회가 처음 사용한 것으로 추정한다.<br>
+  훈민정음은 창제 원리가 밝혀진 유일한 문자로, 훈민정음 해례본에 따르면 자음은 발음기관을 본 떠 만들었으며, 모음은 천지인의 모양을 본 뜬 ‘ㆍ’, ‘ㅡ’, ‘ㅣ’를 결합하여 만들었다.<br><br>
+
+<외국의 잘못된 주장><br>
+일본 화장품 회사 DHC 그룹의 방송에서 ‘조선인들은 한문을 썼는데 한문을 문자화하지 못해서, 일본에서 만든 교과서로 한글을 배포했다. 일본인이 한글을 통일시켜서 지금의 한글이 됐다’며 일본이 한글을 보급해줬다는 발언을 했다. 이 방송에서뿐만 아니라 1999년 니시오 간시 교수의 책에는 ‘일본 총독부 시대에 비로소 한글을 보급하고 소학교 교육에 도입됐다’는 대목이 나오기도 한다. 이와 같이 일본에서 한글을 일본에서 배포했다는 주장은 꾸준히 나오고 있다.<br>
+  그러나 한글은 1443년 훈민정음이 반포된 이후 꾸준히 사용되었으며, 1894년 갑오개혁 때부터 기본으로 사용한다는 법령이 발표되었다. 이후 1907년 대한제국이 나라 차원에서 국문 연구소를 세웠고, 주시경 선생이 맞춤법 초안을 닦던 중 강제 병합을 맞게 되었다. 따라서 한글은 1443년부터 지금까지 사용되고 있는 한국 고유의 문자이다.<br><br>
+
+Q. 훈민정음은 세종과 집현전 학자들이 만들었다는데 본문에는 왜 세종이 창제했다고 적혀있나요?<br>
+A. 세종실록에 따르면 ‘임금께서 몸소 언문 스물 여덟 글자를 만들어내니’라는 대목이 있습니다. 그동안에는 왕이 문자를 만들었을까하는 의구심에 집현전 학자들과 공동 창제했다는 의견이 있었으나, 국어학계와 관련 학계에서는 세종이 혼자 훈민정음을 창제했다는 결론을 내고 있습니다.<br> 
+  세종은 훈민정음을 공표할 때까지 문자 창제에 대한 언급을 한마디도 하지 않았다는 점, 문자 창제 과정에 관한 내용이 실록에 전혀 기록되지 않았다는 점에서 아무도 모르게 세종 혼자 문자를 창제했다는 것을 근거로 들 수 있습니다.<br><br>
+
+참고자료<br>
+한국민족문화대백과사전(한글)<br>
+https://www.newstof.com/news/articleView.html?idxno=811',
+'koimage_04.jpg', 'koimage_04.jpg', '2021-08-12', null, 27, '훈민정음,한글,hangeul', 
+'https://www.youtube.com/watch?v=pl9UMwDcIk8', 'https://www.youtube.com/watch?v=Kpgm4XQNhzo', null,  
+'우리에게 익숙한 인물, 세종대왕이 직접 만들어 반포한 우리나라의 고유 문자로, 창제 원리가 밝혀진 유일한 문자입니다. 훈민정음을 창제한 세종대왕 덕분에 한국의 문맹률은 평균 1.7%밖에 되지 않습니다.');
+
+insert into tb_ko 
+values ((select max(ko_no) + 1 from tb_ko), 'culture', 'admin01', null, '풍물놀이', 
+' 풍물놀이란 농악놀이를 가리키는 말로 지역마다 특색있는 가락을 선보이는 것이 특징이다. 현재 가장 잘 전승된 풍물놀이로는 경기도 안성 지역에서 활동한 남사당패를 전승한 안성 남사당 풍물놀이가 있다. 안성 남사당 풍물놀이는 과거 안성 일대에 근거지를 두고 전국적으로 유랑하는 농악 연희패의 연희를 가리키는 말로, 경기·충청 가락의 핵심적인 부분이 전승되었다. 안성 남사당패는 풍물놀이뿐만 아니라 줄타기(어름), 땅재주(살판), 꼭두각시놀음(덜미), 접시 돌리기(버나), 탈놀이(덧뵈기)까지 여섯 가지의 기능을 했으나 풍물놀이만 온전히 전승되고 있다.<br><br>
+
+ 풍물놀이는 가락, 진풀이, 법구, 무동으로 나뉘는데, 가락은 경기도와 충청도 일대의 농악 가락을 기초로 하고 있다. 현재 풍물놀이의 가락은 안성 지역에서만 전승되는 토박이 가락을 근간으로 하여 예술적으로 가다듬은 것이다.<br><br>
+
+ 진풀이란 농악에서 연주가들이 일정하게 정해진 동작선을 따라 움직이는 것을 말한다. 진풀이에서 가장 기본적인 대형은 원진으로, 기본 대형으로 시작해 시계 반대 방향으로 진행되다가 다시 원진으로 끝을 맺는다. 진풀이는 판굿의 처음부터 끝을 구성하는 구성요소이며, 판굿의 긴장과 이완을 주도하는 중요한 역할을 한다.<br>
+ 진풀이에 따른 벅구놀이와 무동놀이는 안산 남사당 풍물놀이의 특색이기도 하다. 벅구놀이는 연주가, 무동, 벅구잽이들이 ㄷ자 형으로 선 뒤 상쇠와 벅구잽이가 어울려 농사짓는 흉내내는 춤사위를 말한다. 또 중요한 것 중 하나가 무동놀이이다. 무동은 단순한 춤사위를 구사하는 것이 아니라 벅구잽이의 어깨를 딛고 그 위에서 춤사위를 춰 볼거리를 제공한다.<br><br>
+
+Q. 판굿이 뭔가요?<br>
+A. 장단과 진풀이, 춤, 기예 등이 긴밀하게 결합되어 예술적 기량을 종합하여 보여주는 연예적인 농악을 말합니다.<br><br>
+
+Q. 풍물놀이와 사물놀이는 다른 건가요?<br>
+A. 사물놀이란 1978년 ‘사물놀이’라는 연주단이 꽹과리, 장구, 북, 징을 가지고 농악 가락을 정리해서 발표한 것입니다.<br>
+ 사물놀이는 마을이나 지역 내에서만 머물러 있던 음악의 가치를 계승하고 무대용으로서 새로운 형태를 만들었다는 점, 우리의 농악을 세계화하는 데에 일조했다는 점, 우리 농악을 재발견하는 계기를 부여했다는 점에서 의의가 있지만, 농악의 고유한 면모와 맛을 왜곡시켰다는 비판이 있습니다.<br><br>
+
+Q. 일제강점기 때 풍물놀이가 사라지지는 않았나요?<br>
+A. 일제강점기 시기에 농악은 식민 지배의 홍보 수단으로 전문농악인들이 동원되어 기량이 더욱 발전하는 아이러니를 겪었는데, 이때 판굿의 진풀이는 다양하고 세련된 모습으로 변화되었습니다.<br>
+
+참고자료<br>
+한국민속대백과사전(안산남사당풍물놀이, 사물놀이, 판굿, 진풀이)<br>
+한국민족문화대백과사전(안산남사당풍물놀이, 사물놀이)',
+'koimage_05.jpg', 'koimage_05.jpg', '2021-08-13', null, 13, '풍물놀이,풍물굿,장구,꽹과리,북,징,태평소,소고', 
+'https://www.youtube.com/watch?v=j5kQCmtwVO8', 'https://www.youtube.com/watch?v=2-cMJNAfyok', null, 
+'우리나라 전통행사에서 볼 수 있는 흥겨운 농악놀이로, 꽹과리, 장구, 북, 징, 소고 등 농악기로 가락을 연주합니다. 가장 빠른 장단인 휘모리장단도 사용되는데요, 이는 ‘휘모리(Whimory)’ 페이지의 모티브이기도 합니다 :）');
+
+insert into tb_ko 
+values ((select max(ko_no) + 1 from tb_ko), 'food', 'admin01', null, '생채', 
+'  생채란 익히지 않고 날로 먹는 나물을 말한다. 생채는 생채소나 익힌 것을 양념하거나 소금에 살짝 절인 뒤 양념에 무치기도 한다. 닭고기와 같이 기름기 없는 고기를 함께 쓰는 경우도 있다. 주로 기름을 적게 쓰는 것이 특징이며, 파·마늘은 쓰지 않거나 적게 넣는다.<br><br>
+  생채는 사시사철 나오는 재배 채소, 들나물, 산나물을 모두 사용할 수 있으나 너무 억세지 않고 아삭한 질감이 나는 채소를 많이 사용한다. 되도록 싱싱한 것을 골라 쓰며 생채소를 쓸 때는 깨끗이 씻어야 한다. 생채는 미리 무쳐놓으면 물이 많이 생겨서 맛이 변하고 모양도 나빠지므로, 미리 준비해 놓았다가 먹기 직전에 무치는 것이 좋다.<br><br>
+  생채 요리법은 초간장이나 초고추장에 무치는 방법, 고춧가루·간장·다진 파·마늘과 설탕 및 식초나 참기름, 들기름 및 깨소금 등 갖은양념으로 버무려 무치는 방법, 겨자즙에 무치는 방법, 잣즙이나 호두즙에 무치는 방법, 오이나 깻잎, 배추처럼 생으로 막장이나 고추장에 찍어 먹는 방법 등 다양하다. 봄철의 생채는 주로 식초를 넣어 상큼하게 만들어 먹는다.<br><br>
+
+참고자료<br>
+한국민속대백과사전(생채)<br>
+한국민족문화대백과사전(생채)',
+'koimage_06.jpg', 'koimage_06.jpg', '2021-08-15', null, 2, '생채,무침,나물,반찬', null, null, null, 
+'생채는 익히지 않고 날로 먹는 나물을 가리키는 말로, 생채소나 익힌 것을 양념하거나 소금에 살짝 절인 뒤 양념에 무쳐 먹기도 합니다. 흰밥에 생채, 오늘 저녁으로 어떠세요?');
+
+insert into tb_ko 
+values ((select max(ko_no) + 1 from tb_ko), 'food', 'admin01', null, '명란젓', 
+'  명란젓은 명태 알을 소금에 절여 담근 젓갈이다. 젓갈을 담그는 시기는 동지 전이 좋다고 한다. 잘 익은 젓갈을 토막 내서 참기름과 파 채 친 것을 넣고 무쳐 먹기도 하고, 석쇠에 굽기도 하고, 달걀과 함께 찌기도 하고, 참기름을 발라 볕에 말려서 그대로 구워 먹기도 한다.<br><br>
+
+Q. 명란젓은 일본 음식 아니었나요?<br>
+A. 1876년 강화도조약 체결 이후 일본인에 고용돼 일하던 조선 노동자들은 품삯 대신 알, 아가미 등 부산물을 임금으로 받았습니다. 이렇게 받은 명태 알을 젓갈로 담가 먹은 것이 명란젓으로 알려져 있습니다.<br><br>
+
+Q. 어떻게 일본에서 더 유명한 음식이 되었나요?<br>
+A. 부산에서 태어난 일본인 카와하라 도시오는 동구 초량시장에서 명란젓을 먹어보는데 광복 이후 일본으로 돌아가 직접 담가 먹고 상품화하면서 일본에서도 유명해진 음식이 되었습니다. 카와하라는 후쿠야를 설립하였고 후쿠야는 현재 일본 최대 명란젓 기업으로 알려져 있습니다.<br><br>
+
+참고자료<br>
+한국민족문화대백과사전(명란젓)',
+'koimage_07.jpg', 'koimage_07.jpg', '2021-08-16', null, 22, '명란젓,명란,한국음식', 
+'https://www.youtube.com/watch?v=UNJA0Htx_Hg', 'https://www.youtube.com/watch?v=c4nVN2vXdRE', 'https://www.youtube.com/watch?v=lFuHLNrsPWw', 
+'명란젓은 명태 알을 소금에 절여 담근 젓갈입니다. 일본인에게 고용된 조선 노동자들은 임금 대신 생선 알 등의 부산물을 받았고, 명태 알을 젓갈로 담가 먹으면서 지금까지 전해졌습니다. 명란젓이 일본 음식인 줄 아셨겠지만, 우리 한국 음식이랍니다.');
+
+insert into tb_ko 
+values ((select max(ko_no) + 1 from tb_ko), 'culheri', 'admin01', null, '잃어버린 문화재편1. 직지심체요절', 
+'  직지심체요절은 사람이 마음을 바르게 깨달을 때 그 심성이 바로 부처의 실체라는 것을 중심내용으로 한 책이다. 이 책은 1337년 고려 시대 흥덕사에서 금속활자인 주자로 찍어낸 초인본으로, 세계 최초의 금속 활자본이다.<br><br>
+
+Q. 직지심체요절이 프랑스에 있는 이유는 무엇인가요?<br>
+  직지는 초대 주한 공사로 부임했던 프랑스의 콜랭 드 블랑시가 1880년대 말에서 1890년대 초 국내에서 수집한 것으로 알려져 있습니다. 이렇게 수집된 직지는 1911년 파리 경매장에 나왔고, 골동품 수집가 앙리 베베르에게 단돈 180프랑에 팔리게 됩니다. 1952년 베베르가 프랑스 국립도서관에 직지를 기증한 뒤, 동양 문헌실에 보관되어 있었습니다.<br><br>
+
+Q. 직지심체요절을 발견한 건 한국인이 맞나요?<br>
+A. 네, 1967년 프랑스 국립도서관에서 일하던 박병선 박사가 도서관 분관의 폐지 창고에 방치되어 있던 직지심체요절을 발견했습니다. 1337년이라는 간행 날짜와, “이 책은 쇠를 부어 만든 글자로 찍어 배포한다”는 기록을 보고 5년간 연구해 1972년 유네스코 세계 도서의 해 기념 도서전에 직지를 출품하여 세계적으로 직지를 소개했습니다.<br><br>
+
+Q. 직지심체요절이 반환이 어려운 이유?<br>
+A. 직지심체요절은 콜랭 드 블랑시가 정식적으로 구입하였기에 반환요구가 어렵다고 합니다.<br><br>
+
+참고자료<br>
+한국민족문화대백과사전(직지심체요절권하)<br>
+https://www.kyobostory.co.kr/contents.do?seq=1088',
+'koimage_08.jpg', 'koimage_08.jpg', '2021-08-17', null, 15, '직지심체요절,직지,프랑스', 
+'https://www.youtube.com/watch?v=gw4k5NVEx90', 'https://www.youtube.com/watch?v=Jq-5-on17G4', null, 
+'직지심체요절은 세계 최초의 금속 활자본입니다. 1890년대 경, 프랑스인이 한국에서 구입해 프랑스로 가져갔다고 해서 지금까지도 프랑스 국립도서관에 보관되어 있습니다.<br>
+직지가 한국으로 돌아오지 못하는 이유는 무엇일까요?');
+
+insert into tb_ko 
+values ((select max(ko_no) + 1 from tb_ko), 'culheri', 'admin01', null, '경복궁', 
+'  경복궁은 조선 왕조 제1의 법궁으로, 백두산의 산줄기인 백악산(북악산)을 뒤에 두고 금천을 앞에 둔 배산임수 명당에 자리를 잡고 있다. 몇 가지 원칙을 가지고 지어진 경복궁은 현재 30%만 남아있다.<br><br>
+
+  건축 원칙 1. 삼문삼조<br>
+  삼문이란 근정문 앞에 있는 광화문-홍례문-근정문을, 삼조는 외조-치조-내조로 연속되는 세 공간을 가리키는 말이다. 치조는 왕과 관료가 정치를 행하는 곳으로, 치조의 중심은 근정전과 사정전이다. 내조는 왕족의 일상생활 공간이며, 외조는 조정의 관료들이 근무하는 관청이 있는 곳이다.<br><br>
+
+  건축 원칙 2. 전조후침<br>
+  앞에는 집무 공간, 뒤에는 생활 공간을 둔다는 의미로, 집무를 보는 사정전 뒤에 왕실의 생활 공간인 강녕전, 교태전 등이 위치한다.<br><br>
+
+  건축 원칙 3. 구중궁궐<br>
+  여러 전각과 여러 겹의 담장으로 외부의 침입을 막는다는 의미로, 경복궁 전체를 9개의 공간으로 나누었다. 그 중간에 교태전이 있어 교태전에 사는 왕비를 중전이라고 불렀다.<br><br>
+
+  건축 원칙 4. 동궁동조<br>
+  세자와 대비의 거처를 동쪽에 둔다는 의미로, 세자가 생활한 자선당, 대비가 생활한 자경전이 있다.<br><br>
+
+Q. 일제강점기 때 경복궁을 망가뜨리기도 했나요?<br>
+A. 일제는 조선의 국권을 침탈한 뒤 조선의 상징인 경복궁을 파괴하고 변형하면서 조선의 권위를 훼손하고 백성들이 조선 왕실로부터 멀어지게 했습니다.<br>
+  일제는 전시회를 열면서 경복궁을 헐고 3700여 평 전시관을 세웠는데, 이때 헐린 건물이 흥선대원군이 중건한 경복궁 건물 전체의 3분의 1에 달합니다. 이뿐만 아니라 닭, 소, 돼지 우리도 설치하고, 1917년 불에 탄 창덕궁은 중건하려고 교태전, 강녕전 등 12개 이상의 건물을 철거하기도 했습니다. 건물을 헌 자리에는 잔디를 심거나 절에 있는 탑, 불상 등을 뽑아 옮겨놓았습니다. 현재 경복궁에 있는 잔디는 모두 건물이 있던 자리입니다.<br>
+  또한, 조선총독부 건물을 광화문 바로 뒤에 세웠습니다. 근정전에서는 삼문을 통해 육조거리가 보이는데 이를 막고 남산을 바라보는 건물을 세운 것입니다. 조선총독부 건물은 1995년에 철거되었습니다.<br><br>
+
+Q. 경복궁은 자금성 축소판이라는 이야기도 있던데 사실인가요?<br>
+A. 1392년 태조가 조선을 건국한 뒤 가장 먼저 시작한 일은 종묘를 짓고, 왕실 가족과 신하들이 머무는 궁궐을 짓는 것이었습니다. 이때 지은 궁궐이 경복궁인데요, 경복궁은 1395년에 완공된 반면, 자금성은 1420년에 완공되었습니다. 경복궁이 자금성보다 25년 전에 완공되었기 때문에 자금성을 따라 만들었다는 이야기는 사실이 아닙니다.<br><br>
+
+참고자료<br>
+문동석(2013). 「한양, 경성 그리고 서울」. 상상박물관.<br>
+문화재청 궁능유적본부 경복궁관리소.',
+'koimage_09.jpg', 'koimage_09.jpg', '2021-08-18', null, 20, '경복궁,광화문,근정전,조선시대', 
+'https://www.youtube.com/watch?v=KF54KKt2oBE', 'https://www.youtube.com/watch?v=0WQxwSEDBg8', null, 
+'경복궁은 조선시대 가장 먼저 지어진 궁궐로, 배산임수 명당에 자리 잡고 있습니다. 경복궁의 정문 광화문은 우리에게 매우 익숙한 곳인데요, 서울의 중심을 지켜주고 있는 경복궁에는 어떤 사연이 있을까요?');
+
+insert into tb_ko 
+values ((select max(ko_no) + 1 from tb_ko), 'culheri', 'admin01', null, '창덕궁', 
+'창덕궁은 북악산 왼쪽 봉우리인 응봉 자락에 자리 잡고 있는 조선의 궁궐로, 조선의 궁궐 중 가장 오랜 기간 임금들이 거처했던 궁궐이다. 1405년 태종이 세운 후, 임진왜란 때 불태워졌다가, 1610년 재건되면서 흥선대원군 때까지 조선의 법궁 역할을 했다.<br><br>
+
+경복궁 동쪽에 이궁으로 조성되었기 때문에 건립 목적이나 도성 내에 자리한 입지도 경복궁과 차이가 있다. 창덕궁이 위치한 지형은 언덕이 있고, 평탄한 곳이 많지 않은 지형이다. 이로 인해, 궁궐 건물을 남쪽에 배치하고, 북쪽 넓은 구릉에는 비원이라는 후원을 만들었다. 궁궐 건축의 전형적인 격식과는 다른 건축 양식을 가졌지만, 자연지형을 크게 변형시키지 않고 산세에 의지하여 건물이 자연과 조화를 이룬다는 특징이 있다.<br><br>
+
+창덕궁의 건축 원칙은 우리나라 궁궐 건축 양식인 삼문삼조, 전조후침을 따랐다. 삼문과 근정전이 일직선 중심축으로 배치되어 있는 경복궁과 달리, 창덕궁은 자연지형에 따라 배치했기 때문에 정문인 돈화문에서 방향을 두 번 틀어야 인정전이 나타난다.<br><br>
+
+Q. 창덕궁이 유네스코에 등재된 기준은 무엇인가요?<br>
+A. 유네스코 등재 이유에는 세 가지가 있습니다.<br>
+첫째, 창덕궁은 삼문삼조, 전조후침 등 유교적인 궁궐 건축의 기본 양식을 따르면서도 건물의 다양한 배치와 진입 방식 등을 보여주고 있습니다.<br>
+둘째, 전통 풍수지리에 입각해 선정된 입지와 유교 이념에 따라 배치된 건물은 조선시대 고유의 유교적 세계관을 보여줍니다.<br>
+셋째, 전통적인 궁궐 건축 양식을 지키면서 자연지형을 존중해, 건축과 조경을 통일시킨 훌륭한 사례를 보여줍니다.<br><br>
+
+Q. 조선시대 왕들이 가장 오래 사용한 궁은 경복궁 아닌가요?<br>
+A. 경복궁이 가장 먼저 건축된 건 사실입니다. 그러나 1592년 임진왜란 때 모든 궁궐이 소실되고, 1610년 창덕궁을 재건한 후 258년 동안 창덕궁이 조선의 법궁 역할을 했습니다. 그동안 경복궁은 재건되지 않았고, 1867년 흥선대원군이 경복궁 중건을 지시한 뒤에 고종 때 경복궁이 다시 조선의 법궁이 됩니다.<br><br>
+
+Q. 창덕궁은 화재가 많이 일어났다고 하던데 매번 복구 사업을 진행했나요?<br>
+A. 네 그렇습니다. 임진왜란, 인조반정, 병자호란, 병인양요, 신미양요에 걸쳐 화재 피해를 입기도 했지만, 매번 원래의 설계에 따라 재건축되었습니다. 1917년 마지막으로 큰 화재가 났을 때 일제는 경복궁 일부 건물을 옮겨 창덕궁의 건물을 재건했는데요, 이는 일제가 의도적으로 경복궁을 해체한 사업의 일환으로 볼 수 있습니다.<br><br>
+
+참고자료<br>
+문화재청 궁능유적본부(창덕궁 관리소)<br>
+유네스코와 유산(창덕궁)<br>
+한국민족문화대백과사전(창덕궁)<br>',
+'koimage_10.jpg', 'koimage_10.jpg', '2021-08-19', null, default, '창덕궁,후원,유네스코,조선시대', 
+'https://www.youtube.com/watch?v=RUpwL7XlTIE', 'https://www.youtube.com/watch?v=i2ZuU6szFWE', null, 
+'우리나라에서 아름다운 궁궐로 손꼽히는 창덕궁은 자연지형을 크게 변형시키지 않고 지었기 때문에, 건물과 자연이 조화를 이루고 있습니다. 이런 아름다움을 인정받아 유네스코 문화유산으로도 등재되었는데요, 비원이 아름다운 창덕궁 이야기를 들어보실래요?');
+
+insert into tb_ko 
+values ((select max(ko_no) + 1 from tb_ko), 'culheri', 'admin01', null, '창경궁', 
+'  창경궁은 경복궁, 창덕궁에 이어 세 번째로 지어진 조선시대 궁궐로, 1418년 세종이 세운 수강궁을 1483년 성종이 확장·보완하면서 창경궁으로 이름이 바뀌었다. 창경궁은 생활 공간을 넓힐 목적으로 세워졌기 때문에 경복궁이나 창덕궁의 규모나 배치 등에 다른 점이 많다.<br><br>
+
+  창경궁은 전각의 수가 많지 않고 규모가 아담하다는 특징이 있다. 공간의 구조와 배치도 경복궁처럼 평지에 일직선의 축을 이루도록 구획된 것이 아니라 높고 낮은 지세를 거스르지 않고 언덕과 평지를 따라가며 필요한 전각을 지었기에 좀 더 자유로운 분위기이다.<br>
+  창경궁의 또 다른 특징은 조선시대 다른 궁궐과 주요 전각들이 남향으로 지어진 것과 달리 동쪽을 바라본다는 점이다. 정문인 홍화문과 정전인 명정전은 동쪽을 향하고, 관청 건물인 궐내각사와 주요 전각들은 남쪽을 향해 있다. 남·서·북쪽이 구릉이고, 동쪽이 평지인 지세를 거스르지 않았고 건축했기 때문으로 짐작된다.<br><br>
+
+Q. 일제강점기 때 창경궁이 동물원이었다는데 사실인가요?<br>
+A. 네 사실입니다. 일제는 1908년부터 창경궁 명정전 주변의 전각을 없애고 대신 박물관을 세웠으며, 남쪽 보루각 일대에는 동물원을 세웠습니다. 60여 채의 전각과 담장이 철거되거나 변형됐고 기단, 초석까지 파내 흔적조차 찾을 수 없었습니다. 연못 주변에는 일본식 건물을 세우고 연못을 넓게 파서 뱃놀이하는 곳으로 만들기도 했습니다. 또한 뜰에는 일본을 상징하는 벚나무 수천 그루도 심었습니다.<br><br>
+
+  1909년에는 창경궁을 동·식물원으로 만들어 개장하고, 이름을 창경원으로 격하시켰습니다. 한 나라의 왕실이 살았던 공간이 떠들썩한 유원지로 변하게 된 것입니다. 이뿐만 아니라 일제는 조선의 뿌리인 종묘와 창경궁이 이어지는 길도 끊었습니다. 종묘와 창경궁은 원래 담장 하나를 사이에 두고 숲으로 연결되어 있었는데 일제가 민족혼을 말살하겠다며 종묘와 창경궁 사이에 도로(현 율곡로)를 연장하면서 두 공간을 단절시켰습니다.<br><br>
+
+Q. 일제강점기가 끝나면서 창경궁도 복원이 되었나요?<br>
+A. 창경궁 복원은 비교적 최근인 1983년에 시작되었습니다. 2년간 창경원의 공개를 중지하고 명칭도 창경궁으로 다시 바꾸었고, 창덕궁과 창경궁의 옛 모습을 그린 동궐도를 바탕으로 복원하기 위해 전문가들이 투입되었습니다. 동물사와 매점 등을 모두 철거 정비하고, 동물들은 과천 서울대공원으로 이동했으며, 동물표본은 국립과학관으로, 벚나무는 여의도 윤중로와 서울대공원으로 대부분 옮겨졌습니다. 벚나무가 있던 자리는 소나무와 느티나무를 심어 궁궐의 모습을 복원했습니다.<br>
+  2013년부터 일제가 허문 종묘와 창경궁 사이 길 복원 사업을 진행하고 있습니다. 공사가 완료되면 우리도 조선시대 왕들이 창경궁에서 종묘로 건너간 길을 경험할 수 있습니다.<br><br>
+
+참고자료<br>
+국가기록원(창경궁)<br>
+국가문화유산포탈(창경궁)',
+'koimage_11.jpg', 'koimage_11.jpg', '2021-08-20', null, default, '창경궁,홍화문,조선시대', 
+'https://www.youtube.com/watch?v=alIq7Du2fdE', 'https://www.youtube.com/watch?v=zfdgzOWhpHA', null, 
+'조선시대에 세 번째로 지어진 궁궐로, 비교적 아담하고 자유로운 분위기를 풍기고 있습니다. 창경궁은 창덕궁과 맞닿아 있어 함께 즐기실 수 있는데요, 이번 주말에 가족과 함께 방문해 보시는 건 어떠세요?');
+
+insert into tb_ko 
+values ((select max(ko_no) + 1 from tb_ko), 'food', 'admin01', null, '김치', 
+'김치는 배추·무·오이·파 등 주재료를 소금에 절여 물기를 뺀 후 파, 마늘, 생강, 고추, 젓갈 등의 양념에 버무려 섞은 뒤 숙성시켜 만든 음식이다. 김치란 명칭은 좁은 의미로 젓갈, 고추 등 양념이 들어가 발효를 시킨 김치를 가리키기도 하고, 넓은 의미로 소금이나 장에 절인 장아찌까지 포함하기도 한다.<br><br>
+
+김치는 주변에서 쉽게 구할 수 있는 재료 종류, 기후 등에 따라 지역성과 개별성에 영향을 미친다. 특히 다른 나라의 절임 채소와 김치를 구별하는 특징인 젓갈은 기후와 인근 바다에서 어떤 종의 생선을 얻을 수 있는지에 따라 달라지면서 지역적 특징을 구분해준다.<br><br>
+
+Q. 김치와 기무치는 어떤 점이 다른가요?<br>
+A. 기무치는 받침을 발음하지 못하는 일본의 언어적 특성에 따라 김치를 일본식으로 발음한 단어입니다. 그러나 일본은 1970년 이후 독자적으로 아사즈케와 비슷한 방식으로 기무치를 생산했는데요, 기무치는 발효 과정 없이 산도조절제를 사용한다는 특징이 있습니다. 따라서, 발효 과정을 거쳐 신맛을 내는 한국의 김치와는 전혀 다른 음식입니다.<br><br>
+
+Q. 중국은 왜 한국 김치를 중국 음식이라고 주장하는 걸까요?<br>
+A. 중국이 김치 종주국이라고 주장하는 이유에는 두 가지가 있습니다.<br>
+첫째, BC5-6세기경에 간행된 「시경」이라는 문헌에 절임을 나타내는 “저”라는 한자가 있습니다. 이를 근거로 모든 절임 채소 식품이 중국에서 만들어지고 전파된 것이라고 주장하는데, 김치도 그 절임의 한 종류이므로 중국 음식이라고 주장하는 것입니다.<br>
+둘째, 조선족은 중국 국민이고, 김치는 조선족의 고유 음식이기 때문에 김치 종주국이 중국이라고 하는 것입니다.<br>
+그러나 중국의 주장은 사실이 아니며, 다른 절임 채소 식품과 김치의 차이점을 정확하게 알지 못하고 주장하는 것뿐입니다.<br><br>
+
+Q. 한국식 파오차이가 김치인가요?<br>
+A. 중국의 절임은 육류에서 시작돼, 채소류로 확대되었습니다. 중국의 절임 식품은 완전히 절여져서 발효가 일어나지 않는 옌차이 혹은 셴차이, 발효가 진행되는 지 혹은 파오차이로 구분됩니다. 한국의 김치도 소금에 절인 식품이지만, 젓갈과 전용 양념을 첨가하여 복합 발효된 식품이라는 가장 큰 차이점이 있습니다.<br>
+중국의 절임 식품은 간수와 식초를 사용해서 신맛과 짠맛을 내는 단순 절임 식품이지만, 한국의 김치는 젓갈, 마늘, 생강 등 전용 양념으로 가미 발효, 복합 발효시킨 한국의 독특한 고유 음식입니다.<br><br>
+
+참고자료<br>
+김홍렬(2010). “김치 종주국 논란의 배경과 진실 그리고 대응방안.” 「한국식생활문화학회지」 36(3). 한국식생활문화학회. 274-283.<br>
+한국민속대백과사전(김치)<br>
+https://news.kbs.co.kr/news/view.do?ncd=3510843',
+'koimage_12.jpg', 'koimage_12.jpg', '2021-08-21', null, 10, '김치,발효음식,kimchi', 
+'https://www.youtube.com/watch?v=jxtxiVt_WiY', 'https://www.youtube.com/watch?v=ZMJxDASU13M', null, 
+'김치는 우리나라의 대표적인 발효음식으로, 비타민, 유산균 등 몸을 건강하게 만들어주는 영양분이 풍부합니다. 김치찌개, 김치전, 김치찜 등 다양한 음식의 재료가 되어 한국인이 사랑하는 음식 중 하나입니다.');
+
+insert into tb_ko 
+values ((select max(ko_no) + 1 from tb_ko), 'food', 'admin01', null, '삼계탕', 
+'  삼계탕은 닭 한 마리에 수삼이나 홍삼을 넣고 푹 고은 음식이다. 기존 이름은 인삼보다 닭고기를 강조한 "계삼탕"이었으나 1960년대 이후 인삼을 강조한 삼계탕이라는 이름이 사용되었다.<br>
+  삼계탕을 조선시대에 먹었다는 기록은 아직 발견되지 않았지만 1917년 판 <조선요리제법>에는 백삼가루를 이용한 닭국 조리법이 나온다. 이후 1942년 판에는 닭국이 백숙이라는 이름으로 바뀌었다. 즉, 삼계탕은 닭국과 백숙에서 진화한 음식이라고 볼 수 있다.<br><br>
+
+Q. 중국은 왜 삼계탕이 중국 음식이라고 주장하나요?<br>
+A. 중국이 한국에 삼계탕을 전파했다고 주장하는 건 광둥성 지역에 탕 요리가 많기 때문으로 짐작됩니다. 닭·돼지·소고기와 채소를 오랜 시간 끓여내는 "라오훠량탕"이 광둥성의 대표적 탕 요리인데, 라오훠량탕은 자른 닭고기를 약재와 한데 넣고 끓이는 방식을 사용합니다. 이는 닭을 통째로 넣고 끓이는 삼계탕과 차이가 있습니다.<br><br>
+
+Q. 삼계탕이 한국 음식이라는 근거가 있나요?<br>
+A. 조선시대에 닭국이나 백숙을 먹었다는 기록이 있습니다. 시간이 흐르면서 백숙에 인삼을 넣고 닭을 통째로 끓이면서 현재 삼계탕의 모습이 되었는데요, 1917년 <조선요리제법>, 1924년 <조선무쌍신식요리제법>, 1942년 <조선요리제법> 등을 통해 기록으로 확인할 수 있습니다.<br>
+  또한 중국은 삼계탕에 대한 국제적 상품 분류 체계인 HS코드가 없습니다. HS코드는 수출시 관세율과 원산지를 결정하는 기준이 되는데, 한국의 삼계탕은 HS코드를 분여 관리하고 있는 엄연한 한국 음식입니다.<br><br>
+
+참고자료<br>
+한국민속대백과사전(삼계탕)<br>
+https://mnews.jtbc.joins.com/News/Article.aspx?news_id=NB11998394<br>
+https://www.hankookilbo.com/News/Read/A2021033014550004080',
+'koimage_13.jpg', 'koimage_13.jpg', '2021-08-22', null, 8, '삼계탕,닭요리', 
+'https://www.youtube.com/watch?v=AVYQ_ZQwITY', 'https://www.youtube.com/watch?v=4ceO_9xAoh8', 'https://www.youtube.com/watch?v=JzjGK_LZWdo', 
+'삼계탕은 닭 한 마리에 인삼을 넣고 푹 고은 음식입니다. 이열치열하면 떠오르는 한국인의 스태미너 음식으로 복날에 빠질 수 없는 음식이죠. 올해 복날엔 삼계탕 어떠세요?');
+
+insert into tb_ko 
+values ((select max(ko_no) + 1 from tb_ko), 'culture', 'admin01', null, '한복', 
+'  한복은 선사시대 때부터 현대까지 전해 내려오는 한국의 사상과 관습, 문화, 기술 등이 깃든 민족 고유의 의상이다. 약 1600년 전 고구려 고분 벽화나 백제, 신라 유물에서도 확인된 한복은 시대에 따라 변화했다. 남자는 저고리와 바지에 포를 덧입고 관모를 머리에 쓰고, 여자는 저고리와 치마를 입은 것이 기본형이며, 조선 중기 이후에 정착된 양식이 현재 우리에게 익숙한 한복의 형태이다.<br><br>
+
+  16세기부터 20세기까지 여성 한복은 다음과 같은 변천 과정을 거쳤다.<br>
+16세기: 체격과 상관없이 누구나 입을 수 있을 만큼 길이가 길고 품이 넓었으며, 자신의 신분을 드러내고 과시하려는 경향이 드러난다.<br>
+17세기(임진왜란 이후): 눈에 띌 만한 실용적 변화가 생긴 시기이다. 치마허리를 맴도는 길이로 저고리가 짧고 좁아져, 적은 양의 옷감으로도 한복을 만들 수 있다는 특징이 나타난다.<br>
+19세기(조선 후기): 상체는 꼭 끼고 하체는 부풀려 항아리 모양을 기본으로 삼았고, 양반층 여성이 외출할 때 입었던 장옷은 얼굴을 가리기 위해 머리에 쓰기도 했다.<br>
+20세기: 저고리의 종류나 명칭 등이 더욱 간소해졌다. 특히 1900년도 초에는 복식 역사에서 가장 짧은 형태의 저고리가 유행하기도 했다.<br><br>
+
+Q. 중국은 왜 한복을 중국 소수 민족의 전통 옷이라고 할까요?<br>
+A. 중국이 한복을 중국의 의복이라고 하는 이유는 명나라 의복 양식과 비슷하다고 생각하기 때문입니다. 명나라는 조선과 지리적, 정치적으로 가까운 탓에 문화적 교류가 활발했습니다. 실제로 조선의 관복과 예복은 명나라의 영향을 받았지만, 반대로 명나라에서는 고려 의상이 유행하기도 했습니다.<br>
+  한복을 단순히 조선 후기 양식으로만 생각한다면 명나라의 의복과 비슷하여 중국의 전통의복이라고 오해할 수 있습니다만, 1600년 이상의 역사가 담긴 한복은 시대에 따라 다양한 형태를 거친 한국 고유의 문화와 생활양식을 총체적으로 담은 전통의복입니다.<br><br>
+
+참고자료<br>
+https://www.newspost.kr/news/articleView.html?idxno=91169<br>
+http://www.todaychungnam.net/news/articleView.html?idxno=174498',
+'koimage_14.jpg', 'koimage_14.jpg', '2021-08-23', null, 25, '한복,hanbok', 
+'https://www.youtube.com/watch?v=LHm0bqMI0e0', 'https://www.youtube.com/watch?v=td6YWqnbpbA', null, 
+'한복은 한국의 사상과 관습, 문화, 기술 등이 깃든 우리의 고유 의상입니다. 우리에게 익숙한 한복은 조선 후기 때의 양식인데요, 이전의 한복은 어떤 모습이었을까요?');
+
+insert into tb_ko 
+values ((select max(ko_no) + 1 from tb_ko), 'culheri', 'admin01', null, '잃어버린 문화재편2. 왕오천축국전',
+'  왕오천축국전은 통일신라 승려 혜초가 쓴 불교 여행기로, 세계 최초의 기행문이라 할 수 있다. 인도, 중앙아시아의 나라들 등에 대해 간략하게 서술되어 있고, 언어·풍속·정치 등에 대해서도 언급이 적어 사료적인 가치가 떨어질 수도 있지만, 중요한 사료적 의의를 가진 책이다.<br>
+다른 인도 여행기는 육로기행과 해로기행을 따로 언급하고, 6~7세기 사료인 반면, 이 책에서는 육로와 해로를 모두 언급하고 있다는 점, 세계에서 유일한 인도·중앙아시아의 8세기 사료라는 점, 각 지방의 음식·의상·기후·풍습 등을 기록하고 있다는 점에서 중요한 사료임이 틀림없다. 현재에는 프랑스 국립도서관이 소장하고 있다.<br><br>
+
+Q. 왕오천축국전을 어떻게 발견되었나요?<br>
+A. 왕오천축국전은 1908년 프랑스의 동양학자 폴 펠리오가 중국 간쑤성의 석불에서 발견했습니다. 처음에는 혜초가 중국인인 줄 알았지만, 1915년 일본인 학자가 신라 승려라는 사실을 밝혀냈다고 합니다.<br><br>
+
+Q. 왕오천축국전은 왜 반환받지 못하고 있나요?<br>
+A. 왕오천축국전은 처음 발견한 폴 펠리오가 헐값이지만 돈을 주고 구입했기 때문에 한국과 중국 모두 소유권을 주장하기 어려운 상태입니다. 우리나라에서는 지속적으로 반환 요구를 하고 있지만, 프랑스에서는 프랑스의 국유 재산이라는 이유로 반환을 거부하고 있습니다.<br><br>
+
+참고자료<br>
+한국민족문화대백과사전(왕오천축국전)<br>
+https://www.100ssd.co.kr/news/articleView.html?idxno=40441', 
+'koimage_15.jpg', 'koimage_15.jpg', '2021-08-24', null, 3, '왕오천축국전,불교기행록,혜초', 
+null, null, null, 
+'왕오천축국전은 통일신라 시대 승려 혜초가 쓴 불교 여행기로, 8세기 인도, 중앙아시아의 풍습 등을 볼 수 있는 유일한 사료입니다. 현재 이 책은 프랑스 국립도서관에 보관되어 있는데요, 우리나라 승려가 쓴 책을 어떻게 프랑스에서 소유하게 되었을까요?');
+
+insert into tb_ko 
+values ((select max(ko_no) + 1 from tb_ko), 'culture', 'admin01', null, '설날',
+'설날은 한 해의 시작인 음력 1월 1일을 가리키는 말로, 설은 새해의 첫머리를 의미하고 설날은 그중 첫날을 가리킨다. 설날은 고려시대부터 지금까지 한국 문화에서는 빼놓을 수 없는 명절이다.<br>
+설날의 설은 순우리말인데, ‘설’의 어원이 ‘낯설다’의 ‘설’이라는 해석이 있다. 그래서 설날은 ‘새해에 대한 낯설음’, ‘아직 익숙하지 않는 날’이라는 의미를 가지고 있다. 이 외에도 개시하는 날이라는 의미의 ‘선날’에서 시간이 흐르면서 설날로 발음이 바뀌었다는 해석도 있다.<br><br>
+
+<한국 설날과 중국 춘절의 차이점><br>
+한국의 설날과 중국의 춘절은 모두 음력 1월 1일을 의미하는 각국의 최대 명절이라는 공통점이 있다. 그러나 설날과 춘절은 한국 민족과 중국 민족이 독자적으로 지내온 명절이다.<br><br>
+
+한국의 설날은 6세기 이전 중국의 태양태음력을 받아들인 후 제정되었으나, 신라에서 가배라는 독자적인 명절을 지내왔으며, 부여족이 역법을 사용했다는 「삼국지」의 기록으로 미루어 보아 우리 민족만의 역법을 가졌을 가능성도 있다.<br>
+설날에 대한 최초의 기록은 7세기 「수서」라는 중국의 사서에 ‘신라인들이 새해 아침에 서로 하례하며, 왕이 잔치를 열고, 일월신에게 절하고 예를 표시한다’고 기록된 것이다. 이외에도 「삼국사기」에 백제에서 정월에 제사를 지낸다는 기록으로 보아 고려시대 훨씬 이전부터 설 명절을 지낸 것을 알 수 있다.<br><br>
+
+반면, 중국의 춘절은 기원전 2000여 년 전 어느 날 순이 천자가 되고 천기를 제사했다는 날이 음력 새해를 가리키는 것을 시작으로, 1911년, 양력 1월 1일이 설로 정해지면서 음력 1월 1일이 춘절로 고정되었다. 한때, 춘절을 지내는 것은 금지되었으나 1980년 이후 현재와 같은 춘절 문화가 자리 잡았다.<br><br>
+
+<설날에서 유래한 속담><br>
+설날의 명절 음식인 떡국에는 원래 꿩고기가 들어갔다. 그러나 꿩고기를 구하기 어려워지자 닭고기를 대신 넣게 되었는데, 여기에서 ‘꿩 대신 닭’이라는 속담이 유래되었다는 설이 있다.<br><br>
+
+Q. 설날을 구정으로 부르면 안 된다던데, 이유가 무엇인가요?<br>
+A. 일제강점기 때, 일제는 민족 말살 통치를 하며 설날 같은 세시명절도 억압했습니다. 반면, 일본의 명절과 행사를 강요했는데요, 일본의 명절인 양력 1월 1일을 신정으로 여기게 하고, 한국의 전통 명절 설날을 구정으로 여기게 한 것이 전통문화 말살정책 중 하나였습니다.<br>
+산업화 시대에 들어 신정 때 쉬고, 구정 때 일을 해야한다는 주장도 있었으나, 1989년 음력 1월 1일을 다시 설날로 부르고, 명절로 지내는 것을 결정하게 되었습니다.<br><br>
+
+참고자료<br>
+유소홍·양명오(2017). “한중 설날 세시풍속 비교 고찰.” 「한국엔터테인먼트산업학회논문지」 11(2). 한국엔터테인먼트산업학회. 57-68.<br>
+한국민족문화대백과사전(설)', 
+'koimage_16.jpg', 'koimage_16.jpg', '2021-08-25', null, 19, '설날,한국명절,떡국', 
+'https://www.youtube.com/watch?v=2j1_QSIdi7U', null, null, 
+'한국의 가장 큰 명절로, 해마다 음력 1월 1일 새해를 맞이하는 날입니다. 한 살 더 먹는 의미로 떡국을 먹으며, 한복을 입고 웃어른께 세배도 합니다. 그렇다면 한국의 설날과 중국의 춘절은 같은 문화일까요?');
+
+COMMIT;
+
+-- 다슬 INSERT_2021.09.24 / 서연 TB_NOTICE 샘플 4개 수정
+-- TB_NOTICE 샘플 추가
+insert into tb_notice 
+values((select max(notice_no) + 1 from tb_notice), 'admin01', '공지사항 제목11', '공지사항 11번 샘플 데이터입니다.', null, null, '21/08/20', null, 34);
+
+insert into tb_notice 
+values((select max(notice_no) + 1 from tb_notice), 'admin01', '공지사항 제목12', '공지사항 12번 샘플 데이터입니다.', null, null, '21/08/21', null, 47);
+
+insert into tb_notice 
+values((select max(notice_no) + 1 from tb_notice), 'admin01', '공지사항 제목13', '공지사항 13번 샘플 데이터입니다.', null, null, '21/08/22', null, 29);
+
+insert into tb_notice 
+values((select max(notice_no) + 1 from tb_notice), 'admin01', '공지사항 제목14', '공지사항 14번 샘플 데이터입니다.', null, null, '21/08/25', null, 12);
+
+insert into tb_notice 
+values((select max(notice_no) + 1 from tb_notice), 'admin01', '공지사항 제목15', '공지사항 15번 샘플 데이터입니다.', null, null, '21/08/26', null, 65);
+
+insert into tb_notice 
+values((select max(notice_no) + 1 from tb_notice), 'admin01', '공지사항 제목16', '공지사항 16번 샘플 데이터입니다.', 'basic.jpg', 'basic.jpg', '21/08/27', null, 23);
+
+insert into tb_notice 
+values((select max(notice_no) + 1 from tb_notice), 'admin01', '공지사항 제목17', '공지사항 17번 샘플 데이터입니다.', null, null, '21/08/28', null, 38);
+
+insert into tb_notice 
+values((select max(notice_no) + 1 from tb_notice), 'admin01', '공지사항 제목18', '공지사항 18번 샘플 데이터입니다.', 'sample.jpg', 'sample.jpg', '21/09/01', '21/09/03', 56);
+
+insert into tb_notice 
+values((select max(notice_no) + 1 from tb_notice), 'admin01', '공지사항 제목19', '공지사항 19번 샘플 데이터입니다.', 'sample2.jpg', 'sample2.jpg', '21/09/02', null, 34);
+
+insert into tb_notice 
+values((select max(notice_no) + 1 from tb_notice), 'admin01', '일본 제품 불매운동 참여', '일본 전범기업 및 대한민국 역사 왜곡에 앞장서는 일본 기업들의 제품을 불매하는 운동을 하고 있습니다.<br> 어떻게 하면 더 확실하게 할 수 있을까요? <br> 여러분의 의견을 자유롭게 토론공간에 남겨주세요!', null, null, '21/09/03', null, 42);
+
+insert into tb_notice 
+values((select max(notice_no) + 1 from tb_notice), 'admin01', '운영자 모집관련 안내', '휘모리 운영진으로 함께 일하고 싶으신 분을 찾고 있습니다!<br>역사관련 지식은 없어도 괜찮습니다!<br>매주 직원들이 모여 역사공부 하는 시간이 있으니, 오셔서 함께 공부하며 배워요 : )', null, null, '21/09/05', null, 25);
+
+insert into tb_notice 
+values((select max(notice_no) + 1 from tb_notice), 'admin01', '김장철 맞이 김장비법 공유 이벤트!', '우리집 너네집 온동네 김장 비법을 휘모리에 뽐내보세요!!!<br><br>추첨을 통해 선물을 드립니다!<br>많은 참여 부탁드립니다.', null, null, '21/09/06', sysdate, 30);
+
+insert into tb_notice 
+values((select max(notice_no) + 1 from tb_notice), 'admin01', '역사 왜곡 제보 내용 기재시 안내사항', '허위 사실 보도는 금지입니다.<br>확실한 정보로 제보해주십시오.<br><br> 제보 내용 관련 예시는 2021년 10월 1일에 게시될 예정입니다.<br>감사합니다.', 'sample3.jpg', 'sample3.jpg', '21/09/07', null, 16);
+
+-- 다슬 : TB_KO 수정 2021.09.26
+
+-- 성인 : TB_REPORT_LIKE 추가, TB_CARD 샘플데이터 수정 2021.09.26
+-- FK 제약조건 수정 : TB_REPORT_LIKE 컬럼 ON DELETE CASCADE 추가
+
+-- 서연 : FK 제약조건 수정 2021.09.25
+-- TB_FREE TB_FREE_REPLY TB_FREE_LIKE TB_BAD 컬럼 ON DELETE CASCADE 추가
+-- TB_QNA_QUESTION TB_QNA_ANSWER 컬럼 ON DELETE CASCADE 추가 (은별 부분)
+
+-- 은별 TB_NEWS 샘플 추가 2021.09.25
+INSERT INTO TB_NEWS 
+VALUES ((SELECT MAX(NEWS_NO) + 1 FROM TB_NEWS), 'admin01', '"가짜 송이로 송이축제를 해요"...청송군산림조합 발언', 
+'청송군산림조합 전무, "울진송이축제/봉화송이축제 드급 속인 가짜 송이로 축제한다" 발언 충격<br><br>"지역별 대표 송이축제에 등급을 속인 가짜 송이만 있어요. 진짜 1등급 송이는 청송군산림조합에만 있어요"<br><br>
+경북 청송군산림조합이 송이를 일반판매하면서 현금만 받아 논란인 가운데 이 산림조합 전무가 지역 대표 속이축제를 겨냥해 이같이 밝혀 지역사회가 충격에 휩싸였다.<br><br>24일 청송군산림조합(이하 조합) 조승래 전무에 
+따르면 "조합은 매일 오전 송이 수매 후 외상으로 구매자에게 송이를 내어주고 이날 오후 4시 판매금액이 결정되면 현금이나 계좌입금을 받는 방법으로 판매하고 있다"고 밝혔다.<br><br>또 "생산자 수수료는 보도에 나간 2%가 
+아닌 2.5%를 받고 있으며, 포장박스는 1kg 박스의 경우 33%의 이윤으로 판매하고 있다"고 말했다.<br><br>이같은 발언을 두고 지역민들과 업계관계자들은 충격과 논란에 휩싸였다.<br><br>
+지역민 A씨는 "울진송이축제는 당일 오전에 수매한 송이만 사용하고 저장된 송이는 사용하지 않는것으로 알고 있었다"며 "송이축제에서 속이며 판매한다면 누를 믿어야 하느냐"며 토로했다.<br><br>
+지역의 또 다른 산림조합 관계자는 "청송군산림조합의 일반판매방식이 이해가 안 된다"며 "하루 수매되는 송이 물량과 판매량만 봐도 어림잡아 한 달에 4~5억 원의 수익이 발생하는 구조다"며 의아해했다.<br><br>
+업계 관계자 B씨는 "조합의 말대로라면 저온저장된 송이는 1등급이 나올 수 없는 구조며, 최상급의 송이는 청송군에서만 나오는 것이냐"며 반문했다.<br><br>전 산림조합 직원 C씨는 "조합에서 생산자가 가져온 송이를 
+3등급으로 수매한 후 일반 판매자에게는 1등급으로 판매하는 경우가 종종 발생해 현금만 받는 것으로 안다"고 귀띔했다.<br><br>이에 대해 청송군산림조합 조승래 전무는 "송이를 외상판매하는 것은 구매자를 믿고 판매해 지금까지 
+아무 문제 없었고, 송이 생산자와 협의를 통해 직판하기 때문에 전혀 문제가 없다"며 "송이 수매량과 판매량/재고량의 부분은 정보공개 대상기관이 아니므로 자료를 공개할 수 없다"고 답했다.<br><br>봉화군산림조합의 경우 오전에 송이 수매가 끝나면 산림조합 이름으로 도매상인들과 
+동등하게 입찰해 낙찰받은 물량만 판매하고, 지역화폐나 상품권, 카드 등이 모두 사용 가능한 것으로 파악됐다.', SYSDATE, NULL, 
+'news02.PNG', 'news02.PNG', 
+TO_DATE('25-09-2021', 'DD-MM-YYYY'), 'https://news.naver.com/main/read.naver?mode=LSD&mid=shm&sid1=102&oid=629&aid=0000107490');
+
+INSERT INTO TB_NEWS 
+VALUES ((SELECT MAX(NEWS_NO) + 1 FROM TB_NEWS), 'admin01', '윤동주 등 일제강점기 저항시인 작품 편역서, 일본서 출간', 
+'원광대학교는 박맹수 총장이 활동하고 있는 문병란기념사업회 준비위원회와 김정훈(전남과학대) 교수가 공동으로 일제강점기 저항시인의 작품을 모은 편역서를 일본에서 출간했다고 14일 밝혔다.<br><br>
+편역서 "한 개의 별을 노래하자-조선 시인의 독립과 저항의 노래"는 윤동주, 이육사, 한용운, 심훈, 이상화, 조명희 등 일제강점기 저항시인 6인의 작품이 수록됐다.<br><br>이 책은 김정훈 교수가 편역을 주도했으며 일본 후바이샤에서 출간했다.<br><br>
+이 책은 저항시인 6인의 혼과 정신을 잇는 활동을 펼쳐 온 민족시인 문병란(1935-2015) 기념사업회 설립 준비 과정 중 논의를 거쳐 출간됐다.<br><br>책은 문병란 시인이 추구한 민족 문학과 그가 애송하던 식민지 시기 
+저항 시인의 시편을 한데 묶었다.<br><br>또 저항 시인의 주요 작품을 10편씩 선정해 한글 원문과 일본어로 소개하고 각 시인의 생애와 활동을 간략하게 정리했다.<br><br>
+소개된 시인들은 우리나라 민중에게 가장 사랑받고 존경받는 인물들을 국내에서 변함없이 독자층을 형성하고 있으며 일본에서도 윤동주를 비롯해 이들 시인이 소개되고 있다.<br><br>
+문병란 시인은 저항 시인의 민족정신을 수호하기 위한 실천 운동과 민족운동을 헌신해 왔다.<br><br>문병란기념사업 준비위원회는 
+민족/민중운동을 펼쳤던 문병란 선생의 뜻과 유지를 기리기 위해 기념사업회를 준비하고 있다.<br><br>문병란 선생은 1980년 광주민주화운동 당시 조선 시인의 저항과 독립정신을 통해 
+신군부 세력의 지배 현실과 그 모순을 은유적 화법으로 지적하며 민주/민중 의식과 민족통일을 강조하기도 했다.<br><br>박맹수 원광대 총장과 백낙청 서울대 명예교수 등이 고문으로 참여한 
+문병란기념사업 준비위원회는 편역자인 김정훈 교수와 함께 문병란 시인이 평가한 대표적인 시인들의 시편을 정리해 완간에 이르게 됐다.', SYSDATE, NULL, 
+NULL, NULL, 
+TO_DATE('14-09-2021', 'DD-MM-YYYY'), 'https://newsis.com/view/?id=NISX20210914_0001582926&cID=10808&pID=10800');
+
+INSERT INTO TB_NEWS 
+VALUES ((SELECT MAX(NEWS_NO) + 1 FROM TB_NEWS), 'admin01', '일제 강점기 학교 강당, 문화재가 되다', 
+'옛 고창고등보통학교 강당은 2005년 6월 18일 국가등록문화재가 됐다. 이 건물은 고창고등보통학교 강당으로 건립해 초기의 공간 기능을 그대로 유지하고 있다. 
+지붕은 박공지붕 양쪽 끝 부분이 약간 꺾인 맨사드 형태로 구성했다. 출입구의 캐노피는 마름모 형태의 붉은 벽돌 기둥으로 지지하였으며, 기둥 상부에는 벽돌을 돌출시켜 주두를 간략하게 표현하는 등 정면성을 강조했다.<BR><BR>
+전주 신흥고등학교 강당과 본관 포치는 2005년 6월 18일 국가등록문화재가 됐다. 전주 신흥고등학교는 미국 남장로교 선교사 레이놀즈 목사가 1900년대 건립한 근대 교육 시설로, 호남과 제주도 지역 기독교 선교에 크게 공헌하였다.<BR><BR>
+강당은 리차드슨 여사의 기증을 받아 1936년에 강당 겸 체육관 용도로 건립한 장방형 평면의 벽돌조 박공지붕 2층 건물로, 박공면에 3개의 아치형태가 연속된 출입구가 있다. 학교 본관은 리처드슨 여사의 지원을 받아 1928년 지었으며, 
+이를 기념해 "리처드슨홀"로 정했다. 본관이 1982년 화재로 없어지고, 남아있는 입구의 포치를 수리해 옛 본관 모습을 기념하고 있다.<BR><BR>
+전주고등학교 소강당과 풍남초등학교 강당이 올해 신설된 전라북도 등록문화재 제1호와 2호로 지정됐다. 전주시는 역사적/건축학적 가치가 큰 전주고등학교 소강당과 풍남초등학교 강당이 전라북도가 지정하는 등록문화재 제 1·2호로 각각 지정·등록됐다고 13일 밝혔다.<BR><BR>
+전주고등학교와 풍남초등학교는 개고한 지 모두 100년이 넘어 역사와 전통을 자랑하는 전북 인재의 요람으로서 지역교육사의 생생한 현장을 간직하고 있는 곳이다. 먼저 지난 1940년 지어진 전주고 소강당의 경우 현재 유도관으로 사용 중으로, 원형의 모습 
+그대로 유지하고 있어 근대 학교 건축의 건축적 양식을 잘 보여주고 있는 것으로 알려졌다. 이 소강당은 내부에 기둥 없이 확 트인 개방공간 내에 무대, 중2층부, 북측 아케이드 영역으로 구성돼 있다.<BR><BR>
+1936년 세워진 풍남초 강당 또한 근대 학교 건축의 건축적 양식을 잘 보여주고 있다. 당초에 비해 3칸 정도가 확장됐으며, 화장실 보수 등 재건축이 이뤄져 지금도 강당으로 활용되고 있다. 내부는 기둥 없이 확 트인 개방공간 내에 무대를 갖추고 있다.<BR><BR>
+전북도는 산재돼 있는 등록문화유산을 체계적이고 종합적으로 관리하기 위해 올해 전라북도 등록문화재를 신설했다.<BR><BR>
+김제 중앙초등학교 강당이 전북도 문화재 심의위원회와 지정예고 고시기간을 거쳐 지난 10일 등록문화재 제3호로 최종 등록됐다. 김제 중앙초등학교는 지난 1911년 김제공립보통학교로의 개교 이후 100여년의 역사를 간직한 김제지역 초등교육을 대표하는 상징성을 지닌 곳이다. 
+중앙초의 전신인 김제공립보통학교는 일제강점기 초창기부터 설립되어, 교육열이 강했던 김제 지역민들의 교육수요를 모두 감당하지 못해 입학하기 조차 어려웠던 학교로 호남지역 일제강점기의 식민지교육현장으로서 학술적 가치가 높다. 등록문화재로 등록된 중앙초 강당은 1938년에 
+건립되어 80년 이상 보존된 건축양식으로 현재는 학교의 역사관과 다용도실 공간으로 사용되고 있다.', SYSDATE, NULL, 
+'news03.PNG', 'news03.PNG',  
+TO_DATE('15-09-2021', 'DD-MM-YYYY'), 'http://sjbnews.com/news/news.php?number=723672');
+
+INSERT INTO TB_NEWS 
+VALUES ((SELECT MAX(NEWS_NO) + 1 FROM TB_NEWS), 'admin01', '2021독립민주지사 특별전 서울 서대문형무소에서...', 
+'대한민국 독립과 민주화를 위해 희생한 광복·민주 지사들을 기억하는 공간이 서울 서대문형무소에 마련됐다.<br><br>서울 서대문구는 이달 14일부터 내년 8월까지 1년 간 서대문형무소역사관 공작사에서 "2021 독립민주지사 특별전"을 연다. 
+공작사는 일제강점기 재소자들의 노동력을 동원하여 형무소, 군부대, 관공서 등지에 필요한 물품을 만들어 공급하던 공장이다.<br><br>전시는 항일무장투쟁운동을 알렸던 철혈광복단과 대표적인 반(反)유신 항쟁인 민청학력 사건과 관련 지사들을 소개하는 자리로 기획됐다.<br><br>
+이번 전시는 고(故)김근태 열린우리장 의장과 인재근 국회의원(서울 도봉 갑)의 딸인 김병민 씨가 큐레이터로 참여했다.<br><br>철혈광복단은 영화 <좋은 놈 나쁜 놈 이상한 놈>의 모티브가 된 ‘간도 15만원 군자금 탈취 의거’을 거행한 항일 독립운동 조직이다. 
+철혈광복단이 탈취한 자금은 만주 일대 독립군의 군자금으로 유입돼 1920년 10월 김좌진(金佐鎭ㆍ1889~1930) 장군이 이끄는 북로군정서(北路軍政署)와 홍범도(洪範圖·1868~1943) 장군의 대한독립군이 청산리(靑山里) 전투에서 승리하는데 큰 힘이 된 것으로 알려졌다.<br><br>
+단체는 1919년 윤준희(尹俊熙·1892~1921)·임국정(林國楨·1894~1921)·한상호(韓相浩·1899~1921)등이 중국 젠다오(間島)에서 결성한 것으로 전해진다.<br><br>윤준희·임국정·한상호 열사는 일본 경찰의 밀정 엄인섭(嚴仁燮)의 밀고로 체포돼 모두 사형 선고를 받고 순국했다<br><br>
+전시공간에는 이러한 간도 15만원 군자금 탈취 의거 사건과 뒷이야기, 철혈광복단 3인의 소개가 상세히 설명돼 있다<br><br>특히 10분 길이의 영상이 전시장 내부에 설치돼 거사를 주도했던 세 사람의 내면을 묘사해 당시 20대 청년이었던 그들의 독립에 대한 열망과 의지, 
+감정을 느낄수 있도록 했다.<br><br>민주지사 기억공간은 1974년 민청학련 사건과 운동을 주도하면서 옥고를 치렀던 김윤·이철·장영달 등 세 사람에 대해 소개하고 있다.<br><br>
+민청학련 사건은 전국민주청년학생총연맹 사건을 줄인 것으로 학생들이 중심이 된 반 유신운동을 박정희 정권이 “80여 명이 불온세력의 조종을 받아 국가를 전복시키고 공산정권 수립을 추진했다”는 혐의로 구속·기소한 사건이다. 이에 대해 2009년 우리나라 재판부는 민청학련 
+사건에 대하여 무죄를 선고한 바 있다.<br><br>민청학련은 국가가 국민에게 한 고문과 사법살인이 자행된 사건으로 한국 민주화운동사에서 적지 않은 비중을 차지하고 있다.<br><br>
+이 사건으로 민주항쟁의 외연이 종교계나 정치계 지식인으로까지 확대됐고, 부마민주항쟁, 1980년 서울의 봄, 5·18광주민주화운동, 1897년 6·10민주항쟁의 기반이 됐다.<br><br>민청학련 사건의 당사자인 장영달 우석대 명예총장은 
+“과거 서대문형무소에서 독립, 민주 지사들에게 고통을 안긴 바로 그 장소에서 민족독립과 민주화를 기억하는 공간이 마련됐다는 것은 큰 의미가 있다”면서 “앞으로 더 많은 독립, 민주화 운동과 지사들이 대중에게 소개되고, 이를 통한 역사정신이 더 널리 계승되길 바란다”고 말했다.', SYSDATE, NULL, 
+'news04.PNG', 'news04.PNG',  
+TO_DATE('22-08-2021', 'DD-MM-YYYY'), 'http://www.jjan.kr/news/articleView.html?idxno=2115260');
+
+INSERT INTO TB_NEWS 
+VALUES ((SELECT MAX(NEWS_NO) + 1 FROM TB_NEWS), 'admin01', '광복절에 한국서 사업 접은 일본 우동 체인점', 
+'일본의 유명 우동 체인점 브랜드인 "마루가메 제면"이 최근 한국 사업을 철수한 사실이 뒤늦게 알려지며 누리꾼들 사이에서 관심을 모으고 있다. 특히 영업 종료 날짜가 8월 15일 광복절이란 점이 공교롭다는 반응이다.<br><br>
+마루가메 제면은 15일을 마지막으로 한국에서 영업점을 철수하겠다는 공지를 자사 홈페이지에 올렸다.<br><br>마루가메 제면은 지난해 기준 세계 12개국에 진출, 전 세계적으로 1,000개 이상의 점포를 운영 중인 유명 일본 우동체인점 브랜드다.<br><br>
+한국에는 2012년 서울 마포구에 1호점을 낸 뒤 전국에 최대 12개까지 매장을 확대했다. 부담 없는 가격에 정통 일본식 사누키 우동을 맛볼 수 있다는 점에서 한국 소비자들의 호응을 얻었다.<br><br>
+그러나 2019년 한일 무역 분쟁으로 불거진 일본 불매운동이 확산하면서 타격을 입었다. 여기에 2년 가까이 이어진 신종 코로나바이러스 감염증(코로나19) 영향으로 매출 감소로 더는 버티지 못하고 철수를 결정한 것으로 보인다.<br><br>
+누리꾼들의 반응은 엇갈렸다. 단골 음식점이 사라졌다며 철수 결정을 아쉬워하는 반응 가운데 일부에선 반일 감정을 드러내며 철수를 환영하는 목소리도 있었다. 철수 날짜가 광복절이란 점에서 "아이러니하다" "타이밍 한번 참 절모하다"며 의미를 부여하는 댓글도 있었다.<br><br>
+좁혀지지 않는 한일 관계의 단면을 보여주는 것 같다는 반응도 있었다. 한 누리꾼은 "마루가메 제면도 한일 간의 벽을 넘지 못하는가. 한국 체인도 일본 진출에 번번이 실패하고 있는 걸 보면 한일 관계가 물과 기름 같다는 걸 절실히 깨닫게 된다"고 안타까워했다.<br><br>
+일본 현지에서도 마루가메 제면의 한국 철수 소식이 다뤄졌다. 26일 교도통신은 마루가메 제면이 2019년 한국 내 일본 제품 불매 운동으로 실적이 악화했고, 코로나 19 확산에 따른 거리두기 영업 제한도 타격을 받으면서 결국 철수하게 됐다고 전했다.', SYSDATE, NULL, 
+'news05.PNG', 'news05.PNG',  
+TO_DATE('27-08-2021', 'DD-MM-YYYY'), 'https://www.hankookilbo.com/News/Read/A2021082619310002830?did=NA');
+
+INSERT INTO TB_NEWS 
+VALUES ((SELECT MAX(NEWS_NO) + 1 FROM TB_NEWS), 'admin01', '"홍천기" 김유정 한복이 중국 문화 표절?', 
+'올바른 한국 알리기에 앞장서고 있는 서경덕 성신여대 교수가 중국 네티즌들이 SBS 드라마 "홍천기" 속 의상이 중국 문화를 표절했다는 주장을 펼치고 있는 것에 "억지"라며 일침을 가했다.<BR><BR>
+서 교수는 23일 자신의 페이스북에 "중국 네티즌들이 SBS 사극 드라마 "홍천기" 속 의상과 소품 등이 중국 문화를 표절했다는 주장을 펼치고 있다. 참 한심하다"고 적었다.<BR><BR>
+이어 "드라마 주인공인 배우 김유정이 입은 한복이 명나라 한복을 표절했고, 또한 의상과 소품 모두 중국 드라마 "유리미인살"을 그대로 베꼈다고도 한다. 특히 현지 일부 온라인 매체까지 이 같은 
+주장을 이어가고 있어 그야말로 어이없는 상황"이라며 "또 엊기 주장으로 선을 넘고 있다"고 지적했다.<BR><BR>
+그는 중국 내에서 이러한 주장이 나오는 것을 두고 "한류를 견제한 것"이라는 분석을 내놨다. 서 교수는 :현재 한국의 전통문화와 대중문화가 전 세계인들에게 주목받으면서 중국은 위기감을 느끼고, 
+여기서 드러나는 잘못된 애국주의"라고 비판했다.<BR><BR>그러면서 "OTT 서비스로 전 세계 시청자들이 우리 드라마와 영화를 보게 되면서 예전에는 서양 사람들이 아시아 문화의 중심지를 중국으로 인식했다면 이제는 
+한국으로 인식하고 있기 때문에 한류가 정말로 두려운 모양이다. 그러다 보니 중국 드라마에서 종종 우리의 한복을 시녀에 입히는 등 어떻게든 낮추고 깎아내리려고 하고 있다"고 꼬집었다.<BR><BR>
+서 교수는 "이럴수록 우리는 감정적인 대응이 아닌, 중국의 동북공정을 역이용해야 한다. 전 세계에 중국의 역사 및 문화 왜곡을 제대로 알리고, 이번 기회를 통해 오히려 한복을 전 세계에 당당히 알릴 수 있는 좋은 계기로 
+삼아야한다"면서 "뛰는 놈 위에 나는 놈이 있다는 걸 반드시 보여줘야 할 때"라고 강조했다.', SYSDATE, NULL, 
+'news06.PNG', 'news06.PNG',  
+TO_DATE('23-09-2021', 'DD-MM-YYYY'), 'https://www.hankyung.com/life/article/2021092396097');
+
+INSERT INTO TB_NEWS 
+VALUES ((SELECT MAX(NEWS_NO) + 1 FROM TB_NEWS), 'admin01', '인기 온라인마켓서 욱일기 판매 중단시킨 고교생', 
+'원주의 한 고교생이 전세계 1,000만명이 넘는 회원을 보유한 해외 온라인 플랫폼에서 욱일기 판매를 중단시켜 화제다.<BR><BR>사이버 외교사절단 반트 29기 글로벌 역사 외교대사로 활동 중인 
+전가영(원주 북원여고)양이 호주에 본사를 둔 "엔바토"에 욱일기 관련 자료의 판매를 중단해 달라는 내뇽의 메일을 보냈고, 엔바토가 최근 요청을 받아들인 것. 엔바토는 홈페이지 제작에 필요한 
+워드프레스 테마, 플러그인, 영상 제작 효과, 오디오 등 다양한 디자인 소스를 판매하는 온라인 마켓 플랫폼이다.<BR><BR>평소 영어와 역사 분야에 관심이 많던 전양은 담임교사를 통해 반크 활동을 
+알게 됐다. 전 양은 엔바토에서 욱일기 스톡 푸티지(stock footage·자료 사진 등이 포함된 영상) 소스를 발견하고 삭제 메일을 보내기로 마음 먹었다.<BR><BR>메일에서 그는 "욱일기는 제2차 
+세계대전과 전쟁범죄를 상징하는 깃발이다. 나치 독일의 하켄크로이츠와 같은 성격을 띠고 있다. 욱일기를 포함한 소스의 판매 글을 삭제해달라"고 요정했다. 그리고 이틀 뒤 엔바토로부터 "의견을 수용해보겠다"는 
+답변을 받았고 최근 소스 판매 글은 삭제됐다.<BR><BR>전 양은 "영어로 메일을 쓰는 게 쉽지는 않았지만 전 세계 사람이 이용하는 온라인 플랫폼에서 일본 군국주의의 상징인 욱일기 소스가 판매되는 건 
+막아야 한다고 생각했다"고 말했다.', SYSDATE, NULL, 
+NULL, NULL, 
+TO_DATE('24-08-2021', 'DD-MM-YYYY'), 'http://www.kwnews.co.kr/nview.asp?aid=221082300100');
+
+INSERT INTO TB_NEWS 
+VALUES ((SELECT MAX(NEWS_NO) + 1 FROM TB_NEWS), 'admin01', '도쿄올림픽 사이클에 욱일기 응원 등장...', 
+'지난 8일 폐막한 2020 도쿄올림픽 당시 한 일본 관중이 욱일기를 들고 응원한 사실이 뒤늦게 확인됐다. 욱일기는 일본이 제2차 세계대전 기간 사용한 군기(軍旗)로, 일본 군국주의를 상징하는 깃발이다. 
+지금도 일본 해상자위대 등의 군기로 사용되고 있으며, 국제 스포츠 경기 응원에서 종종 사용돼 논란을 일으키고 있다.<br><br>19일 서경덕 성신여대 교수에 따르면 도쿄올림픽 사이클 남자 도로 경기 
+도중 욱일기 응원이 등장했다. 올림픽이 끝난 뒤 한 누리꾼의 제보를 받은 서 교수가 도쿄올림픽 홈페이지에 올라온 영상을 확인해보니 관중이 욱일기를 흔들며 응원하는 장면이 버젓이 노출됐다는 것이다.<br><br>
+"전 세계 욱일기 퇴치 캠페인"을 펼치고 있는 서 교수가 가만히 있을 리 없다. 그는 국제올림픽위원회(IOC)에 즉각 항의 이메일을 보냈다. 메일에서 서 교수는 “IOC는 평화의 상징인 올림픽에서 전쟁 범죄에 
+사용된 욱일기 응원을 막지 못한 것에 대해 즉각 사과해야만 한다”고 지적했다.<br><br>메일은 IOC에 이어 토마스 바흐 IOC 위원장, 세계 IOC 위원 전원, 자크 로게 전 IOC 위원장 등 IOC 명예회원들에게도 함께 발송됐다. 
+서 교수는 이들에게 “철저한 진상조사를 통해 다시는 올림픽에서 욱일기 응원이 재발하지 않도록 주의를 기울여달라”고 촉구했다.<br><br>올림픽 헌장 제50조 제2항에는 “올림픽 장소 및 기타 구역에서 어떠한 
+형태의 시위나 정치적, 종교적 혹은 인종적 선전도 허용되지 않는다”고 명시돼 있다.<br><br>올림픽이 끝난 일본 도쿄에선 오는 24일 패럴림픽이 개막한다. 서 교수는 “도쿄패럴림픽에서 또 다시 욱일기 응원이 
+재발하지 않도록 대한체육회 등 관련 기관의 세심한 주의가 필요하다”고 신신당부했다.', SYSDATE, NULL, 
+'news07.PNG', 'news07.PNG',  
+TO_DATE('19-08-2021', 'DD-MM-YYYY'), 'https://www.segye.com/newsView/20210819504951?OutUrl=naver');
+
+INSERT INTO TB_NEWS 
+VALUES ((SELECT MAX(NEWS_NO) + 1 FROM TB_NEWS), 'admin01', '"전범기 경기장 반입 허용", 日 군국주의 망령...', 
+'국제올림픽위원회(IOC)와 대한체육회의 약속과 달리 2020 도쿄 올림픽 및 패럴림픽 조직위원회가 전범기의 경기장 반입을 허용할 것으로 보여 논란이 예상된다.<br><br>18일 아사히신문 등 
+일본 현지 언론에 따르면 대회 조직위는 "전범기 디자인은 일본 내 널리 사용되고 있기 때문에 정치적인 메시지가 담기지 않았다"며 "이는 경기장 반입 금지 물품에 해당되지 않는다는 입장"이라고 밝혔다.<br><br>
+말 그대로 전범기가 아무 제지 없이 경기장에 반입될 수 있다는 이야기다.<br><br>조직위 관계자는 매체와의 인터뷰에서 "IOC와 한국(대한체육회)이 주고받은 것을 파악하지 않았다. (전범기와 관련해) 
+방침이 바뀐 것은 없다"고 말했다.<br><br>대한체육회는 최근 선수촌 내 숙소에 이순신 장군의 문구를 인용한 "신에게는 아직 5천만 국민들의 응원과 지지가 남아 있사옵니다"는 현수막을 걸었다가 정치적인 메시지라는 IOC의 
+항의 등으로 인해 철회했다.<BR><BR>IOC는 현수막에 인용된 문구가 전투에 참가하는 장군을 연상할 수 있음에 따라 "올림픽 헌장 50조 위반"으로 철거해야 한다고 주장했다. 체육회도 응원 현수막 문구에 정치적인 목소리가 담기지 않았고, 
+동시에 경기장 내 욱일기 응원에 대해 강력하게 이의를 제기한 바 있다.<BR><BR>체육회의 어필에 IOC는 모든 올림픽 베뉴 내 욱일기 사용에 대해 올림픽 헌장 50조 2항을 적용해 판단하기로 약속했다. 올림픽 헌장 50조에는 경기장 등 
+어떤 장소에서든 올림픽 기간 정치적·종교적·인종적 선전을 불허한다고 명시돼 있다. 결국 체육회는 관련 현수막을 철거했다.<BR><BR>대한체육회는 "이번 협의에 따라 선수들이 경기에만 집중할 수 있도록 논쟁을 제기하지 않고, IOC는 모든 
+올림픽 베뉴에서 욱일기 전시 등을 금지해 정치적 문제가 발생하지 않도록 할 것"이라고 강조했다.', SYSDATE, NULL, 
+'news08.PNG', 'news08.PNG',  
+TO_DATE('18-07-2021', 'DD-MM-YYYY'), 'http://osen.mt.co.kr/article/G1111620933');
+
+INSERT INTO TB_NEWS 
+VALUES ((SELECT MAX(NEWS_NO) + 1 FROM TB_NEWS), 'admin01', '경주엑스포대공원, 추석 연휴 전통놀이·공연', 
+'경주엑스포대공원은 추석 연휴에 전통놀이와 공연 등 다양한 행사를 마련한다고 15일 밝혔다.<br><br>오는 18일부터 22일까지 원화극장 앞에 투호 던지기, 제기차기, 윷놀이, 팽이치기, 줄타기, 한국형 타로점, 한궁 체험 등을 준비한다.<br><br>
+또 실내 체험공간인 "우리놀이터"를 오픈해 어린이들이 시조 겨루기, 실뜨기, 공기 등 보드게임 전통놀이와 디지털 AR기술 팽이놀이를 즐길 수 있도록 한다.<BR><BR>화랑을 주제로 한 어린이 체험공간 "화랑아 놀자"도 문을 연다. 대형 슬라이드와 
+트램펄린, 터널 속 볼 풀장, 암벽타기 등 실내 놀이시설과 야외 체험장이 있다.<BR><BR>공연은 세계 최초 로봇팔과 3D 홀로그램을 접목한 상설 퍼포먼서 "인피니티 플라잉"이 연휴 내내 무대에 오른다. 올해 10주년을 맞나 다양한 볼거리를 제공한다.<BR><BR>
+야외에서는 북춤과 판소리, 퓨전국악, 한국무용 등 우리 고유의 소리와 춤, 악기를 소재로 한 버스킹이 열린다. 북한 이탈주민 출신 가수도 출연한다.<BR><BR>류희림 엑스포 사무총장은 "철저한 방역관리로 명절에 고향을 방문하지 못하는 지역민과 
+관광객들이 안전하고 쾌적하게 관람할 수 있도록 최선을 다하겠다"고 말했다.', SYSDATE, NULL, 
+'news09.PNG', 'news09.PNG',  
+TO_DATE('15-09-2021', 'DD-MM-YYYY'), 'https://newsis.com/view/?id=NISX20210915_0001585181&cID=10810&pID=10800');
+
+INSERT INTO TB_NEWS 
+VALUES ((SELECT MAX(NEWS_NO) + 1 FROM TB_NEWS), 'admin01', '내년 빨간날 올해보다 이틀 많아...설날 연휴 5일', 
+'2021년을 115일 남겨놓은 7일, 서울시내 몇몇 인쇄소에선 추석선물 등을 위해 내년 달력 인쇄에 들어갔다. 이에 따라 2022년에는 "내가 며칠을 쉴 수 있는지"에 대해 많은 사람들이 관심을 표하고 있다.<br><br>과학기술정보통신부와 한국천문연구원에 따르면 
+2022년 총 휴일수는 모두 118일로 올해보다 이틀 많다. 그렇게 된 결정적 이유는 대통령 선거(3월 9일)와 지방선거(6월 1일)가 잡혀 있기 때문이다.<br><br>2022년 빨간날을 보면 토요일이 모두 54일, 일요일이 52일이다. 대체휴일은 2일(한글날, 추석), 선거 2일, 
+법정 공휴일 8일(설날·추석·개천절·광복절·현충일·어린이날·삼일절)이다.<br><br>연휴는 모두 6차례로 설날(1월 29일~2월2일), 현충일(6월 4일~6일), 광복절(8월13일~15일), 추석(9월9일~12일), 개천절(10월1일~3일), 한글날 연휴(10월8일~10일)다. 그중 설날 연휴가 
+5일로 가장 길다.<br><br>법정 공휴일 중 토, 일요일과 겹친 말은 모두 4일로 부처님오신날(5월8일), 추석 연휴 마지막 날(9월11일), 한글날(10월9일), 기독탄신일(12월25일)이다. 그중 추석과 한글날만 대체휴일로 지정돼 각각 월요일에 쉬게 됐다.<br><br>
+한편 이번 월력요항에는 지방공휴일이 포함됐다. 지방공휴일은 "지방공휴일에 관한 규정"에 따라 지방자치단체의 관공서가 특별히 휴무하는 날로, 해당 지역에서 발생한 역사적 사건을 기념하는 날이다.<br><br>월력요항에 수록된 지방공휴일에는 제주특별자치도 
+4·3희생자 추념일(4월3일), 광주광역시 5·18민주화운동 기념일(5월18일)로 해당 지방자치단체 관공서가 휴무에 들어간다. 해당 지방에 소속된 공공기관과 민간기관, 기업 등은 휴무가 강제사항이 아니지만 관련 지방자치단체는 "지방공휴일" 지정 의미를 살리기 
+위해 휴무를 독려하고 있다.', SYSDATE, NULL, 
+'news10.PNG', 'news10.PNG',  
+TO_DATE('07-09-2021', 'DD-MM-YYYY'), 'https://www.news1.kr/articles/?4427204');
+
+INSERT INTO TB_NEWS 
+VALUES ((SELECT MAX(NEWS_NO) + 1 FROM TB_NEWS), 'admin01', '세계태권도품새선수권 내년 4월 고양시 개최', 
+'2022 고양 세계태권도품새선수권대회 개최도시 협약식이 14일 고양시청 평화누리실에서 열렸다.<br><br>협약식에는 고양시(시장 이재준), 세계태권도연맹(총재 조정원), 대한태권도협회(회장 양진방) 3개 기관 대표가 참석했다.<br><br>개최도시 협약서는 
+세계태권도연맹이 국제대회를 개최하는 도시와 맺는 표준 계약서로, 대회 운영을 총괄하는 고양시와 세계태권도연맹, 경기 운영을 맡는 대한태권도협회 등 3개 기관의 경기 및 대회에 대한 책임과 의무, 다양한 권리에 관한 내용이 명시되어 있다.<br><br>
+2022 고양 세계품새선수권대회는 4월 21~24일 킨텍스에서 열리며, 세계 70여 개국 2000여 명의 선수단이 참여할 예정이다. 총 36개 세부 종목에 걸쳐 경기를 펼치며, 메달 수는 275개다.<br><br>이재준 고양시장은 “개최도시 협약을 시작으로 본격적인 대회준비를 
+진행하니 더 많은 관심을 부탁드린다”고 당부했다. 조정원 세계태권도연맹 총재는 “현재 코로나19로 많은 대회가 취소되는 상황이지만, 내년 코로나 상황이 개선되면 더 많은 선수가 대회에 참가할 것으로 기대한다”고 밝혔다.<br><br>
+양진방 대한태권도협회 회장은 “2006년 제1회 세계태권도품새대회가 한국에서 개최된 이후, 2022년 고양에서 다시 개최하게 되어 감회가 새롭다. 그간 대회 규모가 커져 국제종합대회로 격상하였다. 특히 이번 대회의 성공적인 개최를 위해 고양시, 세계태권도연맹과 
+긴밀히 협조하겠으며, 고양시의회와 고양시태권도협회도 적극 지원을 당부드린다”고 말했다.', SYSDATE, NULL, 
+'news11.PNG', 'news11.PNG',  
+TO_DATE('15-09-2021', 'DD-MM-YYYY'), 'http://mksports.co.kr/view/2021/888854/');
+
+INSERT INTO TB_NEWS 
+VALUES ((SELECT MAX(NEWS_NO) + 1 FROM TB_NEWS), 'admin01', '일본이 원조가 아닌 한국 음식 "명란젓"', 
+'명란을 일식 식당이나 일본 여행 기념품 등으로 자주 봤기에 일본 음식이라고 알고 있는 사람도 있는데, 알고 보면 명란은 한국이 원조다.<br><br>지난 2018년 6월 방송된 tvN "스트리트 푸드 파이터"에서 요리연구가 겸 방송인 백종원이 일본 후쿠오카 편에서 "명란은 한국 음식"
+이라고 발언한 영상이 다시 주목받고 있다.<BR><BR>이날 백종원은 후쿠오카의 한 이자카야에 방문해 고구마 소주(오유와리)와 어묵, 명란구이를 주문해 먹었다.<BR><BR>이때 백종원은 "명란은 한국에서 온 것이다"라고 밝혀 이목을 끌었다.<BR><BR>그는 명란을 후쿠오카에서 제일 
+먼저 시작한 사람이 부산에서 일본으로 귀국한 일본인이었다며 유래를 전했다.<BR><BR>백종원 말에 따르면 한 일본인은 부산에서 맛본 명란젓을 후쿠오카로 돌아온 후에도 잊지 못했다.<BR><BR>이에 일본인은 후쿠오카에서 매콤한 맛의 명란을 상품화해 팔기 시작했다.<BR><BR>
+명란을 고스란히 가져와서 시작한 사업이 그야말로 대박을 쳤고, 일본 전역에 명란이란 이름이 널리 알려졌다.<BR><BR>이후 후쿠오카는 대표적인 명란의 산지가 됐고, 후쿠오카 산 명란은 일본 전역에서 손에 꼽을 정도의 상급품으로 취급받고 있다.<BR><BR>또한 현재 일본은 명란에 
+대한 인기가 높은 것은 물론 명란으로 만든 유명 특산품, 음식도 많이 가지고 있기 때문에 우리나라에서도 "일본 음식"으로 알고 있는 사람이 꽤 된다.<BR><BR>하지만 맛깔나는 명란은 자랑스러운 한국의 원조 음식임을 잊지 말아야 한다.', SYSDATE, NULL, 
+'news12.PNG', 'news12.PNG',  
+TO_DATE('31-05-2021', 'DD-MM-YYYY'), 'https://www.insight.co.kr/news/341003');
+
+commit;
+
+-- 은별 TB_QNA_QUESTION 샘플 추가 2021.09.25
+INSERT INTO TB_QNA_QUESTION 
+VALUES ((SELECT MAX(QQ_NO) + 1 FROM TB_QNA_QUESTION), 'user02', '공지사항', '질문 제목3', '질문 내용입니다.', SYSDATE, DEFAULT, NULL, NULL, 'Y');
+
+INSERT INTO TB_QNA_QUESTION 
+VALUES ((SELECT MAX(QQ_NO) + 1 FROM TB_QNA_QUESTION), 'user02', '자유 토론 게시판', '질문 제목4', '질문 내용입니다.', SYSDATE, DEFAULT, NULL, NULL, 'Y');
+
+INSERT INTO TB_QNA_QUESTION 
+VALUES ((SELECT MAX(QQ_NO) + 1 FROM TB_QNA_QUESTION), 'user02', '자유 토론 게시판', '질문 제목5', '질문 내용입니다.', SYSDATE, DEFAULT, NULL, NULL, 'Y');
+
+INSERT INTO TB_QNA_QUESTION 
+VALUES ((SELECT MAX(QQ_NO) + 1 FROM TB_QNA_QUESTION), 'user03', '역사 왜곡 제보하기', '질문 제목6', '질문 내용입니다.', SYSDATE, DEFAULT, NULL, NULL, 'Y');
+
+INSERT INTO TB_QNA_QUESTION 
+VALUES ((SELECT MAX(QQ_NO) + 1 FROM TB_QNA_QUESTION), 'user01', '기타', '질문 제목7', '질문 내용입니다.', SYSDATE, DEFAULT, NULL, NULL, 'Y');
+
+INSERT INTO TB_QNA_QUESTION 
+VALUES ((SELECT MAX(QQ_NO) + 1 FROM TB_QNA_QUESTION), 'user03', '역사 왜곡 제보하기', '질문 제목8', '질문 내용입니다.', SYSDATE, DEFAULT, NULL, NULL, 'Y');
+
+INSERT INTO TB_QNA_QUESTION 
+VALUES ((SELECT MAX(QQ_NO) + 1 FROM TB_QNA_QUESTION), 'user03', '공지사항', '질문 제목9', '질문 내용입니다.', SYSDATE, DEFAULT, NULL, NULL, 'Y');
+
+INSERT INTO TB_QNA_QUESTION 
+VALUES ((SELECT MAX(QQ_NO) + 1 FROM TB_QNA_QUESTION), 'user01', '언론보도', '질문 제목10', '질문 내용입니다.', SYSDATE, DEFAULT, NULL, NULL, 'Y');
+
+INSERT INTO TB_QNA_QUESTION 
+VALUES ((SELECT MAX(QQ_NO) + 1 FROM TB_QNA_QUESTION), 'user01', '공지사항', '김장 이벤트에 대하여 궁금한 게 있어요!!!', 
+'공지사항 22번 글에 김장 비법을 뽐내보라고 하셨는데!!!!!!<BR>김장 비법 어느 게시판에다가 작성하면 될까요??', 
+SYSDATE, DEFAULT, 'qna01.PNG', 'qna01.PNG', 'Y');
+
+INSERT INTO TB_QNA_QUESTION 
+VALUES ((SELECT MAX(QQ_NO) + 1 FROM TB_QNA_QUESTION), 'user02', '기타', '안녕하세요. 항상 사이트 이용 잘 하고 있습니다.', 
+'다름이 아니라 사이트가 최근 업데이트 된 날짜는 언제인가요?', 
+SYSDATE, DEFAULT, NULL, NULL, 'Y');
+
+-- 은별 TB_QNA_ANSWER 샘플 추가 2021.09.25
+INSERT INTO TB_QNA_ANSWER 
+VALUES ((SELECT MAX(QA_NO) + 1 FROM TB_QNA_ANSWER), 11, 'admin01', '앗 그 부분에 대해서는 추후에 알려드리겠습니다. 조금만 기다려주시면 감사하겠습니다.<BR>항상 저희 사이트를 이용해 주셔서 감사합니다.', SYSDATE);
+
+INSERT INTO TB_QNA_ANSWER 
+VALUES ((SELECT MAX(QA_NO) + 1 FROM TB_QNA_ANSWER), 12, 'admin01', '최근 업데이트 된 날짜 확인 결과 2021-09-30 입니다.<BR>항상 저희 사이트를 이용해 주셔서 감사합니다.', SYSDATE);
+
+-- 성인 TB_REPORT 샘플 추가 2021.09.27
+INSERT INTO TB_REPORT (REPORT_NO, REPORT_TITLE, USER_ID, REPORT_CONTENT, REPORT_DATE, REPORT_READCOUNT, ADMIN_ID, COMMENT_DATE, ADMIN_COMMENT)
+VALUES (11, '드라마 **구마사', 'user01', '중국에선 최근 한복도 자신의 것이다, 김치도 자신의 것이다, 이런 새로운 문화공정을 펼치고 있는 상황입니다. 이런 상황에서 역사가 왜곡된 부분이 해외 시청자들에게 보여진다면 정말 잘못된 일입니다.', DEFAULT, 54, 'admin01', SYSDATE, '제보 감사합니다.');
+
+INSERT INTO TB_REPORT (REPORT_NO, REPORT_TITLE, USER_ID, REPORT_CONTENT, REPORT_DATE, REPORT_READCOUNT)
+VALUES (12, '김치가 중국에서 유래했다?', 'user01', '요즘 중국에서 한국 문화를 중국에서 유래한 것이라고 주장하는 문화 동북공정 움직임이 나타나고 있는데, 중국이 김치·한복·판소리·아리랑·삼계탕 등이 자신들의 것이라고 주장한다. 심지어 한 TV 퀴즈쇼에서는 태극기도 중국인이 만들었다고 왜곡해 큰 논란이 됐다. 더 이상 좌시할 수 없는 지경이다. 일부에서는 비뚤어진 중화사상을 가진 중국 네티즌의 발로라고 하는데 그게 다가 아니다. 공산당 기관지인 ‘인민일보’의 자매지인 환구시보는 지난해 11월 김치는 중국에서 유래한 것이라고 주장했다. 이후 유엔 주재 중국대사도 중국 정부의 계정으로 된 트위터에 김치를 중국 것이라고 했다. 환구시보나 인민일보 영문 자매지인 글로벌타임스에서 왜곡 보도하고 (카톡 같은) 위챗이나 (단문을 전달하는 SNS인) 웨이보를 통해 전파하면서 확증 편향이 커지고 있다.', DEFAULT, 23);
+
+INSERT INTO TB_REPORT (REPORT_NO, REPORT_TITLE, USER_ID, REPORT_CONTENT, REPORT_DATE, REPORT_READCOUNT)
+VALUES (13, '독도가 일본땅이라는 일본교과서', 'user01', '내년부터 쓸 고등학교 지리 교과서입니다. 독도에 대해 일본의 영토이며 한국이 불법 점거하고 있다고 기술돼 있습니다. 일본 교과서검정심의회는 여기에다 일본 고유의 영토임을 강조하라고 주문했습니다. 이유는 다케시마에 대한 일본의 입장에 비춰 학생이 오해할 우려가 있다는 겁니다. 또 역사교과서에 실린 강제동원 배상 문제에 대해서도 일본 정부는 조약에 의해 개인 보상까지 해결을 끝냈다는 내용을 포함할 것을 주문한 것으로 확인됐습니다. 이같은 검정의 근거는 일본 문부성이 2018년 개정한 학습지도요령 해설서입니다. 독도는 일본의 고유 영토이며, 한국의 불법 점거 내용을 반드시 다뤄야 한다고 돼있습니다.', DEFAULT, 33);
+
+INSERT INTO TB_REPORT (REPORT_NO, REPORT_TITLE, USER_ID, REPORT_CONTENT, REPORT_DATE, REPORT_READCOUNT)
+VALUES (14, '중국 포털사이트 바이두 역사왜곡', 'user02', '중국 최대 포털사이트 바이두가 판소리를 중국의 문화라고 주장하고 나섰다. 한복에 이어 판소리까지 그야말로 허무맹랑한 주장을 이어가고 있다. 전문가들은 중국의 문화 동북공정이 거세지고 있다며 우려하고 있다. 바이두는 최근 자사의 백과사전 서비스 바이두 백과사전을 통해 판소리는 지린성과 랴오닝성을 중심으로 퍼진 소리 문화라며 지난 2011년 5월 국가 문화유산에 등재됐다고 명시했다. 바이두는 19세기 초에 판소리 악보가 만들어졌다. 20세기 중엽 조선족을 중심으로 공연예술로 만들어졌다며 판소리를 전승하기 위해 랴오닝성 톄링시에 전문학교를 개원해 학생들을 양성하고 있다고 전했다. 바이두는 판소리의 대표적인 인물로 강신자, 김례호 명창을 꼽았다. 둘 모두 조선족 출신이다. 중국 정부에서 운영하고 있는 무형문화 정보 사이트 중국무형문화재망 역시 판소리를 중국 문화로 소개하고 있다.', DEFAULT, 35);
+
+INSERT INTO TB_REPORT (REPORT_NO, REPORT_TITLE, USER_ID, REPORT_CONTENT, REPORT_DATE, REPORT_READCOUNT, ADMIN_ID, COMMENT_DATE, ADMIN_COMMENT)
+VALUES (15, '샤오미, 한복이 중국문화?', 'user02', '우리 전통 의상인 한복에 대한 역사 왜곡도 잇따르고 있다. 최근 중국 전자제품 제조업체인 샤오미는 스마트폰 배경화면 스토어에 한복을 입은 남녀 캐릭터 이미지를 올려놔 온라인 커뮤니티를 중심으로 논란이 됐다. 단순한 캐릭터 이미지가 아니라 해당 이미지를 중국 문화(China Culture)’라는 제목으로 업로드했기 때문이다.', DEFAULT, 21, 'admin01', SYSDATE, '제보 감사합니다.');
+
+INSERT INTO TB_REPORT (REPORT_NO, REPORT_TITLE, USER_ID, REPORT_CONTENT, REPORT_DATE, REPORT_READCOUNT, ADMIN_ID, COMMENT_DATE, ADMIN_COMMENT)
+VALUES (16, '김치에 이어 삼계탕까지...', 'user02', '한국 전통문화를 자신들 문화 일부라고 왜곡하는 중국 사례는 점점 더 다양하고 치밀해지고 있다. 중국 최대 포털사이트 바이두(百度) 백과사전에서 삼계탕을 고려인삼과 영계, 찹쌀을 넣은 중국의 오랜 광둥식 국물요리로, 한국에 전해져 한국을 대표하는 궁중 요리의 하나가 됐다고 소개한 사실이 뒤늦게 드러났다. 6년 전 삼계탕은 한국 음식이라고 발언한 리커창(李克强) 총리까지 부정하면서 왜곡에 나선 셈이다.', DEFAULT, 27, 'admin01', SYSDATE, '제보 감사합니다.');
+
+INSERT INTO TB_REPORT (REPORT_NO, REPORT_TITLE, USER_ID, REPORT_CONTENT, REPORT_DATE, REPORT_READCOUNT)
+VALUES (17, '중국 바이두, 윤동주 ‘조선족’ 표기', 'user02', '바이두에서 윤동주(尹?柱)를 검색할 경우 바이두백과(百度百科) 인물정보가 최상단에 나타난다. 이 항목에서 바이두백과는 윤동주의 국적을 중국(中國)으로, 민족을 조선족(朝鮮族)으로 표기하고 있다. 그러면서 백과는 윤동주를 중국 조선족 애국시인 윤동주씨는 지린(吉林)성 룽징(龍井)시의 교사 가정에서 태어났다라며 항일구국운동에 적극 참여한 윤동주는 1943년 7월 반일 독립운동가 혐의로 체포돼 1945년 2월 16일 후쿠오카 형무소에서 29세의 나이로 세상을 떠났다고 소개하고 있다.', DEFAULT, 38);
+
+-- 은별 TB_QNA_ANSWER 샘플 추가 2021.09.28
+INSERT INTO TB_QNA_ANSWER 
+VALUES ((SELECT MAX(QA_NO) + 1 FROM TB_QNA_ANSWER), 3, 'admin01', '답변 샘플 데이터입니다.', SYSDATE);
+
+INSERT INTO TB_QNA_ANSWER 
+VALUES ((SELECT MAX(QA_NO) + 1 FROM TB_QNA_ANSWER), 4, 'admin01', '답변 샘플 데이터입니다.', SYSDATE);
+
+INSERT INTO TB_QNA_ANSWER 
+VALUES ((SELECT MAX(QA_NO) + 1 FROM TB_QNA_ANSWER), 5, 'admin01', '답변 샘플 데이터입니다.', SYSDATE);
+
+INSERT INTO TB_QNA_ANSWER 
+VALUES ((SELECT MAX(QA_NO) + 1 FROM TB_QNA_ANSWER), 6, 'admin01', '답변 샘플 데이터입니다.', SYSDATE);
+
+INSERT INTO TB_QNA_ANSWER 
+VALUES ((SELECT MAX(QA_NO) + 1 FROM TB_QNA_ANSWER), 7, 'admin01', '답변 샘플 데이터입니다.', SYSDATE);
+
+INSERT INTO TB_QNA_ANSWER 
+VALUES ((SELECT MAX(QA_NO) + 1 FROM TB_QNA_ANSWER), 8, 'admin01', '답변 샘플 데이터입니다.', SYSDATE);
+
+INSERT INTO TB_QNA_ANSWER 
+VALUES ((SELECT MAX(QA_NO) + 1 FROM TB_QNA_ANSWER), 9, 'admin01', '답변 샘플 데이터입니다.', SYSDATE);
+
+INSERT INTO TB_QNA_ANSWER 
+VALUES ((SELECT MAX(QA_NO) + 1 FROM TB_QNA_ANSWER), 10, 'admin01', '답변 샘플 데이터입니다.', SYSDATE);
+
+-- 은별 TB_QNA_QUESTION 샘플 추가 2021.09.28
+INSERT INTO TB_QNA_QUESTION 
+VALUES ((SELECT MAX(QQ_NO) + 1 FROM TB_QNA_QUESTION), 'user02', '공지사항', '김장 이벤트 추첨에 대하여', 
+'김장이벤트의 추첨은 어떤 방법으로 진행되나요???', 
+SYSDATE, DEFAULT, 'qna02.PNG', 'qna02.PNG', 'N');
+
+INSERT INTO TB_QNA_QUESTION 
+VALUES ((SELECT MAX(QQ_NO) + 1 FROM TB_QNA_QUESTION), 'user03', '공지사항', '저도 운영진 하고싶어요!!!!!', 
+'안녕하세요!!!<br>저는 휘모리를 예전부터 사용해왔습니다!<br>휘모리 운영진으로 저도 함께하고싶습니다!!!!! 이건 저에게 있어서 정말 큰 기회인 것 같아요.... <br>
+연락은 어디로 드리면 될까요ㅜㅜ!!', 
+SYSDATE, DEFAULT, 'qna03.PNG', 'qna03.PNG', 'N');
+
+COMMIT;
+
+-- 서연 INSERT : 2021.09.29
+-- TB_FREE 수정 및 샘플 데이터 추가
+UPDATE TB_FREE
+SET FREE_MODIFY = NULL
+WHERE FREE_MODIFY IS NOT NULL;
+
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, FREE_ORG_FILE, FREE_RE_FILE,
+                     FREE_DATE, FREE_READCOUNT)
+VALUES ((SELECT MAX(FREE_NO) + 1 FROM TB_FREE), 'user01', 
+        '다음달에 독도 갑니다!!!!', '몇 년전부터 계획했던 독도여행을 드디어 가게되었습니다ㅠㅜㅠㅜ!!!! <br><br> 여권없이 독도에 갈 수 있다는게 얼마나 행복한지 몰라요>_<!!!!!!! <br><br>꺅!!!! 독도는 우리땅!!!!!!: )', 
+        'free_upfile03.jpg', 'free_upfile03.jpg', '21/09/15', 252);
+        
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, FREE_ORG_FILE, FREE_RE_FILE,
+                     FREE_DATE, FREE_READCOUNT, FREE_LIKE)
+VALUES ((SELECT MAX(FREE_NO) + 1 FROM TB_FREE), 'user03', 
+        '생활한복 추천드려요~', '평소 생활한복을 입고 여행을 다니는 청년입니다.<br><br>기존에는 한복을 세계에 알리기 위해 세계 곳곳을 다녔었는데, 코로나로 인해 요즘에는 전국을 돌아다니고 있어요ㅎㅎㅎ<br><br>제가 한복에 익숙해져서 그런지 이제는 한복이 더 편하더라구요!<br><br>여러분께도 추천드립니당bbbbbb!!!!!', 
+        'free_upfile02.jpg', 'free_upfile02.jpg', '21/09/17', 130, 25);
+
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, 
+                     FREE_DATE, FREE_READCOUNT, FREE_LIKE)
+VALUES ((SELECT MAX(FREE_NO) + 1 FROM TB_FREE), 'user02', 
+        '한복디자이너 박술녀 선생님 팬미팅', '한복디자이너 박술녀 선생님께서 팬미팅을 진행하신다고 하시네여!!!<br><br> 여러분 다같이 한복입고 만나여!!! <BR><BR>평소에 박술녀 선생님 한복을 굉장히 좋아했는데, 너무 영광인거 있죠!?!?!? 같이 가여!!', '21/09/18', 55, 12);        
+        
+INSERT INTO TB_FREE (FREE_NO, USER_ID, FREE_TITLE, FREE_CONTENT, FREE_ORG_FILE, FREE_RE_FILE,
+            FREE_DATE, FREE_READCOUNT, FREE_LIKE)
+VALUES ((SELECT MAX(FREE_NO) + 1 FROM TB_FREE), 'user01', 
+        '안중근 의사 서거일을 기억해주세요', '안중근 의사 서거일을 꼭 기억해주세요<br>1909년 10월 26일 하얼빈에서 이토히로부미 저격하시고, 현장에서 붙잡히셨습니다.<BR>헷갈리실 순 있겠지만, 1910년의 2월 14일은 안중근 의사의 사형선고일이고, 실제 사형이 집행된 날짜인 1910년 3월 26일이 서거일입니다.<br>당시 32세의 젊은 나이셨죠, 우리가 꼭 기억해줍시다!!!!!', 
+        'free_upfile01.png', 'free_upfile01.png', '21/09/22', 312, 58);
+
+-- TB_FREE_REPLY 샘플 데이터 추가
+INSERT INTO TB_FREE_REPLY
+VALUES((SELECT MAX(FREE_REPLY_NO) + 1 FROM TB_FREE_REPLY), 18, 'user03', '와!! 저도 가고 싶었는데!! 다녀오셔서 꼭 후기 남겨주세요 : )', '21/09/15');
+
+INSERT INTO TB_FREE_REPLY
+VALUES((SELECT MAX(FREE_REPLY_NO) + 1 FROM TB_FREE_REPLY), 19, 'user01', '오! 커플룩으로도 너무 좋겠네요!! : )', '21/09/17');
+
+INSERT INTO TB_FREE_REPLY
+VALUES((SELECT MAX(FREE_REPLY_NO) + 1 FROM TB_FREE_REPLY), 20, 'user03', '네?? 박술녀 선생님이 팬미팅도 하시나여!?!?!?? 세상에!', '21/09/18');
+
+INSERT INTO TB_FREE_REPLY
+VALUES((SELECT MAX(FREE_REPLY_NO) + 1 FROM TB_FREE_REPLY), 21, 'user02', '동의합니다. 반드시 기억해야할 날입니다.', '21/09/22');
+
+INSERT INTO TB_FREE_REPLY
+VALUES((SELECT MAX(FREE_REPLY_NO) + 1 FROM TB_FREE_REPLY), 20, 'user02', '눼.......', '21/09/22');
+
+INSERT INTO TB_FREE_REPLY
+VALUES((SELECT MAX(FREE_REPLY_NO) + 1 FROM TB_FREE_REPLY), 21, 'user03', '꼭 기억하겠습니다!!!', '21/09/24');
+
+COMMIT;

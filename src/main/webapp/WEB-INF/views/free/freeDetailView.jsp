@@ -105,7 +105,7 @@ table#tbrp, #tbrpli, #tbrpins{
 	<!-- 추천/신고 기능 부분 -->
 	<tr>
 		<td colspan="9" align="right">
-			<c:if test="${ !empty loginUser and loginUser.user_id != free.user_id }">
+			<c:if test="${ !empty loginUser && loginUser.user_id != free.user_id }">
 				<c:url var="flike" value="flike.do">
 					<c:param name="free_no" value="${ free.free_no }" />
 					<c:param name="user_id" value="${ loginUser.user_id }" />
@@ -118,7 +118,7 @@ table#tbrp, #tbrpli, #tbrpins{
 			</c:if>
 		</td>
 		<td align="center">
-			<c:if test="${ !empty loginUser and loginUser.user_id != free.user_id }">
+			<c:if test="${ !empty loginUser && loginUser.user_id != free.user_id }">
 				<c:url var="fbad" value="fbad.do">
 					<c:param name="free_no" value="${ free.free_no }" />
 					<c:param name="user_id" value="${ loginUser.user_id }" />			
@@ -167,7 +167,8 @@ table#tbrp, #tbrpli, #tbrpins{
 	   <c:forEach items="${ frlist }" var="frli">
 			<tr>
 				<th align="center">&nbsp;&nbsp;&nbsp;${ frli.user_id }</th>
-				<td colspan="8">${ frli.free_reply_content }</td>	
+				<td colspan="6">${ frli.free_reply_content }</td>
+				<td colspan="2"><fmt:formatDate value="${ frli.free_reply_date }" pattern="yyyy-MM-dd hh:mm:ss" /></td>	
 				<c:if test="${ loginUser.user_id eq frli.user_id or loginUser.admin_yn eq 'Y'}"> 
 					<td>
 						<c:url var="frdel" value="/frdelete.do">
