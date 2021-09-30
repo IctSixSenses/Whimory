@@ -114,7 +114,7 @@ function resetList(){
 					<input type="submit" class="btn btn-outline-primary" value="검색">
 				</form>
 			</div>
-			<div id="dateDiv" style="display:none; float: left; width: 40%;">
+			<div id="dateDiv" style="display:none; float: left; width: 50%;">
 				<form action="nsearchDate.do" method="get">
 					<input type="date" name="begin"> ~ <input type="date" name="end">
 					<input type="submit" class="btn btn-outline-primary" value="검색">

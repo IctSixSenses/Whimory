@@ -279,7 +279,7 @@ function deleteCheck(){
 			</td>
 		</c:if>
 	</tr>
-	<tr height="50px"><td colspan="6" align="center">
+	<tr height="70px"><td colspan="6" align="center">
 		<c:url var="klst" value="klist.do" />
 		<button class="btn btn-primary" onclick="javascript:location.href='${ klst }'">전체 목록</button>
 	</td></tr>
@@ -293,7 +293,7 @@ function deleteCheck(){
 
 
 
-<br><br><br>
+<br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

@@ -127,8 +127,8 @@ function cancleCheck(){
 	</td></tr>
 	<tr>
 		<td colspan="9" align="center">
-			<input class="btn btn-primary" type="submit" value="수정">
-			<input class="btn btn-outline-danger" type="button" value="수정 취소" onclick="cancleCheck();">
+			<input class="btn btn-outline-danger" type="button" value="수정취소" onclick="cancleCheck();">
+			<input class="btn btn-primary" type="submit" value="수정하기">
 		</td>
 	</tr>
 	</table>
