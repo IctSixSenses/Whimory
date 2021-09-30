@@ -23,6 +23,22 @@
 <!-- 카카오 로그인 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript">
+
+function kakaoLogin() {
+
+    $.ajax({
+        url: '${ pageContext.servletContext.contextPath }/loginGetKakaoAuthUrl.do',
+        type: 'get',
+        async: false,
+        dataType: 'text',
+        success: function (res) {
+            location.href = res;
+        }
+    });
+
+  }
+
+
 function kakaoLoginPro(response){
 	var data = {id:response.id,email:response.kakao_account.email}
 	$.ajax({
@@ -199,7 +215,7 @@ margin-bottom: 0px !important;
                   </div>
                   <!-- 카카오톡 로그인 버튼 -->
                   <div class="form-group text-center">
-                     <a href="kakao.do"><img src='${ pageContext.servletContext.contextPath }/resources/images/kakao_login_medium_wide.png'></a>
+                     <a href="javascript:kakaoLogin();"><img src='${ pageContext.servletContext.contextPath }/resources/images/kakao_login_medium_wide.png'></a>
                   </div>
                   <p class="small mt-3">서비스 가입 시, 휘모리(Whimory) <a href="#" class="ps-hero__content__link">이용약관</a> 및<br><a href="#">개인정보 처리방침</a>
                      내용을 인정하는 것으로 간주됩니다.</p>

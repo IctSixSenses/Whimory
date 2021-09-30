@@ -30,7 +30,10 @@ html head{
 html body{
 	font-family: Roboto, Nanum Gothic;
 } 
-table tr td a { text-decoration:none } 
+table tr td a, div a { 
+	text-decoration:none;
+	color: black; 
+} 
 </style>
 <script type="text/javascript"> 
 function showDiv(item){
@@ -71,7 +74,8 @@ function showDiv(item){
 <br><br><br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/menubarA.jsp" />
 
-<h2 align="center">문의 내역 확인</h2>
+<h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">문의 내역 확인</h2>
+<br>
 <table align="center" width="1150px">
    <tr>
       <td colspan="3"><h5 style="font-family:Nanum Gothic; font-weight:550; color:#333333;">총 질문 개수 : ${ listCount }</h5></td>
@@ -161,7 +165,7 @@ function showDiv(item){
 
 <br>
 <!-- 페이징 처리 -->
-<div align="center" style="text-align:center; width:1200px; position:absolute; left:50px;">
+<div style="text-align:center;">
 <c:if test="${ currentPage <= 1 }">
    &lt;&lt; &nbsp;
 </c:if>

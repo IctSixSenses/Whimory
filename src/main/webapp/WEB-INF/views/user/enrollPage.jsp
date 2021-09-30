@@ -10,6 +10,18 @@ request.setCharacterEncoding("UTF-8");
 <head>
 <meta charset="UTF-8">
 <title>Sign up Whimory</title>
+<style>
+html head{
+	font-family: Roboto, Nanum Gothic;
+}
+html body{
+	font-family: Roboto, Nanum Gothic;
+} 
+table tr td a, div a { 
+	text-decoration:none;
+	color: black; 
+} 
+</style>
 <script type="text/javascript">
 
 //이메일 전송 인증번호 저장을 위한 코드
@@ -119,10 +131,13 @@ function validate(){
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<hr>
+<br><br><br><br><br><br><br>
+<br><br>
 <!-- 회원가입폼 -->
-<h1 align="center">휘모리(Whimory) 회원가입</h1>
+<h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">휘모리(Whimory) 회원가입</h2>
+<br>
 <center>모든 정보를 작성해주셔야 회원 가입이 완료됩니다. :D </center>
+<br><br>
 
 <form method="post" name = "join" action="uinsert.do">
 <input type="hidden" name="origin_userpwd" value="${ requestScope.user.user_pwd }">
@@ -133,8 +148,10 @@ function validate(){
 </tr>
 <tr height = "60">
 	<th>아이디</th>
-	<td><input type="text" name="user_id" id="user_id" placeholder = "8~15자로 입력해주세요."></td>
-	<td><button class="btn btn-outline-success"
+	<td>
+	<input type="text" name="user_id" id="user_id" placeholder = "8~15자로 입력해주세요.">
+	
+	<button class="btn btn-outline-success"
 					onclick="dupIdCheck();">중복확인</button></td>
 </tr>
 <tr height = "60">
@@ -168,18 +185,27 @@ function validate(){
 	<td><input type="text" name="mailcheck" class = "mail_check_input_box"></td>
 	<td><input type="button" value="확인"></td>
 </tr> -->
+<tr>
+<th>&nbsp;</th>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<th>&nbsp;</th>
+<td>&nbsp;</td>
+</tr>
 <tr height = "60">
 	<th colspan="2">
-		<a href="javascript:history.go(-1);">이전 페이지</a> &nbsp; 
-		<button class="btn btn-outline-danger"
-					onclick="reset">취소하기</button>
+		<a href="javascript:history.go(-1);" style="weight:bolder; color:black; text-decoration:none;">이전 페이지</a> &nbsp;
+		<button class="btn btn-danger"
+					onclick="reset">취소하기</button> &nbsp;
 		<button class="btn btn-primary"
-					onclick="checkform();">회원가입</button>  	
-		<a href="main.do">시작 페이지로</a> &nbsp;
+					onclick="checkform();">회원가입</button>  	&nbsp;
+		<a href="main.do" style="weight : bolder; color:black; text-decoration:none;">메인 페이지</a>
 	</th>	
 </tr>
 </table>
 </form>
+<br><br><br><br>
 <hr>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>

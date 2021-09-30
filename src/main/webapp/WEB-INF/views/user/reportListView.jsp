@@ -15,8 +15,9 @@ html head{
 html body{
 	font-family: Roboto, Nanum Gothic;
 } 
-table tr td a { 
+table tr td a, div a { 
 	text-decoration:none;
+	color: black; 
 } 
 </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
@@ -56,7 +57,7 @@ function showDiv(item){
 <br><br><br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/menubarA.jsp" />
 
-<h2 align="center">나의 제보 내역</h2>
+<h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">나의 제보 내역</h2>
 <br>
 <!-- 로그인 여부에 따라 로그인페이지/게시글 작성 페이지로 이동, 관리자는 작성 x -->
 <c:if test="${ empty loginUser }">
@@ -69,9 +70,10 @@ function showDiv(item){
 		<button class="btn btn-outline-primary" onclick="javascript:location.href='rpwf.do';">게시글 작성</button>
 	</div>
 </c:if>
+<br>
 <table align="center" width="1150px">
 	<tr>
-		<td colspan="3"></td>
+		<td colspan="3"><h5>　　　　　　　　　　</h5></td>
     	<!-- 게시판 내 검색기능 -->
 		<td colspan="7" align="right">
 			<div style="float: left; width: 50%;">
@@ -82,23 +84,25 @@ function showDiv(item){
 			</select>
 			</div>
 			<div id="titleDiv" style="display:inline-block; float: left; width: 40%;">
-			<form action="rptitle.do" method="post">
+			<form action="rptitleu.do">
 				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
 			</div>
 			<div id="writerDiv" style="display:none; float: left; width: 40%;">
-			<form action="rpwriter.do" method="post">
+			<form action="rpwriteru.do">
 				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
 				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
 			</div>
 			<div id="dateDiv" style="display:none; float: left; width: 40%;">
-			<form action="rpdate.do" method="post">
+			<form action="rpdateu.do">
 				<input type="date" name="begin"> ~ <input type="date" name="end">
 				<button type="submit" class="btn btn-outline-primary">검색</button>
 			</form>
 			</div>
+			<!-- <button class="btn btn-outline-primary" onclick="javascript:location.href='rplist.do?page=1';">전체보기</button> -->
+			<br>
 		</td>
 	</tr>
 </table>
@@ -139,18 +143,16 @@ function showDiv(item){
 </c:forEach>
 </table>
 <br>
-
 <%-- 페이징 처리 --%>
 <div style="text-align:center;">
-<button class="btn btn-outline-primary" onclick="javascript:location.href='rplist.do?page=1';">역사 왜곡 게시판 전체 보기</button><br>
 	<c:if test="${ currentPage <= 1 }">
-		[맨처음] &nbsp;
+		&lt;&lt; &nbsp;
 	</c:if>
 	<c:if test="${ currentPage > 1 }">
       <c:url var="ubl" value="/rplistu.do">
          <c:param name="page" value="1" />
       </c:url>
-      <a href="${ ubl }">[맨처음]</a>
+      <a href="${ ubl }">&lt;&lt;</a>
    </c:if>
 	
 	<%-- 이전 페이지 그룹으로 이동 --%>
@@ -158,19 +160,19 @@ function showDiv(item){
 	<c:url var="ubl2" value="/rplistu.do">
 		<c:param name="page" value="${ startPage - 10 }"/>
 	</c:url>
-	<a href="${ ubl2 }">이전그룹</a>
+	<a href="${ ubl2 }">&lt;</a> &nbsp;
 	</c:if>
 	<c:if test="${ !((currentPage - 10) < startPage and (currentPage - 10) > 1) }">
-  		&nbsp;&nbsp;이전그룹&nbsp;&nbsp;
+  		&nbsp;&nbsp; &lt; &nbsp;&nbsp;
 	</c:if>
 	
 	<%-- 현재 페이지 숫자 출력 --%>
 	<c:forEach var="p" begin="${ startPage }" end="${ endPage }">
 		<c:if test="${ p == currentPage }">
-			<font color="red" size="4">[${ p }]</font>
+			<font weight="bolder" size="4">${ p }</font>
 		</c:if>
 		<c:if test="${ p != currentPage }">
-			<c:url var="rplist" value="/rplist.do">
+			<c:url var="rplist" value="/rplistu.do">
 				<c:param name="page" value="${ p }" />
 			</c:url>
 			<a href="${ rplist }">${ p }</a>
@@ -182,24 +184,24 @@ function showDiv(item){
 	<c:url var="ubl4" value="/rplistu.do">
       <c:param name="page" value="${ endPage + 10 }"/>
 	</c:url>
-	<a href="${ ubl4 }">다음그룹</a>
+	<a href="${ ubl4 }">&gt;</a>&nbsp;
 	</c:if>
 	<c:if test="${ !((currentPage + 10) > endPage && (currentPage + 10) < maxPage) }">
-		&nbsp;&nbsp;다음그룹&nbsp;&nbsp;
+		&nbsp;&nbsp; &gt; &nbsp;&nbsp;
 	</c:if>
 	
 	<c:if test="${ currentPage >= maxPage }">
-		[맨끝] &nbsp;
+		&nbsp; &gt;&gt;
 	</c:if>
 	<c:if test="${ currentPage < maxPage }">
 		<c:url var="rplist" value="/rplistu.do">
 			<c:param name="page" value="${ maxPage }" />
 		</c:url>
-		<a href="${ rplist }">[맨끝]</a> &nbsp;
+		<a href="${ rplist }">&gt;&gt;</a>
 	</c:if>
 	
 </div>
-
+<br><br>
 <hr>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>

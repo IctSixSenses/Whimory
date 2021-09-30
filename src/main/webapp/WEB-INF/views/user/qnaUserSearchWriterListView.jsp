@@ -43,7 +43,7 @@ table tr td a:hover, div a:hover {
 }
 
 </style>
-<script type="text/javascript">
+<script type="text/javascript">   
 function showDiv(item){
    
    if($(item).val() == "writer"){
@@ -75,7 +75,7 @@ function showDiv(item){
    }
 }
 function resetList(){
-	location.href="${ pageContext.servletContext.contextPath }/qsearchCategorya.do";
+	location.href="${ pageContext.servletContext.contextPath }/qlista.do";
 }
 </script>
 </head>
@@ -84,15 +84,16 @@ function resetList(){
 <br><br><br><br><br><br><br>
 <h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">문의 내역 확인</h2>
 <br>
+
 <table align="center" width="1150px">
    <tr>
       <td colspan="3"><h5 style="font-family:Nanum Gothic; font-weight:550; color:#333333;">총 질문 개수 : ${ listCount }</h5></td>
       <td colspan="7" align="right">
          <div style="float: left; width: 50%;">
          <select class="form-control" onchange="showDiv(this)" style="width:80px; display:inline-block">
-            <option value="writer">작성자</option>
+            <option selected value="writer">작성자</option>
             <option value="title">제목</option>
-            <option selected value="category">질문분류</option>
+            <option value="category">질문분류</option>
             <option value="date">작성날짜</option>
          </select>
         </div>
@@ -183,20 +184,23 @@ function resetList(){
 
 
 <br>
+<!-- 페이징 처리 -->
 <div align="center" style="text-align:center; width:1200px; position:absolute; left:50px;">
 <c:if test="${ currentPage <= 1 }">
    &lt;&lt; &nbsp;
 </c:if>
 <c:if test="${ currentPage > 1 }">
-   <c:url var="ubl" value="/qsearchCategorya.do">
+   <c:url var="ubl" value="/qsearchWriteru.do">
       <c:param name="page" value="1" />
+      <c:param name="keyword" value="${ keyword }" />
    </c:url>
    <a href="${ ubl }">&lt;&lt;</a> &nbsp;
 </c:if>
 <!-- 이전 그룹으로 이동 처리 -->
 <c:if test="${ (currentPage - 10) < startPage and (currentPage - 10) > 1 }">
-   <c:url var="ubl2" value="/qsearchCategorya.do">
+   <c:url var="ubl2" value="/qsearchWriteru.do">
       <c:param name="page" value="${ startPage - 10 }"/>
+      <c:param name="keyword" value="${ keyword }" />
    </c:url>
    <a href="${ ubl2 }">&lt;</a> &nbsp;
 </c:if>
@@ -209,16 +213,18 @@ function resetList(){
       <font weight="bolder" size="4"><b>${ p }</b></font>
    </c:if>
    <c:if test="${ p ne currentPage }">
-      <c:url var="ubl3" value="/qsearchCategorya.do">
+      <c:url var="ubl3" value="/qsearchWriteru.do">
          <c:param name="page" value="${ p }"/>
+         <c:param name="keyword" value="${ keyword }" />
       </c:url>
       <a href="${ ubl3 }">${ p }</a>
    </c:if>
 </c:forEach>
 <!-- 다음 그룹으로 이동 처리 -->
 <c:if test="${ (currentPage + 10) > endPage && (currentPage + 10) < maxPage }">
-   <c:url var="ubl4" value="/qsearchCategorya.do">
+   <c:url var="ubl4" value="/qsearchWriteru.do">
       <c:param name="page" value="${ endPage + 10 }"/>
+      <c:param name="keyword" value="${ keyword }" />
    </c:url>
    <a href="${ ubl4 }">&gt;</a> &nbsp;
 </c:if>
@@ -230,14 +236,14 @@ function resetList(){
    &nbsp; &gt;&gt;
 </c:if>   
 <c:if test="${ currentPage < maxPage }">
-   <c:url var="ubl5" value="/qsearchCategorya.do">
+   <c:url var="ubl5" value="/qsearchWriteru.do">
       <c:param name="page" value="${ maxPage }"/>
+      <c:param name="keyword" value="${ keyword }" />
    </c:url>
    <a href="${ ubl5 }">&gt;&gt;</a>
 </c:if>
 </div>
 <br><br><br><br>
-
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

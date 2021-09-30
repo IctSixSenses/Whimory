@@ -795,4 +795,169 @@ public class ReportController {
 		}
 
 	}
+	
+	// 현주 추가 부분 : 반환 부분 다르게
+	@RequestMapping("rptitleu.do")
+	public String reportSearchTitleUserMethod(@RequestParam(name = "page", required = false) String page,
+			Paging paging, Model model) {
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+
+		// 페이징 처리
+		int limit = 10;
+		// 페이지 계산을 위해 총 목록 개수 조회
+		int listCount = reportService.selectSearchTitleCount(paging.getKeyword());
+		// 페이지 수 계산
+		int maxPage = (int) ((double) listCount / limit + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 시작값 지정
+		// 뷰페이지에 페이지 숫자를 10개씩 출력
+		int startPage = (int) ((double) currentPage / 10 + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 끝값
+		// 페이지 수가 10개이면
+		int endPage = startPage + 10 - 1;
+
+		if (maxPage < endPage) {
+			endPage = maxPage;
+		}
+
+		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		paging.setStartRow(startRow);
+		paging.setEndRow(endRow);
+
+		ArrayList<Report> list = reportService.selectSearchTitle(paging);
+
+		if (list != null & list.size() > 0) {
+			model.addAttribute("list", list);
+			model.addAttribute("listCount", listCount);
+			model.addAttribute("maxPage", maxPage);
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("limit", limit);
+			model.addAttribute("keyword", paging.getKeyword());
+
+			return "user/reportUserTitleListView";
+		} else {
+			model.addAttribute("listCount", 0);
+			model.addAttribute("currentPage", 1);
+			model.addAttribute("maxPage", 1);
+
+			return "user/reportListView";
+		}
+
+	}
+
+	@RequestMapping("rpwriteru.do")
+	public String reportSearchWriterUserMethod(@RequestParam(name = "page", required = false) String page,
+			Paging paging, Model model) {
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+
+		// 페이징 처리
+		int limit = 10;
+		// 페이지 계산을 위해 총 목록 개수 조회
+		int listCount = reportService.selectSearchWriterCount(paging.getKeyword());
+		// 페이지 수 계산
+		int maxPage = (int) ((double) listCount / limit + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 시작값 지정
+		// 뷰페이지에 페이지 숫자를 10개씩 출력
+		int startPage = (int) ((double) currentPage / 10 + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 끝값
+		// 페이지 수가 10개이면
+		int endPage = startPage + 10 - 1;
+
+		if (maxPage < endPage) {
+			endPage = maxPage;
+		}
+
+		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		paging.setStartRow(startRow);
+		paging.setEndRow(endRow);
+
+		ArrayList<Report> list = reportService.selectSearchWriter(paging);
+
+		if (list != null & list.size() > 0) {
+			model.addAttribute("list", list);
+			model.addAttribute("listCount", listCount);
+			model.addAttribute("maxPage", maxPage);
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("limit", limit);
+			model.addAttribute("keyword", paging.getKeyword());
+
+			return "user/reportUserWriterListView";
+		} else {
+			model.addAttribute("listCount", 0);
+			model.addAttribute("currentPage", 1);
+			model.addAttribute("maxPage", 1);
+
+			return "user/reportListView";
+		}
+
+	}
+
+	@RequestMapping("rpdateu.do")
+	public String reportSearchDateUserMethod(@RequestParam(name = "page", required = false) String page, Paging paging,
+			Model model) {
+
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+
+		// 페이징 처리
+		int limit = 10;
+		// 페이지 계산을 위해 총 목록 개수 조회
+		int listCount = reportService.selectSearchDateCount(paging);
+		// 페이지 수 계산
+		int maxPage = (int) ((double) listCount / limit + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 시작값 지정
+		// 뷰페이지에 페이지 숫자를 10개씩 출력
+		int startPage = (int) ((double) currentPage / 10 + 0.9);
+		// 현재 페이지가 포함된 페이지 그룹의 끝값
+		// 페이지 수가 10개이면
+		int endPage = startPage + 10 - 1;
+
+		if (maxPage < endPage) {
+			endPage = maxPage;
+		}
+
+		// 쿼리문에 전달할 현재 페이지에 출력할 목록의 첫행과 끝행
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		paging.setStartRow(startRow);
+		paging.setEndRow(endRow);
+
+		ArrayList<Report> list = reportService.selectSearchDate(paging);
+
+		if (list != null & list.size() > 0) {
+			model.addAttribute("list", list);
+			model.addAttribute("listCount", listCount);
+			model.addAttribute("maxPage", maxPage);
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("limit", limit);
+			model.addAttribute("begin", paging.getBegin());
+			model.addAttribute("end", paging.getEnd());
+
+			return "user/reportUserDateListView";
+		} else {
+			model.addAttribute("listCount", 0);
+			model.addAttribute("currentPage", 1);
+			model.addAttribute("maxPage", 1);
+
+			return "user/reportListView";
+		}
+
+	}
 }

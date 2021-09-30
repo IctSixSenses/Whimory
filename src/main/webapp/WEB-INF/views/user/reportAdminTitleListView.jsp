@@ -202,7 +202,7 @@ function resetList(){
 	<a href="${ ubl4 }">&gt;</a>
 	</c:if>
 	<c:if test="${ !((currentPage + 10) > endPage && (currentPage + 10) < maxPage) }">
-		&nbsp;&nbsp;&gt&nbsp;&nbsp;
+		&nbsp;&nbsp; &gt; &nbsp;&nbsp;
 	</c:if>
 	
 	<c:if test="${ currentPage >= maxPage }">

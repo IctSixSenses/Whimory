@@ -29,7 +29,7 @@ $(function(){
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br>
 
 	<!-- 
 	<fieldset id="ss">
@@ -39,17 +39,17 @@ $(function(){
 </fieldset>
 -->
 	
-	<h1 align="center">휘모리(Whimory) 계정 찾기</h1>
+	<h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">휘모리(Whimory) 계정 찾기</h2>
 	<br>
 
 	<!-- 아이디 찾기 -->
 	<br>
 	<div id="idform" class="sform" align="center">
-		<h2 align="center">아이디 찾기</h2>
+		<h3 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">아이디 찾기</h3>
 		<br>
 		<form action="findid.do" method="post" accept-charset="utf-8">
-			<label>이름 : <input type="text" name="user_name"></label><br>
-			<br> <label>이메일 : <input type="text" name="email"></label><br>
+			<label>이름 : <input type="text" name="user_name" placeholder="이름을 입력해주세요."></label><br>
+			<br> <label>이메일 : <input type="text" name="email" placeholder="xxx@whimory.com"></label><br>
 			<br> <input class="btn btn-outline-primary" type="submit"
 				value="아이디 찾기"> <br>
 			<br>
@@ -60,11 +60,11 @@ $(function(){
 	<!-- 비밀번호 변경하기 -->
 	<br>
 	<div id="pwdform" class="sform" align="center">
-		<h2 align="center">비밀번호 찾기</h2>
+		<h3 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">비밀번호 찾기</h3>
 		<br>
 		<form action="findpwd.do" method="post"  accept-charset="utf-8">
-			<label>아이디 : <input type="text" name="user_id"></label><br>
-			<br> <label>이메일 : <input type="text" name="email"></label><br>
+			<label>아이디 : <input type="text" name="user_id" placeholder="아이디를 입력해주세요."></label><br>
+			<br> <label>이메일 : <input type="text" name="email" placeholder="xxx@whimory.com"></label><br>
 			<br> <input class="btn btn-outline-primary" type="submit"
 				value="비밀번호 찾기"> <br>
 			<br>
