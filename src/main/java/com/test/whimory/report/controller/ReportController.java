@@ -962,7 +962,29 @@ public class ReportController {
 		}
 
 	}
+	
 
+		@RequestMapping("rpdetailu.do")
+	public ModelAndView reportDetailUMethod(ModelAndView mv, @RequestParam("report_no") int report_no,
+			@RequestParam("page") int page) {
+		// 조회수 1 증가 처리
+		reportService.updateAddReadCount(report_no);
+
+		// 해당 게시글 조회
+		Report report = reportService.selectOne(report_no);
+
+		if (report != null) {
+			mv.addObject("report", report);
+			mv.addObject("currentPage", page);
+			mv.setViewName("user/reportDetailView");
+		} else {
+			mv.addObject("messeage", report_no + "번 게시글 조회 실패.");
+			mv.setViewName("common/error");
+		}
+
+		return mv;
+	}
+		
 	// 첨부파일 다운로드 요청 처리용
 	@RequestMapping("rpfdown.do")
 	public ModelAndView reportFileownMethod(ModelAndView mv, HttpServletRequest request,
