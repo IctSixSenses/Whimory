@@ -114,7 +114,7 @@ table#tbrp, #tbrpli, #tbrpins{
 <c:if test="${ !empty report.admin_comment }">
 	<table class="table" style="table-layout: fixed; width:1000px" align="center" cellspacing="0" cellpadding="3" id="tbrpli">
 	<tr>
-		<th align="center">&nbsp;&nbsp;&nbsp;${ report.user_id }</th>
+		<th align="center">&nbsp;&nbsp;&nbsp;${ report.admin_id }</th>
 		<td colspan="6">${ report.admin_comment }</td>
 		<td colspan="2"><fmt:formatDate value="${ report.comment_date }" pattern="yyyy-MM-dd hh:mm:ss" /></td>
 	<c:if test="${ loginUser.admin_yn eq 'Y' }">

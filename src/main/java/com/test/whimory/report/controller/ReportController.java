@@ -23,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.test.whimory.common.Paging;
 import com.test.whimory.common.SearchDate;
-import com.test.whimory.notice.model.vo.Notice;
 import com.test.whimory.report.model.service.ReportService;
 import com.test.whimory.report.model.vo.Report;
 import com.test.whimory.report.model.vo.ReportLike;
@@ -209,7 +208,7 @@ public class ReportController {
 
 	// 글 수정페이지 이동 처리용
 	@RequestMapping("rpuf.do")
-	public String moveBoardUpdateView(@RequestParam("report_no") int report_no, @RequestParam("page") int currentPage,
+	public String moveReportUpdateView(@RequestParam("report_no") int report_no, @RequestParam("page") int currentPage,
 			Model model) {
 		Report report = reportService.selectOne(report_no);
 
@@ -225,7 +224,7 @@ public class ReportController {
 
 	// 게시글 수정 요청 처리용
 	@RequestMapping(value = "rpupdate.do", method = RequestMethod.POST)
-	public String boardUpdateMethod(Report report, HttpServletRequest request, Model model,
+	public String reportUpdateMethod(Report report, HttpServletRequest request, Model model,
 			@RequestParam("page") int page, @RequestParam(name = "delFlag", required = false) String delFlag,
 			@RequestParam(name = "upfile", required = false) MultipartFile mfile) {
 
@@ -963,7 +962,7 @@ public class ReportController {
 
 	// 첨부파일 다운로드 요청 처리용
 	@RequestMapping("rpfdown.do")
-	public ModelAndView fileDownMethod(ModelAndView mv, HttpServletRequest request,
+	public ModelAndView reportFileownMethod(ModelAndView mv, HttpServletRequest request,
 			@RequestParam("ofile") String originFileName, @RequestParam("rfile") String renameFileName) {
 		String savePath = request.getSession().getServletContext().getRealPath("resources/report_upfiles");
 
