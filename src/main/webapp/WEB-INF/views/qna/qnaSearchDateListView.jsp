@@ -181,10 +181,10 @@ function resetList(){
          
          <td align="center">
             <c:if test="${ empty q.qq_modify }">
-               <fmt:formatDate value="${ q.qq_date}" pattern="yyyy.MM.dd" />
+               <fmt:formatDate value="${ q.qq_date}" pattern="yyyy-MM-dd" />
             </c:if>
             <c:if test="${ !empty q.qq_modify }">
-               <fmt:formatDate value="${ q.qq_modify }" pattern="yyyy.MM.dd" />
+               <fmt:formatDate value="${ q.qq_modify }" pattern="yyyy-MM-dd" />
             </c:if>
          </td>
       

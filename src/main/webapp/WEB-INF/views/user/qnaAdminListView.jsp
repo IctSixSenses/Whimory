@@ -76,7 +76,7 @@ function showDiv(item){
 
 <h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">문의 내역 확인</h2>
 <br>
-<table align="center" width="1050px">
+<table align="center" width="1200px">
    <tr>
       <td colspan="3"><h5 style="font-family:Nanum Gothic; font-weight:550; color:#333333;">총 질문 개수 : ${ listCount }</h5></td>
       <td colspan="7" align="right">
@@ -106,7 +106,7 @@ function showDiv(item){
             <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
          </div>
-         <div id="dateDiv" style="display:none; float: left; width: 40%;">
+         <div id="dateDiv" style="display:none; float: left;">
          <form action="qsearchDatea.do" method="get">
             <input type="date" name="begin"> ~ <input type="date" name="end">
             <button type="submit" class="btn btn-outline-primary">검색</button>
