@@ -26,7 +26,7 @@ html body{
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
 <br><br><br><br><br><br><br>
 
-<h3 align="center">자유 토론 게시글 등록 페이지</h3>
+<h3 align="center" style="font-family:Nanum Gothic; font-weight:530; color:#333333;">자유 토론 게시글 등록 페이지</h3>
 <br>
 
 <!-- form 에서 입력값들과 파일을 같이 전송하려면, 반드시 enctype="multipart/form-data" 속성 추가 -->
