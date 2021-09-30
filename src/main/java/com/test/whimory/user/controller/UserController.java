@@ -41,7 +41,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.test.whimory.user.model.service.UserService;
-import com.test.whimory.user.model.vo.KakaoLoginOutput;
+
 import com.test.whimory.user.model.vo.User;
 import com.test.whimory.user.model.vo.UserDrop;
 
