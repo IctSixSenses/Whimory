@@ -131,9 +131,9 @@ table#tbrp, #tbrpli, #tbrpins{
 	</tr>
 	</table>
 </c:if>
-<c:if test="${ empty report.admin_comment && loginUser.admin_yn eq 'N' }">
+<c:if test="${ empty report.admin_comment }">
 	<table align="center" width="1000px" height="110px" style="font-size:20px;" id="tbrp" >
-	<tr><td align="center">등록된 답변이 없습니다.</td></tr>
+	<tr><td align="center"><font size="4"><b>등록된 답변이 없습니다.</b></font></td></tr>
 	</table>
 </c:if>
 <c:if test="${ empty report.admin_comment && loginUser.admin_yn eq 'Y' }">
