@@ -106,7 +106,7 @@ function resetList(){
       <button onclick="showWriteForm();" class="btn btn-outline-primary">글쓰기</button>
    </div>
 </c:if>
-<table align="center" width="1150px">
+<table align="center" width="1050px">
    <tr>
       <td colspan="3"><h5 style="font-family:Nanum Gothic; font-weight:550; color:#333333;">총 질문 개수 : ${ listCount }</h5></td>
       <td colspan="7" align="right">
@@ -152,12 +152,12 @@ function resetList(){
 </table>
 
 <br>
-<table class="table table-lightgray table-hover" style="table-layout: fixed; width:1200px" align="center" cellspacing="0" cellpadding="3" >
+<table class="table table-lightgray table-hover" style="table-layout: fixed; width:1050px" align="center" cellspacing="0" cellpadding="3" >
    <thead>
       <tr align="center" class="thead-light">
          <th width="100px">작성자</th>
          <th width="200px">질문 분류</th>
-         <th width="700px">제목</th>
+         <th width="550px">제목</th>
          <th width="120px">작성일</th>
          <th width="80px">답변여부</th>
       </tr>

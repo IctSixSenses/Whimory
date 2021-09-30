@@ -49,12 +49,12 @@ table tr td a:hover, div a:hover {
 <h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">QNA 답변내역</h2>
 
 <br>
-<table class="table table-lightgray table-hover" style="table-layout: fixed; width:1200px" align="center" cellspacing="0" cellpadding="3" >
+<table class="table table-lightgray table-hover" style="table-layout: fixed; width:1050px" align="center" cellspacing="0" cellpadding="3" >
    <thead>
       <tr align="center" class="thead-light">
          <th width="100px">작성자</th>
          <th width="200px">질문 분류</th>
-         <th width="700px">제목</th>
+         <th width="550px">제목</th>
          <th width="120px">작성일</th>
          <th width="80px">답변여부</th>
       </tr>

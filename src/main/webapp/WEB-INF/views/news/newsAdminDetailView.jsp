@@ -96,8 +96,7 @@ table tr td a { text-decoration:none }
 
 
 
-
-<hr>
+<br><br><br><br>
 <c:import url="../common/footer.jsp" />
 </body>
 </html>

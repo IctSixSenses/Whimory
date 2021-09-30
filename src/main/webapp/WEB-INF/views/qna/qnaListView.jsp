@@ -102,12 +102,12 @@ function showDiv(item){
       <button onclick="showWriteForm();" class="btn btn-outline-primary">글쓰기</button>
    </div>
 </c:if>
-<table align="center" width="1150px">
+<table align="center" width="1050px">
    <tr>
       <td colspan="3"><h5 style="font-family:Nanum Gothic; font-weight:550; color:#333333;">총 질문 개수 : ${ listCount }</h5></td>
       <td colspan="7" align="right">
-         <div style="float: left; width: 50%;">
-         <select class="form-control" onchange="showDiv(this)" style="width:80px; display:inline-block">
+         <div style="float: left; width: 60%;">
+         <select class="form-control" onchange="showDiv(this)" style="width:90px; display:inline-block">
             <option value="writer">작성자</option>
             <option value="title">제목</option>
             <option value="category">질문분류</option>
@@ -116,19 +116,19 @@ function showDiv(item){
         </div>
          <div id="writerDiv" style="display:inline-block; float: left; width: 40%;">
          <form action="qsearchWriter.do" method="get">
-            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 230px; float: left;" class="form-control">
             <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
          </div>
          <div id="titleDiv" style="display:none; float: left; width: 40%;">
          <form action="qsearchTitle.do" method="get">
-            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 230px; float: left;" class="form-control">
             <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
          </div>
          <div id="categoryDiv" style="display:none; float: left; width: 40%;">
          <form action="qsearchCategory.do" method="get">
-            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 230px; float: left;" class="form-control">
             <button type="submit" class="btn btn-outline-primary">검색</button>
          </form>
          </div>
@@ -144,12 +144,12 @@ function showDiv(item){
 </table>
 
 <br>
-<table class="table table-lightgray table-hover" style="table-layout: fixed; width:1200px" align="center" cellspacing="0" cellpadding="3" >
+<table class="table table-lightgray table-hover" style="table-layout: fixed; width:1050px" align="center" cellspacing="0" cellpadding="3" >
    <thead>
       <tr align="center" class="thead-light">
          <th width="100px">작성자</th>
          <th width="200px">질문 분류</th>
-         <th width="700px">제목</th>
+         <th width="550px">제목</th>
          <th width="120px">작성일</th>
          <th width="80px">답변여부</th>
       </tr>
