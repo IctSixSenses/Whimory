@@ -109,31 +109,31 @@ function resetList(){
    <tr>
       <td colspan="3"><h5 style="font-family:Nanum Gothic; font-weight:550; color:#333333;">총 질문 개수 : ${ listCount }</h5></td>
       <td colspan="7" align="right">
-         <div style="float: left; width: 50%;">
-         <select class="form-control" onchange="showDiv(this)" style="width:80px; display:inline-block">
+         <div style="float: left; width: 60%;">
+         <select class="form-control" onchange="showDiv(this)" style="width:90px; display:inline-block">
             <option value="writer">작성자</option>
-            <option value="title">제목</option>
+            <option selected value="title">제목</option>
             <option value="category">질문분류</option>
             <option value="date">작성날짜</option>
          </select>
         </div>
          <div id="writerDiv" style="display:inline-block; float: left; width: 40%;">
          <form action="qsearchWriter.do" method="get">
-            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 230px; float: left;" class="form-control">
             <button type="submit" class="btn btn-outline-primary">검색</button>
             <input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
          </form>
          </div>
          <div id="titleDiv" style="display:none; float: left; width: 40%;">
          <form action="qsearchTitle.do" method="get">
-            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 230px; float: left;" class="form-control">
             <button type="submit" class="btn btn-outline-primary">검색</button>`
             <input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
          </form>
          </div>
          <div id="categoryDiv" style="display:none; float: left; width: 40%;">
          <form action="qsearchCategory.do" method="get">
-            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
+            <input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 230px; float: left;" class="form-control">
             <button type="submit" class="btn btn-outline-primary">검색</button>
             <input type="reset" onclick="resetList(); return false;" class="btn btn-primary" value="전체 목록">
          </form>
@@ -205,7 +205,7 @@ function resetList(){
 
 <br>
 <!-- 페이징 처리 -->
-<div align="center" style="text-align:center; width:1200px; position:absolute; left:50px;">
+<div align="center">
 <c:if test="${ currentPage <= 1 }">
    &lt;&lt; &nbsp;
 </c:if>

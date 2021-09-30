@@ -86,7 +86,7 @@ table tr td a:hover, div a:hover {
 </table>
 <br>
 <!-- 페이징 처리 -->
-<div align="center" style="text-align:center; width:1200px; position:absolute; left:50px;">
+<div align="center" style="text-align:center;">
 <c:if test="${ currentPage <= 1 }">
    &lt;&lt; &nbsp;
 </c:if>
