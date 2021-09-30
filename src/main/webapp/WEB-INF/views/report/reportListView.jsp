@@ -176,7 +176,7 @@ function showDiv(item){
 	<%-- 현재 페이지 숫자 출력 --%>
 	<c:forEach var="p" begin="${ startPage }" end="${ endPage }">
 		<c:if test="${ p == currentPage }">
-			<font color="red" size="4">${ p }</font>
+			<font weight="bolder" size="4"><b>${ p }</b></font>
 		</c:if>
 		<c:if test="${ p != currentPage }">
 			<c:url var="rplist" value="/rplist.do">

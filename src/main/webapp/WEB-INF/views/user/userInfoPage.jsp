@@ -41,7 +41,7 @@ table tr td a, div a {
 <br><br><br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/menubarA.jsp"/>
 <h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">회원 정보 보기</h2>
-<br><br>
+<br>
 <div align="center">
 <table id="outer" align="center"cellspacing="5" cellpadding="0">
 
@@ -97,7 +97,8 @@ table tr td a, div a {
 
 </table>
 </div>
-<hr>
+<br><br>
+
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

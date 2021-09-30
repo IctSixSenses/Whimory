@@ -126,6 +126,10 @@ function validate(){
 			document.join.submit();	
 		}
 	}
+	//리셋하기
+	function resetBtn(){
+	document.join.reset();
+	}
 	
 </script>
 </head>
@@ -197,9 +201,9 @@ function validate(){
 	<th colspan="2">
 		<a href="javascript:history.go(-1);" style="weight:bolder; color:black; text-decoration:none;">이전 페이지</a> &nbsp;
 		<button class="btn btn-outline-danger"
-					onclick="reset">취소하기</button> &nbsp;
+					onclick="javascript:resetBtn();">취소하기</button> &nbsp;
 		<button class="btn btn-primary"
-					onclick="checkform();">회원가입</button>  	&nbsp;
+					onclick="javascript:checkform();">회원가입</button>  	&nbsp;
 		<a href="main.do" style="weight : bolder; color:black; text-decoration:none;">메인 페이지</a>
 	</th>	
 </tr>

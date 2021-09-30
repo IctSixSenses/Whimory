@@ -75,19 +75,7 @@ function showDiv(item){
 <c:import url="/WEB-INF/views/common/menubarA.jsp"/>
 <h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">나의 1대1 문의 내역</h2>
 <br>
-<!-- 게시글 쓰기(등록)은 로그인한 회원만 가능함 -->
-<c:if test="${ empty sessionScope.loginUser }">
-   <div style="align:center;text-align:center;">
-      <button onclick="goLogin();" class="btn btn-outline-primary">글쓰기</button>
-   </div>
-</c:if>
 
-<c:if test="${ !empty sessionScope.loginUser }">
-   <div style="align:center;text-align:center;">
-      <button onclick="showWriteForm();" class="btn btn-outline-primary">글쓰기</button>
-   </div>
-</c:if>
-<br>
 <table align="center" width="1200px">
    <tr>
       <td colspan="3"><h5 style="font-family:Nanum Gothic; font-weight:550; color:#333333;">　　　　　　　　　　</h5></td>

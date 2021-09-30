@@ -51,18 +51,7 @@ function showDiv(item){
 
 <h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">나의 제보 내역</h2>
 <br>
-<!-- 로그인 여부에 따라 로그인페이지/게시글 작성 페이지로 이동, 관리자는 작성 x -->
-<c:if test="${ empty loginUser }">
-	<div style="align:center;text-align:center;">
-    	<button class="btn btn-outline-primary" onclick="moveLoginPage();">게시글 작성</button>
-    </div>
-</c:if>
-<c:if test="${ !empty loginUser and loginUser.admin_yn eq 'N' }">
-	<div style="align:center;text-align:center;">
-		<button class="btn btn-outline-primary" onclick="javascript:location.href='rpwf.do';">게시글 작성</button>
-	</div>
-</c:if>
-<br>
+
 <table align="center" width="1200px">
 	<tr>
 		<td colspan="3"><h5>　　　　　　　　　　</h5></td>
@@ -121,7 +110,7 @@ function showDiv(item){
 	<td>${ r.report_readcount }</td>
 	<td>
 		<c:if test="${ r.admin_comment != null }">
-			※
+			<i class="far fa-comment-dots"></i>
 		</c:if>
 	</td>
 </tr>

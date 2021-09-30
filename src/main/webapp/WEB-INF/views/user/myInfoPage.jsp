@@ -64,6 +64,11 @@ function checkform(){
 		document.update.submit();	
 	}
 }
+
+//수정취소 누르면 원래대로 돌아감
+function resetBtn(){
+	document.update.reset();
+}
 </script>
 </head>
 <body>
@@ -72,7 +77,7 @@ function checkform(){
 <c:import url="/WEB-INF/views/common/menubarA.jsp"/>
 
 <h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">내 정보 수정</h2>
-<br><br>
+<br>
 <form method="post" name="update" action="uupdate.do">
 <input type="hidden" name="origin_userpwd" value="${ requestScope.user.user_pwd }">
 <table id="outer" align="center" cellspacing="5" cellpadding="0">
@@ -103,12 +108,12 @@ function checkform(){
 	<th>성 별</th>
 	<td>
 	<c:if test="${ user.gender eq 'M' }">	
-		<input type="radio" name="gender" value="M" checked readonly> 남자 &nbsp; 
-	    <input type="radio" name="gender" value="F" readonly> 여자
+		<input type="radio" name="gender" value="M" checked> 남자 &nbsp; 
+	    <input type="radio" name="gender" value="F" > 여자
 	</c:if>
 	<c:if test="${ user.gender eq 'F' }">	  
-		<input type="radio" name="gender" value="M" readonly> 남자 &nbsp; 
-	    <input type="radio" name="gender" value="F" checked readonly> 여자
+		<input type="radio" name="gender" value="M" > 남자 &nbsp; 
+	    <input type="radio" name="gender" value="F" checked > 여자
 	</c:if>
 	</td>
 </tr>
@@ -139,7 +144,7 @@ function checkform(){
 	<th colspan="2">
 		<a href="javascript:history.go(-1);" style="weight:bolder; color:black; text-decoration:none;">이전 페이지</a> &nbsp;  	
 		<button class="btn btn-outline-danger"
-					onclick="reset">수정취소</button> &nbsp;
+					onclick="javascript:resetBtn();">작성취소</button> &nbsp;
 		<button class="btn btn-primary"
 					onclick="checkform();">수정하기</button>  &nbsp;	
 		<a href="main.do" style="weight : bolder; color:black; text-decoration:none;">메인 페이지</a>

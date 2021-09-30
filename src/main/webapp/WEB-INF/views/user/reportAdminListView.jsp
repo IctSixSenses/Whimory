@@ -6,7 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>나의 제보 내역</title>
+<title>Whimory</title>
+<!-- Favicons -->
+<link href="${ pageContext.request.contextPath }/resources/images/tgmark.png" rel="icon">
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300" rel="stylesheet">
 <style type="text/css">
 html head{
@@ -51,10 +53,11 @@ function showDiv(item){
 }
 
 </script>
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/menubar.jsp" />
-<br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br>
 <c:import url="/WEB-INF/views/common/menubarA.jsp" />
 
 <h2 align="center" style="font-family:Nanum Gothic; font-weight:630; color:#333333;">역사 왜곡 제보 내역 확인</h2>
@@ -70,8 +73,7 @@ function showDiv(item){
 		<button class="btn btn-outline-primary" onclick="javascript:location.href='rpwf.do';">게시글 작성</button>
 	</div>
 </c:if>
-
-<table align="center" width="1200px">
+<table align="center" width="1150px">
 	<tr>
 		<td colspan="3"><h5 style="font-family:Nanum Gothic; font-weight:550; color:#333333;">총 게시글 갯수 : ${ listCount }</h5></td>
     	<!-- 게시판 내 검색기능 -->
@@ -83,25 +85,24 @@ function showDiv(item){
 				<option value="date">작성날짜</option>
 			</select>
 			</div>
-			<div id="titleDiv" style="display:inline-block; float: left;">
+			<div id="titleDiv" style="display:inline-block; float: left; width: 40%;">
 			<form action="rptitlea.do">
 				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
-				<button type="submit" class="btn btn-outline-primary">검색</button>
+				<input type="submit" class="btn btn-outline-primary"  value="검색">
 			</form>
 			</div>
-			<div id="writerDiv" style="display:none; float: left;">
+			<div id="writerDiv" style="display:none; float: left; width: 40%;">
 			<form action="rpwritera.do">
 				<input type="search" name="keyword" placeholder="검색어를 입력하세요" style="width: 250px; float: left;" class="form-control">
-				<button type="submit" class="btn btn-outline-primary">검색</button>
+				<input type="submit" class="btn btn-outline-primary"  value="검색">
 			</form>
 			</div>
-			<div id="dateDiv" style="display:none; float: left;">
+			<div id="dateDiv" style="display:none; float: left; width: 40%;">
 			<form action="rpdatea.do">
 				<input type="date" name="begin"> ~ <input type="date" name="end">
-				<button type="submit" class="btn btn-outline-primary">검색</button>
+				<input type="submit" class="btn btn-outline-primary"  value="검색">
 			</form>
 			</div>
-			<!-- <button class="btn btn-outline-primary" onclick="javascript:location.href='rplist.do?page=1';">전체보기</button> -->
 			<br>
 		</td>
 	</tr>
@@ -124,7 +125,7 @@ function showDiv(item){
 <tr align="center">
 	<td>${ r.report_no }</td>
 	<td align="left">
-		<c:url var="rpdetail" value="rpdetail.do">
+		<c:url var="rpdetail" value="rpdetaila.do">
 			<c:param name="report_no" value="${ r.report_no }" />
 			<c:param name="page" value="${ currentPage }" />
 		</c:url>
@@ -177,7 +178,7 @@ function showDiv(item){
 	<%-- 현재 페이지 숫자 출력 --%>
 	<c:forEach var="p" begin="${ startPage }" end="${ endPage }">
 		<c:if test="${ p == currentPage }">
-			<font weight="bolder" size="4">${ p }</font>
+			<font weight="bolder" size="4"><b>${ p }</b></font>
 		</c:if>
 		<c:if test="${ p != currentPage }">
 			<c:url var="rplist" value="/rplista.do">
